@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Tek Shinobi Blog</title>
+    <link>https://tek-shinobi.github.io/posts/</link>
+    <description>Tek Shinobi Blog (Posts)</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 21 Apr 2023 13:41:31 +0300</lastBuildDate>
+    
+    <atom:link href="https://tek-shinobi.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Go Error Handling1</title>
+      <link>https://tek-shinobi.github.io/posts/go-error-handling1/</link>
+      <pubDate>Fri, 21 Apr 2023 13:41:31 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/go-error-handling1/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Go Error Handling</title>
+      <link>https://tek-shinobi.github.io/posts/go-error-handling/</link>
+      <pubDate>Fri, 21 Apr 2023 13:05:48 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/go-error-handling/</guid>
+      <description>&lt;p&gt;Some content&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
