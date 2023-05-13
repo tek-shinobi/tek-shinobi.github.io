@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="images/favicon.png" />
+<title>Add Gpg Keys to Repo | Tek Shinobi Blog</title>
+<meta name="title" content="Add Gpg Keys to Repo" />
+<meta name="description" content="Add GPG keys to github repo and local The process involves a set of simple steps:
+ Create GPG keys from commandline terminal Export the created keys using armor into a text blob. Take the blob and head over to github account -&gt; Settings -&gt; SSH and GPG keys and add it as GPG key The most important point: cd to you local repo directory and configure the key there. This step will need to be done for every local repo." />
+<meta name="keywords" content="" />
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta property="og:title" content="Add Gpg Keys to Repo" />
+<meta property="og:description" content="Add GPG keys to github repo and local The process involves a set of simple steps:
+ Create GPG keys from commandline terminal Export the created keys using armor into a text blob. Take the blob and head over to github account -&gt; Settings -&gt; SSH and GPG keys and add it as GPG key The most important point: cd to you local repo directory and configure the key there. This step will need to be done for every local repo." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tek-shinobi.github.io/posts/add-gpg-keys-to-repo/" />
+
+<meta property="og:image" content="https://tek-shinobi.github.io/images/social_card_bg_hu0f7c7fe460ec4b5e9751ccb8d9c9aa0f_651110_06f9adeb75f097836d45b2f674d60014.webp"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-05-13T22:53:11+03:00" />
+<meta property="article:modified_time" content="2023-05-13T22:53:11+03:00" /><meta property="og:site_name" content="Tek Shinobi" /><meta property="fb:admins" content="0000000000" />
+
+
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://tek-shinobi.github.io/images/social_card_bg_hu0f7c7fe460ec4b5e9751ccb8d9c9aa0f_651110_06f9adeb75f097836d45b2f674d60014.webp"/>
+
+<meta name="twitter:title" content="Add Gpg Keys to Repo"/>
+<meta name="twitter:description" content="Add GPG keys to github repo and local The process involves a set of simple steps:
+ Create GPG keys from commandline terminal Export the created keys using armor into a text blob. Take the blob and head over to github account -&gt; Settings -&gt; SSH and GPG keys and add it as GPG key The most important point: cd to you local repo directory and configure the key there. This step will need to be done for every local repo."/>
+<meta name="twitter:site" content="@example"/>
+
+
+<meta itemprop="name" content="Add Gpg Keys to Repo">
+<meta itemprop="description" content="Add GPG keys to github repo and local The process involves a set of simple steps:
+ Create GPG keys from commandline terminal Export the created keys using armor into a text blob. Take the blob and head over to github account -&gt; Settings -&gt; SSH and GPG keys and add it as GPG key The most important point: cd to you local repo directory and configure the key there. This step will need to be done for every local repo."><meta itemprop="datePublished" content="2023-05-13T22:53:11+03:00" />
+<meta itemprop="dateModified" content="2023-05-13T22:53:11+03:00" />
+<meta itemprop="wordCount" content="325">
+
+<meta itemprop="image" content="https://tek-shinobi.github.io/images/social_card_bg_hu0f7c7fe460ec4b5e9751ccb8d9c9aa0f_651110_06f9adeb75f097836d45b2f674d60014.webp"/>
+
+
+<meta itemprop="keywords" content="" />
+
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+  
+  <link href="/style.min.css" rel="stylesheet">
+
+  
+  <link href="/syntax.min.css" rel="stylesheet">
+
+  
+
+  
+</head>
+
+<body>
+  <header><a href="/" class="title"><h2>Tek Shinobi Blog</h2></a>
+<nav>
+
+<a href='mailto:me@example.com?subject=Reply%20to%20"Add%20Gpg%20Keys%20to%20Repo"'>Email</a>
+
+<a href="/index.xml">RSS</a>
+
+
+
+
+
+
+
+</nav>
+</header>
+  <main>
+
+<h1>Add Gpg Keys to Repo</h1>
+<p>
+  <i>
+    <time datetime='2023-05-13' pubdate>
+      2023-05-13
+    </time>
+  </i>
+</p>
+
+<content>
+  <h1 id="add-gpg-keys-to-github-repo-and-local">Add GPG keys to github repo and local</h1>
+<p>The process involves a set of simple steps:</p>
+<ol>
+<li>Create GPG keys from commandline terminal</li>
+<li>Export the created keys using <code>armor</code> into a text blob.</li>
+<li>Take the blob and head over to <code>github account</code> -&gt; <code>Settings</code> -&gt; <code>SSH and GPG keys</code> and add it as GPG key</li>
+<li>The most important point: <code>cd</code> to you local repo directory and configure the key there. This step will need to be done for every local repo.</li>
+</ol>
+<p>So, lets get started:
+In terminal:</p>
+<pre tabindex="0"><code>gpg --full-generate-key
+</code></pre><p>It will guid you through creating the key.</p>
+<p>Now you can view the key like this:</p>
+<pre tabindex="0"><code>gpg --list-secret-keys --keyid-format=long
+</code></pre><p>you will see something like this:</p>
+<pre tabindex="0"><code>$ gpg --list-secret-keys --keyid-format=long
+/Users/hubot/.gnupg/secring.gpg
+------------------------------------
+sec   4096R/3AA5C34371567BD2 2016-03-10 [expires: 2017-03-10]
+uid                          Hubot &lt;hubot@example.com&gt;
+ssb   4096R/4BB6D45482678BE3 2016-03-10
+</code></pre><p>that <code>3AA5C34371567BD2</code> in <code>sec</code> is your short form key-id of sorts that you will use in local-config of this GPG key</p>
+<p>Now get the text blob to add in github like so:</p>
+<pre tabindex="0"><code>gpg --armor --export 3AA5C34371567BD2
+</code></pre><p>Paste the blob into your github account per step 3 (care that in the paste, you don&rsquo;t add extra empty line at the bottom)</p>
+<p>Now, comes the confusing step that is sometimes not explained well in github manuals. At least, here&rsquo;s how I managed to do. There has to be a better way, but for now, following is fine with me.</p>
+<h5 id="the-gpg-key-needs-to-be-added-manually-to-every-local-repo-in-your-computer-or-remote-server">The GPG key needs to be added manually to every local repo in your computer (or remote-server).</h5>
+<p>First <code>cd</code> to the root of your git repo that you want to sign, commit and push.</p>
+<p>Then</p>
+<pre tabindex="0"><code>git config --local commit.gpgsign true
+</code></pre><p>and sfter that:</p>
+<pre tabindex="0"><code>git config --local user.signingkey 3AA5C34371567BD2
+</code></pre><p>that&rsquo;s it.</p>
+<pre tabindex="0"><code>git commit -S -m &quot;test commit&quot;
+</code></pre><p>will do the commit.</p>
+<p>If you get that annoying message when trying to push that <code>github removed using password ... blah .. blah</code>, add a <code>Personal Access Token</code> to your github account and setup your <code>.netrc</code> file to automate this login process</p>
+
+</content>
+<p>
+  
+</p>
+
+  </main>
+  <footer><small>
+   | 
+</small></footer>
+
+    
+</body>
+
+</html>

@@ -1,84 +1,32 @@
 <!DOCTYPE html>
+<html lang="en-us">
 
-
-    
-
-<html lang="en-us" data-theme="dark">
 <head>
-    
-        
-<meta charset="utf-8">
-<meta name="HandheldFriendly" content="True">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="referrer" content="no-referrer-when-downgrade">
-
-<title>Go Error Handling - Tek Shinobi Blog</title>
-
-<meta name="description" content="Some content">
+  <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="images/favicon.png" />
+<title>Go Error Handling | Tek Shinobi Blog</title>
+<meta name="title" content="Go Error Handling" />
+<meta name="description" content="Some content" />
+<meta name="keywords" content="" />
 
 
 
 
 
-<link rel="icon" type="image/x-icon" href="https://tek-shinobi.github.io/favicon.ico">
-<link rel="apple-touch-icon-precomposed" href="https://tek-shinobi.github.io/favicon.png">
 
-
-<style>
-  body {
-    visibility: hidden;
-    opacity: 0;
-  }
-</style>
-
-<noscript>
-  <style>
-    body {
-      visibility: visible;
-      opacity: 1;
-    }
-  </style>
-</noscript>
-
-
-
-    
+  
 
 
 
 
 
-    
-    
-        
-    
-    
-
-    
-        <link rel="stylesheet" href="https://tek-shinobi.github.io/css/style.min.a4fea1c55889cf5b9515256e0465e009493361aa1c18cda1f57cf6a1ae50daef.css" integrity="sha256-pP6hxViJz1uVFSVuBGXgCUkzYaocGM2h9Xz2oa5Q2u8=">
-    
 
 
 
 
 
-    
-
-    
-
-
-
-
-
-    
-    
-        
-    
-    
-
-    
-        <script src="https://tek-shinobi.github.io/js/script.min.510c781c39dbb21b4c76d85c82e2bdf4689220adbb7cd61e49e9d293e442fb42.js" type="text/javascript" charset="utf-8" integrity="sha256-UQx4HDnbshtMdthcguK99GiSIK27fNYeSenSk&#43;RC&#43;0I="></script>
-    
 
 
 
@@ -89,311 +37,86 @@
 <meta property="og:title" content="Go Error Handling" />
 <meta property="og:description" content="Some content" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://tek-shinobi.github.io/posts/go-error-handling/" /><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://tek-shinobi.github.io/posts/go-error-handling/" />
+
+<meta property="og:image" content="https://tek-shinobi.github.io/images/social_card_bg_hu0f7c7fe460ec4b5e9751ccb8d9c9aa0f_651110_5fff42abc882451284f1f07a544a5076.webp"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-04-21T13:05:48+03:00" />
-<meta property="article:modified_time" content="2023-04-21T13:05:48+03:00" />
+<meta property="article:modified_time" content="2023-04-21T13:05:48+03:00" /><meta property="og:site_name" content="Tek Shinobi" /><meta property="fb:admins" content="0000000000" />
 
 
-<meta name="twitter:card" content="summary"/>
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://tek-shinobi.github.io/images/social_card_bg_hu0f7c7fe460ec4b5e9751ccb8d9c9aa0f_651110_5fff42abc882451284f1f07a544a5076.webp"/>
+
 <meta name="twitter:title" content="Go Error Handling"/>
 <meta name="twitter:description" content="Some content"/>
+<meta name="twitter:site" content="@example"/>
 
 
+<meta itemprop="name" content="Go Error Handling">
+<meta itemprop="description" content="Some content"><meta itemprop="datePublished" content="2023-04-21T13:05:48+03:00" />
+<meta itemprop="dateModified" content="2023-04-21T13:05:48+03:00" />
+<meta itemprop="wordCount" content="2">
 
-    
-        <link rel="webmention" href="https://webmention.io/hugo-theme-anubis/webmention" />
-        
-            <link rel="pingback" href="https://webmention.io/hugo-theme-anubis/xmlrpc" />
-        
-    
-    
-        <link rel="webmention" href="https://yourdomain.com/webemntions/receive" />
-    
+<meta itemprop="image" content="https://tek-shinobi.github.io/images/social_card_bg_hu0f7c7fe460ec4b5e9751ccb8d9c9aa0f_651110_5fff42abc882451284f1f07a544a5076.webp"/>
 
 
+<meta itemprop="keywords" content="" />
 
+<meta name="referrer" content="no-referrer-when-downgrade" />
 
-
-
-
-
-
-    
-</head>
-<body>
-    <a class="skip-main" href="#main">Skip to main content</a>
-    <div class="container">
-        <header class="common-header"> 
-            
-                <div class="header-top">
-    <h1 class="site-title">
-    <a href="/">Tek Shinobi Blog</a>
-</h1>
-    <ul class="social-icons">
-
-
-    
-        
-        
-        <li>
-            <a href="https://github.com/gohugoio" title="Github" rel="me">
-            <span class="inline-svg" >
-
-
-
-
-    
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
-
-</span>
-
-            </a>
-        </li>
-    
-
-
-
-    <li>
-            <a href="https://tek-shinobi.github.io/index.xml" title="RSS" rel="me">
-            <span class="inline-svg" >
-
-
-
-
-    
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M128.081 415.959c0 35.369-28.672 64.041-64.041 64.041S0 451.328 0 415.959s28.672-64.041 64.041-64.041 64.04 28.673 64.04 64.041zm175.66 47.25c-8.354-154.6-132.185-278.587-286.95-286.95C7.656 175.765 0 183.105 0 192.253v48.069c0 8.415 6.49 15.472 14.887 16.018 111.832 7.284 201.473 96.702 208.772 208.772.547 8.397 7.604 14.887 16.018 14.887h48.069c9.149.001 16.489-7.655 15.995-16.79zm144.249.288C439.596 229.677 251.465 40.445 16.503 32.01 7.473 31.686 0 38.981 0 48.016v48.068c0 8.625 6.835 15.645 15.453 15.999 191.179 7.839 344.627 161.316 352.465 352.465.353 8.618 7.373 15.453 15.999 15.453h48.068c9.034-.001 16.329-7.474 16.005-16.504z"/></svg>
-
-</span>
-
-            </a>
-        </li>
-    
-
-</ul>
-</div>
-
-    <nav>
-        
-        
-        <a class="" href="https://tek-shinobi.github.io/posts/" title="Archive">Archive</a>
-        
-    </nav>
-
-
-
-
-
-
-            
-        </header>
-        <main id="main" tabindex="-1"> 
-            
-    
-
-    <article class="post h-entry">
-        <div class="post-header">
-            <header>
-                <h1 class="p-name post-title">Go Error Handling</h1>
-
-                
-            </header>
-        </div>
-        <div class="content e-content">
-            <p>Some content</p>
-
-        </div>
-        
-
-    
-
-
-<div class="post-info">
-    
-        <div class="post-date dt-published">2023-04-21</div>
-    
-
-    <a class="post-hidden-url u-url" href="https://tek-shinobi.github.io/posts/go-error-handling/">https://tek-shinobi.github.io/posts/go-error-handling/</a>
-    <a href="https://tek-shinobi.github.io/" class="p-name p-author post-hidden-author h-card" rel="me">Tek Shinobi</a>
-
-
-    <div class="post-taxonomies">
-        
-            
-    </div>
-</div>
-
-    </article>
-
-    
-        
-        
-    
-
-    
-        
-    <div class="pagination post-pagination">
-        <div class="left pagination-item ">
-            
-                <a href="/posts/go-error-handling1/">Go Error Handling1</a>
-            
-        </div>
-        <div class="right pagination-item disabled">
-            
-        </div>
-    </div>
-
-
-
-
-    
-
-    
-        
-
-
-
-
-    
-
-
-
-
-
-<article class="post">
-<script
-    data-isso="https://comments.example.com/"
-    data-isso-id="thread-id"
-    data-isso-css="true"
-    data-isso-lang="de"
-    data-isso-reply-to-self="true"
-    data-isso-require-author="true"
-    data-isso-require-email="true"
-    data-isso-avatar="true"
-    data-isso-avatar-bg="#f0f0f0"
-    data-isso-feed="false"
-    src="https://comments.example.com/js/embed.min.js">
-</script>
-<noscript>Please enable JavaScript to view the comments powered by <a href="https://posativ.org/isso/">Isso</a>.</noscript>
-<div>
-  <section id="isso-thread"></section>
-</div>
-</article>
-
-
-
-
-
-    
-
-        </main>
-        
-            <footer class="common-footer">
-    
-    
-
-    <div class="common-footer-bottom">
-        
-        <div class="copyright">
-            <p>© Tek Shinobi, 2023<br>
-            Powered by <a target="_blank" rel="noopener noreferrer" href="https://gohugo.io/">Hugo</a>, theme <a target="_blank" rel="noopener noreferrer" href="https://github.com/mitrichius/hugo-theme-anubis">Anubis</a>.<br>
-            
-            </p>  
-        </div> 
-
-        
-
-    
-
-
-
-
-<script>
-const STORAGE_KEY = 'user-color-scheme'
-const defaultTheme = "dark-without-switcher"
-
-let currentTheme
-let switchButton
-let autoDefinedScheme = window.matchMedia('(prefers-color-scheme: dark)')
-
-const autoChangeScheme = e => {
-    currentTheme = e.matches ? 'dark' : 'light'
-    document.documentElement.setAttribute('data-theme', currentTheme)
-    changeButtonText()
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    switchButton = document.querySelector('.theme-switcher')
-    currentTheme = detectCurrentScheme()
-    if (currentTheme == 'dark') {
-        document.documentElement.setAttribute('data-theme', 'dark')
-    }
-    if (currentTheme == 'auto') {
-        autoChangeScheme(autoDefinedScheme);
-        autoDefinedScheme.addListener(autoChangeScheme);
-    }
-
-    if (switchButton) {
-        changeButtonText()
-        switchButton.addEventListener('click', switchTheme, false)
-    }
   
-    showContent()
-})
+  <link href="/style.min.css" rel="stylesheet">
 
-function detectCurrentScheme() {
-    if (localStorage.getItem(STORAGE_KEY)) {
-        return localStorage.getItem(STORAGE_KEY)
-    } 
-    if (defaultTheme) {
-        return defaultTheme
-    } 
-    if (!window.matchMedia) {
-        return 'light'
-    } 
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        return 'dark'
-    }
-    return 'light'
-}
+  
+  <link href="/syntax.min.css" rel="stylesheet">
 
-function changeButtonText()
-{   
-    if (switchButton) {
-        switchButton.textContent = currentTheme == 'dark' ?  "Light theme" : "Dark theme"
-    }
-}
+  
 
-function switchTheme(e) {
-    if (currentTheme == 'dark') {
-        localStorage.setItem(STORAGE_KEY, 'light')
-        document.documentElement.setAttribute('data-theme', 'light')
-        currentTheme = 'light'
-    } else {
-        localStorage.setItem(STORAGE_KEY, 'dark')
-        document.documentElement.setAttribute('data-theme', 'dark')
-        currentTheme = 'dark'
-    }
-    changeButtonText()
-}
+  
+</head>
 
-function showContent() {
-    document.body.style.visibility = 'visible';
-    document.body.style.opacity = 1;
-}
-</script>   
-    </div>
+<body>
+  <header><a href="/" class="title"><h2>Tek Shinobi Blog</h2></a>
+<nav>
 
-    <p class="h-card vcard">
+<a href='mailto:me@example.com?subject=Reply%20to%20"Go%20Error%20Handling"'>Email</a>
 
-    <a href=https://tek-shinobi.github.io/ class="p-name u-url url fn" rel="me">Tek Shinobi</a> 
+<a href="/index.xml">RSS</a>
 
-    
+
+
+
+
+
+
+</nav>
+</header>
+  <main>
+
+<h1>Go Error Handling</h1>
+<p>
+  <i>
+    <time datetime='2023-04-21' pubdate>
+      2023-04-21
+    </time>
+  </i>
+</p>
+
+<content>
+  <p>Some content</p>
+
+</content>
+<p>
+  
+</p>
+
+  </main>
+  <footer><small>
+   | 
+</small></footer>
 
     
-</p> 
-</footer>
-
-        
-    </div>
 </body>
+
 </html>

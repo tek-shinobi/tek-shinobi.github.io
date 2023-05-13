@@ -3,13 +3,19 @@
   <channel>
     <title>Posts on Tek Shinobi Blog</title>
     <link>https://tek-shinobi.github.io/posts/</link>
-    <description>Tek Shinobi Blog (Posts)</description>
+    <description>Recent content in Posts on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 21 Apr 2023 13:41:31 +0300</lastBuildDate>
-    
-    <atom:link href="https://tek-shinobi.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
-    
+    <lastBuildDate>Sat, 13 May 2023 22:53:11 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Add Gpg Keys to Repo</title>
+      <link>https://tek-shinobi.github.io/posts/add-gpg-keys-to-repo/</link>
+      <pubDate>Sat, 13 May 2023 22:53:11 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/add-gpg-keys-to-repo/</guid>
+      <description>Add GPG keys to github repo and local The process involves a set of simple steps:
+ Create GPG keys from commandline terminal Export the created keys using armor into a text blob. Take the blob and head over to github account -&amp;gt; Settings -&amp;gt; SSH and GPG keys and add it as GPG key The most important point: cd to you local repo directory and configure the key there. This step will need to be done for every local repo.</description>
+    </item>
     
     <item>
       <title>Go Error Handling1</title>
@@ -26,8 +32,7 @@
       <pubDate>Fri, 21 Apr 2023 13:05:48 +0300</pubDate>
       
       <guid>https://tek-shinobi.github.io/posts/go-error-handling/</guid>
-      <description>&lt;p&gt;Some content&lt;/p&gt;
-</description>
+      <description>Some content</description>
     </item>
     
   </channel>
