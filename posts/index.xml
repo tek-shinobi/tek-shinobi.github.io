@@ -17,23 +17,5 @@
  Create GPG keys from commandline terminal Export the created keys using armor into a text blob. Take the blob and head over to github account -&amp;gt; Settings -&amp;gt; SSH and GPG keys and add it as GPG key The most important point: cd to you local repo directory and configure the key there. This step will need to be done for every local repo.</description>
     </item>
     
-    <item>
-      <title>Go Error Handling1</title>
-      <link>https://tek-shinobi.github.io/posts/go-error-handling1/</link>
-      <pubDate>Fri, 21 Apr 2023 13:41:31 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/go-error-handling1/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Go Error Handling</title>
-      <link>https://tek-shinobi.github.io/posts/go-error-handling/</link>
-      <pubDate>Fri, 21 Apr 2023 13:05:48 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/go-error-handling/</guid>
-      <description>Some content</description>
-    </item>
-    
   </channel>
 </rss>
