@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>networking on Tek Shinobi Blog</title>
+    <link>https://tek-shinobi.github.io/categories/networking/</link>
+    <description>Recent content in networking on Tek Shinobi Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 08 Sep 2021 18:34:10 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/categories/networking/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>What Is a Tcp Stream</title>
+      <link>https://tek-shinobi.github.io/posts/what-is-a-tcp-stream/</link>
+      <pubDate>Wed, 08 Sep 2021 18:34:10 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/what-is-a-tcp-stream/</guid>
+      <description>The TCP protocol is modeled on the concept of a single continuous stream of unlimited length. This is a very important concept to understand, and is the number one cause of confusion that we see.
+What exactly does this mean, and how does it affect developers?
+Imagine that you&amp;rsquo;re trying to send a few messages over the socket. So you do something like this (in pseudocode):
+socket.write(&amp;quot;Hi Sandy.&amp;quot;); socket.write(&amp;quot;Are you busy tonight?</description>
+    </item>
+    
+  </channel>
+</rss>

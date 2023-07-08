@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html
+  class="not-ready lg:text-base"
+  style="--bg: #faf8f1"
+  lang=""
+>
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  
+  <title>What Is a Tcp Stream - Tek Shinobi Blog</title>
+
+  
+  <meta name="theme-color" />
+
+  
+  
+  
+  <meta name="description" content="The TCP protocol is modeled on the concept of a single continuous stream of unlimited length. This is a very important concept to understand, and is the number one cause of confusion that we see.
+What exactly does this mean, and how does it affect developers?
+Imagine that you&rsquo;re trying to send a few messages over the socket. So you do something like this (in pseudocode):
+socket.write(&quot;Hi Sandy.&quot;); socket.write(&quot;Are you busy tonight?" />
+  <meta name="author" content="Tek Shinobi Blog" />
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="preload stylesheet" as="style" href="https://tek-shinobi.github.io/main.min.css" />
+
+  
+  <script
+    defer
+    src="https://tek-shinobi.github.io/highlight.min.js"
+    onload="hljs.initHighlightingOnLoad();"
+  ></script>
+  
+
+  
+   
+  <link rel="preload" as="image" href="https://tek-shinobi.github.io/theme.png" />
+
+  
+  
+  
+  
+
+  
+  <link rel="preload" as="image" href="https://tek-shinobi.github.io/github.svg" />
+  
+  <link rel="preload" as="image" href="https://tek-shinobi.github.io/linkedin.svg" />
+  
+  
+
+  
+  
+
+  
+  <link rel="icon" href="https://tek-shinobi.github.io/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://tek-shinobi.github.io/apple-touch-icon.png" />
+
+  
+  <meta name="generator" content="Hugo 0.92.2" />
+
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="What Is a Tcp Stream" />
+<meta property="og:description" content="The TCP protocol is modeled on the concept of a single continuous stream of unlimited length. This is a very important concept to understand, and is the number one cause of confusion that we see.
+What exactly does this mean, and how does it affect developers?
+Imagine that you&rsquo;re trying to send a few messages over the socket. So you do something like this (in pseudocode):
+socket.write(&quot;Hi Sandy.&quot;); socket.write(&quot;Are you busy tonight?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tek-shinobi.github.io/posts/what-is-a-tcp-stream/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-09-08T18:34:10+03:00" />
+<meta property="article:modified_time" content="2021-09-08T18:34:10+03:00" />
+
+
+  
+  <meta itemprop="name" content="What Is a Tcp Stream">
+<meta itemprop="description" content="The TCP protocol is modeled on the concept of a single continuous stream of unlimited length. This is a very important concept to understand, and is the number one cause of confusion that we see.
+What exactly does this mean, and how does it affect developers?
+Imagine that you&rsquo;re trying to send a few messages over the socket. So you do something like this (in pseudocode):
+socket.write(&quot;Hi Sandy.&quot;); socket.write(&quot;Are you busy tonight?"><meta itemprop="datePublished" content="2021-09-08T18:34:10+03:00" />
+<meta itemprop="dateModified" content="2021-09-08T18:34:10+03:00" />
+<meta itemprop="wordCount" content="1377">
+<meta itemprop="keywords" content="networking,tcp," />
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="What Is a Tcp Stream"/>
+<meta name="twitter:description" content="The TCP protocol is modeled on the concept of a single continuous stream of unlimited length. This is a very important concept to understand, and is the number one cause of confusion that we see.
+What exactly does this mean, and how does it affect developers?
+Imagine that you&rsquo;re trying to send a few messages over the socket. So you do something like this (in pseudocode):
+socket.write(&quot;Hi Sandy.&quot;); socket.write(&quot;Are you busy tonight?"/>
+
+  
+  
+</head>
+
+  <body class="text-black duration-200 ease-out dark:text-white">
+    <header class="mx-auto flex h-[4.5rem] max-w-3xl px-8 lg:justify-center">
+  <div class="relative z-50 mr-auto flex items-center">
+    <a
+      class="-translate-x-[1px] -translate-y-[1px] text-2xl font-semibold"
+      href="https://tek-shinobi.github.io/"
+      >Tek Shinobi Blog</a
+    >
+    <div
+      class="btn-dark text-[0] ml-4 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.png)_left_center/_auto_theme('spacing.6')_no-repeat] [transition:_background-position_0.4s_steps(5)] dark:[background-position:right]"
+      role="button"
+      aria-label="Dark"
+    ></div>
+  </div>
+
+  <div
+    class="btn-menu relative z-50 -mr-8 flex h-[4.5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+    role="button"
+    aria-label="Menu"
+  ></div>
+
+  
+  <script>
+    
+    const htmlClass = document.documentElement.classList;
+    setTimeout(() => {
+      htmlClass.remove('not-ready');
+    }, 10);
+
+    
+    const btnMenu = document.querySelector('.btn-menu');
+    btnMenu.addEventListener('click', () => {
+      htmlClass.toggle('open');
+    });
+
+    
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    const lightBg = '#faf8f1'.replace(/"/g, '');
+    const setDark = (isDark) => {
+      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
+      htmlClass[isDark ? 'add' : 'remove']('dark');
+      localStorage.setItem('dark', isDark);
+    };
+
+    
+    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    if (htmlClass.contains('dark')) {
+      setDark(true);
+    } else {
+      const darkVal = localStorage.getItem('dark');
+      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+    }
+
+    
+    darkScheme.addEventListener('change', (event) => {
+      setDark(event.matches);
+    });
+
+    
+    const btnDark = document.querySelector('.btn-dark');
+    btnDark.addEventListener('click', () => {
+      setDark(localStorage.getItem('dark') !== 'true');
+    });
+  </script>
+
+  <div
+    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
+  >
+    
+    
+
+    
+    <nav
+      class="mt-12 flex justify-center space-x-10 dark:invert lg:ml-12 lg:mt-0 lg:items-center lg:space-x-6"
+    >
+      
+      <a
+        class="h-8 w-8 text-[0] [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./github.svg)"
+        href="https://github.com/tek-shinobi"
+        target="_blank"
+        rel="me"
+      >
+        github
+      </a>
+      
+      <a
+        class="h-8 w-8 text-[0] [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./linkedin.svg)"
+        href="https://linkedin.com/in/himanshu-singh-remote/"
+        target="_blank"
+        rel="me"
+      >
+        linkedin
+      </a>
+      
+    </nav>
+    
+  </div>
+</header>
+
+
+    <main
+      class="prose prose-neutral relative mx-auto min-h-[calc(100%-9rem)] max-w-3xl px-8 pb-16 pt-12 dark:prose-invert"
+    >
+      
+
+<article>
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">What Is a Tcp Stream</h1>
+
+    
+    <div class="text-sm antialiased opacity-60">
+      
+      <time>Sep 8, 2021</time>
+      
+      
+      
+      
+    </div>
+    
+  </header>
+
+  <section><p>The TCP protocol is modeled on the concept of a <em><strong>single continuous stream</strong></em> of unlimited length. This is a very important concept to understand, and is the <em><strong>number one cause of confusion</strong></em> that we see.</p>
+<p>What exactly does this mean, and how does it affect developers?</p>
+<p>Imagine that you&rsquo;re trying to send a few messages over the socket. So you do something like this (in pseudocode):</p>
+<pre tabindex="0"><code>socket.write(&quot;Hi Sandy.&quot;);
+socket.write(&quot;Are you busy tonight?&quot;);
+</code></pre><p>How does the data show up on the other end? If you think the other end will receive two separate sentences in two separate reads, then you&rsquo;ve just fallen victim to a common pitfall! <em><strong>Gasp!</strong></em> Read on.</p>
+<p>TCP does not treat the writes as separate data. TCP considers all writes to be part of a single continuous stream. So when you issue the above writes, TCP will simply copy the data into its buffer:</p>
+<p>TCP_Buffer = &ldquo;Hi Sandy.Are you busy tonight?&rdquo;</p>
+<p>and then proceed to send the data as fast as possible. And in order to send data over the network, TCP and other networking protocols will be required to break that data into small pieces that can be transmitted over the medium (ethernet, Wi-Fi, etc). In doing so, TCP may break apart the data in any way it sees fit. Here are some examples of how that data might be broken apart and sent:</p>
+<ol>
+<li>&ldquo;Hi San&rdquo; , &ldquo;dy.Ar&rdquo; , &ldquo;e you &quot; , &ldquo;busy to&rdquo; , &ldquo;night?&rdquo;</li>
+<li>&ldquo;Hi Sandy.Are you busy&rdquo; , &quot; tonight?&rdquo;</li>
+<li>&ldquo;Hi Sandy.Are you busy tonight?&rdquo;</li>
+</ol>
+<p>The above examples also demonstrate how the data will arrive at the other end. Let&rsquo;s consider example 1 for a moment.</p>
+<p>Sandy has issued a socket.read() command, and is waiting for data to arrive. So the result of her first read might be &ldquo;Hi San&rdquo;. Sandy will likely begin to process that data. And while the application is processing the data, the TCP stream continues to receive the 2nd and 3rd packet. Sandy then issues another socket.read() command, and this time she gets &ldquo;dy.Are you &ldquo;.</p>
+<p>This highlights the continuous stream nature of TCP. The TCP protocol, at the developer API level, has absolutely no concept of packets or separation of data.</p>
+<p>But isn&rsquo;t this a major shortcoming? How do all those other protocols that use TCP work?</p>
+<h3 id="example-http">Example: HTTP</h3>
+<p>HTTP is a great example because it&rsquo;s so simple, and because most everyone has seen it before. When a client connects to a server and sends a request, it does so in a very specific manner. It sends an HTTP header, and each line of the header is terminated with a CRLF (carriage return, line feed). So something like this:</p>
+<pre tabindex="0"><code>GET /page.html HTTP/1.1
+Host: google.com
+</code></pre><p>Furthermore, the end of the HTTP header is signaled by two CRLF&rsquo;s in a row. Since the protocol specifies the terminators, it is easy to read data from a TCP socket until the terminators are reached.</p>
+<p>Then the server sends the response:</p>
+<pre tabindex="0"><code>HTTP/1.1 200 OK
+Content-Length: 216
+</code></pre><p>Again, the HTTP protocol makes it easy to use TCP. Read data until you get back-to-back CRLF. That&rsquo;s your header. Then parse the content-length from the header, and now you can simply read a certain number of bytes.</p>
+<p>Returning to our original example, we could simply use a designated terminator for our messages:</p>
+<pre tabindex="0"><code>socket.write(&quot;Hi Sandy.\n&quot;);
+socket.write(&quot;Are you busy tonight?\n&quot;);
+</code></pre><p>And if Sandy was using AsyncSocket she would be in luck! Because AsyncSocket provides really easy-to-use read methods that allow you to specify the terminator to look for. AsyncSocket does the rest for you, and would deliver two separate sentences in two separate reads!</p>
+<h3 id="writes">Writes</h3>
+<p><em><strong>What happens when you write data to a TCP socket?</strong></em> When the write is complete, does that mean the other party received that data? Can we at least assume the computer has sent the data? The answer is NO and NO.</p>
+<p>Recall two things:</p>
+<ol>
+<li>All data sent and received must get broken into little pieces in order to send it over the network.</li>
+<li>TCP handles a lot of complicated issues such as resending lost packets, and providing in-order delivery so information arrives in the proper sequence.</li>
+</ol>
+<p>So when you issue a write, the data is simply copied into an underlying buffer within the OS networking stack. At that point the TCP software will begin its magic, which consists of all the cool stuff mentioned earlier such as:</p>
+<ul>
+<li>breaking the data into small pieces such that they can be sent over the network</li>
+<li>ensuring that lost pieces get properly resent</li>
+<li>ensuring that your data arrives at the remote destination in the proper order</li>
+<li>watching out for congestion in the network</li>
+<li>employing fancy algorithms to accomplish all of this as fast as possible</li>
+</ul>
+<p>So when you issue the command, &ldquo;write this data&rdquo; the operating system responds with &ldquo;I have your data, and I will do everything in my power to deliver this to the remote destination.&rdquo;</p>
+<p>BUT… <em><strong>how do I know when the remote destination has received my data?</strong></em></p>
+<p>And this is exactly where most people run into problems. A good way to think about it is like this:</p>
+<p>Imagine you want to send a letter to a friend. Not an email, but the traditional snail mail. You know, through the post office. So you write the letter and put it in your mailbox. The mailman later comes by and picks it up. You can rest assured at this point that the post office will make every effort to deliver the letter to your friend. But how do you know for sure if your friend received the letter? I suppose if the letter came back with a &ldquo;return to sender&rdquo; stamped on it you can be certain your friend didn&rsquo;t receive it. But what if it doesn&rsquo;t come back? Is it enough to know that it made it into your friend&rsquo;s mailbox? (Assume this is a really, really important letter.) The answer is no. Maybe it never leaves the mailbox. Maybe his roommate picks it up and accidentally throws it away. And if the roommate was responsible and left the letter on your friends desk? Would that be enough? What if your friend was on vacation and your letter gets lost in a pile of junk mail? So the only way to truly know if your friend received the letter is when you receive their response.</p>
+<p>This is a great metaphor for sockets. When you write data to a socket, that is like putting the letter in the mailbox. The operating system is like the local mailman that comes by and picks up the letter. The giant post office system that routes the letter toward its destination is like the network. And the mailman that drops off your letter in your friends mailbox is like the operating system on your friends computer. It is then up to the application on your friends computer to read the data from the OS and process it (fetch the letter from the mailbox, and actually read it).</p>
+<p>So how do I know when the remote destination has received my data? This is not something that TCP can tell you. At best, it can only tell you that the letter was delivered into their mailbox. It can&rsquo;t tell you if the application has read that data and processed it. Maybe the application on the remote side crashed. Or maybe the remote user quit the application before it had a chance to read the data. Or maybe the remote user experienced a power outage. Long story short, it is up to the application layer to answer this question if need be.</p>
+<h3 id="key-points">Key Points</h3>
+<ul>
+<li>TCP is a continuous stream.</li>
+<li>The TCP stream is divided into packets arbitrarily. The divisions do not indicate anything about the syntax of the message.</li>
+<li>To handle details such as determining the end of a message, you need an additional protocol on top of TCP. For example:</li>
+<li>You can specify a termination sequence to indicate the end of a message.</li>
+<li>You can send the length of a message as part of the communication.</li>
+<li>The TCP protocol does not provide guarantees that messages have been sent or received by the application.</li>
+<li>To determine whether messages have been sent or received, you need an additional protocol on top of TCP. For example, your application can specify</li>
+</ul>
+</section>
+
+  
+  
+  <footer class="mt-12 flex flex-wrap">
+     
+    <a
+      class="mb-1.5 mr-1.5 rounded-lg bg-black/[3%] px-5 py-1.5 no-underline dark:bg-white/[8%]"
+      href="https://tek-shinobi.github.io/tags/networking"
+      >networking</a
+    >
+     
+    <a
+      class="mb-1.5 mr-1.5 rounded-lg bg-black/[3%] px-5 py-1.5 no-underline dark:bg-white/[8%]"
+      href="https://tek-shinobi.github.io/tags/tcp"
+      >tcp</a
+    >
+    
+  </footer>
+  
+
+  
+  
+  
+  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
+    
+    <a
+      class="flex w-1/2 items-center rounded-l-md p-6 pr-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
+      href="https://tek-shinobi.github.io/posts/add-gpg-keys-to-repo/"
+      ><span class="mr-1.5">←</span><span>Add Gpg Keys to Repo</span></a
+    >
+    
+    
+    <a
+      class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
+      href="https://tek-shinobi.github.io/posts/rust-gotchas-copy-and-clone/"
+      ><span>Rust Gotchas Copy and Clone</span><span class="ml-1.5">→</span></a
+    >
+    
+  </nav>
+  
+
+  
+  
+
+  
+  
+</article>
+
+
+    </main>
+
+    <footer
+  class="opaco mx-auto flex h-[4.5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60"
+>
+  <div class="mr-auto">
+    &copy; 2023
+    <a class="link" href="https://tek-shinobi.github.io/">Tek Shinobi Blog</a>
+  </div>
+  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
+    >Powered by Hugo️️</a
+  >️
+  <a
+    class="link"
+    href="https://github.com/nanxiaobei/hugo-paper"
+    rel="noopener"
+    target="_blank"
+    >✎ Paper</a
+  >
+</footer>
+
+  </body>
+</html>

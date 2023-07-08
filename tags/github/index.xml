@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>github on Tek Shinobi Blog</title>
+    <link>https://tek-shinobi.github.io/tags/github/</link>
+    <description>Recent content in github on Tek Shinobi Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 13 May 2023 22:53:11 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/github/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Add Gpg Keys to Repo</title>
+      <link>https://tek-shinobi.github.io/posts/add-gpg-keys-to-repo/</link>
+      <pubDate>Sat, 13 May 2023 22:53:11 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/add-gpg-keys-to-repo/</guid>
+      <description>Add GPG keys to github repo and local The process involves a set of simple steps:
+ Create GPG keys from commandline terminal Export the created keys using armor into a text blob. Take the blob and head over to github account -&amp;gt; Settings -&amp;gt; SSH and GPG keys and add it as GPG key The most important point: cd to you local repo directory and configure the key there. This step will need to be done for every local repo.</description>
+    </item>
+    
+  </channel>
+</rss>

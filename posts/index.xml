@@ -5,7 +5,6 @@
     <link>https://tek-shinobi.github.io/posts/</link>
     <description>Recent content in Posts on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
     <lastBuildDate>Sat, 13 May 2023 22:53:11 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Add Gpg Keys to Repo</title>
@@ -15,6 +14,29 @@
       <guid>https://tek-shinobi.github.io/posts/add-gpg-keys-to-repo/</guid>
       <description>Add GPG keys to github repo and local The process involves a set of simple steps:
  Create GPG keys from commandline terminal Export the created keys using armor into a text blob. Take the blob and head over to github account -&amp;gt; Settings -&amp;gt; SSH and GPG keys and add it as GPG key The most important point: cd to you local repo directory and configure the key there. This step will need to be done for every local repo.</description>
+    </item>
+    
+    <item>
+      <title>What Is a Tcp Stream</title>
+      <link>https://tek-shinobi.github.io/posts/what-is-a-tcp-stream/</link>
+      <pubDate>Wed, 08 Sep 2021 18:34:10 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/what-is-a-tcp-stream/</guid>
+      <description>The TCP protocol is modeled on the concept of a single continuous stream of unlimited length. This is a very important concept to understand, and is the number one cause of confusion that we see.
+What exactly does this mean, and how does it affect developers?
+Imagine that you&amp;rsquo;re trying to send a few messages over the socket. So you do something like this (in pseudocode):
+socket.write(&amp;quot;Hi Sandy.&amp;quot;); socket.write(&amp;quot;Are you busy tonight?</description>
+    </item>
+    
+    <item>
+      <title>Rust Gotchas Copy and Clone</title>
+      <link>https://tek-shinobi.github.io/posts/rust-gotchas-copy-and-clone/</link>
+      <pubDate>Thu, 29 Jul 2021 22:21:11 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/rust-gotchas-copy-and-clone/</guid>
+      <description>Rust has two central concepts: Borrowing and ownership.
+In very simple terms, Borrowing conceptually means access to the data through reference, be it mutable or immutable. This is implemented via &amp;amp; and &amp;amp;mut. For a more exhastive treatment, please refer the docs.
+Again, in very simple terms, Ownership conceptually means accessing without &amp;amp; (i.e. without using a reference). Of course, Ownership is a science in Rust and please refer to docs for in-depth treatment.</description>
     </item>
     
   </channel>

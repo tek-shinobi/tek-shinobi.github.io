@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>rust on Tek Shinobi Blog</title>
+    <link>https://tek-shinobi.github.io/tags/rust/</link>
+    <description>Recent content in rust on Tek Shinobi Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 29 Jul 2021 22:21:11 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/rust/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Rust Gotchas Copy and Clone</title>
+      <link>https://tek-shinobi.github.io/posts/rust-gotchas-copy-and-clone/</link>
+      <pubDate>Thu, 29 Jul 2021 22:21:11 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/rust-gotchas-copy-and-clone/</guid>
+      <description>Rust has two central concepts: Borrowing and ownership.
+In very simple terms, Borrowing conceptually means access to the data through reference, be it mutable or immutable. This is implemented via &amp;amp; and &amp;amp;mut. For a more exhastive treatment, please refer the docs.
+Again, in very simple terms, Ownership conceptually means accessing without &amp;amp; (i.e. without using a reference). Of course, Ownership is a science in Rust and please refer to docs for in-depth treatment.</description>
+    </item>
+    
+  </channel>
+</rss>

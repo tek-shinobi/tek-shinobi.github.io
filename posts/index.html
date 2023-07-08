@@ -1,115 +1,317 @@
 <!DOCTYPE html>
-<html><head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-    <title>Posts - Tek Shinobi Blog</title>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html
+  class="not-ready lg:text-base"
+  style="--bg: #faf8f1"
+  lang=""
+>
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  
+  <title>Posts - Tek Shinobi Blog</title>
+
+  
+  <meta name="theme-color" />
+
+  
+  
+  
+  
+  <meta
+    name="description"
+    content="A personal blog"
+  />
+  <meta name="author" content="Tek Shinobi Blog" />
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="preload stylesheet" as="style" href="https://tek-shinobi.github.io/main.min.css" />
+
+  
+
+  
+   
+  <link rel="preload" as="image" href="https://tek-shinobi.github.io/theme.png" />
+
+  
+  
+  
+  
+
+  
+  <link rel="preload" as="image" href="https://tek-shinobi.github.io/github.svg" />
+  
+  <link rel="preload" as="image" href="https://tek-shinobi.github.io/linkedin.svg" />
+  
+  
+
+  
+  
+
+  
+  <link rel="icon" href="https://tek-shinobi.github.io/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://tek-shinobi.github.io/apple-touch-icon.png" />
+
+  
+  <meta name="generator" content="Hugo 0.92.2" />
+
+  
+  
+  <link
+    rel="alternate"
+    type="application/rss&#43;xml"
+    href="https://tek-shinobi.github.io/posts/index.xml"
+    title="Tek Shinobi Blog"
+  />
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="Posts" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://tek-shinobi.github.io/posts/" />
+
+
+  
+  <meta itemprop="name" content="Posts">
+<meta itemprop="description" content="">
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Posts"/>
+<meta name="twitter:description" content=""/>
+
+  
+  
+</head>
+
+  <body class="text-black duration-200 ease-out dark:text-white">
+    <header class="mx-auto flex h-[4.5rem] max-w-3xl px-8 lg:justify-center">
+  <div class="relative z-50 mr-auto flex items-center">
+    <a
+      class="-translate-x-[1px] -translate-y-[1px] text-2xl font-semibold"
+      href="https://tek-shinobi.github.io/"
+      >Tek Shinobi Blog</a
+    >
+    <div
+      class="btn-dark text-[0] ml-4 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.png)_left_center/_auto_theme('spacing.6')_no-repeat] [transition:_background-position_0.4s_steps(5)] dark:[background-position:right]"
+      role="button"
+      aria-label="Dark"
+    ></div>
+  </div>
+
+  <div
+    class="btn-menu relative z-50 -mr-8 flex h-[4.5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+    role="button"
+    aria-label="Menu"
+  ></div>
+
+  
+  <script>
+    
+    const htmlClass = document.documentElement.classList;
+    setTimeout(() => {
+      htmlClass.remove('not-ready');
+    }, 10);
 
     
+    const btnMenu = document.querySelector('.btn-menu');
+    btnMenu.addEventListener('click', () => {
+      htmlClass.toggle('open');
+    });
+
     
-    <meta name="description" content="Blogging about programming stuff." />
-    <meta name="author" content="John Doe" />
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    const lightBg = '#faf8f1'.replace(/"/g, '');
+    const setDark = (isDark) => {
+      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
+      htmlClass[isDark ? 'add' : 'remove']('dark');
+      localStorage.setItem('dark', isDark);
+    };
+
+    
+    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    if (htmlClass.contains('dark')) {
+      setDark(true);
+    } else {
+      const darkVal = localStorage.getItem('dark');
+      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+    }
+
+    
+    darkScheme.addEventListener('change', (event) => {
+      setDark(event.matches);
+    });
+
+    
+    const btnDark = document.querySelector('.btn-dark');
+    btnDark.addEventListener('click', () => {
+      setDark(localStorage.getItem('dark') !== 'true');
+    });
+  </script>
+
+  <div
+    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
+  >
+    
     
 
-    <link href="https://unpkg.com/@master/normal.css" rel="stylesheet">
-    <script src="https://unpkg.com/@master/style@1.5.0"></script>
-    <script src="https://unpkg.com/@master/styles@1.13.0"></script>
-    <script src="https://unpkg.com/master-styles-group"></script>
-    <script src="https://unpkg.com/themes.js"></script>
-    <script>window.themes = window.themes || new window.Themes()</script>
+    
+    <nav
+      class="mt-12 flex justify-center space-x-10 dark:invert lg:ml-12 lg:mt-0 lg:items-center lg:space-x-6"
+    >
+      
+      <a
+        class="h-8 w-8 text-[0] [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./github.svg)"
+        href="https://github.com/tek-shinobi"
+        target="_blank"
+        rel="me"
+      >
+        github
+      </a>
+      
+      <a
+        class="h-8 w-8 text-[0] [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./linkedin.svg)"
+        href="https://linkedin.com/in/himanshu-singh-remote/"
+        target="_blank"
+        rel="me"
+      >
+        linkedin
+      </a>
+      
+    </nav>
+    
+  </div>
+</header>
 
-    <style>
-        :root {
-            --font-sans: "Inter var", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
-        }
-    </style></head>
-<body class="bg:fade-84@dark font:fade-16@dark font:sans">
-    <nav class="w:full h:90 fixed bg:fade-84/.95@dark bg:white z:1000">
-    <div class="
-        h:full
-        w:full
-        max-w:1200
-        mx:auto
-        px:32
-        d:flex
-        align-items:center
-    ">
-        <div>
-            <a href="/" class="mr-3 font:extralight">
-              
-              Tek Shinobi Blog
-              
-            </a>
-        </div>
 
-        <div class="ml:auto">
-            
-            
-            
-        </div>
-    </div>
-</nav>
-<div class="d:flex flex:column@<=sm pt:90 px:24 jc:center gap:44 word-break:break-word">
-        <div class="max-w:700 w:full box:content-box">
-<div>
-    <article class="box:border-box pt:64 w:full">
-        <header class="mb:32">
-            <div class="font:40 font:extrabold">Posts</div>
-        </header><div class="
-    _:where(a):hover{text-decoration-color:fade}
-    _:where(a){text-decoration:2;underline;fade-10;_text-decoration-color:fade-70@dark}
-    _:where(blockquote){bl:5;solid;fade-76/.1;_bl:5;solid;fade-34/.1@dark}
-    _:where(code){font:90%;_v:middle}
-    _:where(code:not(.highlight_*,pre_*)){p:2;6;_r:4}
-    _:where(del){text-decoration:1;line-through;fade-68;_text-decoration-color:red-64@dark}
-    _:where(figcaption){text:14;_p:10;20;0;_width:fit;_mx:auto;_font:fade-56;_font:fade-57@dark}
-    _:where(h1){font:40;_font:extrabold}
-    _:where(h1,h2,h3)+:where(h1,h2,h3){mt:.5em}
-    _:where(h1,h2,h3,h4,h5,h6){mt:2em}
-    _:where(h2){mb:1em;_font:32}
-    _:where(h3){font:24}
-    _:where(h4){font:20}
-    _:where(h5){font:16}
-    _:where(h6){font:14}
-    _:where(li)::marker{font:fade-44;_font:fade-68@dark}
-    _:where(li){pl:.375em}
-    _:where(mark){text-decoration:1;underline;#fce016;_bg:transparent;_text-decoration-color:rgb(252;224;22/.5)@dark}
-    _:where(p,li){font:fade-76;_font:16;_line-height:1.65;_font:fade-34@dark}
-    _:where(p,pre,blockquote,figure,ul,ol,table){my:1.125em}
-    >:first-child{mt:0!}
-    _:where(pre){p:20;_r:8;_overflow:auto}
-    _:where(pre,code:not(.highlight_*)){bg:fade-2;_bg:fade-92!@dark}
-    _:where(strong,b,a,code:not(.highlight_*),mark,del){font:fade-92;_font:fade-12@dark}
-    _:where(table){width:full;_border-spacing:0}
-    _:where(td){v:baseline}
-    _:where(td,th):first-child{pl:0}
-    _:where(td,th):last-child{pr:0}
-    _:where(td,th){bb:1;solid;fade-92/.06;_p:6;_b:fade-4/.04@dark}
-    _:where(th){font:fade-78;_font:14;_text:left;_font:fade-12@dark}
-    _:where(th,p_code,li_code,a,mark){font:semibold;_font:medium@dark}
-    _:where(ul){list-style-type:disc}
-    _:where(ul,ol,blockquote){pl:1.5em}
-    _:where(video,img){max-width:full}
-    _:where(a,mark){text-underline-offset:3}
-    _:where(hr){h:2;_bg:fade-10;_bg:fade-70@dark;_my:3em}
-"></div></article>
-    <ul>
-                <li>
-                    <div class="mb:16 py:24 f:fade-30 f:fade-10:hover transition:150ms;ease-in">
-                        <a class="f:24 font:semibold" href="https://tek-shinobi.github.io/posts/add-gpg-keys-to-repo/">
-                            <div>Add Gpg Keys to Repo</div>
-                        </a>
-                        <div class="mt:12 f:fade-70"><time>May 13, 2023</time></div>
-                    </div>
-                </li>
-    </ul>
-</div>
-<footer class="py:24">
-    <div class="f:fade-30 f:14 mb:8"></div>
-    <div class="f:fade-60 f:12">Theme <a class="f:bold" href="https://github.com/serkodev/holy" _target="_blank">Holy</a></div>
-</footer></div>
-    </div>
-</body>
+    <main
+      class="prose prose-neutral relative mx-auto min-h-[calc(100%-9rem)] max-w-3xl px-8 pb-16 pt-12 dark:prose-invert"
+    >
+      
 
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
+  
+  <h2 class="!my-0 pb-1 font-bold !leading-none">Add Gpg Keys to Repo</h2>
+  <time class="text-sm antialiased opacity-60"
+    >May 13, 2023</time
+  >
+  <a class="absolute inset-0 text-[0]" href="https://tek-shinobi.github.io/posts/add-gpg-keys-to-repo/">Add Gpg Keys to Repo</a>
+</section>
+
+
+
+
+
+<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
+  
+  <h2 class="!my-0 pb-1 font-bold !leading-none">What Is a Tcp Stream</h2>
+  <time class="text-sm antialiased opacity-60"
+    >Sep 8, 2021</time
+  >
+  <a class="absolute inset-0 text-[0]" href="https://tek-shinobi.github.io/posts/what-is-a-tcp-stream/">What Is a Tcp Stream</a>
+</section>
+
+
+
+
+
+<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
+  
+  <h2 class="!my-0 pb-1 font-bold !leading-none">Rust Gotchas Copy and Clone</h2>
+  <time class="text-sm antialiased opacity-60"
+    >Jul 29, 2021</time
+  >
+  <a class="absolute inset-0 text-[0]" href="https://tek-shinobi.github.io/posts/rust-gotchas-copy-and-clone/">Rust Gotchas Copy and Clone</a>
+</section>
+
+
+
+
+
+
+    </main>
+
+    <footer
+  class="opaco mx-auto flex h-[4.5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60"
+>
+  <div class="mr-auto">
+    &copy; 2023
+    <a class="link" href="https://tek-shinobi.github.io/">Tek Shinobi Blog</a>
+  </div>
+  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
+    >Powered by Hugo️️</a
+  >️
+  <a
+    class="link"
+    href="https://github.com/nanxiaobei/hugo-paper"
+    rel="noopener"
+    target="_blank"
+    >✎ Paper</a
+  >
+</footer>
+
+  </body>
 </html>
