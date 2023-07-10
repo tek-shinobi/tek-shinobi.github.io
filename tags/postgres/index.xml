@@ -5,11 +5,11 @@
     <link>https://tek-shinobi.github.io/tags/postgres/</link>
     <description>Recent content in postgres on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 10 Jul 2023 10:38:56 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/postgres/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 10 Apr 2021 10:38:56 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/postgres/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Using Postgres Inside Docker Container</title>
       <link>https://tek-shinobi.github.io/posts/using-postgres-inside-docker-container/</link>
-      <pubDate>Mon, 10 Jul 2023 10:38:56 +0300</pubDate>
+      <pubDate>Sat, 10 Apr 2021 10:38:56 +0300</pubDate>
       
       <guid>https://tek-shinobi.github.io/posts/using-postgres-inside-docker-container/</guid>
       <description>These are my personal notes. Am running postgres docker image on a local linux box.
