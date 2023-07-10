@@ -115,15 +115,15 @@
 #[cfg(test)] mod tests { #[allow(unused_imports)] use super::*; use std::fs::{self, File, OpenOptions}; use std::io::{Read, Seek, SeekFrom, Write}; use tempfile::{tempdir, tempfile, NamedTempFile}; #[test] fn test_file() { let dir = tempdir().unwrap(); let file_path = dir.path().join(&#34;foo.txt&#34;); let mut file = File::create(file_path.to_owned()).unwrap(); file.write_all(&#34;Bar Baz&#34;.as_bytes()) .unwrap(); file.seek(SeekFrom::Start(0)).unwrap(); let mut contents = String::new(); file.read_to_string(&amp;mut contents).unwrap(); assert_eq!(contents, &#34;Bar Baz&#34;); drop(file); dir." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://tek-shinobi.github.io/posts/rust-file-builder-pattern-for-file-read-writes/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2023-07-10T11:14:09+03:00" />
-<meta property="article:modified_time" content="2023-07-10T11:14:09+03:00" />
+<meta property="article:published_time" content="2021-03-20T11:14:09+03:00" />
+<meta property="article:modified_time" content="2021-03-20T11:14:09+03:00" />
 
 
   
   <meta itemprop="name" content="Rust File Builder Pattern for File Read Writes">
 <meta itemprop="description" content="Consider the following test code that creates a file, writes to it and then reads back to confirm what it wrote.
-#[cfg(test)] mod tests { #[allow(unused_imports)] use super::*; use std::fs::{self, File, OpenOptions}; use std::io::{Read, Seek, SeekFrom, Write}; use tempfile::{tempdir, tempfile, NamedTempFile}; #[test] fn test_file() { let dir = tempdir().unwrap(); let file_path = dir.path().join(&#34;foo.txt&#34;); let mut file = File::create(file_path.to_owned()).unwrap(); file.write_all(&#34;Bar Baz&#34;.as_bytes()) .unwrap(); file.seek(SeekFrom::Start(0)).unwrap(); let mut contents = String::new(); file.read_to_string(&amp;mut contents).unwrap(); assert_eq!(contents, &#34;Bar Baz&#34;); drop(file); dir."><meta itemprop="datePublished" content="2023-07-10T11:14:09+03:00" />
-<meta itemprop="dateModified" content="2023-07-10T11:14:09+03:00" />
+#[cfg(test)] mod tests { #[allow(unused_imports)] use super::*; use std::fs::{self, File, OpenOptions}; use std::io::{Read, Seek, SeekFrom, Write}; use tempfile::{tempdir, tempfile, NamedTempFile}; #[test] fn test_file() { let dir = tempdir().unwrap(); let file_path = dir.path().join(&#34;foo.txt&#34;); let mut file = File::create(file_path.to_owned()).unwrap(); file.write_all(&#34;Bar Baz&#34;.as_bytes()) .unwrap(); file.seek(SeekFrom::Start(0)).unwrap(); let mut contents = String::new(); file.read_to_string(&amp;mut contents).unwrap(); assert_eq!(contents, &#34;Bar Baz&#34;); drop(file); dir."><meta itemprop="datePublished" content="2021-03-20T11:14:09+03:00" />
+<meta itemprop="dateModified" content="2021-03-20T11:14:09+03:00" />
 <meta itemprop="wordCount" content="344">
 <meta itemprop="keywords" content="rust,file,builder," />
   
@@ -250,7 +250,7 @@
     
     <div class="text-sm antialiased opacity-60">
       
-      <time>Jul 10, 2023</time>
+      <time>Mar 20, 2021</time>
       
       
       
@@ -346,11 +346,17 @@ on an `Err` value: Os { code: 9, kind: Other, message: &quot;Bad file descriptor
   
   <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
     
+    <a
+      class="flex w-1/2 items-center rounded-l-md p-6 pr-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
+      href="https://tek-shinobi.github.io/posts/using-postgres-inside-docker-container/"
+      ><span class="mr-1.5">←</span><span>Using Postgres Inside Docker Container</span></a
+    >
+    
     
     <a
       class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
-      href="https://tek-shinobi.github.io/posts/add-gpg-keys-to-repo/"
-      ><span>Add Gpg Keys to Repo</span><span class="ml-1.5">→</span></a
+      href="https://tek-shinobi.github.io/posts/turbofish-in-rust/"
+      ><span>Turbofish in Rust</span><span class="ml-1.5">→</span></a
     >
     
   </nav>

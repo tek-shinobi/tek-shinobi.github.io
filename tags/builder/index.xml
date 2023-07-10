@@ -5,11 +5,11 @@
     <link>https://tek-shinobi.github.io/tags/builder/</link>
     <description>Recent content in builder on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 10 Jul 2023 11:14:09 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/builder/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 20 Mar 2021 11:14:09 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/builder/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Rust File Builder Pattern for File Read Writes</title>
       <link>https://tek-shinobi.github.io/posts/rust-file-builder-pattern-for-file-read-writes/</link>
-      <pubDate>Mon, 10 Jul 2023 11:14:09 +0300</pubDate>
+      <pubDate>Sat, 20 Mar 2021 11:14:09 +0300</pubDate>
       
       <guid>https://tek-shinobi.github.io/posts/rust-file-builder-pattern-for-file-read-writes/</guid>
       <description>Consider the following test code that creates a file, writes to it and then reads back to confirm what it wrote.

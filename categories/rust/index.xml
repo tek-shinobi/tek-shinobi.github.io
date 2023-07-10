@@ -5,17 +5,7 @@
     <link>https://tek-shinobi.github.io/categories/rust/</link>
     <description>Recent content in rust on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 10 Jul 2023 11:14:09 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/categories/rust/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Rust File Builder Pattern for File Read Writes</title>
-      <link>https://tek-shinobi.github.io/posts/rust-file-builder-pattern-for-file-read-writes/</link>
-      <pubDate>Mon, 10 Jul 2023 11:14:09 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/rust-file-builder-pattern-for-file-read-writes/</guid>
-      <description>Consider the following test code that creates a file, writes to it and then reads back to confirm what it wrote.
-#[cfg(test)] mod tests { #[allow(unused_imports)] use super::*; use std::fs::{self, File, OpenOptions}; use std::io::{Read, Seek, SeekFrom, Write}; use tempfile::{tempdir, tempfile, NamedTempFile}; #[test] fn test_file() { let dir = tempdir().unwrap(); let file_path = dir.path().join(&amp;#34;foo.txt&amp;#34;); let mut file = File::create(file_path.to_owned()).unwrap(); file.write_all(&amp;#34;Bar Baz&amp;#34;.as_bytes()) .unwrap(); file.seek(SeekFrom::Start(0)).unwrap(); let mut contents = String::new(); file.read_to_string(&amp;amp;mut contents).unwrap(); assert_eq!(contents, &amp;#34;Bar Baz&amp;#34;); drop(file); dir.</description>
-    </item>
-    
+    <lastBuildDate>Thu, 29 Jul 2021 22:21:11 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/categories/rust/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Rust Gotchas Copy and Clone</title>
       <link>https://tek-shinobi.github.io/posts/rust-gotchas-copy-and-clone/</link>
@@ -25,6 +15,16 @@
       <description>Rust has two central concepts: Borrowing and ownership.
 In very simple terms, Borrowing conceptually means access to the data through reference, be it mutable or immutable. This is implemented via &amp;amp; and &amp;amp;mut. For a more exhastive treatment, please refer the docs.
 Again, in very simple terms, Ownership conceptually means accessing without &amp;amp; (i.e. without using a reference). Of course, Ownership is a science in Rust and please refer to docs for in-depth treatment.</description>
+    </item>
+    
+    <item>
+      <title>Rust File Builder Pattern for File Read Writes</title>
+      <link>https://tek-shinobi.github.io/posts/rust-file-builder-pattern-for-file-read-writes/</link>
+      <pubDate>Sat, 20 Mar 2021 11:14:09 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/rust-file-builder-pattern-for-file-read-writes/</guid>
+      <description>Consider the following test code that creates a file, writes to it and then reads back to confirm what it wrote.
+#[cfg(test)] mod tests { #[allow(unused_imports)] use super::*; use std::fs::{self, File, OpenOptions}; use std::io::{Read, Seek, SeekFrom, Write}; use tempfile::{tempdir, tempfile, NamedTempFile}; #[test] fn test_file() { let dir = tempdir().unwrap(); let file_path = dir.path().join(&amp;#34;foo.txt&amp;#34;); let mut file = File::create(file_path.to_owned()).unwrap(); file.write_all(&amp;#34;Bar Baz&amp;#34;.as_bytes()) .unwrap(); file.seek(SeekFrom::Start(0)).unwrap(); let mut contents = String::new(); file.read_to_string(&amp;amp;mut contents).unwrap(); assert_eq!(contents, &amp;#34;Bar Baz&amp;#34;); drop(file); dir.</description>
     </item>
     
     <item>
