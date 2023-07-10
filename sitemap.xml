@@ -2,13 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://tek-shinobi.github.io/tags/builder/</loc>
+    <lastmod>2023-07-10T11:14:09+03:00</lastmod>
+  </url><url>
+    <loc>https://tek-shinobi.github.io/categories/</loc>
+    <lastmod>2023-07-10T11:14:09+03:00</lastmod>
+  </url><url>
+    <loc>https://tek-shinobi.github.io/tags/file/</loc>
+    <lastmod>2023-07-10T11:14:09+03:00</lastmod>
+  </url><url>
+    <loc>https://tek-shinobi.github.io/posts/</loc>
+    <lastmod>2023-07-10T11:14:09+03:00</lastmod>
+  </url><url>
+    <loc>https://tek-shinobi.github.io/tags/rust/</loc>
+    <lastmod>2023-07-10T11:14:09+03:00</lastmod>
+  </url><url>
+    <loc>https://tek-shinobi.github.io/categories/rust/</loc>
+    <lastmod>2023-07-10T11:14:09+03:00</lastmod>
+  </url><url>
+    <loc>https://tek-shinobi.github.io/posts/rust-file-builder-pattern-for-file-read-writes/</loc>
+    <lastmod>2023-07-10T11:14:09+03:00</lastmod>
+  </url><url>
+    <loc>https://tek-shinobi.github.io/tags/</loc>
+    <lastmod>2023-07-10T11:14:09+03:00</lastmod>
+  </url><url>
+    <loc>https://tek-shinobi.github.io/</loc>
+    <lastmod>2023-07-10T11:14:09+03:00</lastmod>
+  </url><url>
     <loc>https://tek-shinobi.github.io/tags/account/</loc>
     <lastmod>2023-05-13T22:53:11+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/posts/add-gpg-keys-to-repo/</loc>
-    <lastmod>2023-05-13T22:53:11+03:00</lastmod>
-  </url><url>
-    <loc>https://tek-shinobi.github.io/categories/</loc>
     <lastmod>2023-05-13T22:53:11+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/tags/github/</loc>
@@ -18,15 +42,6 @@
     <lastmod>2023-05-13T22:53:11+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/tags/gpg/</loc>
-    <lastmod>2023-05-13T22:53:11+03:00</lastmod>
-  </url><url>
-    <loc>https://tek-shinobi.github.io/posts/</loc>
-    <lastmod>2023-05-13T22:53:11+03:00</lastmod>
-  </url><url>
-    <loc>https://tek-shinobi.github.io/tags/</loc>
-    <lastmod>2023-05-13T22:53:11+03:00</lastmod>
-  </url><url>
-    <loc>https://tek-shinobi.github.io/</loc>
     <lastmod>2023-05-13T22:53:11+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/tags/verify/</loc>
@@ -50,12 +65,6 @@
     <loc>https://tek-shinobi.github.io/tags/copy/</loc>
     <lastmod>2021-07-29T22:21:11+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/tags/rust/</loc>
-    <lastmod>2021-07-29T22:21:11+03:00</lastmod>
-  </url><url>
-    <loc>https://tek-shinobi.github.io/categories/rust/</loc>
-    <lastmod>2021-07-29T22:21:11+03:00</lastmod>
-  </url><url>
     <loc>https://tek-shinobi.github.io/posts/rust-gotchas-copy-and-clone/</loc>
     <lastmod>2021-07-29T22:21:11+03:00</lastmod>
   </url><url>
@@ -73,5 +82,11 @@
   </url><url>
     <loc>https://tek-shinobi.github.io/posts/using-postgres-inside-docker-container/</loc>
     <lastmod>2021-04-10T10:38:56+03:00</lastmod>
+  </url><url>
+    <loc>https://tek-shinobi.github.io/tags/turbofish/</loc>
+    <lastmod>2021-03-10T10:50:37+03:00</lastmod>
+  </url><url>
+    <loc>https://tek-shinobi.github.io/posts/turbofish-in-rust/</loc>
+    <lastmod>2021-03-10T10:50:37+03:00</lastmod>
   </url>
 </urlset>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>turbofish on Tek Shinobi Blog</title>
+    <link>https://tek-shinobi.github.io/tags/turbofish/</link>
+    <description>Recent content in turbofish on Tek Shinobi Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 10 Mar 2021 10:50:37 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/turbofish/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Turbofish in Rust</title>
+      <link>https://tek-shinobi.github.io/posts/turbofish-in-rust/</link>
+      <pubDate>Wed, 10 Mar 2021 10:50:37 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/turbofish-in-rust/</guid>
+      <description>Consider the following code (or run it in rust playground here):
+fn main() { let a:Vec = vec![1, 2, 3]; let doubled = a.iter().map(|&amp;amp;x| x * 2).collect(); assert_eq!(vec![2, 4, 6], doubled); } If you ran it in the playground linked above, you will see the following compiler error.
+error[E0282]: type annotations needed --&amp;gt; src/main.rs:4:9 | 4 | let doubled = a.iter().map(|&amp;amp;x| x * 2).collect(); | ^^^^^^^ consider giving `doubled` a type error: aborting due to previous error For more information about this error, try `rustc --explain E0282`.</description>
+    </item>
+    
+  </channel>
+</rss>

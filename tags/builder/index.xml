@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>builder on Tek Shinobi Blog</title>
+    <link>https://tek-shinobi.github.io/tags/builder/</link>
+    <description>Recent content in builder on Tek Shinobi Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 10 Jul 2023 11:14:09 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/builder/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Rust File Builder Pattern for File Read Writes</title>
+      <link>https://tek-shinobi.github.io/posts/rust-file-builder-pattern-for-file-read-writes/</link>
+      <pubDate>Mon, 10 Jul 2023 11:14:09 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/rust-file-builder-pattern-for-file-read-writes/</guid>
+      <description>Consider the following test code that creates a file, writes to it and then reads back to confirm what it wrote.
+#[cfg(test)] mod tests { #[allow(unused_imports)] use super::*; use std::fs::{self, File, OpenOptions}; use std::io::{Read, Seek, SeekFrom, Write}; use tempfile::{tempdir, tempfile, NamedTempFile}; #[test] fn test_file() { let dir = tempdir().unwrap(); let file_path = dir.path().join(&amp;#34;foo.txt&amp;#34;); let mut file = File::create(file_path.to_owned()).unwrap(); file.write_all(&amp;#34;Bar Baz&amp;#34;.as_bytes()) .unwrap(); file.seek(SeekFrom::Start(0)).unwrap(); let mut contents = String::new(); file.read_to_string(&amp;amp;mut contents).unwrap(); assert_eq!(contents, &amp;#34;Bar Baz&amp;#34;); drop(file); dir.</description>
+    </item>
+    
+  </channel>
+</rss>

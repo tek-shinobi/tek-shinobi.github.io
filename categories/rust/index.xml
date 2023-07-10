@@ -5,7 +5,17 @@
     <link>https://tek-shinobi.github.io/categories/rust/</link>
     <description>Recent content in rust on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 29 Jul 2021 22:21:11 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/categories/rust/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 10 Jul 2023 11:14:09 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/categories/rust/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Rust File Builder Pattern for File Read Writes</title>
+      <link>https://tek-shinobi.github.io/posts/rust-file-builder-pattern-for-file-read-writes/</link>
+      <pubDate>Mon, 10 Jul 2023 11:14:09 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/rust-file-builder-pattern-for-file-read-writes/</guid>
+      <description>Consider the following test code that creates a file, writes to it and then reads back to confirm what it wrote.
+#[cfg(test)] mod tests { #[allow(unused_imports)] use super::*; use std::fs::{self, File, OpenOptions}; use std::io::{Read, Seek, SeekFrom, Write}; use tempfile::{tempdir, tempfile, NamedTempFile}; #[test] fn test_file() { let dir = tempdir().unwrap(); let file_path = dir.path().join(&amp;#34;foo.txt&amp;#34;); let mut file = File::create(file_path.to_owned()).unwrap(); file.write_all(&amp;#34;Bar Baz&amp;#34;.as_bytes()) .unwrap(); file.seek(SeekFrom::Start(0)).unwrap(); let mut contents = String::new(); file.read_to_string(&amp;amp;mut contents).unwrap(); assert_eq!(contents, &amp;#34;Bar Baz&amp;#34;); drop(file); dir.</description>
+    </item>
+    
     <item>
       <title>Rust Gotchas Copy and Clone</title>
       <link>https://tek-shinobi.github.io/posts/rust-gotchas-copy-and-clone/</link>
@@ -15,6 +25,17 @@
       <description>Rust has two central concepts: Borrowing and ownership.
 In very simple terms, Borrowing conceptually means access to the data through reference, be it mutable or immutable. This is implemented via &amp;amp; and &amp;amp;mut. For a more exhastive treatment, please refer the docs.
 Again, in very simple terms, Ownership conceptually means accessing without &amp;amp; (i.e. without using a reference). Of course, Ownership is a science in Rust and please refer to docs for in-depth treatment.</description>
+    </item>
+    
+    <item>
+      <title>Turbofish in Rust</title>
+      <link>https://tek-shinobi.github.io/posts/turbofish-in-rust/</link>
+      <pubDate>Wed, 10 Mar 2021 10:50:37 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/turbofish-in-rust/</guid>
+      <description>Consider the following code (or run it in rust playground here):
+fn main() { let a:Vec = vec![1, 2, 3]; let doubled = a.iter().map(|&amp;amp;x| x * 2).collect(); assert_eq!(vec![2, 4, 6], doubled); } If you ran it in the playground linked above, you will see the following compiler error.
+error[E0282]: type annotations needed --&amp;gt; src/main.rs:4:9 | 4 | let doubled = a.iter().map(|&amp;amp;x| x * 2).collect(); | ^^^^^^^ consider giving `doubled` a type error: aborting due to previous error For more information about this error, try `rustc --explain E0282`.</description>
     </item>
     
   </channel>

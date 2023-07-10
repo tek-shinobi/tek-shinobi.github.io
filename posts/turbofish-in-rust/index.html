@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html
+  class="not-ready lg:text-base"
+  style="--bg: #faf8f1"
+  lang=""
+>
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  
+  <title>Turbofish in Rust - Tek Shinobi Blog</title>
+
+  
+  <meta name="theme-color" />
+
+  
+  
+  
+  <meta name="description" content="Consider the following code (or run it in rust playground here):
+fn main() { let a:Vec = vec![1, 2, 3]; let doubled = a.iter().map(|&amp;x| x * 2).collect(); assert_eq!(vec![2, 4, 6], doubled); } If you ran it in the playground linked above, you will see the following compiler error.
+error[E0282]: type annotations needed --&gt; src/main.rs:4:9 | 4 | let doubled = a.iter().map(|&amp;x| x * 2).collect(); | ^^^^^^^ consider giving `doubled` a type error: aborting due to previous error For more information about this error, try `rustc --explain E0282`." />
+  <meta name="author" content="Tek Shinobi Blog" />
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="preload stylesheet" as="style" href="https://tek-shinobi.github.io/main.min.css" />
+
+  
+  <script
+    defer
+    src="https://tek-shinobi.github.io/highlight.min.js"
+    onload="hljs.initHighlightingOnLoad();"
+  ></script>
+  
+
+  
+   
+  <link rel="preload" as="image" href="https://tek-shinobi.github.io/theme.png" />
+
+  
+  
+  
+  
+
+  
+  <link rel="preload" as="image" href="https://tek-shinobi.github.io/github.svg" />
+  
+  <link rel="preload" as="image" href="https://tek-shinobi.github.io/linkedin.svg" />
+  
+  
+
+  
+  
+
+  
+  <link rel="icon" href="https://tek-shinobi.github.io/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://tek-shinobi.github.io/apple-touch-icon.png" />
+
+  
+  <meta name="generator" content="Hugo 0.92.2" />
+
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="Turbofish in Rust" />
+<meta property="og:description" content="Consider the following code (or run it in rust playground here):
+fn main() { let a:Vec = vec![1, 2, 3]; let doubled = a.iter().map(|&amp;x| x * 2).collect(); assert_eq!(vec![2, 4, 6], doubled); } If you ran it in the playground linked above, you will see the following compiler error.
+error[E0282]: type annotations needed --&gt; src/main.rs:4:9 | 4 | let doubled = a.iter().map(|&amp;x| x * 2).collect(); | ^^^^^^^ consider giving `doubled` a type error: aborting due to previous error For more information about this error, try `rustc --explain E0282`." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tek-shinobi.github.io/posts/turbofish-in-rust/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-03-10T10:50:37+03:00" />
+<meta property="article:modified_time" content="2021-03-10T10:50:37+03:00" />
+
+
+  
+  <meta itemprop="name" content="Turbofish in Rust">
+<meta itemprop="description" content="Consider the following code (or run it in rust playground here):
+fn main() { let a:Vec = vec![1, 2, 3]; let doubled = a.iter().map(|&amp;x| x * 2).collect(); assert_eq!(vec![2, 4, 6], doubled); } If you ran it in the playground linked above, you will see the following compiler error.
+error[E0282]: type annotations needed --&gt; src/main.rs:4:9 | 4 | let doubled = a.iter().map(|&amp;x| x * 2).collect(); | ^^^^^^^ consider giving `doubled` a type error: aborting due to previous error For more information about this error, try `rustc --explain E0282`."><meta itemprop="datePublished" content="2021-03-10T10:50:37+03:00" />
+<meta itemprop="dateModified" content="2021-03-10T10:50:37+03:00" />
+<meta itemprop="wordCount" content="612">
+<meta itemprop="keywords" content="rust,turbofish," />
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Turbofish in Rust"/>
+<meta name="twitter:description" content="Consider the following code (or run it in rust playground here):
+fn main() { let a:Vec = vec![1, 2, 3]; let doubled = a.iter().map(|&amp;x| x * 2).collect(); assert_eq!(vec![2, 4, 6], doubled); } If you ran it in the playground linked above, you will see the following compiler error.
+error[E0282]: type annotations needed --&gt; src/main.rs:4:9 | 4 | let doubled = a.iter().map(|&amp;x| x * 2).collect(); | ^^^^^^^ consider giving `doubled` a type error: aborting due to previous error For more information about this error, try `rustc --explain E0282`."/>
+
+  
+  
+</head>
+
+  <body class="text-black duration-200 ease-out dark:text-white">
+    <header class="mx-auto flex h-[4.5rem] max-w-3xl px-8 lg:justify-center">
+  <div class="relative z-50 mr-auto flex items-center">
+    <a
+      class="-translate-x-[1px] -translate-y-[1px] text-2xl font-semibold"
+      href="https://tek-shinobi.github.io/"
+      >Tek Shinobi Blog</a
+    >
+    <div
+      class="btn-dark text-[0] ml-4 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.png)_left_center/_auto_theme('spacing.6')_no-repeat] [transition:_background-position_0.4s_steps(5)] dark:[background-position:right]"
+      role="button"
+      aria-label="Dark"
+    ></div>
+  </div>
+
+  <div
+    class="btn-menu relative z-50 -mr-8 flex h-[4.5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+    role="button"
+    aria-label="Menu"
+  ></div>
+
+  
+  <script>
+    
+    const htmlClass = document.documentElement.classList;
+    setTimeout(() => {
+      htmlClass.remove('not-ready');
+    }, 10);
+
+    
+    const btnMenu = document.querySelector('.btn-menu');
+    btnMenu.addEventListener('click', () => {
+      htmlClass.toggle('open');
+    });
+
+    
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    const lightBg = '#faf8f1'.replace(/"/g, '');
+    const setDark = (isDark) => {
+      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
+      htmlClass[isDark ? 'add' : 'remove']('dark');
+      localStorage.setItem('dark', isDark);
+    };
+
+    
+    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    if (htmlClass.contains('dark')) {
+      setDark(true);
+    } else {
+      const darkVal = localStorage.getItem('dark');
+      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+    }
+
+    
+    darkScheme.addEventListener('change', (event) => {
+      setDark(event.matches);
+    });
+
+    
+    const btnDark = document.querySelector('.btn-dark');
+    btnDark.addEventListener('click', () => {
+      setDark(localStorage.getItem('dark') !== 'true');
+    });
+  </script>
+
+  <div
+    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
+  >
+    
+    
+
+    
+    <nav
+      class="mt-12 flex justify-center space-x-10 dark:invert lg:ml-12 lg:mt-0 lg:items-center lg:space-x-6"
+    >
+      
+      <a
+        class="h-8 w-8 text-[0] [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./github.svg)"
+        href="https://github.com/tek-shinobi"
+        target="_blank"
+        rel="me"
+      >
+        github
+      </a>
+      
+      <a
+        class="h-8 w-8 text-[0] [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./linkedin.svg)"
+        href="https://linkedin.com/in/himanshu-singh-remote/"
+        target="_blank"
+        rel="me"
+      >
+        linkedin
+      </a>
+      
+    </nav>
+    
+  </div>
+</header>
+
+
+    <main
+      class="prose prose-neutral relative mx-auto min-h-[calc(100%-9rem)] max-w-3xl px-8 pb-16 pt-12 dark:prose-invert"
+    >
+      
+
+<article>
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">Turbofish in Rust</h1>
+
+    
+    <div class="text-sm antialiased opacity-60">
+      
+      <time>Mar 10, 2021</time>
+      
+      
+      
+      
+    </div>
+    
+  </header>
+
+  <section><p>Consider the following code (or run it in rust playground <a href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2018&amp;gist=7f0e8c951a3cd76a2622cf968ecded68">here</a>):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">let</span> a:Vec <span style="color:#f92672">=</span> vec![<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>];
+
+    <span style="color:#66d9ef">let</span> doubled <span style="color:#f92672">=</span> a.iter().map(<span style="color:#f92672">|&amp;</span>x<span style="color:#f92672">|</span> x <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>).collect();
+
+    assert_eq!(vec![<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">6</span>], doubled);
+}
+</code></pre></div><p>If you ran it in the playground linked above, you will see the following compiler error.</p>
+<pre tabindex="0"><code class="language-terminal" data-lang="terminal">error[E0282]: type annotations needed
+ --&gt; src/main.rs:4:9
+  |
+4 |     let doubled = a.iter().map(|&amp;x| x * 2).collect();
+  |         ^^^^^^^ consider giving `doubled` a type
+
+error: aborting due to previous error
+
+For more information about this error, try `rustc --explain E0282`.
+error: could not compile `playground`
+
+To learn more, run the command again with --verbose.
+</code></pre><p>Because <code>collect()`` is so general, it can cause problems with type inference. As such, </code>collect()`` is one of the few times you&rsquo;ll see the syntax affectionately known as the <strong>turbofish:</strong> <code>::&lt;&gt;</code>. This helps the rust&rsquo;s inference algorithm understand specifically which collection you&rsquo;re trying to collect into.</p>
+<p>In the above case, it is not clear if the collection is supposed to be a Vec, VecDeque, HashSet, HashMap or anything else that implements FromIterator.</p>
+<p>There are two ways of fixing the above issue:</p>
+<h4 id="1st-way-by-annotating-doubled">1st Way: By annotating doubled:</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">let</span> doubled:Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">u32</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> a.iter().map(<span style="color:#f92672">|&amp;</span>amp;x<span style="color:#f92672">|</span> x <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>).collect();
+<span style="color:#75715e">// OR
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> doubled:Vec<span style="color:#f92672">&lt;</span>_<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> a.iter().map(<span style="color:#f92672">|&amp;</span>amp;x<span style="color:#f92672">|</span> x <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>).collect();
+</code></pre></div><p>In both cases, the type annotation on doubled makes it clear what type of collection the <code>collect()</code> is going to collect into. The second option works because the rust&rsquo;s compiler can infer exactly what type of <code>Vec&lt;_&gt;</code> collection it is going to be because iter returns u32. So compiler can exactly infer that the partial type hint <code>_</code> in <code>Vec&lt;_&gt;</code> has to be <code>Vec&lt;u32&gt;</code>.</p>
+<h4 id="2nd-way-turbofish">2nd Way: turbofish:</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">let</span> doubled <span style="color:#f92672">=</span> a.iter().map(<span style="color:#f92672">|</span>x<span style="color:#f92672">|</span> x <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>).collect::<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;&gt;</span>();
+</code></pre></div><p>Like in 1st way, because collect() only cares about what you&rsquo;re collecting into, you can still use a partial type hint, <code>_</code>, with the turbofish:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">let</span> doubled <span style="color:#f92672">=</span> a.iter().map(<span style="color:#f92672">|</span>x<span style="color:#f92672">|</span> x <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>).collect::<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span>_<span style="color:#f92672">&gt;&gt;</span>();
+</code></pre></div><h3 id="turbofish-does-not-always-work">turbofish does not always work</h3>
+<p>There are times where you need to make type explicit via annotation. Turbofish won&rsquo;t work. This has to do with history. Turbofish was created to deal with some corner cases in generics. If you apply on functions that don&rsquo;t support generics, turbofish will not work.</p>
+<p>Consider this code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">let</span> num <span style="color:#f92672">=</span> <span style="color:#ae81ff">15</span>;
+    <span style="color:#66d9ef">let</span> number <span style="color:#f92672">=</span> num.into();
+}
+</code></pre></div><p>Obviously, this gives an error as compiler does not know to what type do we want to convert num to, So, let&rsquo;s try turbofish.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#66d9ef">let</span> num <span style="color:#f92672">=</span> <span style="color:#ae81ff">15</span>;
+    <span style="color:#66d9ef">let</span> number <span style="color:#f92672">=</span> num.into::<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i64</span><span style="color:#f92672">&gt;</span>();
+}
+</code></pre></div><p>No dice. We get a different error.</p>
+<pre tabindex="0"><code class="language-terminal" data-lang="terminal">error[E0107]: wrong number of type arguments: expected 0, found 1
+ --&gt; src/main.rs:3:29
+  |
+3 |     let number = num.into::&lt;i64&gt;();
+  |                             ^^^ unexpected type argument
+
+error: aborting due to previous error
+
+For more information about this error, try `rustc --explain E0107`.
+error: could not compile `playground`
+
+To learn more, run the command again with --verbose.
+</code></pre><p>The only way to resolve this is via annotation in type space. (LHS is type space and RHS is expression space).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">let</span> number :<span style="color:#66d9ef">i64</span> <span style="color:#f92672">=</span> num.into();
+</code></pre></div><p>This inconsistency is bit confusing and not very obvious in the beginning. This is because the of the way generics are implemented in into() function signature vs collect().
+Here is the function signature for into():</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">into</span>(self) -&gt; <span style="color:#a6e22e">T</span>
+</code></pre></div><p>and here is the function signature for collect():</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">collect</span><span style="color:#f92672">&lt;</span>B<span style="color:#f92672">&gt;</span>(self) -&gt; <span style="color:#a6e22e">B</span>
+</code></pre></div><p>it is that <code>&lt;B&gt;</code> in collect that makes it possible to use turbofish. Since into does not have this syntax, it will not work here.</p>
+<p>Turbofish has its share of haters as it makes generics syntax inconsistent in some cases. There is a whole reddit thread on this topic <a href="https://www.reddit.com/r/rust/comments/ld6q8u/bastion_of_the_turbofish_a_brief_tale_lamenting/">here</a> and the attempt to remove turbofish from rust that ended in absolute dismal failure.</p>
+</section>
+
+  
+  
+  <footer class="mt-12 flex flex-wrap">
+     
+    <a
+      class="mb-1.5 mr-1.5 rounded-lg bg-black/[3%] px-5 py-1.5 no-underline dark:bg-white/[8%]"
+      href="https://tek-shinobi.github.io/tags/rust"
+      >rust</a
+    >
+     
+    <a
+      class="mb-1.5 mr-1.5 rounded-lg bg-black/[3%] px-5 py-1.5 no-underline dark:bg-white/[8%]"
+      href="https://tek-shinobi.github.io/tags/turbofish"
+      >turbofish</a
+    >
+    
+  </footer>
+  
+
+  
+  
+  
+  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
+    
+    <a
+      class="flex w-1/2 items-center rounded-l-md p-6 pr-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
+      href="https://tek-shinobi.github.io/posts/using-postgres-inside-docker-container/"
+      ><span class="mr-1.5">←</span><span>Using Postgres Inside Docker Container</span></a
+    >
+    
+    
+  </nav>
+  
+
+  
+  
+
+  
+  
+</article>
+
+
+    </main>
+
+    <footer
+  class="opaco mx-auto flex h-[4.5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60"
+>
+  <div class="mr-auto">
+    &copy; 2023
+    <a class="link" href="https://tek-shinobi.github.io/">Tek Shinobi Blog</a>
+  </div>
+  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
+    >Powered by Hugo️️</a
+  >️
+  <a
+    class="link"
+    href="https://github.com/nanxiaobei/hugo-paper"
+    rel="noopener"
+    target="_blank"
+    >✎ Paper</a
+  >
+</footer>
+
+  </body>
+</html>
