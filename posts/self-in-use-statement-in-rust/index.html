@@ -45,7 +45,7 @@
   />
 
   
-  <title>Tek Shinobi Blog</title>
+  <title>Self in Use Statement in Rust - Tek Shinobi Blog</title>
 
   
   <meta name="theme-color" />
@@ -53,11 +53,9 @@
   
   
   
-  
-  <meta
-    name="description"
-    content="A personal blog"
-  />
+  <meta name="description" content="I was going through some library code in a rust crate and this pattern had my head scratching:
+std::io::{self,Cursor}; What this is equivalent to is:
+use std::io; use std::io::Cursor; which means explicitly use std::io::Cursor and also use std::io itself. Thus, Cursor need not be prefixed but you’d still need to do io::BufReader and so on." />
   <meta name="author" content="Tek Shinobi Blog" />
   
 
@@ -69,6 +67,12 @@
   
   <link rel="preload stylesheet" as="style" href="https://tek-shinobi.github.io/main.min.css" />
 
+  
+  <script
+    defer
+    src="https://tek-shinobi.github.io/highlight.min.js"
+    onload="hljs.initHighlightingOnLoad();"
+  ></script>
   
 
   
@@ -99,13 +103,6 @@
 
   
   
-  <link
-    rel="alternate"
-    type="application/rss&#43;xml"
-    href="https://tek-shinobi.github.io/index.xml"
-    title="Tek Shinobi Blog"
-  />
-  
 
   
   
@@ -114,19 +111,30 @@
   
   
   
-  <meta property="og:title" content="Tek Shinobi Blog" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://tek-shinobi.github.io/" />
+  <meta property="og:title" content="Self in Use Statement in Rust" />
+<meta property="og:description" content="I was going through some library code in a rust crate and this pattern had my head scratching:
+std::io::{self,Cursor}; What this is equivalent to is:
+use std::io; use std::io::Cursor; which means explicitly use std::io::Cursor and also use std::io itself. Thus, Cursor need not be prefixed but you’d still need to do io::BufReader and so on." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tek-shinobi.github.io/posts/self-in-use-statement-in-rust/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-03-09T11:51:54+03:00" />
+<meta property="article:modified_time" content="2021-03-09T11:51:54+03:00" />
 
 
   
-  <meta itemprop="name" content="Tek Shinobi Blog">
-<meta itemprop="description" content="">
+  <meta itemprop="name" content="Self in Use Statement in Rust">
+<meta itemprop="description" content="I was going through some library code in a rust crate and this pattern had my head scratching:
+std::io::{self,Cursor}; What this is equivalent to is:
+use std::io; use std::io::Cursor; which means explicitly use std::io::Cursor and also use std::io itself. Thus, Cursor need not be prefixed but you’d still need to do io::BufReader and so on."><meta itemprop="datePublished" content="2021-03-09T11:51:54+03:00" />
+<meta itemprop="dateModified" content="2021-03-09T11:51:54+03:00" />
+<meta itemprop="wordCount" content="55">
+<meta itemprop="keywords" content="" />
   
   <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Tek Shinobi Blog"/>
-<meta name="twitter:description" content=""/>
+<meta name="twitter:title" content="Self in Use Statement in Rust"/>
+<meta name="twitter:description" content="I was going through some library code in a rust crate and this pattern had my head scratching:
+std::io::{self,Cursor}; What this is equivalent to is:
+use std::io; use std::io::Cursor; which means explicitly use std::io::Cursor and also use std::io itself. Thus, Cursor need not be prefixed but you’d still need to do io::BufReader and so on."/>
 
   
   
@@ -239,155 +247,60 @@
     >
       
 
+<article>
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">Self in Use Statement in Rust</h1>
 
+    
+    <div class="text-sm antialiased opacity-60">
+      
+      <time>Mar 9, 2021</time>
+      
+      
+      
+      
+    </div>
+    
+  </header>
 
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
-  
-  <h2 class="!my-0 pb-1 font-bold !leading-none">Add Gpg Keys to Repo</h2>
-  <time class="text-sm antialiased opacity-60"
-    >May 13, 2023</time
-  >
-  <a class="absolute inset-0 text-[0]" href="https://tek-shinobi.github.io/posts/add-gpg-keys-to-repo/">Add Gpg Keys to Repo</a>
+  <section><p>I was going through some library code in a rust crate and this pattern had my head scratching:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust">std::io::{self,Cursor};
+</code></pre></div><p>What this is equivalent to is:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">use</span> std::io;
+<span style="color:#66d9ef">use</span> std::io::Cursor;
+</code></pre></div><p>which means explicitly use <code>std::io::Cursor</code> and also use <code>std::io</code> itself. Thus, Cursor need not be prefixed but you’d still need to do <code>io::BufReader</code> and so on.</p>
 </section>
 
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
   
-  <h2 class="!my-0 pb-1 font-bold !leading-none">What Is a Tcp Stream</h2>
-  <time class="text-sm antialiased opacity-60"
-    >Sep 8, 2021</time
-  >
-  <a class="absolute inset-0 text-[0]" href="https://tek-shinobi.github.io/posts/what-is-a-tcp-stream/">What Is a Tcp Stream</a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
   
-  <h2 class="!my-0 pb-1 font-bold !leading-none">Rust Gotchas Copy and Clone</h2>
-  <time class="text-sm antialiased opacity-60"
-    >Jul 29, 2021</time
-  >
-  <a class="absolute inset-0 text-[0]" href="https://tek-shinobi.github.io/posts/rust-gotchas-copy-and-clone/">Rust Gotchas Copy and Clone</a>
-</section>
 
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
   
-  <h2 class="!my-0 pb-1 font-bold !leading-none">Docker Notes</h2>
-  <time class="text-sm antialiased opacity-60"
-    >May 10, 2021</time
-  >
-  <a class="absolute inset-0 text-[0]" href="https://tek-shinobi.github.io/posts/docker-notes/">Docker Notes</a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
   
-  <h2 class="!my-0 pb-1 font-bold !leading-none">Using Postgres Inside Docker Container</h2>
-  <time class="text-sm antialiased opacity-60"
-    >Apr 10, 2021</time
-  >
-  <a class="absolute inset-0 text-[0]" href="https://tek-shinobi.github.io/posts/using-postgres-inside-docker-container/">Using Postgres Inside Docker Container</a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
   
-  <h2 class="!my-0 pb-1 font-bold !leading-none">Temporary Files and Temporary Directory in Rust</h2>
-  <time class="text-sm antialiased opacity-60"
-    >Mar 20, 2021</time
-  >
-  <a class="absolute inset-0 text-[0]" href="https://tek-shinobi.github.io/posts/temporary-files-and-temporary-directory-in-rust/">Temporary Files and Temporary Directory in Rust</a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
+  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
+    
+    <a
+      class="flex w-1/2 items-center rounded-l-md p-6 pr-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
+      href="https://tek-shinobi.github.io/posts/turbofish-in-rust/"
+      ><span class="mr-1.5">←</span><span>Turbofish in Rust</span></a
+    >
+    
+    
+    <a
+      class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
+      href="https://tek-shinobi.github.io/posts/rust-tips-box-rc-arc-cell-refcell-mutex/"
+      ><span>Rust Tips: Box Rc Arc Cell Refcell Mutex</span><span class="ml-1.5">→</span></a
+    >
+    
+  </nav>
   
-  <h2 class="!my-0 pb-1 font-bold !leading-none">Rust File Builder Pattern for File Read Writes</h2>
-  <time class="text-sm antialiased opacity-60"
-    >Mar 20, 2021</time
-  >
-  <a class="absolute inset-0 text-[0]" href="https://tek-shinobi.github.io/posts/rust-file-builder-pattern-for-file-read-writes/">Rust File Builder Pattern for File Read Writes</a>
-</section>
 
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
   
-  <h2 class="!my-0 pb-1 font-bold !leading-none">Turbofish in Rust</h2>
-  <time class="text-sm antialiased opacity-60"
-    >Mar 10, 2021</time
-  >
-  <a class="absolute inset-0 text-[0]" href="https://tek-shinobi.github.io/posts/turbofish-in-rust/">Turbofish in Rust</a>
-</section>
-
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
   
-  <h2 class="!my-0 pb-1 font-bold !leading-none">Self in Use Statement in Rust</h2>
-  <time class="text-sm antialiased opacity-60"
-    >Mar 9, 2021</time
-  >
-  <a class="absolute inset-0 text-[0]" href="https://tek-shinobi.github.io/posts/self-in-use-statement-in-rust/">Self in Use Statement in Rust</a>
-</section>
 
-
-
-
-
-<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
   
-  <h2 class="!my-0 pb-1 font-bold !leading-none">Rust Tips: Box Rc Arc Cell Refcell Mutex</h2>
-  <time class="text-sm antialiased opacity-60"
-    >Mar 8, 2021</time
-  >
-  <a class="absolute inset-0 text-[0]" href="https://tek-shinobi.github.io/posts/rust-tips-box-rc-arc-cell-refcell-mutex/">Rust Tips: Box Rc Arc Cell Refcell Mutex</a>
-</section>
-
-
-
-
+  
+</article>
 
 
     </main>

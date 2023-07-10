@@ -97,5 +97,26 @@ fn main() { let a:Vec = vec![1, 2, 3]; let doubled = a.iter().map(|&amp;amp;x| x
 error[E0282]: type annotations needed --&amp;gt; src/main.rs:4:9 | 4 | let doubled = a.iter().map(|&amp;amp;x| x * 2).collect(); | ^^^^^^^ consider giving `doubled` a type error: aborting due to previous error For more information about this error, try `rustc --explain E0282`.</description>
     </item>
     
+    <item>
+      <title>Self in Use Statement in Rust</title>
+      <link>https://tek-shinobi.github.io/posts/self-in-use-statement-in-rust/</link>
+      <pubDate>Tue, 09 Mar 2021 11:51:54 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/self-in-use-statement-in-rust/</guid>
+      <description>I was going through some library code in a rust crate and this pattern had my head scratching:
+std::io::{self,Cursor}; What this is equivalent to is:
+use std::io; use std::io::Cursor; which means explicitly use std::io::Cursor and also use std::io itself. Thus, Cursor need not be prefixed but you’d still need to do io::BufReader and so on.</description>
+    </item>
+    
+    <item>
+      <title>Rust Tips: Box Rc Arc Cell Refcell Mutex</title>
+      <link>https://tek-shinobi.github.io/posts/rust-tips-box-rc-arc-cell-refcell-mutex/</link>
+      <pubDate>Mon, 08 Mar 2021 11:58:32 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/rust-tips-box-rc-arc-cell-refcell-mutex/</guid>
+      <description>Difference Between Box, Rc, Arc, Cell (and its various variants.. RefCell, Mutex, RwLock) in Rust:
+ Box is for single ownership. A great use case is to use this when we want to store primitive types (stored on stack) on heap. Rc is for multiple ownership. Arc is for multiple ownership, but threadsafe. RefCell is for “interior mutability”; that is, when you need to mutate something behind a &amp;amp;T. Cell is for “interior mutability” for Copy types; that is, when you need to mutate something behind a &amp;amp;T.</description>
+    </item>
+    
   </channel>
 </rss>

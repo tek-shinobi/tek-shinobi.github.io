@@ -94,5 +94,11 @@
   </url><url>
     <loc>https://tek-shinobi.github.io/posts/turbofish-in-rust/</loc>
     <lastmod>2021-03-10T10:50:37+03:00</lastmod>
+  </url><url>
+    <loc>https://tek-shinobi.github.io/posts/self-in-use-statement-in-rust/</loc>
+    <lastmod>2021-03-09T11:51:54+03:00</lastmod>
+  </url><url>
+    <loc>https://tek-shinobi.github.io/posts/rust-tips-box-rc-arc-cell-refcell-mutex/</loc>
+    <lastmod>2021-03-08T11:58:32+03:00</lastmod>
   </url>
 </urlset>
