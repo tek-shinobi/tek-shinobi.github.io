@@ -5,7 +5,17 @@
     <link>https://tek-shinobi.github.io/tags/file/</link>
     <description>Recent content in file on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 20 Mar 2021 11:14:09 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/file/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 20 Mar 2021 11:36:47 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/file/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Temporary Files and Temporary Directory in Rust</title>
+      <link>https://tek-shinobi.github.io/posts/temporary-files-and-temporary-directory-in-rust/</link>
+      <pubDate>Sat, 20 Mar 2021 11:36:47 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/temporary-files-and-temporary-directory-in-rust/</guid>
+      <description>I was looking for Python style temporary files and temporary directories in Rust. Very handy when writing tests for simulating actual files, or when we need to use files once or cache large amount of data for short time. We then let the operating system delete the files at a later time automatically or by its clean-up feature manually.
+Doing ourselves using Operating System Temporary Directory Let&amp;rsquo;s first implement this by ourselves to understand what is going on.</description>
+    </item>
+    
     <item>
       <title>Rust File Builder Pattern for File Read Writes</title>
       <link>https://tek-shinobi.github.io/posts/rust-file-builder-pattern-for-file-read-writes/</link>

@@ -74,10 +74,16 @@
     <loc>https://tek-shinobi.github.io/posts/using-postgres-inside-docker-container/</loc>
     <lastmod>2021-04-10T10:38:56+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/tags/builder/</loc>
-    <lastmod>2021-03-20T11:14:09+03:00</lastmod>
-  </url><url>
     <loc>https://tek-shinobi.github.io/tags/file/</loc>
+    <lastmod>2021-03-20T11:36:47+03:00</lastmod>
+  </url><url>
+    <loc>https://tek-shinobi.github.io/tags/temporary/</loc>
+    <lastmod>2021-03-20T11:36:47+03:00</lastmod>
+  </url><url>
+    <loc>https://tek-shinobi.github.io/posts/temporary-files-and-temporary-directory-in-rust/</loc>
+    <lastmod>2021-03-20T11:36:47+03:00</lastmod>
+  </url><url>
+    <loc>https://tek-shinobi.github.io/tags/builder/</loc>
     <lastmod>2021-03-20T11:14:09+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/posts/rust-file-builder-pattern-for-file-read-writes/</loc>
