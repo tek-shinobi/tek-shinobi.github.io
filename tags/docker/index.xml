@@ -5,7 +5,19 @@
     <link>https://tek-shinobi.github.io/tags/docker/</link>
     <description>Recent content in docker on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 10 May 2021 08:15:54 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 10 Jul 2023 10:38:56 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Using Postgres Inside Docker Container</title>
+      <link>https://tek-shinobi.github.io/posts/using-postgres-inside-docker-container/</link>
+      <pubDate>Mon, 10 Jul 2023 10:38:56 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/using-postgres-inside-docker-container/</guid>
+      <description>These are my personal notes. Am running postgres docker image on a local linux box.
+If port 5432 is already in use, run this to see what process is using it:
+sudo ss -lptn &#39;sport = :5432&#39; the above command will also display the pid using which you can kill the process. For example, if the pid is 1667, kill it by sudo kill 1667
+Now sudo launch the shell script that runs the docker image.</description>
+    </item>
+    
     <item>
       <title>Docker Notes</title>
       <link>https://tek-shinobi.github.io/posts/docker-notes/</link>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html
+  class="not-ready lg:text-base"
+  style="--bg: #faf8f1"
+  lang=""
+>
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  
+  <title>Using Postgres Inside Docker Container - Tek Shinobi Blog</title>
+
+  
+  <meta name="theme-color" />
+
+  
+  
+  
+  <meta name="description" content="These are my personal notes. Am running postgres docker image on a local linux box.
+If port 5432 is already in use, run this to see what process is using it:
+sudo ss -lptn &#39;sport = :5432&#39; the above command will also display the pid using which you can kill the process. For example, if the pid is 1667, kill it by sudo kill 1667
+Now sudo launch the shell script that runs the docker image." />
+  <meta name="author" content="Tek Shinobi Blog" />
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="preload stylesheet" as="style" href="https://tek-shinobi.github.io/main.min.css" />
+
+  
+  <script
+    defer
+    src="https://tek-shinobi.github.io/highlight.min.js"
+    onload="hljs.initHighlightingOnLoad();"
+  ></script>
+  
+
+  
+   
+  <link rel="preload" as="image" href="https://tek-shinobi.github.io/theme.png" />
+
+  
+  
+  
+  
+
+  
+  <link rel="preload" as="image" href="https://tek-shinobi.github.io/github.svg" />
+  
+  <link rel="preload" as="image" href="https://tek-shinobi.github.io/linkedin.svg" />
+  
+  
+
+  
+  
+
+  
+  <link rel="icon" href="https://tek-shinobi.github.io/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://tek-shinobi.github.io/apple-touch-icon.png" />
+
+  
+  <meta name="generator" content="Hugo 0.92.2" />
+
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="Using Postgres Inside Docker Container" />
+<meta property="og:description" content="These are my personal notes. Am running postgres docker image on a local linux box.
+If port 5432 is already in use, run this to see what process is using it:
+sudo ss -lptn &#39;sport = :5432&#39; the above command will also display the pid using which you can kill the process. For example, if the pid is 1667, kill it by sudo kill 1667
+Now sudo launch the shell script that runs the docker image." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tek-shinobi.github.io/posts/using-postgres-inside-docker-container/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-07-10T10:38:56+03:00" />
+<meta property="article:modified_time" content="2023-07-10T10:38:56+03:00" />
+
+
+  
+  <meta itemprop="name" content="Using Postgres Inside Docker Container">
+<meta itemprop="description" content="These are my personal notes. Am running postgres docker image on a local linux box.
+If port 5432 is already in use, run this to see what process is using it:
+sudo ss -lptn &#39;sport = :5432&#39; the above command will also display the pid using which you can kill the process. For example, if the pid is 1667, kill it by sudo kill 1667
+Now sudo launch the shell script that runs the docker image."><meta itemprop="datePublished" content="2023-07-10T10:38:56+03:00" />
+<meta itemprop="dateModified" content="2023-07-10T10:38:56+03:00" />
+<meta itemprop="wordCount" content="159">
+<meta itemprop="keywords" content="docker,postgres," />
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Using Postgres Inside Docker Container"/>
+<meta name="twitter:description" content="These are my personal notes. Am running postgres docker image on a local linux box.
+If port 5432 is already in use, run this to see what process is using it:
+sudo ss -lptn &#39;sport = :5432&#39; the above command will also display the pid using which you can kill the process. For example, if the pid is 1667, kill it by sudo kill 1667
+Now sudo launch the shell script that runs the docker image."/>
+
+  
+  
+</head>
+
+  <body class="text-black duration-200 ease-out dark:text-white">
+    <header class="mx-auto flex h-[4.5rem] max-w-3xl px-8 lg:justify-center">
+  <div class="relative z-50 mr-auto flex items-center">
+    <a
+      class="-translate-x-[1px] -translate-y-[1px] text-2xl font-semibold"
+      href="https://tek-shinobi.github.io/"
+      >Tek Shinobi Blog</a
+    >
+    <div
+      class="btn-dark text-[0] ml-4 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.png)_left_center/_auto_theme('spacing.6')_no-repeat] [transition:_background-position_0.4s_steps(5)] dark:[background-position:right]"
+      role="button"
+      aria-label="Dark"
+    ></div>
+  </div>
+
+  <div
+    class="btn-menu relative z-50 -mr-8 flex h-[4.5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+    role="button"
+    aria-label="Menu"
+  ></div>
+
+  
+  <script>
+    
+    const htmlClass = document.documentElement.classList;
+    setTimeout(() => {
+      htmlClass.remove('not-ready');
+    }, 10);
+
+    
+    const btnMenu = document.querySelector('.btn-menu');
+    btnMenu.addEventListener('click', () => {
+      htmlClass.toggle('open');
+    });
+
+    
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    const lightBg = '#faf8f1'.replace(/"/g, '');
+    const setDark = (isDark) => {
+      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
+      htmlClass[isDark ? 'add' : 'remove']('dark');
+      localStorage.setItem('dark', isDark);
+    };
+
+    
+    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    if (htmlClass.contains('dark')) {
+      setDark(true);
+    } else {
+      const darkVal = localStorage.getItem('dark');
+      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+    }
+
+    
+    darkScheme.addEventListener('change', (event) => {
+      setDark(event.matches);
+    });
+
+    
+    const btnDark = document.querySelector('.btn-dark');
+    btnDark.addEventListener('click', () => {
+      setDark(localStorage.getItem('dark') !== 'true');
+    });
+  </script>
+
+  <div
+    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
+  >
+    
+    
+
+    
+    <nav
+      class="mt-12 flex justify-center space-x-10 dark:invert lg:ml-12 lg:mt-0 lg:items-center lg:space-x-6"
+    >
+      
+      <a
+        class="h-8 w-8 text-[0] [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./github.svg)"
+        href="https://github.com/tek-shinobi"
+        target="_blank"
+        rel="me"
+      >
+        github
+      </a>
+      
+      <a
+        class="h-8 w-8 text-[0] [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./linkedin.svg)"
+        href="https://linkedin.com/in/himanshu-singh-remote/"
+        target="_blank"
+        rel="me"
+      >
+        linkedin
+      </a>
+      
+    </nav>
+    
+  </div>
+</header>
+
+
+    <main
+      class="prose prose-neutral relative mx-auto min-h-[calc(100%-9rem)] max-w-3xl px-8 pb-16 pt-12 dark:prose-invert"
+    >
+      
+
+<article>
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">Using Postgres Inside Docker Container</h1>
+
+    
+    <div class="text-sm antialiased opacity-60">
+      
+      <time>Jul 10, 2023</time>
+      
+      
+      
+      
+    </div>
+    
+  </header>
+
+  <section><p>These are my personal notes. Am running postgres docker image on a local linux box.</p>
+<p>If port 5432 is already in use, run this to see what process is using it:</p>
+<pre tabindex="0"><code class="language-terminal" data-lang="terminal">sudo ss -lptn 'sport = :5432'
+</code></pre><p>the above command will also display the pid using which you can kill the process. For example, if the pid is 1667, kill it by sudo kill 1667</p>
+<p>Now sudo launch the shell script that runs the docker image.</p>
+<h2 id="connecting-to-the-postgres-database-within-the-container">Connecting to the postgres database within the container</h2>
+<p>First get the pid of the docker process: <code>sudo docker ps</code></p>
+<p>Now login to the root of the docker instance: <code>sudo docker exec -it bdd95244ce47 bash</code>
+(Here <code>bdd95244ce47</code> was the pid of the docker process from prev step, change it to whatever the pid is)</p>
+<p>Then login to postgres root like so: <code>psql -U postgres</code></p>
+<p>then you can list databases like so: <code>\l</code></p>
+<p>connect to database: <code>\c whatever_db_name</code></p>
+<p>display all tables within connected database: <code>\dt</code></p>
+</section>
+
+  
+  
+  <footer class="mt-12 flex flex-wrap">
+     
+    <a
+      class="mb-1.5 mr-1.5 rounded-lg bg-black/[3%] px-5 py-1.5 no-underline dark:bg-white/[8%]"
+      href="https://tek-shinobi.github.io/tags/docker"
+      >docker</a
+    >
+     
+    <a
+      class="mb-1.5 mr-1.5 rounded-lg bg-black/[3%] px-5 py-1.5 no-underline dark:bg-white/[8%]"
+      href="https://tek-shinobi.github.io/tags/postgres"
+      >postgres</a
+    >
+    
+  </footer>
+  
+
+  
+  
+  
+  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
+    
+    
+    <a
+      class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
+      href="https://tek-shinobi.github.io/posts/add-gpg-keys-to-repo/"
+      ><span>Add Gpg Keys to Repo</span><span class="ml-1.5">→</span></a
+    >
+    
+  </nav>
+  
+
+  
+  
+
+  
+  
+</article>
+
+
+    </main>
+
+    <footer
+  class="opaco mx-auto flex h-[4.5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60"
+>
+  <div class="mr-auto">
+    &copy; 2023
+    <a class="link" href="https://tek-shinobi.github.io/">Tek Shinobi Blog</a>
+  </div>
+  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
+    >Powered by Hugo️️</a
+  >️
+  <a
+    class="link"
+    href="https://github.com/nanxiaobei/hugo-paper"
+    rel="noopener"
+    target="_blank"
+    >✎ Paper</a
+  >
+</footer>
+
+  </body>
+</html>
