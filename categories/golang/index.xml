@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>golang on Tek Shinobi Blog</title>
+    <link>https://tek-shinobi.github.io/categories/golang/</link>
+    <description>Recent content in golang on Tek Shinobi Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 11 Jul 2023 01:52:51 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/categories/golang/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Golang: Handling Null in Database Tables</title>
+      <link>https://tek-shinobi.github.io/posts/golang-handling-null-in-database-tables/</link>
+      <pubDate>Tue, 11 Jul 2023 01:52:51 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/golang-handling-null-in-database-tables/</guid>
+      <description>Consider this table schema (Postgres):
+CREATE TABLE IF NOT EXISTS mytable ( id BIGSERIAL PRIMARY KEY, title TEXT NULL, version INTEGER NULL ); if we write its Go model, title is string and version is int. But here we have a problem. Zero value of string in Go is &amp;quot;&amp;quot; not nil. Same for int whose zero value is 0 and not nil.
+If we tried to write the above model in Go like this:</description>
+    </item>
+    
+  </channel>
+</rss>

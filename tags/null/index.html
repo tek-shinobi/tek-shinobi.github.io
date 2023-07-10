@@ -45,7 +45,7 @@
   />
 
   
-  <title>Self in Use Statement in Rust - Tek Shinobi Blog</title>
+  <title>null - Tek Shinobi Blog</title>
 
   
   <meta name="theme-color" />
@@ -53,9 +53,11 @@
   
   
   
-  <meta name="description" content="I was going through some library code in a rust crate and this pattern had my head scratching:
-std::io::{self,Cursor}; What this is equivalent to is:
-use std::io; use std::io::Cursor; which means explicitly use std::io::Cursor and also use std::io itself. Thus, Cursor need not be prefixed but you’d still need to do io::BufReader and so on." />
+  
+  <meta
+    name="description"
+    content="A personal blog"
+  />
   <meta name="author" content="Tek Shinobi Blog" />
   
 
@@ -67,12 +69,6 @@ use std::io; use std::io::Cursor; which means explicitly use std::io::Cursor and
   
   <link rel="preload stylesheet" as="style" href="https://tek-shinobi.github.io/main.min.css" />
 
-  
-  <script
-    defer
-    src="https://tek-shinobi.github.io/highlight.min.js"
-    onload="hljs.initHighlightingOnLoad();"
-  ></script>
   
 
   
@@ -103,6 +99,13 @@ use std::io; use std::io::Cursor; which means explicitly use std::io::Cursor and
 
   
   
+  <link
+    rel="alternate"
+    type="application/rss&#43;xml"
+    href="https://tek-shinobi.github.io/tags/null/index.xml"
+    title="Tek Shinobi Blog"
+  />
+  
 
   
   
@@ -111,30 +114,19 @@ use std::io; use std::io::Cursor; which means explicitly use std::io::Cursor and
   
   
   
-  <meta property="og:title" content="Self in Use Statement in Rust" />
-<meta property="og:description" content="I was going through some library code in a rust crate and this pattern had my head scratching:
-std::io::{self,Cursor}; What this is equivalent to is:
-use std::io; use std::io::Cursor; which means explicitly use std::io::Cursor and also use std::io itself. Thus, Cursor need not be prefixed but you’d still need to do io::BufReader and so on." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://tek-shinobi.github.io/posts/self-in-use-statement-in-rust/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-03-09T11:51:54+03:00" />
-<meta property="article:modified_time" content="2021-03-09T11:51:54+03:00" />
+  <meta property="og:title" content="null" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://tek-shinobi.github.io/tags/null/" />
 
 
   
-  <meta itemprop="name" content="Self in Use Statement in Rust">
-<meta itemprop="description" content="I was going through some library code in a rust crate and this pattern had my head scratching:
-std::io::{self,Cursor}; What this is equivalent to is:
-use std::io; use std::io::Cursor; which means explicitly use std::io::Cursor and also use std::io itself. Thus, Cursor need not be prefixed but you’d still need to do io::BufReader and so on."><meta itemprop="datePublished" content="2021-03-09T11:51:54+03:00" />
-<meta itemprop="dateModified" content="2021-03-09T11:51:54+03:00" />
-<meta itemprop="wordCount" content="55">
-<meta itemprop="keywords" content="rust," />
+  <meta itemprop="name" content="null">
+<meta itemprop="description" content="">
   
   <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Self in Use Statement in Rust"/>
-<meta name="twitter:description" content="I was going through some library code in a rust crate and this pattern had my head scratching:
-std::io::{self,Cursor}; What this is equivalent to is:
-use std::io; use std::io::Cursor; which means explicitly use std::io::Cursor and also use std::io itself. Thus, Cursor need not be prefixed but you’d still need to do io::BufReader and so on."/>
+<meta name="twitter:title" content="null"/>
+<meta name="twitter:description" content=""/>
 
   
   
@@ -247,70 +239,33 @@ use std::io; use std::io::Cursor; which means explicitly use std::io::Cursor and
     >
       
 
-<article>
-  <header class="mb-16">
-    <h1 class="!my-0 pb-2.5">Self in Use Statement in Rust</h1>
 
-    
-    <div class="text-sm antialiased opacity-60">
-      
-      <time>Mar 9, 2021</time>
-      
-      
-      
-      
-    </div>
-    
-  </header>
 
-  <section><p>I was going through some library code in a rust crate and this pattern had my head scratching:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust">std::io::{self,Cursor};
-</code></pre></div><p>What this is equivalent to is:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">use</span> std::io;
-<span style="color:#66d9ef">use</span> std::io::Cursor;
-</code></pre></div><p>which means explicitly use <code>std::io::Cursor</code> and also use <code>std::io</code> itself. Thus, Cursor need not be prefixed but you’d still need to do <code>io::BufReader</code> and so on.</p>
+<h1 class="mb-16">#null</h1>
+
+
+
+
+
+
+
+ 
+
+
+
+
+<section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
+  
+  <h2 class="!my-0 pb-1 font-bold !leading-none">Golang: Handling Null in Database Tables</h2>
+  <time class="text-sm antialiased opacity-60"
+    >Jul 11, 2023</time
+  >
+  <a class="absolute inset-0 text-[0]" href="https://tek-shinobi.github.io/posts/golang-handling-null-in-database-tables/">Golang: Handling Null in Database Tables</a>
 </section>
 
-  
-  
-  <footer class="mt-12 flex flex-wrap">
-     
-    <a
-      class="mb-1.5 mr-1.5 rounded-lg bg-black/[3%] px-5 py-1.5 no-underline dark:bg-white/[8%]"
-      href="https://tek-shinobi.github.io/tags/rust"
-      >rust</a
-    >
-    
-  </footer>
-  
 
-  
-  
-  
-  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
-    
-    <a
-      class="flex w-1/2 items-center rounded-l-md p-6 pr-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
-      href="https://tek-shinobi.github.io/posts/turbofish-in-rust/"
-      ><span class="mr-1.5">←</span><span>Turbofish in Rust</span></a
-    >
-    
-    
-    <a
-      class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
-      href="https://tek-shinobi.github.io/posts/rust-tips-box-rc-arc-cell-refcell-mutex/"
-      ><span>Rust Tips: Box Rc Arc Cell Refcell Mutex</span><span class="ml-1.5">→</span></a
-    >
-    
-  </nav>
-  
 
-  
-  
 
-  
-  
-</article>
 
 
     </main>
