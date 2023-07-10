@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html
+  class="not-ready lg:text-base"
+  style="--bg: #faf8f1"
+  lang=""
+>
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  
+  <title>Golang: Handling Null in Database Tables - Tek Shinobi Blog</title>
+
+  
+  <meta name="theme-color" />
+
+  
+  
+  
+  <meta name="description" content="Consider this table schema (Postgres):
+CREATE TABLE IF NOT EXISTS mytable ( id BIGSERIAL PRIMARY KEY, title TEXT NULL, version INTEGER NULL ); if we write its Go model, title is string and version is int. But here we have a problem. Zero value of string in Go is &quot;&quot; not nil. Same for int whose zero value is 0 and not nil.
+If we tried to write the above model in Go like this:" />
+  <meta name="author" content="Tek Shinobi Blog" />
+  
+
+  
+  
+  
+  
+  
+  
+  <link rel="preload stylesheet" as="style" href="https://tek-shinobi.github.io/main.min.css" />
+
+  
+  <script
+    defer
+    src="https://tek-shinobi.github.io/highlight.min.js"
+    onload="hljs.initHighlightingOnLoad();"
+  ></script>
+  
+
+  
+   
+  <link rel="preload" as="image" href="https://tek-shinobi.github.io/theme.png" />
+
+  
+  
+  
+  
+
+  
+  <link rel="preload" as="image" href="https://tek-shinobi.github.io/github.svg" />
+  
+  <link rel="preload" as="image" href="https://tek-shinobi.github.io/linkedin.svg" />
+  
+  
+
+  
+  
+
+  
+  <link rel="icon" href="https://tek-shinobi.github.io/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://tek-shinobi.github.io/apple-touch-icon.png" />
+
+  
+  <meta name="generator" content="Hugo 0.92.2" />
+
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="Golang: Handling Null in Database Tables" />
+<meta property="og:description" content="Consider this table schema (Postgres):
+CREATE TABLE IF NOT EXISTS mytable ( id BIGSERIAL PRIMARY KEY, title TEXT NULL, version INTEGER NULL ); if we write its Go model, title is string and version is int. But here we have a problem. Zero value of string in Go is &quot;&quot; not nil. Same for int whose zero value is 0 and not nil.
+If we tried to write the above model in Go like this:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tek-shinobi.github.io/posts/golang-handling-null-in-database-tables/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-07-11T01:52:51+03:00" />
+<meta property="article:modified_time" content="2023-07-11T01:52:51+03:00" />
+
+
+  
+  <meta itemprop="name" content="Golang: Handling Null in Database Tables">
+<meta itemprop="description" content="Consider this table schema (Postgres):
+CREATE TABLE IF NOT EXISTS mytable ( id BIGSERIAL PRIMARY KEY, title TEXT NULL, version INTEGER NULL ); if we write its Go model, title is string and version is int. But here we have a problem. Zero value of string in Go is &quot;&quot; not nil. Same for int whose zero value is 0 and not nil.
+If we tried to write the above model in Go like this:"><meta itemprop="datePublished" content="2023-07-11T01:52:51+03:00" />
+<meta itemprop="dateModified" content="2023-07-11T01:52:51+03:00" />
+<meta itemprop="wordCount" content="683">
+<meta itemprop="keywords" content="" />
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Golang: Handling Null in Database Tables"/>
+<meta name="twitter:description" content="Consider this table schema (Postgres):
+CREATE TABLE IF NOT EXISTS mytable ( id BIGSERIAL PRIMARY KEY, title TEXT NULL, version INTEGER NULL ); if we write its Go model, title is string and version is int. But here we have a problem. Zero value of string in Go is &quot;&quot; not nil. Same for int whose zero value is 0 and not nil.
+If we tried to write the above model in Go like this:"/>
+
+  
+  
+</head>
+
+  <body class="text-black duration-200 ease-out dark:text-white">
+    <header class="mx-auto flex h-[4.5rem] max-w-3xl px-8 lg:justify-center">
+  <div class="relative z-50 mr-auto flex items-center">
+    <a
+      class="-translate-x-[1px] -translate-y-[1px] text-2xl font-semibold"
+      href="https://tek-shinobi.github.io/"
+      >Tek Shinobi Blog</a
+    >
+    <div
+      class="btn-dark text-[0] ml-4 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.png)_left_center/_auto_theme('spacing.6')_no-repeat] [transition:_background-position_0.4s_steps(5)] dark:[background-position:right]"
+      role="button"
+      aria-label="Dark"
+    ></div>
+  </div>
+
+  <div
+    class="btn-menu relative z-50 -mr-8 flex h-[4.5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+    role="button"
+    aria-label="Menu"
+  ></div>
+
+  
+  <script>
+    
+    const htmlClass = document.documentElement.classList;
+    setTimeout(() => {
+      htmlClass.remove('not-ready');
+    }, 10);
+
+    
+    const btnMenu = document.querySelector('.btn-menu');
+    btnMenu.addEventListener('click', () => {
+      htmlClass.toggle('open');
+    });
+
+    
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    const lightBg = '#faf8f1'.replace(/"/g, '');
+    const setDark = (isDark) => {
+      metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
+      htmlClass[isDark ? 'add' : 'remove']('dark');
+      localStorage.setItem('dark', isDark);
+    };
+
+    
+    const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    if (htmlClass.contains('dark')) {
+      setDark(true);
+    } else {
+      const darkVal = localStorage.getItem('dark');
+      setDark(darkVal ? darkVal === 'true' : darkScheme.matches);
+    }
+
+    
+    darkScheme.addEventListener('change', (event) => {
+      setDark(event.matches);
+    });
+
+    
+    const btnDark = document.querySelector('.btn-dark');
+    btnDark.addEventListener('click', () => {
+      setDark(localStorage.getItem('dark') !== 'true');
+    });
+  </script>
+
+  <div
+    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
+  >
+    
+    
+
+    
+    <nav
+      class="mt-12 flex justify-center space-x-10 dark:invert lg:ml-12 lg:mt-0 lg:items-center lg:space-x-6"
+    >
+      
+      <a
+        class="h-8 w-8 text-[0] [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./github.svg)"
+        href="https://github.com/tek-shinobi"
+        target="_blank"
+        rel="me"
+      >
+        github
+      </a>
+      
+      <a
+        class="h-8 w-8 text-[0] [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6"
+        style="--url: url(./linkedin.svg)"
+        href="https://linkedin.com/in/himanshu-singh-remote/"
+        target="_blank"
+        rel="me"
+      >
+        linkedin
+      </a>
+      
+    </nav>
+    
+  </div>
+</header>
+
+
+    <main
+      class="prose prose-neutral relative mx-auto min-h-[calc(100%-9rem)] max-w-3xl px-8 pb-16 pt-12 dark:prose-invert"
+    >
+      
+
+<article>
+  <header class="mb-16">
+    <h1 class="!my-0 pb-2.5">Golang: Handling Null in Database Tables</h1>
+
+    
+    <div class="text-sm antialiased opacity-60">
+      
+      <time>Jul 11, 2023</time>
+      
+      
+      
+      
+    </div>
+    
+  </header>
+
+  <section><p>Consider this table schema (Postgres):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> <span style="color:#66d9ef">IF</span> <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">EXISTS</span> mytable (
+id BIGSERIAL <span style="color:#66d9ef">PRIMARY</span> <span style="color:#66d9ef">KEY</span>,
+title TEXT <span style="color:#66d9ef">NULL</span>,
+<span style="color:#66d9ef">version</span> INTEGER <span style="color:#66d9ef">NULL</span> 
+);
+</code></pre></div><p>if we write its Go model, <code>title</code> is <code>string</code> and <code>version</code> is <code>int</code>. But here we have a problem. Zero value of string in Go is <code>&quot;&quot;</code> not <code>nil</code>. Same for <code>int</code> whose zero value is <code>0</code> and not <code>nil</code>.</p>
+<p>If we tried to write the above model in Go like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">MyTable</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">ID</span>      <span style="color:#66d9ef">int64</span>
+	<span style="color:#a6e22e">Title</span>  <span style="color:#66d9ef">string</span> 
+	<span style="color:#a6e22e">Version</span> <span style="color:#66d9ef">int</span>
+}
+</code></pre></div><p>there is a chance that when MyTable row was inserted in database, Title and Version are both <code>nil</code> since the database schema allows null values for them. Then when we tried to read that value into MyTable like so:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">	<span style="color:#a6e22e">query</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">`
+</span><span style="color:#e6db74">	select id, title, version 
+</span><span style="color:#e6db74">	from mytable 
+</span><span style="color:#e6db74">	where id = $1
+</span><span style="color:#e6db74">	`</span>
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">mt</span> <span style="color:#a6e22e">MyTable</span>
+
+	<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">DB</span>.<span style="color:#a6e22e">QueryRow</span>(<span style="color:#a6e22e">query</span>, <span style="color:#a6e22e">id</span>).<span style="color:#a6e22e">Scan</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">ID</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">Title</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">Version</span>)
+</code></pre></div><p>we will get a panic in the last line, scanning nil into Title or Version. Since those types don&rsquo;t allow nil.</p>
+<p>So, clearly the <code>mytable</code> cannot be expressed in Go using its native data types.</p>
+<p>There are two ways of handling this. Both have their merits and demerits.</p>
+<h2 id="approach-1-using-sqlnull">Approach 1: using sql.Null*</h2>
+<p>Let&rsquo;s write the corresponding Go model using this approach:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">MyTable</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">ID</span>      <span style="color:#66d9ef">int64</span>
+	<span style="color:#a6e22e">Title</span>   <span style="color:#a6e22e">sql</span>.<span style="color:#a6e22e">NullString</span>
+	<span style="color:#a6e22e">Version</span> <span style="color:#a6e22e">sql</span>.<span style="color:#a6e22e">NullInt32</span>
+}
+</code></pre></div><p>Here, <code>database/sql</code> provides <code>sql.Null*</code> types that already have a scanner interface implemented and in that implementation, they handle the mapping of sql null to Go native zero values. Using this approach, there will be no panic.</p>
+<p>But we have a problem here. Now, if we wrote our Get method like so:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">n</span> <span style="color:#a6e22e">NullValModels</span>) <span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">id</span> <span style="color:#66d9ef">int64</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">MyTable</span>, <span style="color:#66d9ef">error</span>) {
+	<span style="color:#a6e22e">query</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">`
+</span><span style="color:#e6db74">	select id, title, version 
+</span><span style="color:#e6db74">	from mytable 
+</span><span style="color:#e6db74">	where id = $1
+</span><span style="color:#e6db74">	`</span>
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">mt</span> <span style="color:#a6e22e">MyTable</span>
+
+	<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">DB</span>.<span style="color:#a6e22e">QueryRow</span>(<span style="color:#a6e22e">query</span>, <span style="color:#a6e22e">id</span>).<span style="color:#a6e22e">Scan</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">ID</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">Title</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">Version</span>)
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">mt</span>, <span style="color:#a6e22e">err</span>
+}
+</code></pre></div><p>the native sql.Null* implementation is exposed to the rest of the application, when it should be isolated to the repository layer.</p>
+<p>If we tried to print out the returned row, that have nulls in Title and Version, it will look like this:</p>
+<pre tabindex="0"><code class="language-terminal" data-lang="terminal">&amp;{ID:1 Title:{String: Valid:false} Version:{Int32:0 Valid:false}}
+</code></pre><p>This is not ideal if we are following clean architecture principles, and we should be. The service layer method that called this method should not be exposed to this internal <code>database/sql</code> implementation of handling nulls.</p>
+<p>Thus we would abstract this internal detail like so:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">NullValModels</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">DB</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">sql</span>.<span style="color:#a6e22e">DB</span>
+}
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">MyTable</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">ID</span>      <span style="color:#66d9ef">int64</span>
+	<span style="color:#a6e22e">Title</span>   <span style="color:#a6e22e">sql</span>.<span style="color:#a6e22e">NullString</span>
+	<span style="color:#a6e22e">Version</span> <span style="color:#a6e22e">sql</span>.<span style="color:#a6e22e">NullInt32</span>
+}
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">MyTableService</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">ID</span>      <span style="color:#66d9ef">int64</span>
+	<span style="color:#a6e22e">Title</span>   <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">Version</span> <span style="color:#66d9ef">int</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">n</span> <span style="color:#a6e22e">NullValModels</span>) <span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">id</span> <span style="color:#66d9ef">int64</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">MyTableService</span>, <span style="color:#66d9ef">error</span>) {
+	<span style="color:#a6e22e">query</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">`
+</span><span style="color:#e6db74">	select id, title, version 
+</span><span style="color:#e6db74">	from mytable 
+</span><span style="color:#e6db74">	where id = $1
+</span><span style="color:#e6db74">	`</span>
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">mt</span> <span style="color:#a6e22e">MyTable</span>
+
+	<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">DB</span>.<span style="color:#a6e22e">QueryRow</span>(<span style="color:#a6e22e">query</span>, <span style="color:#a6e22e">id</span>).<span style="color:#a6e22e">Scan</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">ID</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">Title</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">Version</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">err</span>
+	}
+	<span style="color:#a6e22e">mts</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">MyTableService</span>{
+		<span style="color:#a6e22e">ID</span>:      <span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">ID</span>,
+		<span style="color:#a6e22e">Title</span>:   <span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">Title</span>.<span style="color:#a6e22e">String</span>,
+		<span style="color:#a6e22e">Version</span>: int(<span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">Version</span>.<span style="color:#a6e22e">Int32</span>),
+	}
+
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">mts</span>, <span style="color:#a6e22e">err</span>
+}
+</code></pre></div><p>This is a valid approach, the downside is the duplicated MyTable and MyTableService models. The upside is that in service layer we can use this data as is. What &ldquo;as is&rdquo; means will become clear when contrasted with the next approach.</p>
+<h2 id="approach-2-using-pointers-in-sql-model">Approach 2: using pointers in sql model</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">MyTable</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">ID</span>      <span style="color:#66d9ef">int64</span>
+	<span style="color:#a6e22e">Title</span>   <span style="color:#f92672">*</span><span style="color:#66d9ef">string</span> 
+	<span style="color:#a6e22e">Version</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">int</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">n</span> <span style="color:#a6e22e">NullValModels</span>) <span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">id</span> <span style="color:#66d9ef">int64</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">MyTable</span>, <span style="color:#66d9ef">error</span>) {
+	<span style="color:#a6e22e">query</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">`
+</span><span style="color:#e6db74">	select id, title, version 
+</span><span style="color:#e6db74">	from mytable 
+</span><span style="color:#e6db74">	where id = $1
+</span><span style="color:#e6db74">	`</span>
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">mt</span> <span style="color:#a6e22e">MyTable</span>
+
+	<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">DB</span>.<span style="color:#a6e22e">QueryRow</span>(<span style="color:#a6e22e">query</span>, <span style="color:#a6e22e">id</span>).<span style="color:#a6e22e">Scan</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">ID</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">Title</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">Version</span>)
+	<span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>, <span style="color:#a6e22e">err</span>
+}
+</code></pre></div><p>This approach will output a result like so:</p>
+<pre tabindex="0"><code class="language-terminal" data-lang="terminal">&amp;{ID:1 Title:&lt;nil&gt; Version:&lt;nil&gt;}
+</code></pre><p>Notice the nils in the result. These will now be leaked into the service layer and will have to be handled there. So the upside is that there is no duplication but downside is that nils need to handled in service layer.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Both are valid and idiomatic ways of handling this situation. <a href="https://groups.google.com/g/golang-nuts/c/vOTFu2SMNeA/m/GB5v3JPSsicJ">Here</a> is what Russ Cox, one of the co-creators of Go, opines about this:</p>
+<blockquote>
+<p>There&rsquo;s no effective difference. We thought people might want to use NullString because it is so common and perhaps expresses the intent more clearly than *string. But either will work.</p>
+<p>Russ</p>
+</blockquote>
+</section>
+
+  
+  
+
+  
+  
+  
+  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
+    
+    
+    <a
+      class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
+      href="https://tek-shinobi.github.io/posts/add-gpg-keys-to-repo/"
+      ><span>Add Gpg Keys to Repo</span><span class="ml-1.5">→</span></a
+    >
+    
+  </nav>
+  
+
+  
+  
+
+  
+  
+</article>
+
+
+    </main>
+
+    <footer
+  class="opaco mx-auto flex h-[4.5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60"
+>
+  <div class="mr-auto">
+    &copy; 2023
+    <a class="link" href="https://tek-shinobi.github.io/">Tek Shinobi Blog</a>
+  </div>
+  <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
+    >Powered by Hugo️️</a
+  >️
+  <a
+    class="link"
+    href="https://github.com/nanxiaobei/hugo-paper"
+    rel="noopener"
+    target="_blank"
+    >✎ Paper</a
+  >
+</footer>
+
+  </body>
+</html>
