@@ -39,5 +39,20 @@ In very simple terms, Borrowing conceptually means access to the data through re
 Again, in very simple terms, Ownership conceptually means accessing without &amp;amp; (i.e. without using a reference). Of course, Ownership is a science in Rust and please refer to docs for in-depth treatment.</description>
     </item>
     
+    <item>
+      <title>Docker Notes</title>
+      <link>https://tek-shinobi.github.io/posts/docker-notes/</link>
+      <pubDate>Mon, 10 May 2021 08:15:54 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/docker-notes/</guid>
+      <description>To cleanup unused/dnagling docker images: sudo docker image prune
+To cleanup ununsed volumes: sudo docker volume prune
+To list current docker images: sudo docker images
+To remove docker image by image_id: sudo docker rmi &amp;lt;your_image_id1&amp;gt; &amp;lt;your_image_id2&amp;gt;
+(sometimes, docker rmi command will throw up errors like:
+ Error response from daemon: conflict: unable to delete 78f7412b7923 (must be forced) - image is being used by stopped container ebfe07787e7c
+ This means there are some stopped docker containers using those images.</description>
+    </item>
+    
   </channel>
 </rss>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>docker on Tek Shinobi Blog</title>
+    <link>https://tek-shinobi.github.io/tags/docker/</link>
+    <description>Recent content in docker on Tek Shinobi Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 10 May 2021 08:15:54 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Docker Notes</title>
+      <link>https://tek-shinobi.github.io/posts/docker-notes/</link>
+      <pubDate>Mon, 10 May 2021 08:15:54 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/docker-notes/</guid>
+      <description>To cleanup unused/dnagling docker images: sudo docker image prune
+To cleanup ununsed volumes: sudo docker volume prune
+To list current docker images: sudo docker images
+To remove docker image by image_id: sudo docker rmi &amp;lt;your_image_id1&amp;gt; &amp;lt;your_image_id2&amp;gt;
+(sometimes, docker rmi command will throw up errors like:
+ Error response from daemon: conflict: unable to delete 78f7412b7923 (must be forced) - image is being used by stopped container ebfe07787e7c
+ This means there are some stopped docker containers using those images.</description>
+    </item>
+    
+  </channel>
+</rss>
