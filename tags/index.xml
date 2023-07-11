@@ -6,5 +6,167 @@
     <description>Recent content in Tags on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Tue, 11 Jul 2023 01:52:51 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>go</title>
+      <link>https://tek-shinobi.github.io/tags/go/</link>
+      <pubDate>Tue, 11 Jul 2023 01:52:51 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/tags/go/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>golang</title>
+      <link>https://tek-shinobi.github.io/tags/golang/</link>
+      <pubDate>Tue, 11 Jul 2023 01:52:51 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/tags/golang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>null</title>
+      <link>https://tek-shinobi.github.io/tags/null/</link>
+      <pubDate>Tue, 11 Jul 2023 01:52:51 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/tags/null/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>docker</title>
+      <link>https://tek-shinobi.github.io/tags/docker/</link>
+      <pubDate>Mon, 10 Jul 2023 10:38:56 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>postgres</title>
+      <link>https://tek-shinobi.github.io/tags/postgres/</link>
+      <pubDate>Mon, 10 Jul 2023 10:38:56 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/tags/postgres/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>account</title>
+      <link>https://tek-shinobi.github.io/tags/account/</link>
+      <pubDate>Sat, 13 May 2023 22:53:11 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/tags/account/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>github</title>
+      <link>https://tek-shinobi.github.io/tags/github/</link>
+      <pubDate>Sat, 13 May 2023 22:53:11 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/tags/github/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>gpg</title>
+      <link>https://tek-shinobi.github.io/tags/gpg/</link>
+      <pubDate>Sat, 13 May 2023 22:53:11 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/tags/gpg/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>verify</title>
+      <link>https://tek-shinobi.github.io/tags/verify/</link>
+      <pubDate>Sat, 13 May 2023 22:53:11 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/tags/verify/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>networking</title>
+      <link>https://tek-shinobi.github.io/tags/networking/</link>
+      <pubDate>Wed, 08 Sep 2021 18:34:10 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/tags/networking/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tcp</title>
+      <link>https://tek-shinobi.github.io/tags/tcp/</link>
+      <pubDate>Wed, 08 Sep 2021 18:34:10 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/tags/tcp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>clone</title>
+      <link>https://tek-shinobi.github.io/tags/clone/</link>
+      <pubDate>Thu, 29 Jul 2021 22:21:11 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/tags/clone/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>copy</title>
+      <link>https://tek-shinobi.github.io/tags/copy/</link>
+      <pubDate>Thu, 29 Jul 2021 22:21:11 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/tags/copy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rust</title>
+      <link>https://tek-shinobi.github.io/tags/rust/</link>
+      <pubDate>Thu, 29 Jul 2021 22:21:11 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/tags/rust/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>file</title>
+      <link>https://tek-shinobi.github.io/tags/file/</link>
+      <pubDate>Sat, 20 Mar 2021 11:36:47 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/tags/file/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>temporary</title>
+      <link>https://tek-shinobi.github.io/tags/temporary/</link>
+      <pubDate>Sat, 20 Mar 2021 11:36:47 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/tags/temporary/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>builder</title>
+      <link>https://tek-shinobi.github.io/tags/builder/</link>
+      <pubDate>Sat, 20 Mar 2021 11:14:09 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/tags/builder/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>turbofish</title>
+      <link>https://tek-shinobi.github.io/tags/turbofish/</link>
+      <pubDate>Wed, 10 Mar 2021 10:50:37 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/tags/turbofish/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

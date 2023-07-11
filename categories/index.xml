@@ -6,5 +6,59 @@
     <description>Recent content in Categories on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Tue, 11 Jul 2023 01:52:51 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>go</title>
+      <link>https://tek-shinobi.github.io/categories/go/</link>
+      <pubDate>Tue, 11 Jul 2023 01:52:51 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/categories/go/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>golang</title>
+      <link>https://tek-shinobi.github.io/categories/golang/</link>
+      <pubDate>Tue, 11 Jul 2023 01:52:51 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/categories/golang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>docker</title>
+      <link>https://tek-shinobi.github.io/categories/docker/</link>
+      <pubDate>Mon, 10 Jul 2023 10:38:56 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/categories/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>github</title>
+      <link>https://tek-shinobi.github.io/categories/github/</link>
+      <pubDate>Sat, 13 May 2023 22:53:11 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/categories/github/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>networking</title>
+      <link>https://tek-shinobi.github.io/categories/networking/</link>
+      <pubDate>Wed, 08 Sep 2021 18:34:10 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/categories/networking/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rust</title>
+      <link>https://tek-shinobi.github.io/categories/rust/</link>
+      <pubDate>Thu, 29 Jul 2021 22:21:11 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/categories/rust/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>
