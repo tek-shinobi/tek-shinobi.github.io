@@ -5,11 +5,11 @@
     <link>https://tek-shinobi.github.io/tags/networking/</link>
     <description>Recent content in networking on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 08 Sep 2021 18:34:10 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/networking/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 08 Feb 2020 18:34:10 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/networking/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>What Is a Tcp Stream</title>
       <link>https://tek-shinobi.github.io/posts/what-is-a-tcp-stream/</link>
-      <pubDate>Wed, 08 Sep 2021 18:34:10 +0300</pubDate>
+      <pubDate>Sat, 08 Feb 2020 18:34:10 +0300</pubDate>
       
       <guid>https://tek-shinobi.github.io/posts/what-is-a-tcp-stream/</guid>
       <description>The TCP protocol is modeled on the concept of a single continuous stream of unlimited length. This is a very important concept to understand, and is the number one cause of confusion that we see.

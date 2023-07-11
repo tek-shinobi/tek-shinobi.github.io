@@ -3,106 +3,82 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://tek-shinobi.github.io/categories/</loc>
-    <lastmod>2023-07-11T01:52:51+03:00</lastmod>
-  </url><url>
-    <loc>https://tek-shinobi.github.io/tags/go/</loc>
-    <lastmod>2023-07-11T01:52:51+03:00</lastmod>
-  </url><url>
-    <loc>https://tek-shinobi.github.io/categories/go/</loc>
-    <lastmod>2023-07-11T01:52:51+03:00</lastmod>
+    <lastmod>2023-07-11T15:17:34+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/tags/golang/</loc>
-    <lastmod>2023-07-11T01:52:51+03:00</lastmod>
+    <lastmod>2023-07-11T15:17:34+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/categories/golang/</loc>
-    <lastmod>2023-07-11T01:52:51+03:00</lastmod>
+    <lastmod>2023-07-11T15:17:34+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/golang-handling-null-in-database-tables/</loc>
-    <lastmod>2023-07-11T01:52:51+03:00</lastmod>
-  </url><url>
-    <loc>https://tek-shinobi.github.io/tags/null/</loc>
-    <lastmod>2023-07-11T01:52:51+03:00</lastmod>
+    <loc>https://tek-shinobi.github.io/posts/golang-testing-creating-large-files/</loc>
+    <lastmod>2023-07-11T15:17:34+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/posts/</loc>
-    <lastmod>2023-07-11T01:52:51+03:00</lastmod>
+    <lastmod>2023-07-11T15:17:34+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/tags/</loc>
-    <lastmod>2023-07-11T01:52:51+03:00</lastmod>
+    <lastmod>2023-07-11T15:17:34+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/</loc>
-    <lastmod>2023-07-11T01:52:51+03:00</lastmod>
+    <lastmod>2023-07-11T15:17:34+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/tags/docker/</loc>
-    <lastmod>2023-07-10T10:38:56+03:00</lastmod>
-  </url><url>
-    <loc>https://tek-shinobi.github.io/categories/docker/</loc>
-    <lastmod>2023-07-10T10:38:56+03:00</lastmod>
-  </url><url>
-    <loc>https://tek-shinobi.github.io/posts/using-postgres-inside-docker-container/</loc>
-    <lastmod>2023-07-10T10:38:56+03:00</lastmod>
-  </url><url>
-    <loc>https://tek-shinobi.github.io/tags/postgres/</loc>
-    <lastmod>2023-07-10T10:38:56+03:00</lastmod>
-  </url><url>
-    <loc>https://tek-shinobi.github.io/tags/account/</loc>
-    <lastmod>2023-05-13T22:53:11+03:00</lastmod>
+    <loc>https://tek-shinobi.github.io/tags/testing/</loc>
+    <lastmod>2023-07-11T15:17:34+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/posts/add-gpg-keys-to-repo/</loc>
-    <lastmod>2023-05-13T22:53:11+03:00</lastmod>
+    <lastmod>2023-01-07T22:53:11+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/tags/github/</loc>
-    <lastmod>2023-05-13T22:53:11+03:00</lastmod>
+    <lastmod>2023-01-07T22:53:11+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/categories/github/</loc>
-    <lastmod>2023-05-13T22:53:11+03:00</lastmod>
+    <lastmod>2023-01-07T22:53:11+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/tags/gpg/</loc>
-    <lastmod>2023-05-13T22:53:11+03:00</lastmod>
+    <lastmod>2023-01-07T22:53:11+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/tags/verify/</loc>
-    <lastmod>2023-05-13T22:53:11+03:00</lastmod>
+    <loc>https://tek-shinobi.github.io/posts/golang-handling-null-in-database-tables/</loc>
+    <lastmod>2022-05-11T01:52:51+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/tags/networking/</loc>
-    <lastmod>2021-09-08T18:34:10+03:00</lastmod>
+    <loc>https://tek-shinobi.github.io/tags/docker/</loc>
+    <lastmod>2022-05-05T10:38:56+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/categories/networking/</loc>
-    <lastmod>2021-09-08T18:34:10+03:00</lastmod>
+    <loc>https://tek-shinobi.github.io/categories/docker/</loc>
+    <lastmod>2022-05-05T10:38:56+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/tags/tcp/</loc>
-    <lastmod>2021-09-08T18:34:10+03:00</lastmod>
+    <loc>https://tek-shinobi.github.io/posts/using-postgres-inside-docker-container/</loc>
+    <lastmod>2022-05-05T10:38:56+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/what-is-a-tcp-stream/</loc>
-    <lastmod>2021-09-08T18:34:10+03:00</lastmod>
+    <loc>https://tek-shinobi.github.io/tags/postgres/</loc>
+    <lastmod>2022-05-05T10:38:56+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/tags/clone/</loc>
-    <lastmod>2021-07-29T22:21:11+03:00</lastmod>
+    <loc>https://tek-shinobi.github.io/tags/concurrency/</loc>
+    <lastmod>2021-10-15T15:41:34+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/tags/copy/</loc>
-    <lastmod>2021-07-29T22:21:11+03:00</lastmod>
+    <loc>https://tek-shinobi.github.io/posts/golang-common-concurrency-patterns/</loc>
+    <lastmod>2021-10-15T15:41:34+03:00</lastmod>
+  </url><url>
+    <loc>https://tek-shinobi.github.io/posts/golang-channels/</loc>
+    <lastmod>2021-10-11T16:24:24+03:00</lastmod>
+  </url><url>
+    <loc>https://tek-shinobi.github.io/posts/golang-unmarshal-json-blob-with-unknown-schema/</loc>
+    <lastmod>2021-06-11T22:07:45+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/tags/rust/</loc>
-    <lastmod>2021-07-29T22:21:11+03:00</lastmod>
+    <lastmod>2021-05-29T22:21:11+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/categories/rust/</loc>
-    <lastmod>2021-07-29T22:21:11+03:00</lastmod>
+    <lastmod>2021-05-29T22:21:11+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/posts/rust-gotchas-copy-and-clone/</loc>
-    <lastmod>2021-07-29T22:21:11+03:00</lastmod>
+    <lastmod>2021-05-29T22:21:11+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/posts/docker-notes/</loc>
     <lastmod>2021-05-10T08:15:54+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/tags/file/</loc>
-    <lastmod>2021-03-20T11:36:47+03:00</lastmod>
-  </url><url>
-    <loc>https://tek-shinobi.github.io/tags/temporary/</loc>
-    <lastmod>2021-03-20T11:36:47+03:00</lastmod>
-  </url><url>
     <loc>https://tek-shinobi.github.io/posts/temporary-files-and-temporary-directory-in-rust/</loc>
     <lastmod>2021-03-20T11:36:47+03:00</lastmod>
-  </url><url>
-    <loc>https://tek-shinobi.github.io/tags/builder/</loc>
-    <lastmod>2021-03-20T11:14:09+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/posts/rust-file-builder-pattern-for-file-read-writes/</loc>
     <lastmod>2021-03-20T11:14:09+03:00</lastmod>
@@ -118,5 +94,17 @@
   </url><url>
     <loc>https://tek-shinobi.github.io/posts/rust-tips-box-rc-arc-cell-refcell-mutex/</loc>
     <lastmod>2021-03-08T11:58:32+03:00</lastmod>
+  </url><url>
+    <loc>https://tek-shinobi.github.io/tags/networking/</loc>
+    <lastmod>2020-02-08T18:34:10+03:00</lastmod>
+  </url><url>
+    <loc>https://tek-shinobi.github.io/categories/networking/</loc>
+    <lastmod>2020-02-08T18:34:10+03:00</lastmod>
+  </url><url>
+    <loc>https://tek-shinobi.github.io/tags/tcp/</loc>
+    <lastmod>2020-02-08T18:34:10+03:00</lastmod>
+  </url><url>
+    <loc>https://tek-shinobi.github.io/posts/what-is-a-tcp-stream/</loc>
+    <lastmod>2020-02-08T18:34:10+03:00</lastmod>
   </url>
 </urlset>

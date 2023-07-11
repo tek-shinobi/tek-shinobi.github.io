@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>testing on Tek Shinobi Blog</title>
+    <link>https://tek-shinobi.github.io/tags/testing/</link>
+    <description>Recent content in testing on Tek Shinobi Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 11 Jul 2023 15:17:34 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/testing/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Golang Testing: Creating Large Files</title>
+      <link>https://tek-shinobi.github.io/posts/golang-testing-creating-large-files/</link>
+      <pubDate>Tue, 11 Jul 2023 15:17:34 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/golang-testing-creating-large-files/</guid>
+      <description>Needed a quick hack to generate a known file size, to test that file upload limit logic works in an endpoint
+Another option is to just generate a temporary file, using nearly the same process. This approach is fine but can slow down the test since file needs to be generated each time the test is run and beyond a certain size, this file generation time can become non-trivial.
+package main import ( &amp;#34;encoding/json&amp;#34; &amp;#34;fmt&amp;#34; &amp;#34;math/rand&amp;#34; &amp;#34;os&amp;#34; &amp;#34;time&amp;#34; ) type LargeData struct { Data []byte } const desiredSize = 12 * 1024 * 1024 // 12MB  func main() { rand.</description>
+    </item>
+    
+  </channel>
+</rss>

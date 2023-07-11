@@ -5,11 +5,32 @@
     <link>https://tek-shinobi.github.io/posts/</link>
     <description>Recent content in Posts on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 11 Jul 2023 01:52:51 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 11 Jul 2023 15:17:34 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Golang Testing: Creating Large Files</title>
+      <link>https://tek-shinobi.github.io/posts/golang-testing-creating-large-files/</link>
+      <pubDate>Tue, 11 Jul 2023 15:17:34 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/golang-testing-creating-large-files/</guid>
+      <description>Needed a quick hack to generate a known file size, to test that file upload limit logic works in an endpoint
+Another option is to just generate a temporary file, using nearly the same process. This approach is fine but can slow down the test since file needs to be generated each time the test is run and beyond a certain size, this file generation time can become non-trivial.
+package main import ( &amp;#34;encoding/json&amp;#34; &amp;#34;fmt&amp;#34; &amp;#34;math/rand&amp;#34; &amp;#34;os&amp;#34; &amp;#34;time&amp;#34; ) type LargeData struct { Data []byte } const desiredSize = 12 * 1024 * 1024 // 12MB  func main() { rand.</description>
+    </item>
+    
+    <item>
+      <title>Add Gpg Keys to Repo</title>
+      <link>https://tek-shinobi.github.io/posts/add-gpg-keys-to-repo/</link>
+      <pubDate>Sat, 07 Jan 2023 22:53:11 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/add-gpg-keys-to-repo/</guid>
+      <description>Add GPG keys to github repo and local The process involves a set of simple steps:
+ Create GPG keys from commandline terminal Export the created keys using armor into a text blob. Take the blob and head over to github account -&amp;gt; Settings -&amp;gt; SSH and GPG keys and add it as GPG key The most important point: cd to you local repo directory and configure the key there. This step will need to be done for every local repo.</description>
+    </item>
+    
     <item>
       <title>Golang: Handling Null in Database Tables</title>
       <link>https://tek-shinobi.github.io/posts/golang-handling-null-in-database-tables/</link>
-      <pubDate>Tue, 11 Jul 2023 01:52:51 +0300</pubDate>
+      <pubDate>Wed, 11 May 2022 01:52:51 +0300</pubDate>
       
       <guid>https://tek-shinobi.github.io/posts/golang-handling-null-in-database-tables/</guid>
       <description>Consider this table schema (Postgres):
@@ -20,7 +41,7 @@ If we tried to write the above model in Go like this:</description>
     <item>
       <title>Golang: Using Postgres Inside Docker Container</title>
       <link>https://tek-shinobi.github.io/posts/using-postgres-inside-docker-container/</link>
-      <pubDate>Mon, 10 Jul 2023 10:38:56 +0300</pubDate>
+      <pubDate>Thu, 05 May 2022 10:38:56 +0300</pubDate>
       
       <guid>https://tek-shinobi.github.io/posts/using-postgres-inside-docker-container/</guid>
       <description>Cleanup if default postgres port not free If port 5432 is already in use, run this to see what process is using it:
@@ -29,31 +50,44 @@ sudo ss -lptn &#39;sport = :5432&#39; the above command will also display the pi
     </item>
     
     <item>
-      <title>Add Gpg Keys to Repo</title>
-      <link>https://tek-shinobi.github.io/posts/add-gpg-keys-to-repo/</link>
-      <pubDate>Sat, 13 May 2023 22:53:11 +0300</pubDate>
+      <title>Golang: Common Concurrency Patterns</title>
+      <link>https://tek-shinobi.github.io/posts/golang-common-concurrency-patterns/</link>
+      <pubDate>Fri, 15 Oct 2021 15:41:34 +0300</pubDate>
       
-      <guid>https://tek-shinobi.github.io/posts/add-gpg-keys-to-repo/</guid>
-      <description>Add GPG keys to github repo and local The process involves a set of simple steps:
- Create GPG keys from commandline terminal Export the created keys using armor into a text blob. Take the blob and head over to github account -&amp;gt; Settings -&amp;gt; SSH and GPG keys and add it as GPG key The most important point: cd to you local repo directory and configure the key there. This step will need to be done for every local repo.</description>
+      <guid>https://tek-shinobi.github.io/posts/golang-common-concurrency-patterns/</guid>
+      <description>Some simple concurrency patterns which are often used in Golang
+1. for-select pattern This is a fundamental pattern. It is typically used to read data from multiple channels.
+var c1, c2 &amp;lt;-chan int for { // Either loop infinitely or range over something  select { case &amp;lt;-c1: // Do some work with channels  case &amp;lt;-c2: default: // auto run if other cases are not ready  } // do some work } The select statement looks like switch one, but its behavior is different.</description>
     </item>
     
     <item>
-      <title>What Is a Tcp Stream</title>
-      <link>https://tek-shinobi.github.io/posts/what-is-a-tcp-stream/</link>
-      <pubDate>Wed, 08 Sep 2021 18:34:10 +0300</pubDate>
+      <title>Golang Channels</title>
+      <link>https://tek-shinobi.github.io/posts/golang-channels/</link>
+      <pubDate>Mon, 11 Oct 2021 16:24:24 +0300</pubDate>
       
-      <guid>https://tek-shinobi.github.io/posts/what-is-a-tcp-stream/</guid>
-      <description>The TCP protocol is modeled on the concept of a single continuous stream of unlimited length. This is a very important concept to understand, and is the number one cause of confusion that we see.
-What exactly does this mean, and how does it affect developers?
-Imagine that you&amp;rsquo;re trying to send a few messages over the socket. So you do something like this (in pseudocode):
-socket.write(&amp;quot;Hi Sandy.&amp;quot;); socket.write(&amp;quot;Are you busy tonight?</description>
+      <guid>https://tek-shinobi.github.io/posts/golang-channels/</guid>
+      <description>When dealing with conccurency problems, it is harder to reason about when moving down the stack of abstraction (machine, process, thread, hardware components, etc). Most programming languages use thread as its highest level of abstraction. Fortunately, Go builds on top of that &amp;amp; introduced Goroutine.
+ “Share memory by communicating, don’t communicate by sharing memory.”
+ One of Go’s mottos   Although Golang provides traditional locking mechanism in sync package, its philosophy prefers “share memory by communicating”.</description>
+    </item>
+    
+    <item>
+      <title>Golang: Unmarshal Json Blob With Unknown Schema</title>
+      <link>https://tek-shinobi.github.io/posts/golang-unmarshal-json-blob-with-unknown-schema/</link>
+      <pubDate>Fri, 11 Jun 2021 22:07:45 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/golang-unmarshal-json-blob-with-unknown-schema/</guid>
+      <description>There are two ways to handle this:
+Approach 1: Using json.RawMessage json.RawMessage: represents a raw JSON value
+It and can be used to delay parsing until the schema is known.
+Here&amp;rsquo;s an example of how to use json.RawMessage:
+type UnknownSchema struct { Data json.RawMessage `json:&amp;#34;data&amp;#34;` } func main() { jsonStr := `{&amp;#34;data&amp;#34;:{&amp;#34;name&amp;#34;:&amp;#34;John&amp;#34;,&amp;#34;age&amp;#34;:30}}` var obj UnknownSchema err := json.Unmarshal([]byte(jsonStr), &amp;amp;obj) if err != nil { panic(err) } // The schema of the data field is still unknown at this point  fmt.</description>
     </item>
     
     <item>
       <title>Rust Gotchas Copy and Clone</title>
       <link>https://tek-shinobi.github.io/posts/rust-gotchas-copy-and-clone/</link>
-      <pubDate>Thu, 29 Jul 2021 22:21:11 +0300</pubDate>
+      <pubDate>Sat, 29 May 2021 22:21:11 +0300</pubDate>
       
       <guid>https://tek-shinobi.github.io/posts/rust-gotchas-copy-and-clone/</guid>
       <description>Rust has two central concepts: Borrowing and ownership.
@@ -126,6 +160,18 @@ use std::io; use std::io::Cursor; which means explicitly use std::io::Cursor and
       <guid>https://tek-shinobi.github.io/posts/rust-tips-box-rc-arc-cell-refcell-mutex/</guid>
       <description>Difference Between Box, Rc, Arc, Cell (and its various variants.. RefCell, Mutex, RwLock) in Rust:
  Box is for single ownership. A great use case is to use this when we want to store primitive types (stored on stack) on heap. Rc is for multiple ownership. Arc is for multiple ownership, but threadsafe. RefCell is for “interior mutability”; that is, when you need to mutate something behind a &amp;amp;T. Cell is for “interior mutability” for Copy types; that is, when you need to mutate something behind a &amp;amp;T.</description>
+    </item>
+    
+    <item>
+      <title>What Is a Tcp Stream</title>
+      <link>https://tek-shinobi.github.io/posts/what-is-a-tcp-stream/</link>
+      <pubDate>Sat, 08 Feb 2020 18:34:10 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/what-is-a-tcp-stream/</guid>
+      <description>The TCP protocol is modeled on the concept of a single continuous stream of unlimited length. This is a very important concept to understand, and is the number one cause of confusion that we see.
+What exactly does this mean, and how does it affect developers?
+Imagine that you&amp;rsquo;re trying to send a few messages over the socket. So you do something like this (in pseudocode):
+socket.write(&amp;quot;Hi Sandy.&amp;quot;); socket.write(&amp;quot;Are you busy tonight?</description>
     </item>
     
   </channel>

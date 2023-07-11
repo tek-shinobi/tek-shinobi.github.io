@@ -5,11 +5,11 @@
     <link>https://tek-shinobi.github.io/categories/rust/</link>
     <description>Recent content in rust on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 29 Jul 2021 22:21:11 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/categories/rust/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 29 May 2021 22:21:11 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/categories/rust/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Rust Gotchas Copy and Clone</title>
       <link>https://tek-shinobi.github.io/posts/rust-gotchas-copy-and-clone/</link>
-      <pubDate>Thu, 29 Jul 2021 22:21:11 +0300</pubDate>
+      <pubDate>Sat, 29 May 2021 22:21:11 +0300</pubDate>
       
       <guid>https://tek-shinobi.github.io/posts/rust-gotchas-copy-and-clone/</guid>
       <description>Rust has two central concepts: Borrowing and ownership.

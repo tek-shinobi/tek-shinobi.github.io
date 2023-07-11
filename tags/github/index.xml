@@ -5,11 +5,11 @@
     <link>https://tek-shinobi.github.io/tags/github/</link>
     <description>Recent content in github on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 13 May 2023 22:53:11 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/github/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 07 Jan 2023 22:53:11 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/github/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Add Gpg Keys to Repo</title>
       <link>https://tek-shinobi.github.io/posts/add-gpg-keys-to-repo/</link>
-      <pubDate>Sat, 13 May 2023 22:53:11 +0300</pubDate>
+      <pubDate>Sat, 07 Jan 2023 22:53:11 +0300</pubDate>
       
       <guid>https://tek-shinobi.github.io/posts/add-gpg-keys-to-repo/</guid>
       <description>Add GPG keys to github repo and local The process involves a set of simple steps:

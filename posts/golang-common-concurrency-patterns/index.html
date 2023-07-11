@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Golang: Common Concurrency Patterns - Tek Shinobi Blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo">
+		<a class="logo__link" href="/" title="Tek Shinobi Blog" rel="home">
+			<div class="logo__item logo__text">
+					<div class="logo__title">Tek Shinobi Blog</div>
+					
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Golang: Common Concurrency Patterns</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2021-10-15T15:41:34&#43;03:00">October 15, 2021</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/golang/" rel="category">golang</a>
+	</span>
+</div></div>
+		</header>
+		<div class="content post__content clearfix">
+			<p>Some simple concurrency patterns which are often used in Golang</p>
+<h2 id="1-for-select-pattern">1. <code>for-select</code> pattern</h2>
+<p>This is a fundamental pattern. It is typically used to read data from multiple channels.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">c1</span>, <span style="color:#a6e22e">c2</span> <span style="color:#f92672">&lt;-</span><span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>
+
+<span style="color:#66d9ef">for</span> { <span style="color:#75715e">// Either loop infinitely or range over something 
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">select</span> {
+    <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">c1</span>: <span style="color:#75715e">// Do some work with channels
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">c2</span>:
+    <span style="color:#66d9ef">default</span>: <span style="color:#75715e">// auto run if other cases are not ready
+</span><span style="color:#75715e"></span>    }
+
+    <span style="color:#75715e">// do some work
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>The select statement looks like switch one, but its behavior is different. All <code>cases</code> are considered simultaneously &amp; have <em><strong>equal chance</strong></em> to be selected. If none of the <code>cases</code> are ready to run, the entire <code>select</code> statement blocks.</p>
+<h2 id="2-done-channel-pattern">2. <code>done</code> channel pattern</h2>
+<p>Goroutine is not garbage collected; hence, it is likely to be leaked.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+<span style="color:#75715e">// &lt;operation that will block forever&gt;
+</span><span style="color:#75715e">// =&gt; Go routine leaks
+</span><span style="color:#75715e"></span>}()
+<span style="color:#75715e">// Do work
+</span></code></pre></div><p>To avoid leaking, Goroutine should be cancelled whenever it is told to do. A parent Goroutine needs to send cancellation signal to its child via a <strong>read-only</strong> channel named <code>done</code> . By convention, it is set as the 1st parameter.</p>
+<p>This pattern is also utilized a lot in other patterns.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">//child goroutine
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">doWork</span>(<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">done</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span> {}, <span style="color:#a6e22e">other_params</span>) <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">terminated</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{} {
+    <span style="color:#a6e22e">terminated</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{}) <span style="color:#75715e">// to tell outer that it has finished
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">defer</span> close(<span style="color:#a6e22e">terminated</span>)
+
+    <span style="color:#66d9ef">for</span> {
+        <span style="color:#66d9ef">select</span>: {
+            <span style="color:#66d9ef">case</span>: <span style="color:#75715e">//do your work here
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">done</span>:
+                <span style="color:#66d9ef">return</span>
+        }
+        <span style="color:#75715e">// do work here
+</span><span style="color:#75715e"></span>    }
+
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">terminated</span>
+}
+
+<span style="color:#75715e">// parent goroutine
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">done</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{})
+<span style="color:#a6e22e">terminated</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">doWork</span>(<span style="color:#a6e22e">done</span>, <span style="color:#a6e22e">other_args</span>)
+
+<span style="color:#75715e">// do sth
+</span><span style="color:#75715e">// then tell child to stop
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">close</span> (<span style="color:#a6e22e">done</span>)
+
+<span style="color:#75715e">// wait for child finish its work
+</span><span style="color:#75715e"></span><span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">terminated</span>
+</code></pre></div><h2 id="3-or-channel-pattern">3. <code>or-channel</code> pattern</h2>
+<p>This pattern aims to combine multiple <code>done</code> channels into one <code>agg_done</code>; it means that if one of a <code>done</code> channel is signaled, the whole agg_done channel is also closed. Yet, we do not know number of <code>done</code> channels during runtime in advanced.</p>
+<p><code>or-channel</code> pattern can do so by using <code>goroutine</code> &amp; <code>recursion</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// return agg_done channel
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">or</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">channels</span> <span style="color:#f92672">...</span> <span style="color:#f92672">&lt;-</span><span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{}) <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{} 
+
+<span style="color:#a6e22e">or</span> = <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">channels</span> <span style="color:#f92672">...&lt;-</span><span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{}) <span style="color:#f92672">&lt;-</span><span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{} {
+    <span style="color:#75715e">// base cases
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">switch</span> len(<span style="color:#a6e22e">channels</span>) { 
+        <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">0</span>: <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+        <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">1</span>: <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">channels</span>[<span style="color:#ae81ff">0</span>]
+    }
+
+    <span style="color:#a6e22e">orDone</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{})
+
+    <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+        <span style="color:#66d9ef">defer</span> close(<span style="color:#a6e22e">orDone</span>)
+
+        <span style="color:#66d9ef">switch</span> len(<span style="color:#a6e22e">channels</span>) {
+            <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">2</span>: 
+                <span style="color:#66d9ef">select</span> {
+                    <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">channels</span>[<span style="color:#ae81ff">0</span>]:
+                    <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">channels</span>[<span style="color:#ae81ff">1</span>]:
+                }
+            <span style="color:#66d9ef">default</span>:
+                <span style="color:#66d9ef">select</span> {
+                    <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">channels</span>[<span style="color:#ae81ff">0</span>]:
+                    <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">channels</span>[<span style="color:#ae81ff">1</span>]:
+                    <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">channels</span>[<span style="color:#ae81ff">2</span>]:
+                    <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">or</span>(append(<span style="color:#a6e22e">channels</span>[<span style="color:#ae81ff">3</span>:], <span style="color:#a6e22e">orDone</span>)<span style="color:#f92672">...</span>): <span style="color:#75715e">// * line
+</span><span style="color:#75715e"></span>                }
+
+        }
+
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">orDone</span>
+}
+</code></pre></div><p>*** line*** makes the upper &amp; lower recursive function depends on each other like a tree. The upper injects its own <code>orDone</code> channel into the lower. Then the lower also return its own <code>orDone</code> to the upper.</p>
+<p>If any <code>orDone</code> channel closes, the upper &amp; lower both are notified.</p>
+<h2 id="4-tee-channel-pattern">4. <code>tee</code> channel pattern</h2>
+<p>This pattern aims to split values coming from a channel into 2 others. So that we can dispatch them into two separate areas of our codebase.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">tee</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">func</span>(
+    <span style="color:#a6e22e">done</span> <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{},
+    <span style="color:#a6e22e">in</span> <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{},
+) (<span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>, <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>) {
+    <span style="color:#a6e22e">out1</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{})
+    <span style="color:#a6e22e">out2</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{})
+
+    <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+        <span style="color:#66d9ef">defer</span> close(<span style="color:#a6e22e">out1</span>)
+        <span style="color:#66d9ef">defer</span> close(<span style="color:#a6e22e">out2</span>)
+
+        <span style="color:#75715e">//shadow outer variable
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">out1</span>, <span style="color:#a6e22e">out2</span> = <span style="color:#a6e22e">out1</span>, <span style="color:#a6e22e">out2</span>
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">val</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">orDone</span>(<span style="color:#a6e22e">done</span>, <span style="color:#a6e22e">in</span>) {
+            <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">2</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">++</span> { <span style="color:#75715e">//make sure 2 channels received same value
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">select</span> {
+                <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">done</span>:
+                <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">out1</span><span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">val</span>:
+                    <span style="color:#a6e22e">out1</span> = <span style="color:#66d9ef">nil</span> <span style="color:#75715e">//stop this channel from being received
+</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">out2</span><span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">val</span>:
+                    <span style="color:#a6e22e">out2</span> = <span style="color:#66d9ef">nil</span>
+                }
+            }
+        }
+    }()
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">out1</span>, <span style="color:#a6e22e">out2</span>
+}
+</code></pre></div><h2 id="5-bridge-channel-pattern">5. <code>bridge</code> channel pattern</h2>
+<p>Reading values from channel of channels (<code>&lt;-chan &lt;-chan interface{}</code>) can be cumbersome. Hence, this pattern aims to merge all values into 1 channel, so that the consumer jobs is much easier.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">bridge</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">func</span>(
+    <span style="color:#a6e22e">done</span> <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{},
+    <span style="color:#a6e22e">chanStream</span> <span style="color:#f92672">&lt;-</span> <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">interface</span>{},
+) <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{} {
+    <span style="color:#a6e22e">valStream</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{})
+
+    <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+        <span style="color:#66d9ef">defer</span> close(<span style="color:#a6e22e">valStream</span>)
+
+        <span style="color:#66d9ef">for</span> {
+            <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">stream</span> <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{}
+            <span style="color:#66d9ef">select</span> {
+            <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">maybeStream</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">chanStream</span>
+                <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">ok</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">false</span> {
+                    <span style="color:#66d9ef">return</span>
+                }
+                <span style="color:#a6e22e">stream</span> = <span style="color:#a6e22e">maybeStream</span>
+            <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">done</span>:
+                <span style="color:#66d9ef">return</span>
+            }
+
+            <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">val</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">orDone</span>(<span style="color:#a6e22e">done</span>, <span style="color:#a6e22e">stream</span>){
+                <span style="color:#66d9ef">select</span>{
+                <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">valStream</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">val</span>:
+                <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">done</span>:
+                }
+            }
+        }
+    }()
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">valStream</span>
+}
+</code></pre></div>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/golang/" rel="tag">golang</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/concurrency/" rel="tag">concurrency</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+
+
+
+			</div>
+			<aside class="sidebar">
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="LinkedIn" rel="noopener noreferrer" href="https://linkedin.com/in/himanshu-singh-remote/" target="_blank">
+				<svg class="widget-social__link-icon icon icon-linkedin" width="24" height="24" viewBox="0 0 352 352"><path d="M0,40v272c0,21.9,18.1,40,40,40h272c21.9,0,40-18.1,40-40V40c0-21.9-18.1-40-40-40H40C18.1,0,0,18.1,0,40z M312,32 c4.6,0,8,3.4,8,8v272c0,4.6-3.4,8-8,8H40c-4.6,0-8-3.4-8-8V40c0-4.6,3.4-8,8-8H312z M59.5,87c0,15.2,12.3,27.5,27.5,27.5 c15.2,0,27.5-12.3,27.5-27.5c0-15.2-12.3-27.5-27.5-27.5C71.8,59.5,59.5,71.8,59.5,87z M187,157h-1v-21h-45v152h47v-75 c0-19.8,3.9-39,28.5-39c24.2,0,24.5,22.4,24.5,40v74h47v-83.5c0-40.9-8.7-72-56.5-72C208.5,132.5,193.3,145.1,187,157z M64,288h47.5 V136H64V288z"/></svg>
+				<span>LinkedIn</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/tek-shinobi" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+
+		
+	</div>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-testing-creating-large-files/">Golang Testing: Creating Large Files</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/add-gpg-keys-to-repo/">Add Gpg Keys to Repo</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-handling-null-in-database-tables/">Golang: Handling Null in Database Tables</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/using-postgres-inside-docker-container/">Golang: Using Postgres Inside Docker Container</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-common-concurrency-patterns/">Golang: Common Concurrency Patterns</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-channels/">Golang Channels</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-unmarshal-json-blob-with-unknown-schema/">Golang: Unmarshal Json Blob With Unknown Schema</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/rust-gotchas-copy-and-clone/">Rust Gotchas Copy and Clone</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/docker-notes/">Docker Notes</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/temporary-files-and-temporary-directory-in-rust/">Temporary Files and Temporary Directory in Rust</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/github/">github</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/networking/">networking</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/rust/">rust</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-taglist widget">
+	<h4 class="widget__title">Tags</h4>
+	<div class="widget__content">
+		<a class="widget-taglist__link widget__link btn" href="/tags/concurrency/" title="concurrency">concurrency</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/docker/" title="docker">docker</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/github/" title="github">github</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/golang/" title="golang">golang</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/gpg/" title="gpg">gpg</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/networking/" title="networking">networking</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/postgres/" title="postgres">postgres</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/rust/" title="rust">rust</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/tcp/" title="tcp">tcp</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/testing/" title="testing">testing</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/turbofish/" title="turbofish">turbofish</a>
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2023 Tek Shinobi Blog.
+			
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+</body>
+</html>

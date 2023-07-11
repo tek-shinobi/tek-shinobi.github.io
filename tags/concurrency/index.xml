@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>concurrency on Tek Shinobi Blog</title>
+    <link>https://tek-shinobi.github.io/tags/concurrency/</link>
+    <description>Recent content in concurrency on Tek Shinobi Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 15 Oct 2021 15:41:34 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/concurrency/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Golang: Common Concurrency Patterns</title>
+      <link>https://tek-shinobi.github.io/posts/golang-common-concurrency-patterns/</link>
+      <pubDate>Fri, 15 Oct 2021 15:41:34 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/golang-common-concurrency-patterns/</guid>
+      <description>Some simple concurrency patterns which are often used in Golang
+1. for-select pattern This is a fundamental pattern. It is typically used to read data from multiple channels.
+var c1, c2 &amp;lt;-chan int for { // Either loop infinitely or range over something  select { case &amp;lt;-c1: // Do some work with channels  case &amp;lt;-c2: default: // auto run if other cases are not ready  } // do some work } The select statement looks like switch one, but its behavior is different.</description>
+    </item>
+    
+    <item>
+      <title>Golang Channels</title>
+      <link>https://tek-shinobi.github.io/posts/golang-channels/</link>
+      <pubDate>Mon, 11 Oct 2021 16:24:24 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/golang-channels/</guid>
+      <description>When dealing with conccurency problems, it is harder to reason about when moving down the stack of abstraction (machine, process, thread, hardware components, etc). Most programming languages use thread as its highest level of abstraction. Fortunately, Go builds on top of that &amp;amp; introduced Goroutine.
+ “Share memory by communicating, don’t communicate by sharing memory.”
+ One of Go’s mottos   Although Golang provides traditional locking mechanism in sync package, its philosophy prefers “share memory by communicating”.</description>
+    </item>
+    
+  </channel>
+</rss>
