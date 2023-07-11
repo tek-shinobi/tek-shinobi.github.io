@@ -53,10 +53,9 @@
   
   
   
-  <meta name="description" content="These are my personal notes. Am running postgres docker image on a local linux box.
-If port 5432 is already in use, run this to see what process is using it:
+  <meta name="description" content="Cleanup if default postgres port not free If port 5432 is already in use, run this to see what process is using it:
 sudo ss -lptn &#39;sport = :5432&#39; the above command will also display the pid using which you can kill the process. For example, if the pid is 1667, kill it by sudo kill 1667
-Now sudo launch the shell script that runs the docker image." />
+(to connect to an existing running docker container via its container id, scroll to end)" />
   <meta name="author" content="Tek Shinobi Blog" />
   
 
@@ -113,32 +112,29 @@ Now sudo launch the shell script that runs the docker image." />
   
   
   <meta property="og:title" content="Using Postgres Inside Docker Container" />
-<meta property="og:description" content="These are my personal notes. Am running postgres docker image on a local linux box.
-If port 5432 is already in use, run this to see what process is using it:
+<meta property="og:description" content="Cleanup if default postgres port not free If port 5432 is already in use, run this to see what process is using it:
 sudo ss -lptn &#39;sport = :5432&#39; the above command will also display the pid using which you can kill the process. For example, if the pid is 1667, kill it by sudo kill 1667
-Now sudo launch the shell script that runs the docker image." />
+(to connect to an existing running docker container via its container id, scroll to end)" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://tek-shinobi.github.io/posts/using-postgres-inside-docker-container/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-04-10T10:38:56+03:00" />
-<meta property="article:modified_time" content="2021-04-10T10:38:56+03:00" />
+<meta property="article:published_time" content="2023-04-10T10:38:56+03:00" />
+<meta property="article:modified_time" content="2023-04-10T10:38:56+03:00" />
 
 
   
   <meta itemprop="name" content="Using Postgres Inside Docker Container">
-<meta itemprop="description" content="These are my personal notes. Am running postgres docker image on a local linux box.
-If port 5432 is already in use, run this to see what process is using it:
+<meta itemprop="description" content="Cleanup if default postgres port not free If port 5432 is already in use, run this to see what process is using it:
 sudo ss -lptn &#39;sport = :5432&#39; the above command will also display the pid using which you can kill the process. For example, if the pid is 1667, kill it by sudo kill 1667
-Now sudo launch the shell script that runs the docker image."><meta itemprop="datePublished" content="2021-04-10T10:38:56+03:00" />
-<meta itemprop="dateModified" content="2021-04-10T10:38:56+03:00" />
-<meta itemprop="wordCount" content="159">
-<meta itemprop="keywords" content="docker,postgres," />
+(to connect to an existing running docker container via its container id, scroll to end)"><meta itemprop="datePublished" content="2023-04-10T10:38:56+03:00" />
+<meta itemprop="dateModified" content="2023-04-10T10:38:56+03:00" />
+<meta itemprop="wordCount" content="1019">
+<meta itemprop="keywords" content="docker,postgres,golang," />
   
   <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Using Postgres Inside Docker Container"/>
-<meta name="twitter:description" content="These are my personal notes. Am running postgres docker image on a local linux box.
-If port 5432 is already in use, run this to see what process is using it:
+<meta name="twitter:description" content="Cleanup if default postgres port not free If port 5432 is already in use, run this to see what process is using it:
 sudo ss -lptn &#39;sport = :5432&#39; the above command will also display the pid using which you can kill the process. For example, if the pid is 1667, kill it by sudo kill 1667
-Now sudo launch the shell script that runs the docker image."/>
+(to connect to an existing running docker container via its container id, scroll to end)"/>
 
   
   
@@ -258,7 +254,7 @@ Now sudo launch the shell script that runs the docker image."/>
     
     <div class="text-sm antialiased opacity-60">
       
-      <time>Apr 10, 2021</time>
+      <time>Apr 10, 2023</time>
       
       
       
@@ -267,12 +263,178 @@ Now sudo launch the shell script that runs the docker image."/>
     
   </header>
 
-  <section><p>These are my personal notes. Am running postgres docker image on a local linux box.</p>
+  <section><h2 id="cleanup-if-default-postgres-port-not-free">Cleanup if default postgres port not free</h2>
 <p>If port 5432 is already in use, run this to see what process is using it:</p>
 <pre tabindex="0"><code class="language-terminal" data-lang="terminal">sudo ss -lptn 'sport = :5432'
 </code></pre><p>the above command will also display the pid using which you can kill the process. For example, if the pid is 1667, kill it by sudo kill 1667</p>
-<p>Now sudo launch the shell script that runs the docker image.</p>
-<h2 id="connecting-to-the-postgres-database-within-the-container">Connecting to the postgres database within the container</h2>
+<p>(to connect to an existing running docker container via its container id, scroll to end)</p>
+<h2 id="connecting-to-postgres-from-scratch">Connecting to postgres from scratch</h2>
+<p>First launch the postgres container in interactive mode:</p>
+<pre tabindex="0"><code class="language-terminal" data-lang="terminal">docker run \
+--name testing-dev \
+--rm \
+-e POSTGRES_PASSWORD=password \
+-p 5432:5432 postgres
+</code></pre><p>The above command will download the latest postgres image if not found locally.</p>
+<p>Here we <code>testing-dev</code> is the container name, <code>--rm</code> so as to remove any stopped container with same name before lauching this one. We are launching this in interactive mode, so it will occupy the current terminal.</p>
+<p>From another terminal, login to this container&rsquo;s bash shell like so:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">docker exec -it testing-dev bash
+</code></pre></div><p>You will be logged into bash shell as root. You will see something like this:</p>
+<pre tabindex="0"><code class="language-terminal" data-lang="terminal">root@e78cf93c2c4e:/# 
+</code></pre><p>Now type this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">psql -h localhost -U postgres
+</code></pre></div><p>The above will launch you in as default <code>postgres</code> super admin user. This is a special default user and you are able to login as this one, without a password, because you are accessing this postgres instance from the same host machine. The prmopt will change to <code>postgres</code></p>
+<pre tabindex="0"><code class="language-terminal" data-lang="terminal">root@e78cf93c2c4e:/# psql -h localhost -U postgres
+psql (15.3 (Debian 15.3-1.pgdg120+1))
+Type &quot;help&quot; for help.
+
+postgres=#
+</code></pre><p>In Postgres, <code>\</code> indicates a <em><strong>metacommand</strong></em>. You can run postgres meta commands to do some useful things.</p>
+<p>Like:</p>
+<ul>
+<li><code>\?</code> : this meta command will list all available meta commands</li>
+<li><code>\l</code> : this meta command will list all databases</li>
+<li><code>\dt</code> : this meta command will list all tables</li>
+<li><code>\du</code> : this meta command will list all users</li>
+</ul>
+<p>create a database named <code>null_vals</code> like so:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"> create database null_vals;
+</code></pre></div><p>in the shell, when you will do <code>\l</code>, you will now see something like this:</p>
+<pre tabindex="0"><code class="language-terminal" data-lang="terminal">postgres=# create database null_vals;
+CREATE DATABASE
+postgres=# \l
+                                                List of databases
+   Name    |  Owner   | Encoding |  Collate   |   Ctype    | ICU Locale | Locale Provider 
+|   Access privileges   
+-----------+----------+----------+------------+------------+------------+-----------------
++-----------------------
+ null_vals | postgres | UTF8     | en_US.utf8 | en_US.utf8 |            | libc            
+| 
+ postgres  | postgres | UTF8     | en_US.utf8 | en_US.utf8 |            | libc            
+| 
+ template0 | postgres | UTF8     | en_US.utf8 | en_US.utf8 |            | libc            
+| =c/postgres          +
+           |          |          |            |            |            |                 
+| postgres=CTc/postgres
+ template1 | postgres | UTF8     | en_US.utf8 | en_US.utf8 |            | libc            
+| =c/postgres          +
+           |          |          |            |            |            |                 
+| postgres=CTc/postgres
+(4 rows)
+</code></pre><p>now switch to <code>null_vals</code> database like so:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#ae81ff">\c</span> null_vals
+</code></pre></div><p>in terminal, you will see something like this:</p>
+<pre tabindex="0"><code class="language-terminal" data-lang="terminal">postgres=# \c null_vals
+You are now connected to database &quot;null_vals&quot; as user &quot;postgres&quot;.
+null_vals=#
+</code></pre><p>The prompt has now changed to your database name <code>null_vals</code></p>
+<p>Now we need to create a user and password, so we can start interacting from Golang.</p>
+<p>So we will setup user <code>anshu</code> with password <code>password</code> like so:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">CREATE ROLE anshu WITH LOGIN PASSWORD <span style="color:#e6db74">&#39;password&#39;</span>;
+</code></pre></div><p>You will see something like so in terminal:</p>
+<pre tabindex="0"><code class="language-terminal" data-lang="terminal">null_vals=# CREATE ROLE anshu WITH LOGIN PASSWORD 'password';
+CREATE ROLE
+null_vals=#
+</code></pre><p>Now you need to also grant permissions to user <code>anshu</code> before you are able to use it. This step was optional till postgres version 14. From postgres 15 onwards, this step is mandatory.</p>
+<p>Grant permissions like so:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">grant all on schema public to anshu;
+</code></pre></div><p>You will see on terminal like so:</p>
+<pre tabindex="0"><code class="language-terminal" data-lang="terminal">null_vals=# grant all on schema public to anshu;
+GRANT
+</code></pre><p>Now you can connect to <code>null_vals</code> database as user <code>anshu</code> like so:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#ae81ff">\c</span> null_vals anshu
+</code></pre></div><p>in terminal, it will look like so:</p>
+<pre tabindex="0"><code class="language-terminal" data-lang="terminal">null_vals=# \c null_vals anshu
+You are now connected to database &quot;null_vals&quot; as user &quot;anshu&quot;.
+</code></pre><p>Above, you didn&rsquo;t exit from the existing shell. You just switched from default superuser <code>postgres</code> to user <code>anshu</code></p>
+<p>If you want, you can exit the current postgres shell and login with username and password creadentials like so:</p>
+<pre tabindex="0"><code class="language-terminal" data-lang="terminal">null_vals=# exit
+root@e78cf93c2c4e:/#
+</code></pre><p>Now from root, login to database <code>null_vals</code> with your creds:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">psql --host localhost --dbname<span style="color:#f92672">=</span>null_vals --username<span style="color:#f92672">=</span>anshu
+</code></pre></div><p>it might ask you for password too.</p>
+<pre tabindex="0"><code class="language-terminal" data-lang="terminal">root@e78cf93c2c4e:/# psql --host localhost --dbname=null_vals --username=anshu
+psql (15.3 (Debian 15.3-1.pgdg120+1))
+Type &quot;help&quot; for help.
+
+null_vals=&gt;
+</code></pre><p>That&rsquo;s it. You are all set.</p>
+<p>Let&rsquo;s create a database table while we are at it.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">create table <span style="color:#66d9ef">if</span> not exists mytable <span style="color:#f92672">(</span>
+id bigserial primary key,
+title text null,
+version integer null 
+<span style="color:#f92672">)</span>;
+</code></pre></div><p>it will look like so in terminal</p>
+<pre tabindex="0"><code class="language-terminal" data-lang="terminal">null_vals=&gt; create table if not exists mytable (
+id bigserial primary key,
+title text null,
+version integer null default 1
+);
+CREATE TABLE
+</code></pre><p>and now list tables</p>
+<pre tabindex="0"><code class="language-terminal" data-lang="terminal">null_vals=&gt; \dt
+        List of relations
+ Schema |  Name   | Type  | Owner 
+--------+---------+-------+-------
+ public | mytable | table | anshu
+(1 row)
+
+null_vals=&gt;
+</code></pre><p>Now we are all set. Creating table was not necessary from postgres shell. It can be done via migrations from within Golang.</p>
+<p>Here is how you connect to this database from Golang:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;context&#34;</span>
+	<span style="color:#e6db74">&#34;database/sql&#34;</span>
+	<span style="color:#e6db74">&#34;flag&#34;</span>
+	<span style="color:#e6db74">&#34;log&#34;</span>
+	<span style="color:#e6db74">&#34;os&#34;</span>
+	<span style="color:#e6db74">&#34;time&#34;</span>
+
+	<span style="color:#a6e22e">_</span> <span style="color:#e6db74">&#34;github.com/lib/pq&#34;</span>
+)
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">config</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">db</span> <span style="color:#66d9ef">struct</span> {
+		<span style="color:#a6e22e">dsn</span> <span style="color:#66d9ef">string</span>
+	}
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">cfg</span> <span style="color:#a6e22e">config</span>
+	<span style="color:#a6e22e">dsn</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;postgres://anshu:password@localhost:5432/null_vals?sslmode=disable&#34;</span>
+	<span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">StringVar</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">cfg</span>.<span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">dsn</span>, <span style="color:#e6db74">&#34;db-dsn&#34;</span>, <span style="color:#a6e22e">dsn</span>, <span style="color:#e6db74">&#34;PostgreSQL DSN&#34;</span>)
+	<span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">Parse</span>()
+	<span style="color:#a6e22e">logger</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stdout</span>, <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Ldate</span>|<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Ltime</span>)
+	<span style="color:#a6e22e">db</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">openDB</span>(<span style="color:#a6e22e">cfg</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">logger</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+	}
+
+	<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Close</span>()
+
+	<span style="color:#a6e22e">logger</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;database connection pool established\n&#34;</span>)
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">openDB</span>(<span style="color:#a6e22e">cfg</span> <span style="color:#a6e22e">config</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">sql</span>.<span style="color:#a6e22e">DB</span>, <span style="color:#66d9ef">error</span>) {
+	<span style="color:#a6e22e">db</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sql</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#e6db74">&#34;postgres&#34;</span>, <span style="color:#a6e22e">cfg</span>.<span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">dsn</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">err</span>
+	}
+
+	<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">cancel</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">WithTimeout</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>(), <span style="color:#ae81ff">5</span><span style="color:#f92672">*</span><span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>)
+	<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">cancel</span>()
+
+	<span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">PingContext</span>(<span style="color:#a6e22e">ctx</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">err</span>
+	}
+
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">db</span>, <span style="color:#66d9ef">nil</span>
+}
+</code></pre></div><h2 id="connecting-to-the-postgres-database-within-the-container-via-container-instance-id">Connecting to the postgres database within the container, via container instance id</h2>
 <p>First get the pid of the docker process: <code>sudo docker ps</code></p>
 <p>Now login to the root of the docker instance: <code>sudo docker exec -it bdd95244ce47 bash</code>
 (Here <code>bdd95244ce47</code> was the pid of the docker process from prev step, change it to whatever the pid is)</p>
@@ -297,6 +459,12 @@ Now sudo launch the shell script that runs the docker image."/>
       href="https://tek-shinobi.github.io/tags/postgres"
       >postgres</a
     >
+     
+    <a
+      class="mb-1.5 mr-1.5 rounded-lg bg-black/[3%] px-5 py-1.5 no-underline dark:bg-white/[8%]"
+      href="https://tek-shinobi.github.io/tags/golang"
+      >golang</a
+    >
     
   </footer>
   
@@ -308,15 +476,15 @@ Now sudo launch the shell script that runs the docker image."/>
     
     <a
       class="flex w-1/2 items-center rounded-l-md p-6 pr-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
-      href="https://tek-shinobi.github.io/posts/docker-notes/"
-      ><span class="mr-1.5">←</span><span>Docker Notes</span></a
+      href="https://tek-shinobi.github.io/posts/add-gpg-keys-to-repo/"
+      ><span class="mr-1.5">←</span><span>Add Gpg Keys to Repo</span></a
     >
     
     
     <a
       class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
-      href="https://tek-shinobi.github.io/posts/temporary-files-and-temporary-directory-in-rust/"
-      ><span>Temporary Files and Temporary Directory in Rust</span><span class="ml-1.5">→</span></a
+      href="https://tek-shinobi.github.io/posts/what-is-a-tcp-stream/"
+      ><span>What Is a Tcp Stream</span><span class="ml-1.5">→</span></a
     >
     
   </nav>

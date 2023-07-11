@@ -50,6 +50,18 @@
     <loc>https://tek-shinobi.github.io/tags/verify/</loc>
     <lastmod>2023-05-13T22:53:11+03:00</lastmod>
   </url><url>
+    <loc>https://tek-shinobi.github.io/tags/docker/</loc>
+    <lastmod>2023-04-10T10:38:56+03:00</lastmod>
+  </url><url>
+    <loc>https://tek-shinobi.github.io/categories/docker/</loc>
+    <lastmod>2023-04-10T10:38:56+03:00</lastmod>
+  </url><url>
+    <loc>https://tek-shinobi.github.io/tags/postgres/</loc>
+    <lastmod>2023-04-10T10:38:56+03:00</lastmod>
+  </url><url>
+    <loc>https://tek-shinobi.github.io/posts/using-postgres-inside-docker-container/</loc>
+    <lastmod>2023-04-10T10:38:56+03:00</lastmod>
+  </url><url>
     <loc>https://tek-shinobi.github.io/tags/networking/</loc>
     <lastmod>2021-09-08T18:34:10+03:00</lastmod>
   </url><url>
@@ -77,20 +89,8 @@
     <loc>https://tek-shinobi.github.io/posts/rust-gotchas-copy-and-clone/</loc>
     <lastmod>2021-07-29T22:21:11+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/tags/docker/</loc>
-    <lastmod>2021-05-10T08:15:54+03:00</lastmod>
-  </url><url>
-    <loc>https://tek-shinobi.github.io/categories/docker/</loc>
-    <lastmod>2021-05-10T08:15:54+03:00</lastmod>
-  </url><url>
     <loc>https://tek-shinobi.github.io/posts/docker-notes/</loc>
     <lastmod>2021-05-10T08:15:54+03:00</lastmod>
-  </url><url>
-    <loc>https://tek-shinobi.github.io/tags/postgres/</loc>
-    <lastmod>2021-04-10T10:38:56+03:00</lastmod>
-  </url><url>
-    <loc>https://tek-shinobi.github.io/posts/using-postgres-inside-docker-container/</loc>
-    <lastmod>2021-04-10T10:38:56+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/tags/file/</loc>
     <lastmod>2021-03-20T11:36:47+03:00</lastmod>

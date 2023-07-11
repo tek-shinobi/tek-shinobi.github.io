@@ -17,5 +17,16 @@ CREATE TABLE IF NOT EXISTS mytable ( id BIGSERIAL PRIMARY KEY, title TEXT NULL, 
 If we tried to write the above model in Go like this:</description>
     </item>
     
+    <item>
+      <title>Using Postgres Inside Docker Container</title>
+      <link>https://tek-shinobi.github.io/posts/using-postgres-inside-docker-container/</link>
+      <pubDate>Mon, 10 Apr 2023 10:38:56 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/using-postgres-inside-docker-container/</guid>
+      <description>Cleanup if default postgres port not free If port 5432 is already in use, run this to see what process is using it:
+sudo ss -lptn &#39;sport = :5432&#39; the above command will also display the pid using which you can kill the process. For example, if the pid is 1667, kill it by sudo kill 1667
+(to connect to an existing running docker container via its container id, scroll to end)</description>
+    </item>
+    
   </channel>
 </rss>
