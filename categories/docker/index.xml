@@ -5,11 +5,11 @@
     <link>https://tek-shinobi.github.io/categories/docker/</link>
     <description>Recent content in docker on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 10 Apr 2023 10:38:56 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/categories/docker/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 10 Jul 2023 10:38:56 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/categories/docker/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Using Postgres Inside Docker Container</title>
       <link>https://tek-shinobi.github.io/posts/using-postgres-inside-docker-container/</link>
-      <pubDate>Mon, 10 Apr 2023 10:38:56 +0300</pubDate>
+      <pubDate>Mon, 10 Jul 2023 10:38:56 +0300</pubDate>
       
       <guid>https://tek-shinobi.github.io/posts/using-postgres-inside-docker-container/</guid>
       <description>Cleanup if default postgres port not free If port 5432 is already in use, run this to see what process is using it:

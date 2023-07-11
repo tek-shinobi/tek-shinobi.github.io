@@ -18,6 +18,17 @@ If we tried to write the above model in Go like this:</description>
     </item>
     
     <item>
+      <title>Using Postgres Inside Docker Container</title>
+      <link>https://tek-shinobi.github.io/posts/using-postgres-inside-docker-container/</link>
+      <pubDate>Mon, 10 Jul 2023 10:38:56 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/using-postgres-inside-docker-container/</guid>
+      <description>Cleanup if default postgres port not free If port 5432 is already in use, run this to see what process is using it:
+sudo ss -lptn &#39;sport = :5432&#39; the above command will also display the pid using which you can kill the process. For example, if the pid is 1667, kill it by sudo kill 1667
+(to connect to an existing running docker container via its container id, scroll to end)</description>
+    </item>
+    
+    <item>
       <title>Add Gpg Keys to Repo</title>
       <link>https://tek-shinobi.github.io/posts/add-gpg-keys-to-repo/</link>
       <pubDate>Sat, 13 May 2023 22:53:11 +0300</pubDate>
@@ -25,17 +36,6 @@ If we tried to write the above model in Go like this:</description>
       <guid>https://tek-shinobi.github.io/posts/add-gpg-keys-to-repo/</guid>
       <description>Add GPG keys to github repo and local The process involves a set of simple steps:
  Create GPG keys from commandline terminal Export the created keys using armor into a text blob. Take the blob and head over to github account -&amp;gt; Settings -&amp;gt; SSH and GPG keys and add it as GPG key The most important point: cd to you local repo directory and configure the key there. This step will need to be done for every local repo.</description>
-    </item>
-    
-    <item>
-      <title>Using Postgres Inside Docker Container</title>
-      <link>https://tek-shinobi.github.io/posts/using-postgres-inside-docker-container/</link>
-      <pubDate>Mon, 10 Apr 2023 10:38:56 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/using-postgres-inside-docker-container/</guid>
-      <description>Cleanup if default postgres port not free If port 5432 is already in use, run this to see what process is using it:
-sudo ss -lptn &#39;sport = :5432&#39; the above command will also display the pid using which you can kill the process. For example, if the pid is 1667, kill it by sudo kill 1667
-(to connect to an existing running docker container via its container id, scroll to end)</description>
     </item>
     
     <item>
