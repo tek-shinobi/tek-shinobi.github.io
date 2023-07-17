@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Rate Limiting in a Distributed System - Tek Shinobi Blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo">
+		<a class="logo__link" href="/" title="Tek Shinobi Blog" rel="home">
+			<div class="logo__item logo__text">
+					<div class="logo__title">Tek Shinobi Blog</div>
+					
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Rate Limiting in a Distributed System</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2023-07-15T13:19:42&#43;03:00">July 15, 2023</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/distributed-system-design/" rel="category">distributed system design</a>
+	</span>
+</div></div>
+		</header>
+		<div class="content post__content clearfix">
+			<p>Assume that we own a suite of API based microservices that implement a discount coupon service. Rate-limiting is needed to ensure that all clients have equal access to our resources and protect our APIs from (malicious or erroneous) intensive usage.</p>
+<p>Rate-limiting seems straightforward: we only allow a given client to perform X calls every minute. It’s quite easy to implement on a single server instance, and we can easily find libraries to do that for us. But if our API is hosted in 6 data centers (in Europe, North America, and Asia), with multiple instances in each one. This means we need some kind of distributed rate-limiting system.</p>
+<h2 id="use-your-load-balancer">Use your load balancer</h2>
+<p>Before trying to develop your own system, it’s important to see if existing parts of your infrastructure could provide the feature you want.</p>
+<p>So, what’s in front of all the instances on a data center and is already responsible to inspect and route traffic toward them? The load balancer. And most load balancers provide a rate-limiting feature or some kind of abstraction that can be used to implement it. For example, HAProxy has <a href="https://www.haproxy.com/blog/introduction-to-haproxy-stick-tables"> stick tables </a> that can be used to set up rate limits. It works well, it handles synchronization between instances for you and it’s already there.</p>
+<p>In most scenarios we will have some feature requirements (dynamic limits, token introspection, …) that would mean that we need something more specific.</p>
+<h2 id="naive-approaches">Naive approaches</h2>
+<h3 id="sticky-sessions">Sticky sessions</h3>
+<p>Speaking of load-balancer, we don’t need a distributed rate-limiting system if a given client is not load-balanced and always interacts with a single instance 🤓. Most clients will reach the data center closer to their application (via our geo-DNS), so if we enable “stickiness” on the load balancer, a client should always reach the same instance. And this would allow us to use a simple “local” rate-limiting.</p>
+<p>This works in theory, not in practice. The load faced by most business API systems is not constant. For example, lets say that in our demo app serving discount coupon service, the Black Friday / Cyber Week is the biggest part of the year. During this period, our imaginary development team is on alert, and we are prepared to scale our infrastructure to face the increased demand from our clients. But session stickiness and scaling don’t mix well (what’s the use of creating new instances, if all existing clients are stuck to the old ones?).</p>
+<p>Using a smarter session stickiness, which reshuffles sessions when scaling, would help. But it means each time we scale up, clients could be switched to another instance, which has no idea how many calls the client performed on the previous instance. In essence, this would make our limit inconsistent each time we scale, allowing clients to make more calls each time our system is under pressure.</p>
+<h3 id="chatty-servers">Chatty servers</h3>
+<p>If a client can reach any of the instances, it means that the “call count” must be shared between the instances. One way to do it would be to have each instance call every other one to ask for their current count for a given client, and sum that up. Or we could do it the other way around, with each server broadcasting a “count update” to the others.</p>
+<p>This has two main problems:</p>
+<ul>
+<li>The more instances we have, the more calls need to be made.</li>
+<li>Each instance needs to know the address of every other one, and this has to be updated each time the service is scaled up or down.
+While this solution can be done (it’s essentially a peer-to-peer ring and a lot of systems have been implemented to do that well), it’s far from trivial.</li>
+</ul>
+<h3 id="kafka-streams">Kafka streams</h3>
+<p>If we don’t want to have each instance talking to the others, we could use Kafka to synchronize the counters in all the instances.</p>
+<p>For example, each time a call would reach an instance, an event would be pushed to a topic. Those events would be aggregated with a sliding window (Kafka Stream does that quite well) and the up-to-date counts for each client for the last minute would be published on another topic. Each instance would then consume this topic to get the shared count of all clients.</p>
+<p>The problem is that Kafka is, in essence, asynchronous. While the lag is often quite small, it will increase when the load on the API increase. And if the instances use outdated counters, they could allow calls that should be blocked.</p>
+<hr>
+<hr>
+<p>All those solutions have something in common: they work well when everything is fine, but they degrade under heavy load. That’s how we design most of our system, and it’s perfectly fine usually. But rate-limiting is not a typical component, as its very goal is to protect the rest of the system from this heavy load.</p>
+<blockquote>
+<p>The goal of a rate-limiting system is to work well when the system is under heavy load. It needs to be built for the worst 1%, not the good 99%</p>
+</blockquote>
+<h2 id="distributed-algorithms">Distributed algorithms</h2>
+<p>What we need is a centralized and synchronous storage system and an algorithm that can leverage it to compute the current rate for each client. An in-memory cache (like Memcached or Redis) is ideal. But not all rate-limiting algorithms can be implemented with every caching system. So let’s see what kind of algorithm exists.</p>
+<p>For simplification, we will consider that we are always trying to implement a <strong>100 calls per minute</strong> limit.</p>
+<p>Let’s look at the tools at our disposal.</p>
+<h3 id="sliding-window-via-event-log">Sliding window via event log</h3>
+<p>If we want to know how many calls a client did in the past minute, we could store a list of timestamps in the cache for each client. Each time a call is made, the corresponding timestamp is appended to the list. Then we can loop over each item in the list, discarding the ones that are more than a minute old and counting the ones that are not.</p>
+<p>👍<strong>Pros</strong>:</p>
+<ul>
+<li>Very accurate</li>
+<li>Simple</li>
+</ul>
+<p>👎<strong>Cons</strong>:</p>
+<ul>
+<li>Require strong transactional support (Two instances handling calls for the same client will want to update the same list).</li>
+<li>The size of the stored object (the list) can be quite big depending on the limit and the number of calls.</li>
+<li>Performances are not stable (More calls mean more timestamps to go through)</li>
+</ul>
+<h3 id="fixed-window">Fixed window</h3>
+<p>Most distributed caching systems have specific, high-performance, abstraction for &ldquo;counters&rdquo; (an integer value that can be increased atomically and that is attached to a string key).</p>
+<p>It is very easy to maintain a counter for each client, with the key <strong>{clientId}</strong>. But this would simply count the number of calls the client made, <strong>since the counter creation</strong>, not over the last minute. Using the key <strong>{clientId}_{yyyyMMddHHmm}</strong> would allow us to maintain a counter for each client for each calendar minute (in other words: for each fixed window of 1 minute). Looking for the counter corresponding to the current time would then give us the number of calls performed by the client this minute. And if this number is above the limit we can block the call.</p>
+<blockquote>
+<p>Note that this is not the same thing as <strong>over the last minute</strong>. If a call is made at <em><strong>07:10:23 AM</strong></em>, the fixed window counter will give us the number of calls made between <em><strong>07:10:00 AM</strong></em> and <em><strong>07:10:23 AM</strong></em>. But what we really want is the number of calls made between <em><strong>07:09:23 AM</strong></em> and <em><strong>07:10:23 AM</strong></em>.</p>
+</blockquote>
+<p>In a way, the fixed window algorithm <em><strong>forgets</strong></em> how many calls were made before the minute mark, so a client could theoretically perform 100 calls at <em><strong>07:09:59</strong></em> and then 100 additional calls at <em><strong>07:10:00</strong></em>.</p>
+<p>👍<strong>Pros</strong>:</p>
+<ul>
+<li>Very fast (a single atomic increment+read operation)</li>
+<li>Very basic transactional support is needed (atomic counter)</li>
+<li>Constant performances</li>
+<li>Simple</li>
+</ul>
+<p>👎<strong>Cons</strong>:</p>
+<ul>
+<li>Inaccurate (up to x2 calls let through)</li>
+</ul>
+<h3 id="token-bucket">Token bucket</h3>
+<blockquote>
+<p>It’s 1994, and your parents dropped you off at the arcade to play Super Street Fighter II with your friends. They gave you a small bucket filled with $5 in coins and went to the bar across the street. Every hour, one of them comes and drops $5 worth of coin in the bucket. You’ve been essentially rate-limited to $5 an hour (and hopefully you became very good at Street Fighter).</p>
+</blockquote>
+<p>That’s the main idea behind the &ldquo;token bucket&rdquo; algorithm: instead of a simple counter, a &ldquo;bucket&rdquo; is stored in the cache for each client. A bucket is an object that consists of two attributes:</p>
+<ul>
+<li>the number of remaining &ldquo;tokens&rdquo; (or remaining calls that can be made)</li>
+<li>the timestamp of the last call.
+When a call is made, the bucket is retrieved. New tokens are added to the bucket depending on the amount of time between the current call and the last call. After that, if there is more than one token, it is decremented and the call can be made.</li>
+</ul>
+<p>So, contrary to my &ldquo;Street fighter&rdquo; example, there is no &ldquo;parent&rdquo; that has to refill the buckets every minute. The bucket is efficiently refilled in the same operation as the token consumption (with the number of tokens corresponding to the time gap between the last call). If the last call was half a minute ago, the 100 calls per minute limit would mean 50 tokens would be added to the bucket. If a bucket is too &ldquo;old&rdquo; (the last call is more than 1 minute), the token count is reset to 100.</p>
+<p>In fact, you could choose to initialize the bucket with more than 100 tokens (but have it refill at a 100 tokens/minute rate): this would be akin to a &ldquo;burst&rdquo; feature, where a client could go above the limit for a short period of time, but would not be able to sustain it.</p>
+<blockquote>
+<p><strong>Note:</strong> It’s important to compute a decimal value for the tokens to be added or you risk improperly replenishing the bucket.</p>
+</blockquote>
+<p>This algorithm offers perfect accuracy while working at constant performance. The main problem is the need for transactions (you don&rsquo;t want two instances updating the cached object at the same time). This is because now you have a bucket containing two attributes and you will need a transaction to operate on both of these as a unit of work.</p>
+<figure><img src="/1_iaQ44hHf8T81mrJy-Bd9ug.webp"
+         alt="Step-by-step example of a Token bucket for a valid call and a limit of 100 calls per minute"/><figcaption>
+            <p>Step-by-step example of a Token bucket for a valid call and a limit of 100 calls per minute</p>
+        </figcaption>
+</figure>
+
+<p>👍<strong>Pros</strong>:</p>
+<ul>
+<li>Very accurate</li>
+<li>Fast</li>
+<li>Constant performances</li>
+<li>Tuning the initial token number allow client to “burst”</li>
+</ul>
+<p>👎<strong>Cons</strong>:</p>
+<ul>
+<li>More complex</li>
+<li>Require strong transactional support</li>
+</ul>
+<blockquote>
+<p>Leaky bucket: another version of the algorithm (the “leaky bucket”) also exists. In this version, the calls pile up in the bucket and are handled at a constant rate (that matches the rate limit). If the bucket overflow, the incoming calls are refused. This is more complex to implement but allows to smooth the load on your services (which is something that you may want, or not).</p>
+</blockquote>
+<h3 id="-the-best">🏆 The best?</h3>
+<p>Looking at those three algorithms, the token bucket seems to offer the best compromise of performances and accuracy. But it’s only possible if your system offers good transactional support. That is perfect if you have access to a Redis cluster (you can even implement the algorithm as a Lua script to make it run directly on your Redis cluster, for increased performances), but Memcached only supports atomic counter, not transactions.</p>
+<blockquote>
+<p>It’s possible to implement an <a href="https://en.wikipedia.org/wiki/Optimistic_concurrency_control"> optimistic concurrent </a> version of the token bucket using Memcached, but this would be more complex, and optimistic concurrency’s performance degrades under heavy load.</p>
+</blockquote>
+<hr>
+<hr>
+<h2 id="approximated-sliding-window-from-fixed-windows">Approximated sliding window from fixed windows</h2>
+<p>Without strong transactional support, are you condemned to use the inaccurate fixed window algorithm?</p>
+<p>Kind of, but it can be improved. Remember that the main problem with the fixed window is that it “forgets” what happened just before the minute mark. But we still have access to this information (in the counter for the previous minute). So we could use it to estimate the number of calls in the previous minute by computing a weighted average.
+<figure><img src="/1_Gxe-if0-1gVfoFP3OZ0B3w.webp"
+         alt="60s fixed-windows composition used to approximate a sliding 60s window"/><figcaption>
+            <p>60s fixed-windows composition used to approximate a sliding 60s window</p>
+        </figcaption>
+</figure>
+</p>
+<blockquote>
+<p><strong>Example:</strong> If a call is made at <em><strong>00:01:43 AM</strong></em>, we increment and get the value of the &ldquo;00:01&rdquo; counter. As this is the current calendar minute, it will now contain the number of calls between <em><strong>00:01:00 AM</strong></em> and <em><strong>00:01:43 AM</strong></em> (the last 17 seconds have not occured yet).</p>
+<p>But we want the number of calls in the 60s sliding window, so we are missing the count for the <em><strong>00:00:43 AM</strong></em> to <em><strong>00:01:00 AM</strong></em> period. For those, we could use the &ldquo;00:00&rdquo; counter, and adjust it by a 17/60 factor to account for the fact that only the last 17 seconds interest us.</p>
+</blockquote>
+<p>Under constant load the approximation is perfect. But it will be overestimated when most of the calls were made at the start of the previous minute. And it will be underestimated when most of the calls were made at the end of the previous minute.</p>
+<h2 id="lets-compare">Let’s compare</h2>
+<p>To more accurately understand the accuracy difference, the best thing is to simulate both algorithms under the same conditions.</p>
+<p>This first graph shows what the “fixed counter” algorithm will return with a random traffic input. The grey line is the output of a “perfect” sliding window, which at any point in time corresponds to the number of calls made in the past 60 seconds. It’s what we aim for. <em><strong>The orange-dotted line represents what the fixed window algorithm “counts” for the same traffic.</strong></em>
+<figure><img src="/1_f32OFMmBk1IDf1keuYmJOQ.webp"
+         alt="60s fixed-window vs perfect sliding window"/><figcaption>
+            <p>60s fixed-window vs perfect sliding window</p>
+        </figcaption>
+</figure>
+
+We no longer see drops around the minute marks and we can see that the new version of the algorithm more closely matches the perfect one. It sometimes goes a bit over, sometimes under, but overall a tremendous improvement.</p>
+<h2 id="diminishing-returns">Diminishing returns</h2>
+<p>But can we do better?</p>
+<p>Our approximation use only the current and previous 60s fixed windows. But instead, we could use several, smaller, sub-windows. An extreme approach would be to use sixty 1s windows to reconstruct the traffic over the last minute. Obviously, this would mean reading 60 counters for each call, which would add a big performance cost. But we could choose any fixed-window duration, and compose an approximation from them. The smaller the windows, the more of them are needed and the more precise the approximation will be.
+<figure><img src="/1_ulzcfZrETy0jALTFqbPCfw.webp"/>
+</figure>
+
+Let’s look at what combining five 15s windows would do:
+<figure><img src="/1_OONVSVj3p166pkw-9LRt3g.webp"/>
+</figure>
+
+As expected, the accuracy improved but is still not perfect.</p>
+<p>We are in a classic <strong>better accuracy = worse performance scenario</strong>. In the end, there is no absolute best, you will have to look into your accuracy and performance requirement to find the solution that suits you the best. A simple fixed window could even be a very viable solution if the only thing you care about is protecting your service from gross overuse, without needing to consistently enforce a limit.</p>
+
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/rate-limiter/" rel="tag">rate limiter</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+
+
+
+			</div>
+			<aside class="sidebar">
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="LinkedIn" rel="noopener noreferrer" href="https://linkedin.com/in/himanshu-singh-remote/" target="_blank">
+				<svg class="widget-social__link-icon icon icon-linkedin" width="24" height="24" viewBox="0 0 352 352"><path d="M0,40v272c0,21.9,18.1,40,40,40h272c21.9,0,40-18.1,40-40V40c0-21.9-18.1-40-40-40H40C18.1,0,0,18.1,0,40z M312,32 c4.6,0,8,3.4,8,8v272c0,4.6-3.4,8-8,8H40c-4.6,0-8-3.4-8-8V40c0-4.6,3.4-8,8-8H312z M59.5,87c0,15.2,12.3,27.5,27.5,27.5 c15.2,0,27.5-12.3,27.5-27.5c0-15.2-12.3-27.5-27.5-27.5C71.8,59.5,59.5,71.8,59.5,87z M187,157h-1v-21h-45v152h47v-75 c0-19.8,3.9-39,28.5-39c24.2,0,24.5,22.4,24.5,40v74h47v-83.5c0-40.9-8.7-72-56.5-72C208.5,132.5,193.3,145.1,187,157z M64,288h47.5 V136H64V288z"/></svg>
+				<span>LinkedIn</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/tek-shinobi" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+
+		
+	</div>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/posts/rate-limiting-in-distributed-system/">Rate Limiting in a Distributed System</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-testing-creating-large-files/">Golang Testing: Creating Large Files</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/add-gpg-keys-to-repo/">Add Gpg Keys to Repo</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-handling-null-in-database-tables/">Golang: Handling Null in Database Tables</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/using-postgres-inside-docker-container/">Golang: Using Postgres Inside Docker Container</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-common-concurrency-patterns/">Golang: Common Concurrency Patterns</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-channels/">Golang Channels</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-unmarshal-json-blob-with-unknown-schema/">Golang: Unmarshal Json Blob With Unknown Schema</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/rust-gotchas-copy-and-clone/">Rust Gotchas Copy and Clone</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/docker-notes/">Docker Notes</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/distributed-system-design/">distributed system design</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/github/">github</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/networking/">networking</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/rust/">rust</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-taglist widget">
+	<h4 class="widget__title">Tags</h4>
+	<div class="widget__content">
+		<a class="widget-taglist__link widget__link btn" href="/tags/concurrency/" title="concurrency">concurrency</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/docker/" title="docker">docker</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/github/" title="github">github</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/golang/" title="golang">golang</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/gpg/" title="gpg">gpg</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/networking/" title="networking">networking</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/postgres/" title="postgres">postgres</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/rate-limiter/" title="rate limiter">rate limiter</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/rust/" title="rust">rust</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/tcp/" title="tcp">tcp</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/testing/" title="testing">testing</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/turbofish/" title="turbofish">turbofish</a>
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2023 Tek Shinobi Blog.
+			
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+</body>
+</html>

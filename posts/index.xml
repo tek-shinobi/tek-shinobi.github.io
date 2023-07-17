@@ -5,7 +5,17 @@
     <link>https://tek-shinobi.github.io/posts/</link>
     <description>Recent content in Posts on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 11 Jul 2023 15:17:34 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 15 Jul 2023 13:19:42 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Rate Limiting in a Distributed System</title>
+      <link>https://tek-shinobi.github.io/posts/rate-limiting-in-distributed-system/</link>
+      <pubDate>Sat, 15 Jul 2023 13:19:42 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/rate-limiting-in-distributed-system/</guid>
+      <description>Assume that we own a suite of API based microservices that implement a discount coupon service. Rate-limiting is needed to ensure that all clients have equal access to our resources and protect our APIs from (malicious or erroneous) intensive usage.
+Rate-limiting seems straightforward: we only allow a given client to perform X calls every minute. It’s quite easy to implement on a single server instance, and we can easily find libraries to do that for us.</description>
+    </item>
+    
     <item>
       <title>Golang Testing: Creating Large Files</title>
       <link>https://tek-shinobi.github.io/posts/golang-testing-creating-large-files/</link>

@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>tcp - Tek Shinobi Blog</title>
+	<title>rate limiter - Tek Shinobi Blog</title>
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +14,7 @@
 
 	<link rel="stylesheet" href="/css/style.css">
 	
-	<link rel="alternate" type="application/rss+xml" href="/tags/tcp/index.xml" title="Tek Shinobi Blog">
+	<link rel="alternate" type="application/rss+xml" href="/tags/rate-limiter/index.xml" title="Tek Shinobi Blog">
 
 	<link rel="shortcut icon" href="/favicon.ico">
 		
@@ -40,26 +40,24 @@
 			
 <main class="main list" role="main">
 	<header class="main__header">
-		<h1 class="main__title">tcp</h1>
+		<h1 class="main__title">rate limiter</h1>
 	</header><article class="list__item post">
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
-			<a href="/posts/what-is-a-tcp-stream/" rel="bookmark">
-			What Is a Tcp Stream
+			<a href="/posts/rate-limiting-in-distributed-system/" rel="bookmark">
+			Rate Limiting in a Distributed System
 			</a>
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2020-02-08T18:34:10&#43;03:00">February 08, 2020</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/networking/" rel="category">networking</a>
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2023-07-15T13:19:42&#43;03:00">July 15, 2023</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/distributed-system-design/" rel="category">distributed system design</a>
 	</span>
 </div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
-		The TCP protocol is modeled on the concept of a single continuous stream of unlimited length. This is a very important concept to understand, and is the number one cause of confusion that we see.
-What exactly does this mean, and how does it affect developers?
-Imagine that you&rsquo;re trying to send a few messages over the socket. So you do something like this (in pseudocode):
-socket.write(&quot;Hi Sandy.&quot;); socket.write(&quot;Are you busy tonight?
+		Assume that we own a suite of API based microservices that implement a discount coupon service. Rate-limiting is needed to ensure that all clients have equal access to our resources and protect our APIs from (malicious or erroneous) intensive usage.
+Rate-limiting seems straightforward: we only allow a given client to perform X calls every minute. It’s quite easy to implement on a single server instance, and we can easily find libraries to do that for us.
 	</div>
 </article>
 </main>
