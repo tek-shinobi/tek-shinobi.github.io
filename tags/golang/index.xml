@@ -5,7 +5,16 @@
     <link>https://tek-shinobi.github.io/tags/golang/</link>
     <description>Recent content in golang on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 11 Jul 2023 15:17:34 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 25 Jul 2023 10:41:57 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Golang: Distributed Rate Limiting Using Fixed Window</title>
+      <link>https://tek-shinobi.github.io/posts/golangdistributed-rate-limiting-using-fixed-window/</link>
+      <pubDate>Tue, 25 Jul 2023 10:41:57 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/golangdistributed-rate-limiting-using-fixed-window/</guid>
+      <description>Fixed Window rate limiter is the simplest form of rate limiting. It means that once the expiration has been set, a client that reaches the limit will be blocked from making further requests until the expiration time arrives. If a client has a limit of 50 requests every minute and makes all 50 requests in the first 5 seconds of the minute, it will have to wait 55 seconds to make another request.</description>
+    </item>
+    
     <item>
       <title>Golang Testing: Creating Large Files</title>
       <link>https://tek-shinobi.github.io/posts/golang-testing-creating-large-files/</link>
@@ -59,6 +68,19 @@ var c1, c2 &amp;lt;-chan int for { // Either loop infinitely or range over somet
       <description>When dealing with conccurency problems, it is harder to reason about when moving down the stack of abstraction (machine, process, thread, hardware components, etc). Most programming languages use thread as its highest level of abstraction. Fortunately, Go builds on top of that &amp;amp; introduced Goroutine.
  “Share memory by communicating, don’t communicate by sharing memory.”
  One of Go’s mottos   Although Golang provides traditional locking mechanism in sync package, its philosophy prefers “share memory by communicating”.</description>
+    </item>
+    
+    <item>
+      <title>Golang: Unmarshal Json Blob With Unknown Schema</title>
+      <link>https://tek-shinobi.github.io/posts/golang-unmarshal-json-blob-with-unknown-schema/</link>
+      <pubDate>Fri, 11 Jun 2021 22:07:45 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/golang-unmarshal-json-blob-with-unknown-schema/</guid>
+      <description>There are two ways to handle this:
+Approach 1: Using json.RawMessage json.RawMessage: represents a raw JSON value
+It and can be used to delay parsing until the schema is known.
+Here&amp;rsquo;s an example of how to use json.RawMessage:
+type UnknownSchema struct { Data json.RawMessage `json:&amp;#34;data&amp;#34;` } func main() { jsonStr := `{&amp;#34;data&amp;#34;:{&amp;#34;name&amp;#34;:&amp;#34;John&amp;#34;,&amp;#34;age&amp;#34;:30}}` var obj UnknownSchema err := json.Unmarshal([]byte(jsonStr), &amp;amp;obj) if err != nil { panic(err) } // The schema of the data field is still unknown at this point  fmt.</description>
     </item>
     
   </channel>

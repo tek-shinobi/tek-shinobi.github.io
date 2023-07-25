@@ -5,7 +5,16 @@
     <link>https://tek-shinobi.github.io/tags/rate-limiter/</link>
     <description>Recent content in rate limiter on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 15 Jul 2023 13:19:42 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/rate-limiter/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 25 Jul 2023 10:41:57 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/rate-limiter/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Golang: Distributed Rate Limiting Using Fixed Window</title>
+      <link>https://tek-shinobi.github.io/posts/golangdistributed-rate-limiting-using-fixed-window/</link>
+      <pubDate>Tue, 25 Jul 2023 10:41:57 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/golangdistributed-rate-limiting-using-fixed-window/</guid>
+      <description>Fixed Window rate limiter is the simplest form of rate limiting. It means that once the expiration has been set, a client that reaches the limit will be blocked from making further requests until the expiration time arrives. If a client has a limit of 50 requests every minute and makes all 50 requests in the first 5 seconds of the minute, it will have to wait 55 seconds to make another request.</description>
+    </item>
+    
     <item>
       <title>Rate Limiting in a Distributed System</title>
       <link>https://tek-shinobi.github.io/posts/rate-limiting-in-distributed-system/</link>

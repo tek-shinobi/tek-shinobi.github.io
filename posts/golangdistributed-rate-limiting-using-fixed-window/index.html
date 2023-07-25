@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Golang:Distributed Rate Limiting Using Fixed Window - Tek Shinobi Blog</title>
+	<title>Golang: Distributed Rate Limiting Using Fixed Window - Tek Shinobi Blog</title>
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,10 +40,12 @@
 <main class="main" role="main">
 	<article class="post">
 		<header class="post__header">
-			<h1 class="post__title">Golang:Distributed Rate Limiting Using Fixed Window</h1>
+			<h1 class="post__title">Golang: Distributed Rate Limiting Using Fixed Window</h1>
 			<div class="post__meta meta">
 <div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2023-07-25T10:41:57&#43;03:00">July 25, 2023</time></div></div>
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2023-07-25T10:41:57&#43;03:00">July 25, 2023</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/golang/" rel="category">golang</a>, <a class="meta__link" href="/categories/distributed-system-design/" rel="category">distributed system design</a>
+	</span>
+</div></div>
 		</header>
 		<div class="content post__content clearfix">
 			<p>Fixed Window rate limiter is the simplest form of rate limiting. It means that once the expiration has been set, a client that reaches the limit will be blocked from making further requests until the expiration time arrives. If a client has a limit of 50 requests every minute and makes all 50 requests in the first 5 seconds of the minute, it will have to wait 55 seconds to make another request. This is also the main downside of this implementation, it would still let a client burn through its whole limit quickly (bursty traffic) and that could still overload your service, as it could be expecting this traffic to be spread out throughout the whole limiting period.</p>
@@ -187,6 +189,20 @@
 </code></pre></div><p>Note: the implementation above is <em><strong>write first</strong></em> approach. We modify the redis counter first and then decide if this request will be allowed or denied. This makes the counter increment unbounded as any request will increment it even if it is rate limited. In most cases this is OK if redis is run as a cluster and window size is small enough that counter does not overflow (uint64 is really large value).</p>
 
 		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/golang/" rel="tag">golang</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/rate-limiter/" rel="tag">rate limiter</a>
+		</li>
+	</ul>
+</div>
+		</footer>
 	</article>
 </main>
 
@@ -218,7 +234,7 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
-			<li class="widget__item"><a class="widget__link" href="/posts/golangdistributed-rate-limiting-using-fixed-window/">Golang:Distributed Rate Limiting Using Fixed Window</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golangdistributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/rate-limiting-in-distributed-system/">Rate Limiting in a Distributed System</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golang-testing-creating-large-files/">Golang Testing: Creating Large Files</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/add-gpg-keys-to-repo/">Add Gpg Keys to Repo</a></li>
