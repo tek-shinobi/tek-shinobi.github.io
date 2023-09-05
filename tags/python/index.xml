@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>python on Tek Shinobi Blog</title>
+    <link>https://tek-shinobi.github.io/tags/python/</link>
+    <description>Recent content in python on Tek Shinobi Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 05 Sep 2019 11:01:54 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Backend Python:Temporary Files in Python</title>
+      <link>https://tek-shinobi.github.io/posts/backend-pythontemporary-files-in-python/</link>
+      <pubDate>Thu, 05 Sep 2019 11:01:54 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/backend-pythontemporary-files-in-python/</guid>
+      <description>Let me start with an actual use case scenario. As a backend developer, I need to process the user uploaded file data all the time. Here temporary files shine. The best part about these is that they make cleanup easier. If you make a real file, you need to use some OS level utility to manually delete the file after you are done with it. If you are using temporary files – option-1, then just by closing the file, you are guaranteed that OS will later clear it up.</description>
+    </item>
+    
+    <item>
+      <title>Python Scrapy:Removing Non Ascii Characters From Text in Python</title>
+      <link>https://tek-shinobi.github.io/posts/python-scrapyremoving-non-ascii-characters-from-text-in-python/</link>
+      <pubDate>Wed, 05 Sep 2018 11:13:58 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/python-scrapyremoving-non-ascii-characters-from-text-in-python/</guid>
+      <description>I was handling some text scraped using Scrapy and the text had non-ascii unicode charcters like \u003e. If I did this, it didn&amp;rsquo;t work:
+html_text = response.text.encode(&amp;#39;ascii&amp;#39;, errors=&amp;#39;ignore&amp;#39;).decode() Here response.text is the string that contains unicode text (scrapy returns strings encoded in unicode). The html_text still had non ascii unicode characters like \u003e This worked:
+html_text = response.text.encode(&amp;#39;ascii&amp;#39;, errors=&amp;#39;ignore&amp;#39;).decode(&amp;#39;unicode-escape&amp;#39;) Note that unicode-escape part in decode. That made the difference in getting rid of characters like \u003e and replacing them with space.</description>
+    </item>
+    
+  </channel>
+</rss>

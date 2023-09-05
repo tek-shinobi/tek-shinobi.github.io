@@ -60,5 +60,32 @@
       <description></description>
     </item>
     
+    <item>
+      <title>python</title>
+      <link>https://tek-shinobi.github.io/categories/python/</link>
+      <pubDate>Thu, 05 Sep 2019 11:01:54 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/categories/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>frontend</title>
+      <link>https://tek-shinobi.github.io/categories/frontend/</link>
+      <pubDate>Thu, 05 Sep 2019 10:22:21 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/categories/frontend/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>javascript</title>
+      <link>https://tek-shinobi.github.io/categories/javascript/</link>
+      <pubDate>Tue, 05 Sep 2017 11:25:18 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/categories/javascript/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

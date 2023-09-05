@@ -123,5 +123,50 @@
       <description></description>
     </item>
     
+    <item>
+      <title>python</title>
+      <link>https://tek-shinobi.github.io/tags/python/</link>
+      <pubDate>Thu, 05 Sep 2019 11:01:54 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>css</title>
+      <link>https://tek-shinobi.github.io/tags/css/</link>
+      <pubDate>Thu, 05 Sep 2019 10:22:21 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/tags/css/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>scrapy</title>
+      <link>https://tek-shinobi.github.io/tags/scrapy/</link>
+      <pubDate>Wed, 05 Sep 2018 11:13:58 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/tags/scrapy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ES6</title>
+      <link>https://tek-shinobi.github.io/tags/es6/</link>
+      <pubDate>Tue, 05 Sep 2017 11:25:18 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/tags/es6/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>javascript</title>
+      <link>https://tek-shinobi.github.io/tags/javascript/</link>
+      <pubDate>Tue, 05 Sep 2017 11:25:18 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/tags/javascript/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

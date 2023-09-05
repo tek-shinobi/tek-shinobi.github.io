@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>javascript on Tek Shinobi Blog</title>
+    <link>https://tek-shinobi.github.io/categories/javascript/</link>
+    <description>Recent content in javascript on Tek Shinobi Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 05 Sep 2017 11:25:18 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/categories/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Javascript ES6:Quick Recap Cookbook</title>
+      <link>https://tek-shinobi.github.io/posts/javascript-es6quick-recap-cookbook/</link>
+      <pubDate>Tue, 05 Sep 2017 11:25:18 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/javascript-es6quick-recap-cookbook/</guid>
+      <description>// crreate a whole random number between [0,20) function wholeRandomNumber(){ return Math.floor(Math.random() * 20) } console.log(wholeRandomNumber()) // random numbers within a range [min, max] function randomRange(min, max){ return Math.floor(Math.random()*(max-min + 1)) + min } console.log(randomRange(1,2)) // parseInt  // return integer from a string. It will returrn NaN if string cannot be converted to a number function convertToIntegerr(str){ return parseInt(str) } console.log(&amp;#34;parseInt: &amp;#34;+ convertToIntegerr(&amp;#34;55&amp;#34;)) console.log(&amp;#34;parseInt: &amp;#34;+ convertToIntegerr(&amp;#34;ABC&amp;#34;)) // parseInt also takes in a radix.</description>
+    </item>
+    
+  </channel>
+</rss>

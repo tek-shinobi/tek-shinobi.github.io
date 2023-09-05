@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>scrapy on Tek Shinobi Blog</title>
+    <link>https://tek-shinobi.github.io/tags/scrapy/</link>
+    <description>Recent content in scrapy on Tek Shinobi Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 05 Sep 2018 11:13:58 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/scrapy/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python Scrapy:Removing Non Ascii Characters From Text in Python</title>
+      <link>https://tek-shinobi.github.io/posts/python-scrapyremoving-non-ascii-characters-from-text-in-python/</link>
+      <pubDate>Wed, 05 Sep 2018 11:13:58 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/python-scrapyremoving-non-ascii-characters-from-text-in-python/</guid>
+      <description>I was handling some text scraped using Scrapy and the text had non-ascii unicode charcters like \u003e. If I did this, it didn&amp;rsquo;t work:
+html_text = response.text.encode(&amp;#39;ascii&amp;#39;, errors=&amp;#39;ignore&amp;#39;).decode() Here response.text is the string that contains unicode text (scrapy returns strings encoded in unicode). The html_text still had non ascii unicode characters like \u003e This worked:
+html_text = response.text.encode(&amp;#39;ascii&amp;#39;, errors=&amp;#39;ignore&amp;#39;).decode(&amp;#39;unicode-escape&amp;#39;) Note that unicode-escape part in decode. That made the difference in getting rid of characters like \u003e and replacing them with space.</description>
+    </item>
+    
+  </channel>
+</rss>
