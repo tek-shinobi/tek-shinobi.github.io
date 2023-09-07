@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Backend Python:Adding Reverse Url Lookup in Django - Tek Shinobi Blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo">
+		<a class="logo__link" href="/" title="Tek Shinobi Blog" rel="home">
+			<div class="logo__item logo__text">
+					<div class="logo__title">Tek Shinobi Blog</div>
+					
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Backend Python:Adding Reverse Url Lookup in Django</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2018-09-07T13:39:51&#43;03:00">September 07, 2018</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/backend/" rel="category">backend</a>, <a class="meta__link" href="/categories/python/" rel="category">python</a>
+	</span>
+</div></div>
+		</header>
+		<div class="content post__content clearfix">
+			<p>Reverse url lookup is very cool feature in Django that allows us to not hard-code urls in templates or controller logic. This helps us change the URLs later in urls.py and not have to make the same changes everywhere in templates and logic. Keep it DRY.</p>
+<p>To implement reverse url lookup, you need to do these:</p>
+<ol>
+<li>Make a namespace (if your urls are inside an app… otherwise omit this step). Making a namespace makes it possible to have multiple apps use the same name for named urls.</li>
+<li>make the named url</li>
+</ol>
+<p>The main url (same level as <code>settings.py</code>). Note that the namespace is set here:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> django.conf.urls <span style="color:#f92672">import</span> url, include
+<span style="color:#f92672">from</span> django.contrib <span style="color:#f92672">import</span> admin
+
+<span style="color:#f92672">from</span> django.conf <span style="color:#f92672">import</span> settings
+<span style="color:#f92672">from</span> django.conf.urls.static <span style="color:#f92672">import</span> static
+
+<span style="color:#f92672">from</span> .views <span style="color:#f92672">import</span> (
+    HomeView,
+    AboutView,
+    ContactView,
+    LoginView,
+    RegistrationView
+)
+
+urlpatterns <span style="color:#f92672">=</span> [
+    <span style="color:#75715e">#url(r&#39;^products/(?P&lt;slug&gt;[\w-]+)/$&#39;, EcomProductDetailSlugView.as_view()),</span>
+    url(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;^$&#39;</span>, HomeView<span style="color:#f92672">.</span>as_view()),
+    url(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;^about/$&#39;</span>, AboutView<span style="color:#f92672">.</span>as_view()),
+    url(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;^contact/$&#39;</span>, ContactView<span style="color:#f92672">.</span>as_view()),
+    url(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;^login/$&#39;</span>, LoginView<span style="color:#f92672">.</span>as_view()),
+    url(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;^register/$&#39;</span>, RegistrationView<span style="color:#f92672">.</span>as_view()),
+    url(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;^products/&#39;</span>, include(<span style="color:#e6db74">&#39;ecom_product.urls&#39;</span>, namespace<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ecom_product&#39;</span>)),
+    url(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;^admin/&#39;</span>, admin<span style="color:#f92672">.</span>site<span style="color:#f92672">.</span>urls),
+] <span style="color:#f92672">+</span> static(settings<span style="color:#f92672">.</span>MEDIA_URL, document_root<span style="color:#f92672">=</span>settings<span style="color:#f92672">.</span>MEDIA_ROOT)
+
+</code></pre></div><p>Then the <code>urls.py</code> in the app econ_product:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> django.conf.urls <span style="color:#f92672">import</span> url
+
+<span style="color:#f92672">from</span> .views <span style="color:#f92672">import</span> (
+    EcomProductListView,
+    <span style="color:#75715e"># EcomProductDetailView,</span>
+    <span style="color:#75715e"># EcomProductFeaturedListView,</span>
+    <span style="color:#75715e"># EcomProductFeaturedDetailView,</span>
+    EcomProductDetailSlugView
+)
+
+urlpatterns <span style="color:#f92672">=</span> [
+    <span style="color:#75715e"># url(r&#39;^featured/(?P&lt;slug&gt;[\w-]+)/$&#39;, EcomProductFeaturedDetailView.as_view()),</span>
+    <span style="color:#75715e"># url(r&#39;^featured/(?P&lt;pk&gt;\d+)&#39;, EcomProductFeaturedDetailView.as_view()),</span>
+    url(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;^(?P&lt;slug&gt;[\w-]+)/$&#39;</span>, EcomProductDetailSlugView<span style="color:#f92672">.</span>as_view(), name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;detail&#39;</span>),
+    <span style="color:#75715e"># url(r&#39;^products/(?P&lt;pk&gt;\d+)&#39;, EcomProductDetailView.as_view()),</span>
+    <span style="color:#75715e"># url(r&#39;^featured/$&#39;, EcomProductFeaturedListView.as_view()),</span>
+    url(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;^$&#39;</span>, EcomProductListView<span style="color:#f92672">.</span>as_view(), name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;list&#39;</span>),
+]
+</code></pre></div><p>Now you can use the url lookup.</p>
+<p>Note, the lookup is done differently in template and in controller logic. In controller logic, we will need a <code>reverse()</code> call to construct the url for us. Like so:
+(Here I am doing a reverse url lookup in models.py in the method get_absolute_url like so:
+<code>reverse('ecom_product:detail', kwargs={'slug':self.slug}))</code></p>
+<p>Here<code>: ecom_product</code> is the namespace and <code>detail</code> is the url name in that namespace.
+Note also that kwargs passed corresponds to the parameter <code>slug</code> in the url
+<code>url(r'^(?P&lt;slug&gt;[\w-]+)/$', EcomProductDetailSlugView.as_view(), name='detail'),</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> django.db <span style="color:#f92672">import</span> models
+<span style="color:#f92672">import</span> os
+<span style="color:#f92672">import</span> random
+<span style="color:#f92672">from</span> django.db.models.signals <span style="color:#f92672">import</span> pre_save
+<span style="color:#f92672">from</span> django.urls <span style="color:#f92672">import</span> reverse
+<span style="color:#f92672">from</span> ecom_utils.utils <span style="color:#f92672">import</span> unique_slug_generator
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_filename_ext</span>(filepath):
+    base_name <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>basename(filepath)
+    name, ext <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>splitext(base_name)
+    <span style="color:#66d9ef">return</span> name, ext
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">upload_image_path</span>(instance, filename):
+    new_filename <span style="color:#f92672">=</span> random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">348753947539457</span>)
+    name, ext <span style="color:#f92672">=</span> get_filename_ext(filename)
+    final_filename <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">{</span>new_filename<span style="color:#e6db74">}{</span>ext<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>
+    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;ecom_products/</span><span style="color:#e6db74">{</span>new_filename<span style="color:#e6db74">}</span><span style="color:#e6db74">/</span><span style="color:#e6db74">{</span>final_filename<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>
+
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">EcomProductQuerySet</span>(models<span style="color:#f92672">.</span>query<span style="color:#f92672">.</span>QuerySet):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_by_id</span>(self, id):
+        qs <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>filter(id<span style="color:#f92672">=</span>id)
+        <span style="color:#66d9ef">if</span> qs<span style="color:#f92672">.</span>count() <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:
+            <span style="color:#66d9ef">return</span> qs<span style="color:#f92672">.</span>first()
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">None</span>
+    
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">featured</span>(self):
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>filter(featured<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">active</span>(self):
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>filter(active<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">EcomProduct</span>(models<span style="color:#f92672">.</span>Model):
+    title <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>CharField(max_length<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>)
+    slug <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>SlugField(blank<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+    description <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>TextField(null<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>, blank<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
+    price <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>DecimalField(decimal_places<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, max_digits<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>, null<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>, blank<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>, default<span style="color:#f92672">=</span><span style="color:#ae81ff">1.00</span>)
+    image <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>ImageField(upload_to<span style="color:#f92672">=</span>upload_image_path, null<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, blank<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+    featured <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>BooleanField(default<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
+    active <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>BooleanField(default<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+
+    <span style="color:#75715e"># objects = EcomProductManager()</span>
+    objects <span style="color:#f92672">=</span> EcomProductQuerySet<span style="color:#f92672">.</span>as_manager()
+
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_absolute_url</span>(self):
+        <span style="color:#75715e"># return f&#39;/products/{self.slug}/&#39;</span>
+        <span style="color:#66d9ef">return</span> reverse(<span style="color:#e6db74">&#39;ecom_product:detail&#39;</span>, kwargs<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#39;slug&#39;</span>:self<span style="color:#f92672">.</span>slug})
+
+    <span style="color:#66d9ef">def</span> __str__(self):
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>title
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">ecom_product_pre_save_receiver</span>(sender, instance, <span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs):
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> instance<span style="color:#f92672">.</span>slug:
+        instance<span style="color:#f92672">.</span>slug <span style="color:#f92672">=</span> unique_slug_generator(instance)
+
+
+pre_save<span style="color:#f92672">.</span>connect(ecom_product_pre_save_receiver, sender<span style="color:#f92672">=</span>EcomProduct)
+</code></pre></div><p>In a template, we do the url lookup like so
+<code>{% url 'ecom_product:detail' slug=instance.slug %}:</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;card&#34;</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;width: 18rem;&#34;</span>&gt;
+    {% if instance.image %}
+    &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{instance.get_absolute_url}}&#34;</span>&gt;
+        &lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{instance.image.url}}&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;card-img-top&#34;</span> <span style="color:#a6e22e">alt</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{instance.title}} logo&#34;</span>&gt;
+    &lt;/<span style="color:#f92672">a</span>&gt;
+    {% endif %}
+    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;card-body&#34;</span>&gt;
+      &lt;<span style="color:#f92672">h5</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;card-title&#34;</span>&gt;{{instance.title}}&lt;/<span style="color:#f92672">h5</span>&gt;
+      &lt;<span style="color:#f92672">p</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;card-text&#34;</span>&gt;Some quick example text to build on the card title and make up the bulk of the card&#39;s content.&lt;/<span style="color:#f92672">p</span>&gt;
+      &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{% url &#39;ecom_product:detail&#39; slug=instance.slug %}&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;btn btn-primary&#34;</span>&gt;View&lt;/<span style="color:#f92672">a</span>&gt;
+    &lt;/<span style="color:#f92672">div</span>&gt;
+&lt;/<span style="color:#f92672">div</span>&gt;
+</code></pre></div>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/python/" rel="tag">python</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/django/" rel="tag">django</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+
+
+
+			</div>
+			<aside class="sidebar">
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="LinkedIn" rel="noopener noreferrer" href="https://linkedin.com/in/himanshu-singh-remote/" target="_blank">
+				<svg class="widget-social__link-icon icon icon-linkedin" width="24" height="24" viewBox="0 0 352 352"><path d="M0,40v272c0,21.9,18.1,40,40,40h272c21.9,0,40-18.1,40-40V40c0-21.9-18.1-40-40-40H40C18.1,0,0,18.1,0,40z M312,32 c4.6,0,8,3.4,8,8v272c0,4.6-3.4,8-8,8H40c-4.6,0-8-3.4-8-8V40c0-4.6,3.4-8,8-8H312z M59.5,87c0,15.2,12.3,27.5,27.5,27.5 c15.2,0,27.5-12.3,27.5-27.5c0-15.2-12.3-27.5-27.5-27.5C71.8,59.5,59.5,71.8,59.5,87z M187,157h-1v-21h-45v152h47v-75 c0-19.8,3.9-39,28.5-39c24.2,0,24.5,22.4,24.5,40v74h47v-83.5c0-40.9-8.7-72-56.5-72C208.5,132.5,193.3,145.1,187,157z M64,288h47.5 V136H64V288z"/></svg>
+				<span>LinkedIn</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/tek-shinobi" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+
+		
+	</div>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/posts/golangdistributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/rate-limiting-in-distributed-system/">Rate Limiting in a Distributed System</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-testing-creating-large-files/">Golang Testing: Creating Large Files</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/add-gpg-keys-to-repo/">Add Gpg Keys to Repo</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-handling-null-in-database-tables/">Golang: Handling Null in Database Tables</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/using-postgres-inside-docker-container/">Golang: Using Postgres Inside Docker Container</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-common-concurrency-patterns/">Golang: Common Concurrency Patterns</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-channels/">Golang Channels</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-unmarshal-json-blob-with-unknown-schema/">Golang: Unmarshal Json Blob With Unknown Schema</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/rust-gotchas-copy-and-clone/">Rust Gotchas Copy and Clone</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/backend/">backend</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/distributed-system-design/">distributed system design</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/frontend/">frontend</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/github/">github</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">javascript</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/networking/">networking</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/python/">python</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/rust/">rust</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-taglist widget">
+	<h4 class="widget__title">Tags</h4>
+	<div class="widget__content">
+		<a class="widget-taglist__link widget__link btn" href="/tags/backend/" title="backend">backend</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/c#/" title="c#">c#</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/concurrency/" title="concurrency">concurrency</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/css/" title="css">css</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/django/" title="django">django</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/docker/" title="docker">docker</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/es6/" title="ES6">ES6</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/github/" title="github">github</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/golang/" title="golang">golang</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/gpg/" title="gpg">gpg</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/javascript/" title="javascript">javascript</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/networking/" title="networking">networking</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/postgres/" title="postgres">postgres</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/python/" title="python">python</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/rate-limiter/" title="rate limiter">rate limiter</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/react/" title="react">react</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/redis/" title="redis">redis</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/rust/" title="rust">rust</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/scrapy/" title="scrapy">scrapy</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/tcp/" title="tcp">tcp</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/testing/" title="testing">testing</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/turbofish/" title="turbofish">turbofish</a>
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2023 Tek Shinobi Blog.
+			
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+</body>
+</html>

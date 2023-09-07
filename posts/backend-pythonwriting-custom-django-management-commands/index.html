@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Backend Python:Writing Custom Django Management Commands - Tek Shinobi Blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo">
+		<a class="logo__link" href="/" title="Tek Shinobi Blog" rel="home">
+			<div class="logo__item logo__text">
+					<div class="logo__title">Tek Shinobi Blog</div>
+					
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Backend Python:Writing Custom Django Management Commands</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2018-09-07T14:02:37&#43;03:00">September 07, 2018</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/backend/" rel="category">backend</a>, <a class="meta__link" href="/categories/python/" rel="category">python</a>
+	</span>
+</div></div>
+		</header>
+		<div class="content post__content clearfix">
+			<p>Any command given with <code>manage.py</code> is called management command. Django comes with many built-in management commands like <code>runserver</code>, <code>startapp</code> etc. To see a full list of built-in management commands, type:
+<code>python manage.py help</code></p>
+<p>The benefit of management command script is that this script executes within Django environment. You can run all of Django ORM queries within this script. You can import models. You have access to project resources.</p>
+<p>In this tutorial we will see how to populate a table with some contents of a csv file.</p>
+<p>First lets look at the file-structure:
+First create a folder called management. Create a <code>__init__.py</code> file inside it. Then create a folder called commands inside management and create a <code>__init__.py</code> inside it.</p>
+<pre tabindex="0"><code>├── management
+│   ├── commands
+│   │   ├── __init__.py
+│   │   
+│   └── __init__.py
+</code></pre><p><strong>tip</strong>: It is always useful to either put management folder in an existing app or create a new app within your django project just for management commands. Keeping management inside an app (which is registered in <code>INSTALLED_APPS</code> in <code>settings.py</code>) makes it easy for the command to be located.</p>
+<p>In my Django project, I created an app called my_app (<code>python manage.py startapp my_app</code>). I have put my management folder inside it. Then I create a file called <code>test_command.py</code> inside commands folder. The structure looks like so:</p>
+<pre tabindex="0"><code>my_app
+├── admin.py
+├── apps.py
+├── __init__.py
+├── management
+│   ├── commands
+│   │   ├── __init__.py
+│   │   └── test_command.py
+│   └── __init__.py
+├── migrations
+│   ├── 0001_initial.py
+│   └── __init__.py
+├── models.py
+├── tests.py
+└── views.py
+</code></pre><p>The management command gets the name of the file. So since the filename is <code>test_command.py</code>, the management command will be called <code>test_command</code>. We will be launching this command like so:
+<code>python manage.py test_command</code></p>
+<p>Now lets write the most basic custom management command.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> django.core.management.base <span style="color:#f92672">import</span> BaseCommand
+
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Command</span>(BaseCommand):
+    help <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;populates currencies table&#39;</span>
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">handle</span>(self, <span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>options):
+        self<span style="color:#f92672">.</span>stdout<span style="color:#f92672">.</span>write(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;hello world&#39;</span>)
+</code></pre></div><p>All management commands are subclasses of BaseCommand. The file always has a class called Command which is a subclass of BaseCommand. And this class always has a method
+<code>def handle(self, *args, **options):</code></p>
+<p>Lets execute the management command.
+<code>python manage.py test_command</code></p>
+<p>You will see ‘hello world’ printed. Note that inside management commands, we use stdout for printing to console.</p>
+<h2 id="arguments">Arguments</h2>
+<p>We can pass arguments with management commands. There are three kinds of arguments.</p>
+<ol>
+<li><strong>Positional arguments</strong>: required. command will not run if these not passed</li>
+<li><strong>optional arguments</strong>: optional. command will run even if these not passed</li>
+<li><strong>Flag Arguments</strong> optional boolean</li>
+</ol>
+<p>Arguments are parsed using Python’s <a href="https://docs.python.org/3/library/argparse.html"> argparse </a> library.
+For simple use cases, we will be able to use add_arguments convenience method in Django. For more customized use cases we will need to work with argparse library.</p>
+<p>For handling arguments, we need to add a method called <code>add_arguments</code>.</p>
+<h2 id="mandatory-arguments-also-called-positional-arguments">Mandatory Arguments (Also called Positional Arguments)</h2>
+<p>We will create a management command called <code>populate_currencies.py</code>. This command will read a csv file with currency codes and fill a database table called <code>Currencies</code>. We will pass a mandatory argument called filename that will be the name of csv file we want to read.</p>
+<p>since it is positional, we can use it like so:
+<code>python manage.py populate_currencies currencies.csv</code></p>
+<p>See below for <code>currencies.csv</code> file</p>
+<p>First, I’ll create a model to hold the currency codes. Add this to <code>models.py</code> file:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Currencies</span>(models<span style="color:#f92672">.</span>Model):
+    <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">    Contains all the valid currency codes
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+    code <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>CharField(
+        max_length<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>,
+        unique<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>,
+        null<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>,
+        blank<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>
+    )
+    name <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>CharField(
+        max_length<span style="color:#f92672">=</span><span style="color:#ae81ff">50</span>,
+        null<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>,
+        blank<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>,
+        unique<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>
+    )
+
+    <span style="color:#66d9ef">def</span> __str__(self):
+        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">{</span>self<span style="color:#f92672">.</span>code<span style="color:#e6db74">}</span><span style="color:#e6db74"> </span><span style="color:#e6db74">{</span>self<span style="color:#f92672">.</span>name<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>
+</code></pre></div><p>Then, I’ll paste a simple csv file here for your reference:</p>
+<pre tabindex="0"><code class="language-csv" data-lang="csv">Country,CountryCode,Currency,Code
+New Zealand,NZ,New Zealand Dollars,NZD
+Australian,AU,Australian Dollars,AUD
+Ireland,IE,Euros,EUR
+United Kingdom,GB,Sterling,GBP
+Japan,JP,Japanese Yen,JPY
+Virgin Islands (US),VI,USD,USD
+Hong Kong,HK,HKD,HKD
+Canada,CA,Canadian Dollar,CAD
+</code></pre><p>Put this csv file in the same folder as the management command <code>populate_currencies.py</code>. This is not a requirement but to keep matters simple, thats where we keep the csv file.</p>
+<p>OK, so now <code>populate_currencies.py</code> for reading this csv and populating <code>Currencies</code> table is:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> django.core.management.base <span style="color:#f92672">import</span> BaseCommand, CommandError
+<span style="color:#f92672">from</span> django.apps <span style="color:#f92672">import</span> apps
+<span style="color:#f92672">import</span> csv
+<span style="color:#f92672">import</span> os
+
+<span style="color:#f92672">from</span> currencyrates.models <span style="color:#f92672">import</span> Currencies
+
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Command</span>(BaseCommand):
+    help <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;populates currencies table&#39;</span>
+
+    <span style="color:#66d9ef">def</span> __init__(self, <span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs):
+        super()<span style="color:#f92672">.</span>__init__(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs)
+        self<span style="color:#f92672">.</span>model_name <span style="color:#f92672">=</span> Currencies
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">add_arguments</span>(self, parser):
+        parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;filename&#39;</span>, type<span style="color:#f92672">=</span>str, help<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;filename for csv file&#39;</span>)
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_current_app_path</span>(self):
+        <span style="color:#66d9ef">return</span> apps<span style="color:#f92672">.</span>get_app_config(<span style="color:#e6db74">&#39;currencyrates&#39;</span>)<span style="color:#f92672">.</span>path
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_csv_file</span>(self, filename):
+        app_path <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>get_current_app_path()
+        file_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(app_path, <span style="color:#e6db74">&#34;management&#34;</span>,
+                                 <span style="color:#e6db74">&#34;commands&#34;</span>, filename)
+        <span style="color:#66d9ef">return</span> file_path
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">clear_model</span>(self):
+        <span style="color:#66d9ef">try</span>:
+            self<span style="color:#f92672">.</span>model_name<span style="color:#f92672">.</span>objects<span style="color:#f92672">.</span>all()<span style="color:#f92672">.</span>delete()
+        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+            <span style="color:#66d9ef">raise</span> CommandError(
+                <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Error in clearing </span><span style="color:#e6db74">{</span>self<span style="color:#f92672">.</span>model_name<span style="color:#e6db74">}</span><span style="color:#e6db74">: </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>
+            )
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">insert_currency_to_db</span>(self, data):
+        <span style="color:#66d9ef">try</span>:
+            self<span style="color:#f92672">.</span>model_name<span style="color:#f92672">.</span>objects<span style="color:#f92672">.</span>create(
+                code<span style="color:#f92672">=</span>data[<span style="color:#e6db74">&#34;code&#34;</span>],
+                name<span style="color:#f92672">=</span>data[<span style="color:#e6db74">&#34;name&#34;</span>],
+            )
+        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+            <span style="color:#66d9ef">raise</span> CommandError(
+                <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Error in inserting </span><span style="color:#e6db74">{</span>self<span style="color:#f92672">.</span>model_name<span style="color:#e6db74">}</span><span style="color:#e6db74">: </span><span style="color:#e6db74">{</span>str(e)<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>
+            )
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">handle</span>(self, <span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs):
+        filename <span style="color:#f92672">=</span> kwargs[<span style="color:#e6db74">&#39;filename&#39;</span>]
+        self<span style="color:#f92672">.</span>stdout<span style="color:#f92672">.</span>write(self<span style="color:#f92672">.</span>style<span style="color:#f92672">.</span>SUCCESS(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;filename:</span><span style="color:#e6db74">{</span>filename<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>))
+        file_path <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>get_csv_file(filename)
+        line_count <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+        currency_code <span style="color:#f92672">=</span> []
+        <span style="color:#66d9ef">try</span>:
+            <span style="color:#66d9ef">with</span> open(file_path) <span style="color:#66d9ef">as</span> csv_file:
+                csv_reader <span style="color:#f92672">=</span> csv<span style="color:#f92672">.</span>reader(csv_file, delimiter<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;,&#39;</span>)
+                self<span style="color:#f92672">.</span>clear_model()
+                <span style="color:#66d9ef">for</span> row <span style="color:#f92672">in</span> csv_reader:
+                    <span style="color:#66d9ef">if</span> row <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#f92672">and</span> line_count <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">1</span>:
+                        data <span style="color:#f92672">=</span> {}
+                        data[<span style="color:#e6db74">&#39;name&#39;</span>] <span style="color:#f92672">=</span> row[<span style="color:#ae81ff">2</span>]
+                        data[<span style="color:#e6db74">&#39;code&#39;</span>] <span style="color:#f92672">=</span> row[<span style="color:#ae81ff">3</span>]
+                        <span style="color:#66d9ef">if</span> data[<span style="color:#e6db74">&#39;code&#39;</span>] <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> currency_code:
+                            currency_code<span style="color:#f92672">.</span>append(data[<span style="color:#e6db74">&#39;code&#39;</span>])
+                            self<span style="color:#f92672">.</span>insert_currency_to_db(data)
+                    line_count <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+            self<span style="color:#f92672">.</span>stdout<span style="color:#f92672">.</span>write(
+                self<span style="color:#f92672">.</span>style<span style="color:#f92672">.</span>SUCCESS(
+                    <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">{</span>line_count<span style="color:#e6db74">}</span><span style="color:#e6db74"> entries added to Currencies&#39;</span>
+                )
+            )
+        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">FileNotFoundError</span>:
+            <span style="color:#66d9ef">raise</span> CommandError(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;File </span><span style="color:#e6db74">{</span>file_path<span style="color:#e6db74">}</span><span style="color:#e6db74"> does not exist&#39;</span>)
+</code></pre></div><p>In this file, here is where we add the mandatory argument:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">add_arguments</span>(self, parser):
+parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;filename&#39;</span>, type<span style="color:#f92672">=</span>str, help<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;filename for csv file&#39;</span>)
+</code></pre></div><p>Also note that we can set Styles for console outputs like so:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">self<span style="color:#f92672">.</span>style<span style="color:#f92672">.</span>SUCCESS(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">{</span>line_count<span style="color:#e6db74">}</span><span style="color:#e6db74"> entries added to Currencies&#39;</span>)
+</code></pre></div><p>Please check Epilogue for an entire list of styles.</p>
+<p>We launch the command like so:
+<code>python manage.py populate_currencies currencies.csv</code></p>
+<p>Due to its positional nature, filename argument is set to <code>currencies.csv</code></p>
+<h2 id="optional-arguments">Optional Arguments</h2>
+<p>The optional (and named) arguments can be passed in any order. In the example below you will find the definition of an argument named <code>prefix</code>, which will be used to compose the username field:</p>
+<p><strong>management/commands/create_users.py</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> django.contrib.auth.models <span style="color:#f92672">import</span> User
+<span style="color:#f92672">from</span> django.core.management.base <span style="color:#f92672">import</span> BaseCommand
+<span style="color:#f92672">from</span> django.utils.crypto <span style="color:#f92672">import</span> get_random_string
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Command</span>(BaseCommand):
+    help <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Create random users&#39;</span>
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">add_arguments</span>(self, parser):
+        parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;total&#39;</span>, type<span style="color:#f92672">=</span>int, help<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Indicates the number of users to be created&#39;</span>)
+
+        <span style="color:#75715e"># Optional argument</span>
+        parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;-p&#39;</span>, <span style="color:#e6db74">&#39;--prefix&#39;</span>, type<span style="color:#f92672">=</span>str, help<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Define a username prefix&#39;</span>, )
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">handle</span>(self, <span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs):
+        total <span style="color:#f92672">=</span> kwargs[<span style="color:#e6db74">&#39;total&#39;</span>]
+        prefix <span style="color:#f92672">=</span> kwargs[<span style="color:#e6db74">&#39;prefix&#39;</span>]
+
+        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(total):
+            <span style="color:#66d9ef">if</span> prefix:
+                username <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;</span><span style="color:#e6db74">{prefix}</span><span style="color:#e6db74">_</span><span style="color:#e6db74">{random_string}</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>format(prefix<span style="color:#f92672">=</span>prefix, random_string<span style="color:#f92672">=</span>get_random_string())
+            <span style="color:#66d9ef">else</span>:
+                username <span style="color:#f92672">=</span> get_random_string()
+            User<span style="color:#f92672">.</span>objects<span style="color:#f92672">.</span>create_user(username<span style="color:#f92672">=</span>username, email<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span>, password<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;123&#39;</span>)
+</code></pre></div><p><strong>Usage</strong>
+<code>python manage.py create_users 10 --prefix custom_user</code></p>
+<p>or</p>
+<p><code>python manage.py create_users 10 -p custom_user</code></p>
+<p>If the prefix is used, the username field will be created as <strong>custom_user_xCVGn3yt56h</strong>. If not prefix, it will be created simply as <strong>xCVGn3yt56h</strong> – a random string.</p>
+<h2 id="flag-arguments">Flag Arguments</h2>
+<p>Another type of optional arguments are flags, which are used to handle boolean values. Let’s say we want to add an <code>--admin</code> flag, to instruct our command to create a super user or to create a regular user if the flag is not present.</p>
+<p><strong>management/commands/create_users.py</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> django.contrib.auth.models <span style="color:#f92672">import</span> User
+<span style="color:#f92672">from</span> django.core.management.base <span style="color:#f92672">import</span> BaseCommand
+<span style="color:#f92672">from</span> django.utils.crypto <span style="color:#f92672">import</span> get_random_string
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Command</span>(BaseCommand):
+    help <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Create random users&#39;</span>
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">add_arguments</span>(self, parser):
+        parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;total&#39;</span>, type<span style="color:#f92672">=</span>int, help<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Indicates the number of users to be created&#39;</span>)
+        parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;-p&#39;</span>, <span style="color:#e6db74">&#39;--prefix&#39;</span>, type<span style="color:#f92672">=</span>str, help<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Define a username prefix&#39;</span>)
+        parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;-a&#39;</span>, <span style="color:#e6db74">&#39;--admin&#39;</span>, action<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;store_true&#39;</span>, help<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Create an admin account&#39;</span>)
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">handle</span>(self, <span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs):
+        total <span style="color:#f92672">=</span> kwargs[<span style="color:#e6db74">&#39;total&#39;</span>]
+        prefix <span style="color:#f92672">=</span> kwargs[<span style="color:#e6db74">&#39;prefix&#39;</span>]
+        admin <span style="color:#f92672">=</span> kwargs[<span style="color:#e6db74">&#39;admin&#39;</span>]
+
+        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(total):
+            <span style="color:#66d9ef">if</span> prefix:
+                username <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;</span><span style="color:#e6db74">{prefix}</span><span style="color:#e6db74">_</span><span style="color:#e6db74">{random_string}</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>format(prefix<span style="color:#f92672">=</span>prefix, random_string<span style="color:#f92672">=</span>get_random_string())
+            <span style="color:#66d9ef">else</span>:
+                username <span style="color:#f92672">=</span> get_random_string()
+
+            <span style="color:#66d9ef">if</span> admin:
+                User<span style="color:#f92672">.</span>objects<span style="color:#f92672">.</span>create_superuser(username<span style="color:#f92672">=</span>username, email<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span>, password<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;123&#39;</span>)
+            <span style="color:#66d9ef">else</span>:
+                User<span style="color:#f92672">.</span>objects<span style="color:#f92672">.</span>create_user(username<span style="color:#f92672">=</span>username, email<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span>, password<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;123&#39;</span>)
+</code></pre></div><p>Note:<code>action='store_true'</code> indicates, default value of true. This is straight from argparser (Python library). See <a href="https://docs.python.org/3/library/argparse.html"> here </a> for details.</p>
+<p><strong>Usage</strong>:</p>
+<p><code>python manage.py create_users 2 --admin</code>
+Or
+<code>python manage.py create_users 2 -a</code></p>
+<h2 id="management-command-automation">Management command automation</h2>
+<p>Django management commands are typically run from the command line, requiring human intervention. However, there can be times when it’s helpful or necessary to automate the execution of management commands from other locations (e.g. a Django view method or shell).</p>
+<p>For example, if a user uploads an image in a Django application and you want the image to become publicly accessible, you’ll need to run the <code>collectstatic</code> command so the image makes its way to the public consolidation location (STATIC_ROOT) . Similarly, you may want to run a <code>cleanuprofile</code> command every time a user logs in.</p>
+<p>To automate the execution of management commands Django offers the <code>django.core.management.call_command()</code> method. Below illustrates the various ways in which you can use the <code>call_command()</code> method.</p>
+<p><strong>Django management automation with call_command()</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> django.core <span style="color:#f92672">import</span> management
+
+<span style="color:#75715e"># Option 1, no arguments</span>
+management<span style="color:#f92672">.</span>call_command(<span style="color:#e6db74">&#39;sendtestemails&#39;</span>)
+
+<span style="color:#75715e"># Option 2, no pause to wait for input</span>
+management<span style="color:#f92672">.</span>call_command(<span style="color:#e6db74">&#39;collectstatic&#39;</span>, interactive<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
+
+<span style="color:#75715e"># Option 3, command input with Command()</span>
+<span style="color:#f92672">from</span> django.core.management.commands <span style="color:#f92672">import</span> loaddata
+management<span style="color:#f92672">.</span>call_command(loaddata<span style="color:#f92672">.</span>Command(), <span style="color:#e6db74">&#39;stores&#39;</span>, verbosity<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
+
+<span style="color:#75715e"># Option 4, positional and named command arguments</span>
+management<span style="color:#f92672">.</span>call_command(<span style="color:#e6db74">&#39;cleanupdatastores&#39;</span>, <span style="color:#ae81ff">1</span>, delete<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+
+</code></pre></div><p>The first option executes a management command without any arguments. The second option uses the <code>interactive=False</code> argument to indicate the command must not pause for user input (e.g. collectstatic always asks if you’re sure if you want to overwrite pre-existing files, the <code>interactive=False</code> argument avoids this pause and need for input).</p>
+<p>The third option invokes the management command by first importing it and then invoking its Command() class directly vs. using the command string value. And finally, the fourth option — just like the third — in listing 5-35, uses a positional argument — declared as a standalone value (e.g. &lsquo;stores&rsquo;, 1) and a named argument — declared as a key=value (e.g. verbosity=0, delete=True).</p>
+<h2 id="epilogue">Epilogue</h2>
+<p>A management command to display an entire list of styles is like so:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> django.core.management.base <span style="color:#f92672">import</span> BaseCommand
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Command</span>(BaseCommand):
+    help <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Show all available styles&#39;</span>
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">handle</span>(self, <span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs):
+        self<span style="color:#f92672">.</span>stdout<span style="color:#f92672">.</span>write(self<span style="color:#f92672">.</span>style<span style="color:#f92672">.</span>ERROR(<span style="color:#e6db74">&#39;error - A major error.&#39;</span>))
+        self<span style="color:#f92672">.</span>stdout<span style="color:#f92672">.</span>write(self<span style="color:#f92672">.</span>style<span style="color:#f92672">.</span>NOTICE(<span style="color:#e6db74">&#39;notice - A minor error.&#39;</span>))
+        self<span style="color:#f92672">.</span>stdout<span style="color:#f92672">.</span>write(self<span style="color:#f92672">.</span>style<span style="color:#f92672">.</span>SUCCESS(<span style="color:#e6db74">&#39;success - A success.&#39;</span>))
+        self<span style="color:#f92672">.</span>stdout<span style="color:#f92672">.</span>write(self<span style="color:#f92672">.</span>style<span style="color:#f92672">.</span>WARNING(<span style="color:#e6db74">&#39;warning - A warning.&#39;</span>))
+        self<span style="color:#f92672">.</span>stdout<span style="color:#f92672">.</span>write(self<span style="color:#f92672">.</span>style<span style="color:#f92672">.</span>SQL_FIELD(<span style="color:#e6db74">&#39;sql_field - The name of a model field in SQL.&#39;</span>))
+        self<span style="color:#f92672">.</span>stdout<span style="color:#f92672">.</span>write(self<span style="color:#f92672">.</span>style<span style="color:#f92672">.</span>SQL_COLTYPE(<span style="color:#e6db74">&#39;sql_coltype - The type of a model field in SQL.&#39;</span>))
+        self<span style="color:#f92672">.</span>stdout<span style="color:#f92672">.</span>write(self<span style="color:#f92672">.</span>style<span style="color:#f92672">.</span>SQL_KEYWORD(<span style="color:#e6db74">&#39;sql_keyword - An SQL keyword.&#39;</span>))
+        self<span style="color:#f92672">.</span>stdout<span style="color:#f92672">.</span>write(self<span style="color:#f92672">.</span>style<span style="color:#f92672">.</span>SQL_TABLE(<span style="color:#e6db74">&#39;sql_table - The name of a model in SQL.&#39;</span>))
+        self<span style="color:#f92672">.</span>stdout<span style="color:#f92672">.</span>write(self<span style="color:#f92672">.</span>style<span style="color:#f92672">.</span>HTTP_INFO(<span style="color:#e6db74">&#39;http_info - A 1XX HTTP Informational server response.&#39;</span>))
+        self<span style="color:#f92672">.</span>stdout<span style="color:#f92672">.</span>write(self<span style="color:#f92672">.</span>style<span style="color:#f92672">.</span>HTTP_SUCCESS(<span style="color:#e6db74">&#39;http_success - A 2XX HTTP Success server response.&#39;</span>))
+        self<span style="color:#f92672">.</span>stdout<span style="color:#f92672">.</span>write(self<span style="color:#f92672">.</span>style<span style="color:#f92672">.</span>HTTP_NOT_MODIFIED(<span style="color:#e6db74">&#39;http_not_modified - A 304 HTTP Not Modified server response.&#39;</span>))
+        self<span style="color:#f92672">.</span>stdout<span style="color:#f92672">.</span>write(self<span style="color:#f92672">.</span>style<span style="color:#f92672">.</span>HTTP_REDIRECT(<span style="color:#e6db74">&#39;http_redirect - A 3XX HTTP Redirect server response other than 304.&#39;</span>))
+        self<span style="color:#f92672">.</span>stdout<span style="color:#f92672">.</span>write(self<span style="color:#f92672">.</span>style<span style="color:#f92672">.</span>HTTP_NOT_FOUND(<span style="color:#e6db74">&#39;http_not_found - A 404 HTTP Not Found server response.&#39;</span>))
+        self<span style="color:#f92672">.</span>stdout<span style="color:#f92672">.</span>write(self<span style="color:#f92672">.</span>style<span style="color:#f92672">.</span>HTTP_BAD_REQUEST(<span style="color:#e6db74">&#39;http_bad_request - A 4XX HTTP Bad Request server response other than 404.&#39;</span>))
+        self<span style="color:#f92672">.</span>stdout<span style="color:#f92672">.</span>write(self<span style="color:#f92672">.</span>style<span style="color:#f92672">.</span>HTTP_SERVER_ERROR(<span style="color:#e6db74">&#39;http_server_error - A 5XX HTTP Server Error response.&#39;</span>))
+        self<span style="color:#f92672">.</span>stdout<span style="color:#f92672">.</span>write(self<span style="color:#f92672">.</span>style<span style="color:#f92672">.</span>MIGRATE_HEADING(<span style="color:#e6db74">&#39;migrate_heading - A heading in a migrations management command.&#39;</span>))
+        self<span style="color:#f92672">.</span>stdout<span style="color:#f92672">.</span>write(self<span style="color:#f92672">.</span>style<span style="color:#f92672">.</span>MIGRATE_LABEL(<span style="color:#e6db74">&#39;migrate_label - A migration name.&#39;</span>))
+</code></pre></div>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/python/" rel="tag">python</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/django/" rel="tag">django</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+
+
+
+			</div>
+			<aside class="sidebar">
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="LinkedIn" rel="noopener noreferrer" href="https://linkedin.com/in/himanshu-singh-remote/" target="_blank">
+				<svg class="widget-social__link-icon icon icon-linkedin" width="24" height="24" viewBox="0 0 352 352"><path d="M0,40v272c0,21.9,18.1,40,40,40h272c21.9,0,40-18.1,40-40V40c0-21.9-18.1-40-40-40H40C18.1,0,0,18.1,0,40z M312,32 c4.6,0,8,3.4,8,8v272c0,4.6-3.4,8-8,8H40c-4.6,0-8-3.4-8-8V40c0-4.6,3.4-8,8-8H312z M59.5,87c0,15.2,12.3,27.5,27.5,27.5 c15.2,0,27.5-12.3,27.5-27.5c0-15.2-12.3-27.5-27.5-27.5C71.8,59.5,59.5,71.8,59.5,87z M187,157h-1v-21h-45v152h47v-75 c0-19.8,3.9-39,28.5-39c24.2,0,24.5,22.4,24.5,40v74h47v-83.5c0-40.9-8.7-72-56.5-72C208.5,132.5,193.3,145.1,187,157z M64,288h47.5 V136H64V288z"/></svg>
+				<span>LinkedIn</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/tek-shinobi" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+
+		
+	</div>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/posts/golangdistributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/rate-limiting-in-distributed-system/">Rate Limiting in a Distributed System</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-testing-creating-large-files/">Golang Testing: Creating Large Files</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/add-gpg-keys-to-repo/">Add Gpg Keys to Repo</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-handling-null-in-database-tables/">Golang: Handling Null in Database Tables</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/using-postgres-inside-docker-container/">Golang: Using Postgres Inside Docker Container</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-common-concurrency-patterns/">Golang: Common Concurrency Patterns</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-channels/">Golang Channels</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-unmarshal-json-blob-with-unknown-schema/">Golang: Unmarshal Json Blob With Unknown Schema</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/rust-gotchas-copy-and-clone/">Rust Gotchas Copy and Clone</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/backend/">backend</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/distributed-system-design/">distributed system design</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/frontend/">frontend</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/github/">github</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">javascript</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/networking/">networking</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/python/">python</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/rust/">rust</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-taglist widget">
+	<h4 class="widget__title">Tags</h4>
+	<div class="widget__content">
+		<a class="widget-taglist__link widget__link btn" href="/tags/backend/" title="backend">backend</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/c#/" title="c#">c#</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/concurrency/" title="concurrency">concurrency</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/css/" title="css">css</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/django/" title="django">django</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/docker/" title="docker">docker</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/es6/" title="ES6">ES6</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/github/" title="github">github</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/golang/" title="golang">golang</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/gpg/" title="gpg">gpg</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/javascript/" title="javascript">javascript</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/networking/" title="networking">networking</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/postgres/" title="postgres">postgres</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/python/" title="python">python</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/rate-limiter/" title="rate limiter">rate limiter</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/react/" title="react">react</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/redis/" title="redis">redis</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/rust/" title="rust">rust</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/scrapy/" title="scrapy">scrapy</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/tcp/" title="tcp">tcp</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/testing/" title="testing">testing</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/turbofish/" title="turbofish">turbofish</a>
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2023 Tek Shinobi Blog.
+			
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+</body>
+</html>

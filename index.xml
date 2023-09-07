@@ -213,6 +213,244 @@ Also note that before flexbox, this alignment was achieved using either inline-b
     </item>
     
     <item>
+      <title>Backend Python:Working With Python Lxml Parser for Creating XML Elements</title>
+      <link>https://tek-shinobi.github.io/posts/backend-pythonworking-with-python-lxml-parser-for-creating-xml-elements/</link>
+      <pubDate>Fri, 07 Sep 2018 21:44:59 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/backend-pythonworking-with-python-lxml-parser-for-creating-xml-elements/</guid>
+      <description>lxml parser can be a bit confusing because of the sheer range of options it offers. Here are a few cookbook style examples.
+XML Generation Target code:
+&amp;lt;root_element xmlns=&amp;#34;http://www.w3.org/TR/html4/&amp;#34; some_more_params=&amp;#34;12345-678-ABC&amp;#34; yet_more_params=&amp;#34;POKEMON-SUCKS&amp;#34;&amp;gt; &amp;lt;element&amp;gt; &amp;lt;element_data1 type=&amp;#34;sometype&amp;#34;&amp;gt;&amp;lt;![CDATA[SomeVal123]]&amp;gt;&amp;lt;/element_data1&amp;gt; &amp;lt;element_data2&amp;gt;12345&amp;lt;/element_data2&amp;gt; &amp;lt;element_data3 some_attr=&amp;#34;some_attr&amp;#34;&amp;gt;More random data&amp;lt;/element_data3&amp;gt; &amp;lt;/element&amp;gt; &amp;lt;another_element&amp;gt; &amp;lt;element_data1 type=&amp;#34;sometype&amp;#34;&amp;gt;&amp;lt;![CDATA[SomeVal1234]]&amp;gt;&amp;lt;/element_data1&amp;gt; &amp;lt;element_data2&amp;gt;12345&amp;lt;/element_data2&amp;gt; &amp;lt;element_data3 some_attr=&amp;#34;some_attr&amp;#34;&amp;gt;More random data&amp;lt;/element_data3&amp;gt; &amp;lt;/another_element&amp;gt; &amp;lt;/root_element&amp;gt; Ok, Here is the code to generate it:
+from lxml import etree def create_xml(): XML_OPTIONS = {&amp;#39;pretty_print&amp;#39;: True, &amp;#39;xml_declaration&amp;#39;: True, &amp;#39;encoding&amp;#39;: &amp;#39;utf-8&amp;#39;} def create_root_element(): XHTML_NAMESPACE = &amp;#34;http://www.</description>
+    </item>
+    
+    <item>
+      <title>Backend Python:Using Pytest With Django and Django Rest Framework</title>
+      <link>https://tek-shinobi.github.io/posts/backend-pythonusing-pytest-with-django-and-django-rest-framework/</link>
+      <pubDate>Fri, 07 Sep 2018 19:23:46 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/backend-pythonusing-pytest-with-django-and-django-rest-framework/</guid>
+      <description>What is Pytest Pytest is testing framework for Python. Very popular with Django.
+Killer feature : Fixtures Fixtures are the killer feature of Pytest. Fixtures are functions that run before and after each test, like setUp and tearDown in unitest and labelled pytest killer feature. Fixtures are used for data configuration, connection/disconnection of databases, calling extra actions, and so on.
+All fixtures have scope argument with available values:
+ function run once per test class run once per class of tests module run once per module session run once per session  Note: Default value of scope is function</description>
+    </item>
+    
+    <item>
+      <title>Backend Python:SqlAlchemy Tutorial</title>
+      <link>https://tek-shinobi.github.io/posts/backend-pythonsqlalchemy-tutorial/</link>
+      <pubDate>Fri, 07 Sep 2018 17:21:17 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/backend-pythonsqlalchemy-tutorial/</guid>
+      <description>SQLAlchemy Overview
+  This describes the basic overview of SQL Alchemy. Notice the color theme. It will be related to the next onion-ring overview of SQL Alchemy.
+ SQLAlchemy Onion Diagram
+  SQL Alchemy is divided into Core and ORM. You can use Core and not use ORM. ORM is more geared towards mapping model objects to Python data types. Core on the other hand focuses on transacting with the database.</description>
+    </item>
+    
+    <item>
+      <title>Backend Python:Django Rest Framework Project Setup Template</title>
+      <link>https://tek-shinobi.github.io/posts/backend-pythondjango-rest-framework-project-setup-template/</link>
+      <pubDate>Fri, 07 Sep 2018 16:18:09 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/backend-pythondjango-rest-framework-project-setup-template/</guid>
+      <description>I am assuming that pipenv is already installed. Also, assuming that Python 3.5+ already installed in the base environment.
+ create new environment: pipenv shell pipenv install django djangorestframework markdown django-filter pygments flake8 httpie pytest pytest-django pytest-factoryboy pytest-cov django-extensions djangorestframework-simplejwt django-cors-headers mypy djangorestframework-stubs pipenv install --dev --pre black create django project:django-admin.py startproject my_proj cd my_proj python manage.py startapp my_app  The above is a basic boiler plate.
+Some explanation of what got installed:</description>
+    </item>
+    
+    <item>
+      <title>Backend c#:Reading RSA key pair from PEM files in .NET with C# using Bouncy Castle and Digitally Sign and Verify payload</title>
+      <link>https://tek-shinobi.github.io/posts/backend-netdigital-signature-of-payload-in-net/</link>
+      <pubDate>Fri, 07 Sep 2018 16:09:23 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/backend-netdigital-signature-of-payload-in-net/</guid>
+      <description>.NET does not have an easy way to directly deal with .pem format files generated using OpenSSL. I had to look into Bouncy Castle library to do it. Lets see how. We will also generate a dummy payload and then sign it using the generated pem keys and then verify it.
+First let us generate RSA key pair using OpenSSL. Please install OpenSSL before hand.
+[user@host secure]~ openssl genrsa -out posvendor.</description>
+    </item>
+    
+    <item>
+      <title>Backend Python:Logging in Django and Django Rest Framework Projects</title>
+      <link>https://tek-shinobi.github.io/posts/backend-pythonlogging-in-django-and-django-rest-framework-projects/</link>
+      <pubDate>Fri, 07 Sep 2018 16:02:36 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/backend-pythonlogging-in-django-and-django-rest-framework-projects/</guid>
+      <description>Logging is extremely necessary, during development and production. There are two ways to implement logging.
+ In apps with high scale, we log to console and then have some in-the-cloud solution like Sentry to log the messages from the console. This is great because large scale apps often run on multiple servers and we can converge all the logs to one place. Alternately, we can log the messages to file on the server itself.</description>
+    </item>
+    
+    <item>
+      <title>Backend Python:Writing Custom Django Management Commands</title>
+      <link>https://tek-shinobi.github.io/posts/backend-pythonwriting-custom-django-management-commands/</link>
+      <pubDate>Fri, 07 Sep 2018 14:02:37 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/backend-pythonwriting-custom-django-management-commands/</guid>
+      <description>Any command given with manage.py is called management command. Django comes with many built-in management commands like runserver, startapp etc. To see a full list of built-in management commands, type: python manage.py help
+The benefit of management command script is that this script executes within Django environment. You can run all of Django ORM queries within this script. You can import models. You have access to project resources.
+In this tutorial we will see how to populate a table with some contents of a csv file.</description>
+    </item>
+    
+    <item>
+      <title>Backend Python:Adding AJAX to Python Django Projects</title>
+      <link>https://tek-shinobi.github.io/posts/backend-pythonadding-ajax-to-python-django-projects/</link>
+      <pubDate>Fri, 07 Sep 2018 13:55:19 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/backend-pythonadding-ajax-to-python-django-projects/</guid>
+      <description>A very nice explanation on SO regarding what and why about AJAX from Django perspective: https://stackoverflow.com/questions/20306981/how-do-i-integrate-ajax-with-django-applications
+So, specifically in Django, when we use AJAX to do a form POST request, we need a CSRF token. This is a security feature. If we are using Django templates, the templates do the job of generating a csrf token and tacking it along with the POST request data sent to the server. But when we are doing form POST via AJAX call, there are no Django templates involved.</description>
+    </item>
+    
+    <item>
+      <title>Backend Python:Adding Login and Registration in Django</title>
+      <link>https://tek-shinobi.github.io/posts/backend-pythonadding-login-and-registration-in-django/</link>
+      <pubDate>Fri, 07 Sep 2018 13:47:36 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/backend-pythonadding-login-and-registration-in-django/</guid>
+      <description>Adding login and registration is very straight forward in Django. Note that Django provides a built in User model.
+User model exists ONLY for authentication. Use the User model to only store absolutely necessary info for authentication. Like Username and password (or if using custom user model, email and password.. I usually make the email as the unique field). Nothing else. Anything else, like gender, blah blah blah goes in other models like profile etc.</description>
+    </item>
+    
+    <item>
+      <title>Backend Python:Adding Reverse Url Lookup in Django</title>
+      <link>https://tek-shinobi.github.io/posts/backend-pythonadding-reverse-url-lookup-in-django/</link>
+      <pubDate>Fri, 07 Sep 2018 13:39:51 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/backend-pythonadding-reverse-url-lookup-in-django/</guid>
+      <description>Reverse url lookup is very cool feature in Django that allows us to not hard-code urls in templates or controller logic. This helps us change the URLs later in urls.py and not have to make the same changes everywhere in templates and logic. Keep it DRY.
+To implement reverse url lookup, you need to do these:
+ Make a namespace (if your urls are inside an app… otherwise omit this step).</description>
+    </item>
+    
+    <item>
+      <title>Backend Python:Django Custom Queryset vs Custom Manager for Database Queries</title>
+      <link>https://tek-shinobi.github.io/posts/backend-pythondjango-custom-queryset-vs-custom-manager-for-database-queries/</link>
+      <pubDate>Fri, 07 Sep 2018 13:30:55 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/backend-pythondjango-custom-queryset-vs-custom-manager-for-database-queries/</guid>
+      <description>Note: this applies to Django &amp;gt;= 1.7
+From the docs:
+ A Manager is the interface through which database query operations are provided to Django models. At least one Manager exists for every model in a Django application.
+There are two reasons you might want to customize a Manager: to add extra Manager methods, and/or to modify the initial QuerySet the Manager returns.
+ Since Django 1.7 and onwards, we no longer need to create custom manager and custom queryset separately.</description>
+    </item>
+    
+    <item>
+      <title>Backend Python:Adding Custom User Model in Django</title>
+      <link>https://tek-shinobi.github.io/posts/backend-pythonadding-custom-user-model-in-django/</link>
+      <pubDate>Fri, 07 Sep 2018 12:04:04 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/backend-pythonadding-custom-user-model-in-django/</guid>
+      <description>Part 1 One of the first things I do after creating a new Django or Django Rest Framework project is to create a custom User model. Part 1 deals with case when you add custom User model right at the start of a project. In part 2 , we deal with scenario when custom User model is added later in the project.
+What exactly is a User model for? Django uses a User model for only one purpose, user authentication.</description>
+    </item>
+    
+    <item>
+      <title>Backend Python:Setting Active Navbar Link in Django Template</title>
+      <link>https://tek-shinobi.github.io/posts/backend-pythonsetting-active-navbar-link-in-django-template/</link>
+      <pubDate>Fri, 07 Sep 2018 11:47:47 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/backend-pythonsetting-active-navbar-link-in-django-template/</guid>
+      <description>Here is probably the best way to set the active navbar link in Django template. Note, this needs no jQuery/javascript.
+Step 1 Create named urls:
+from django.conf.urls import url, include from django.contrib import admin from django.conf import settings from django.conf.urls.static import static from .views import ( HomeView, AboutView, ContactView, LoginView, RegistrationView ) urlpatterns = [ #url(r&amp;#39;^products/(?P&amp;lt;slug&amp;gt;[\w-]+)/$&amp;#39;, EcomProductDetailSlugView.as_view()), url(r&amp;#39;^$&amp;#39;, HomeView.as_view(), name=&amp;#39;home&amp;#39;), url(r&amp;#39;^about/$&amp;#39;, AboutView.as_view(), name=&amp;#39;about&amp;#39;), url(r&amp;#39;^contact/$&amp;#39;, ContactView.as_view(), name=&amp;#39;contact&amp;#39;), url(r&amp;#39;^login/$&amp;#39;, LoginView.as_view(), name=&amp;#39;login&amp;#39;), url(r&amp;#39;^register/$&amp;#39;, RegistrationView.</description>
+    </item>
+    
+    <item>
+      <title>Backend Python:Django Sessions for Anonymous Users</title>
+      <link>https://tek-shinobi.github.io/posts/backend-pythondjango-sessions-for-anonymous-users/</link>
+      <pubDate>Fri, 07 Sep 2018 11:39:04 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/backend-pythondjango-sessions-for-anonymous-users/</guid>
+      <description>We know that all logged in users are connected to a session. This is something done for you by Django middlewares.
+Similarly, for anonymous users (not logged in), every time the server receives a request, django creates a session object (meaning, an object with session_key, session_data and expire_data values). But the catch here is that you won’t see this session object in the django_session table because django sessions are saved only when modified .</description>
+    </item>
+    
+    <item>
+      <title>Backend Python:Django ORM Tips: _set meaning in Django ORM relationship</title>
+      <link>https://tek-shinobi.github.io/posts/backend-pythondjango-orm-tips-set/</link>
+      <pubDate>Fri, 07 Sep 2018 11:18:20 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/backend-pythondjango-orm-tips-set/</guid>
+      <description>_set is associated with reverse relation on a model.
+Django allows you to access reverse relations on a model. By default, Django creates a manager (RelatedManager) on your model to handle this, named &amp;lt;model&amp;gt;_set, where &amp;lt;model&amp;gt; is your model name in lowercase.
+Excellent link on StackOverflow here: https://stackoverflow.com/questions/25386119/whats-the-difference-between-a-onetoone-manytomany-and-a-foreignkey-field-in-d
+If we have these models:
+class User(models.Model): username = models.CharField(max_length=100, unique=True) companies = models.ManyToManyField(&amp;#39;Company&amp;#39;, blank=True) class Company(models.Model): name = models.CharField(max_length=255) In Django,</description>
+    </item>
+    
+    <item>
+      <title>Backend Python:Steps for New Python Library or Package</title>
+      <link>https://tek-shinobi.github.io/posts/backend-pythonsteps-for-new-python-library-or-package/</link>
+      <pubDate>Fri, 07 Sep 2018 10:49:17 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/backend-pythonsteps-for-new-python-library-or-package/</guid>
+      <description>Here are the steps.
+Create repo on github with license, gitignore and readme stubs.
+Clone the repo in the work area.
+Lets say, my new library is called new-library
+new-library is the repo name.
+Inside the cloned repo, create virtual env by running: pipenv install --python 3.8
+Above step creates a virtualenv using python 3.8 (already installed on my system)
+now install all the required packages. The basic ones I always install are: pytest, pytest-cov, typing, codecov, mypy and flake8</description>
+    </item>
+    
+    <item>
+      <title>Backend Python:Default Parameter Gotcha</title>
+      <link>https://tek-shinobi.github.io/posts/backend-pythondefault-parameter-gotcha/</link>
+      <pubDate>Fri, 07 Sep 2018 10:12:33 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/backend-pythondefault-parameter-gotcha/</guid>
+      <description>Take a look at this code. All it does is return a list with appended parameter. In case no list is supplied, it defaults to an empty list and appends to it. Or is it???
+def add_to_list(item, item_list=[]): item_list.append(item) return item_list add_to_list(&amp;#34;gold&amp;#34;) # expected: [&amp;#34;gold&amp;#34;] #actual: [&amp;#34;gold&amp;#34;] add_to_list(&amp;#34;silver&amp;#34;) # expected: [&amp;#34;silver&amp;#34;] #actual: [&amp;#34;gold&amp;#34;,&amp;#34;silver&amp;#34;] Look at the second result. We expected [&amp;quot;silver&amp;quot;] expecting the item to be appended to an empty list as we never passed in a list and expected a default empty list as in function definition.</description>
+    </item>
+    
+    <item>
+      <title>Backend Python:Linting Using Flake</title>
+      <link>https://tek-shinobi.github.io/posts/backend-pythonlinting-using-flake/</link>
+      <pubDate>Fri, 07 Sep 2018 10:08:20 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/backend-pythonlinting-using-flake/</guid>
+      <description>Linting is a must for any python project.
+Two options are used most (in order of usage and popularity)
+ flake8 – most used by open source python projects pylint – enabled by default in many IDEs like Visual Studio Code  Many folks run both.
+I chose flake8. Primary reason is that out of the box, pylint barks at everything in my code. The signal to noise ratio is god-awful.</description>
+    </item>
+    
+    <item>
+      <title>Backend C# Add NLog Logger in .NET project</title>
+      <link>https://tek-shinobi.github.io/posts/backend-c#-add-nlog-logger/</link>
+      <pubDate>Fri, 07 Sep 2018 09:57:49 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/backend-c#-add-nlog-logger/</guid>
+      <description>Recently, I was working on an enterprise project using Windows Forms and needed a logger that was thread-safe, allowed both structured and text based logging and provided an options to integrate email sending as well. Two options came standard NLog or log4Net.
+Had a brief look at both. log4Net looked like more of XML configuration. NLog looked like less so. Went with NLog.
+How to add NLog to your .NET solution: Scenario is that we have multiple projects in our solution.</description>
+    </item>
+    
+    <item>
+      <title>Javascript:Generator Functions Part 2</title>
+      <link>https://tek-shinobi.github.io/posts/javascriptgenerator-functions-part-2/</link>
+      <pubDate>Fri, 07 Sep 2018 09:42:46 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/javascriptgenerator-functions-part-2/</guid>
+      <description>We will be building on prev post titled Javascript:Generator Functions Part 1:using Co
+Here we will focus on how to implement something analogous to co. i.e. actually implement an iterable.
+How to run the function* Steps involved in running through a generator function. If its a bit confusing, it will be clear when we look at the implementation.
+ we first invoke the function and store it in a variable. The invocation of the function returns an iterable object back to us.</description>
+    </item>
+    
+    <item>
+      <title>Javascript:Generator Functions Part 1:using Co</title>
+      <link>https://tek-shinobi.github.io/posts/javascriptgenerator-functions-part-1using-co/</link>
+      <pubDate>Fri, 07 Sep 2018 09:32:30 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/javascriptgenerator-functions-part-1using-co/</guid>
+      <description>Generator functions are a concept lifted likely from Python where they are used heavily in applications like web-crawlers. There are no prerequisites to this article but if you had an idea about Python generators, its the exact same concept implemented in Javascript.
+Definition  Generators are functions which can be exited and later re-entered. Their context (variable bindings) will be saved across re-entrances. Generators are cooperative, which means that it chooses when it will allow an interruption so that it can cooperate with the rest of the program.</description>
+    </item>
+    
+    <item>
       <title>Python Scrapy:Removing Non Ascii Characters From Text in Python</title>
       <link>https://tek-shinobi.github.io/posts/python-scrapyremoving-non-ascii-characters-from-text-in-python/</link>
       <pubDate>Wed, 05 Sep 2018 11:13:58 +0300</pubDate>
@@ -221,6 +459,28 @@ Also note that before flexbox, this alignment was achieved using either inline-b
       <description>I was handling some text scraped using Scrapy and the text had non-ascii unicode charcters like \u003e. If I did this, it didn&amp;rsquo;t work:
 html_text = response.text.encode(&amp;#39;ascii&amp;#39;, errors=&amp;#39;ignore&amp;#39;).decode() Here response.text is the string that contains unicode text (scrapy returns strings encoded in unicode). The html_text still had non ascii unicode characters like \u003e This worked:
 html_text = response.text.encode(&amp;#39;ascii&amp;#39;, errors=&amp;#39;ignore&amp;#39;).decode(&amp;#39;unicode-escape&amp;#39;) Note that unicode-escape part in decode. That made the difference in getting rid of characters like \u003e and replacing them with space.</description>
+    </item>
+    
+    <item>
+      <title>Frontend CSS:Common Tricks:Avoid Text Wrapping at Whitespace</title>
+      <link>https://tek-shinobi.github.io/posts/frontend-csscommon-tricksavoid-text-wrapping-at-whitespace/</link>
+      <pubDate>Thu, 07 Sep 2017 13:59:41 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/frontend-csscommon-tricksavoid-text-wrapping-at-whitespace/</guid>
+      <description>Here is how to avoid wrapping of text in elements like btn, div etc (block, or inline-block elements).
+add this to the btn styling: white-space: nowrap;
+You will find this code often. We strip off any padding around ul because it is automatically added by browsers
+ul{ padding: 0; } If you want the list items to be displayed horizontally, instead of vertically, just put an inline-block
+ul li { display: inline-block; } </description>
+    </item>
+    
+    <item>
+      <title>Frontend React:Tips for Making Reusable Components:props</title>
+      <link>https://tek-shinobi.github.io/posts/frontend-reacttips-for-making-reusable-componentsprops/</link>
+      <pubDate>Thu, 07 Sep 2017 09:50:40 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/frontend-reacttips-for-making-reusable-componentsprops/</guid>
+      <description>props.children const Picture = (props) =&amp;gt; { return ( &amp;lt;div&amp;gt; &amp;lt;img src={props.src}/&amp;gt; {props.children} &amp;lt;/div&amp;gt; ) } render () { return ( &amp;lt;div className=&amp;#39;container&amp;#39;&amp;gt; &amp;lt;Picture key={picture.id} src={picture.src}&amp;gt; //what is placed here is passed as props.children  &amp;lt;/Picture&amp;gt; &amp;lt;/div&amp;gt; ) } Instead of invoking the component with a self-closing tag &amp;lt;Picture /&amp;gt; if you invoke it will full opening and closing tags &amp;lt;Picture&amp;gt; &amp;lt;/Picture&amp;gt; you can then place more code between it and display using this.</description>
     </item>
     
     <item>

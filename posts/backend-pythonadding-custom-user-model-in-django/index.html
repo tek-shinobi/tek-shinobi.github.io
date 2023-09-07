@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Backend Python:Adding Custom User Model in Django - Tek Shinobi Blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo">
+		<a class="logo__link" href="/" title="Tek Shinobi Blog" rel="home">
+			<div class="logo__item logo__text">
+					<div class="logo__title">Tek Shinobi Blog</div>
+					
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Backend Python:Adding Custom User Model in Django</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2018-09-07T12:04:04&#43;03:00">September 07, 2018</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/backend/" rel="category">backend</a>, <a class="meta__link" href="/categories/python/" rel="category">python</a>
+	</span>
+</div></div>
+		</header>
+		<div class="content post__content clearfix">
+			<h2 id="part-1">Part 1</h2>
+<p>One of the first things I do after creating a new Django or Django Rest Framework project is to create a custom User model. Part 1 deals with case when you add custom User model right at the start of a project. In <a href="#part-2"> part 2 </a>, we deal with scenario when custom User model is added later in the project.</p>
+<h2 id="what-exactly-is-a-user-model-for">What exactly is a User model for?</h2>
+<p>Django uses a User model for only one purpose, user authentication. If the project is really small and not ever going to scale, you can tack on non-authentication related stuff as well, like user address, user profile data etc but this is not recommended. I like to keep my models simple and they only contain what is necessary for authentication. Everything else, I move it to other models like UserProfile etc</p>
+<h2 id="why-custom-user-model">Why custom user model?</h2>
+<p>Well, Django’s default created User model makes certain crippling assumptions. Like it will only use username for login. If you already put your project in production with active users and then down the line wanted to change it to use email for authentication, this will not be easy. If the active users are too many, it might even be impossible to change. It is so because it involves deleting the old database models and create new ones that use the new user model. So, we must create a custom user model right at the start and switch over to email for authentication. This also makes it easy to add other customization later on. Do this before doing your first migration.</p>
+<h2 id="create-custom-user-model">Create Custom User Model</h2>
+<p>Follow these steps.</p>
+<ol>
+<li><code>create a new app</code>, only for managing custom user model. I call it <code>accounts</code> in most of my projects.</li>
+<li><code>create User Model and Model Manager</code>. In my case, I called the model as <code>MzkUser</code> and model manager as <code>MzkUserManager</code>. Note, it is important to <strong>NOT</strong> name them as <code>User</code> and <code>UserManager</code> as these might become reserved words in future. Since my project was about a music app, I prepended it with <code>Mzk</code>. In the code below, all models and model-methods and properties are required</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> django.db <span style="color:#f92672">import</span> models
+<span style="color:#f92672">from</span> django.contrib.auth.models <span style="color:#f92672">import</span> (
+    AbstractBaseUser, BaseUserManager
+)
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MzkUserManager</span>(BaseUserManager):
+    <span style="color:#75715e"># create_user takes all REQUIRED_FIELDS and USERNAME_FIELD</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">create_user</span>(self, email, password<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>, is_active<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, is_staff<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>, is_admin<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>):
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> email:
+            <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">ValueError</span>(<span style="color:#e6db74">&#34;Users must have an email address&#34;</span>)
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> password:
+            <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">ValueError</span>(<span style="color:#e6db74">&#34;Users must have a password&#34;</span>)
+
+        user_obj <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>model(
+            email <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>normalize_email(email)
+        )
+        user_obj<span style="color:#f92672">.</span>set_password(password)
+        user_obj<span style="color:#f92672">.</span>staff <span style="color:#f92672">=</span> is_staff
+        user_obj<span style="color:#f92672">.</span>admin <span style="color:#f92672">=</span> is_admin
+        user_obj<span style="color:#f92672">.</span>active <span style="color:#f92672">=</span> is_active
+        user_obj<span style="color:#f92672">.</span>save(using<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>_db)
+        <span style="color:#66d9ef">return</span> user_obj
+    
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">create_staff_user</span>(self, email, password<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>):
+        user <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>create_user(
+            email,
+            password<span style="color:#f92672">=</span>password,
+            is_staff<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>
+        )
+        <span style="color:#66d9ef">return</span> user
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">create_superuser</span>(self, email, password<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>):
+        user <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>create_user(
+            email,
+            password<span style="color:#f92672">=</span>password,
+            is_staff<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>,
+            is_admin<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>
+        )
+        <span style="color:#66d9ef">return</span> user
+
+<span style="color:#75715e"># password is inherited from AbstractBaseUser</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MzkUser</span>(AbstractBaseUser):
+    email <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>EmailField(default<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;abc@gmail.com&#39;</span>, max_length<span style="color:#f92672">=</span><span style="color:#ae81ff">255</span>, unique<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+    active <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>BooleanField(default<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+    staff <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>BooleanField(default<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
+    admin <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>BooleanField(default<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
+    timestamp <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>DateTimeField(auto_now_add<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+    
+    USERNAME_FIELD <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;email&#39;</span>
+    REQUIRED_FIELDS <span style="color:#f92672">=</span> []
+
+    objects <span style="color:#f92672">=</span> MzkUserManager()
+
+    <span style="color:#66d9ef">def</span> __str__(self):
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>email
+    
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_full_name</span>(self):
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>email
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_short_name</span>(self):
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>email
+
+    <span style="color:#75715e"># we don&#39;t use object/module level permissions</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">has_perm</span>(self, perm, obj<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>):
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>
+
+    <span style="color:#75715e"># we don&#39;t use module level permissions</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">has_module_perms</span>(self, app_label):
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>
+
+    <span style="color:#a6e22e">@property</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">is_staff</span>(self):
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>staff
+    
+    <span style="color:#a6e22e">@property</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">is_admin</span>(self):
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>admin
+
+    <span style="color:#a6e22e">@property</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">is_active</span>(self):
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>active
+</code></pre></div><ol start="3">
+<li><code>settings.py</code>: Register the accounts app by adding it to <code>INSTALLED_APPS</code>. Then add the following line:
+<code>AUTH_USER_MODEL = 'accounts.MzkUser'</code>
+This will indicate which custom user model we are using</li>
+<li>Run makemigrations and migrate</li>
+<li><code>accounts/admin.py</code>: The above steps will enable the project to use custom user model. But if we went to the admin page, this will still not be visible (admin will use this model to add new users). To be able to see this on admin page, we need to also register this model with admin panel like so:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> django.contrib <span style="color:#f92672">import</span> admin
+<span style="color:#f92672">from</span> django.contrib.auth <span style="color:#f92672">import</span> get_user_model
+
+User <span style="color:#f92672">=</span> get_user_model()
+
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UserAdmin</span>(admin<span style="color:#f92672">.</span>ModelAdmin):
+    <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Meta</span>:
+        model <span style="color:#f92672">=</span> User
+
+
+admin<span style="color:#f92672">.</span>site<span style="color:#f92672">.</span>register(User)
+</code></pre></div><ol start="6">
+<li>Now run migrations, create superuser and then goto admin page to see the new user model.</li>
+</ol>
+<p>Note: Here, I am not using object-level permissions. Hence am returning <code>True</code> in <code>has_module_perms</code> method. You will anyways want to use a library like <code>django-guardian</code> for managing object-level permissions.</p>
+<p>You will also want to revisit <code>has_perm</code> method when you implement user level permissions. For simplicity, I am returning <code>True</code> here.</p>
+<h2 id="part-2">Part 2</h2>
+<h2 id="adding-custom-user-model-in-django--using-fixtures">Adding Custom User model in Django – (using fixtures)</h2>
+<p>In this part we are discussing what to do when we add custom user model later in the project.</p>
+<p>Note that in this scenario, we are in a very non-ideal situation. To keep unknown surprises at the minimum, we will still delete old database but we will use the concept of fixtures to save as much information as we can from the current database, that can be reused later.</p>
+<p>For example, if we have an eCommerce site with a lot of products and their details in the database, we can save this info as this is not really connected to any specific user. Then we can remove the database, let Django create a new database with the new custom user model and then you can bring in the products and their details saved earlier. All this is possible using fixtures.</p>
+<p>If you want to dump entire database as json, this is the fixture for it:
+<code>python manage.py dumpdata --format json --indent 4</code></p>
+<p>The above will dump all the info to the console. You can save all this into a file like so:
+<code>python manage.py dumpdata --format json --indent 4 &gt; all_database.json</code></p>
+<p>The above line will create an <code>all_database.json</code> file at the root of project wih all the database content in it.</p>
+<p>I generally like to make my dumps separately for specific tables. Like if I have an app called <code>ecom_product</code> and in its <code>models.py</code> file, I have a model called <code>Product</code>, I will save this specific model like so:
+Create a directory called <code>fixtures</code> in the app folder <code>ecom_product</code>. Then run this command</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">python manage.py dumpdata ecom_product.Product --format json --indent <span style="color:#ae81ff">4</span> &gt; ecom_product/fixtures/ecom_product.json
+</code></pre></div><p>Bingo!, you have dumped all the data from your Products table.</p>
+<p>Now, goto <a href="#part-1"> part-1 </a>. And do steps 1 through 3. Then delete/move the old database so Django can create a new one. Before running step 4, remove all migrations. To do this, goto each app’s migrations folder and remove everything except <code>__init__.py</code> file (Also remove <code>__pycache__</code> folder inside migrations folder). In reality, you only need to remove the migrations related to the old user model. I remove all migrations just in case.</p>
+<p>Now you can go ahead with steps 4 and onwards.</p>
+<p>Do all the migrations.
+Recreate superuser (this time using email). Goto admin panel to see all looks good.</p>
+<p>Then at last we are ready to load the saved dumps back into the new database.</p>
+<p>Here is how to load dumps back into the database.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">python manage.py loaddata ecom_product/fixtures/ecom_product.json
+</code></pre></div>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/python/" rel="tag">python</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/django/" rel="tag">django</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+
+
+
+			</div>
+			<aside class="sidebar">
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="LinkedIn" rel="noopener noreferrer" href="https://linkedin.com/in/himanshu-singh-remote/" target="_blank">
+				<svg class="widget-social__link-icon icon icon-linkedin" width="24" height="24" viewBox="0 0 352 352"><path d="M0,40v272c0,21.9,18.1,40,40,40h272c21.9,0,40-18.1,40-40V40c0-21.9-18.1-40-40-40H40C18.1,0,0,18.1,0,40z M312,32 c4.6,0,8,3.4,8,8v272c0,4.6-3.4,8-8,8H40c-4.6,0-8-3.4-8-8V40c0-4.6,3.4-8,8-8H312z M59.5,87c0,15.2,12.3,27.5,27.5,27.5 c15.2,0,27.5-12.3,27.5-27.5c0-15.2-12.3-27.5-27.5-27.5C71.8,59.5,59.5,71.8,59.5,87z M187,157h-1v-21h-45v152h47v-75 c0-19.8,3.9-39,28.5-39c24.2,0,24.5,22.4,24.5,40v74h47v-83.5c0-40.9-8.7-72-56.5-72C208.5,132.5,193.3,145.1,187,157z M64,288h47.5 V136H64V288z"/></svg>
+				<span>LinkedIn</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/tek-shinobi" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+
+		
+	</div>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/posts/golangdistributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/rate-limiting-in-distributed-system/">Rate Limiting in a Distributed System</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-testing-creating-large-files/">Golang Testing: Creating Large Files</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/add-gpg-keys-to-repo/">Add Gpg Keys to Repo</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-handling-null-in-database-tables/">Golang: Handling Null in Database Tables</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/using-postgres-inside-docker-container/">Golang: Using Postgres Inside Docker Container</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-common-concurrency-patterns/">Golang: Common Concurrency Patterns</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-channels/">Golang Channels</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-unmarshal-json-blob-with-unknown-schema/">Golang: Unmarshal Json Blob With Unknown Schema</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/rust-gotchas-copy-and-clone/">Rust Gotchas Copy and Clone</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/backend/">backend</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/distributed-system-design/">distributed system design</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/frontend/">frontend</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/github/">github</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">javascript</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/networking/">networking</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/python/">python</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/rust/">rust</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-taglist widget">
+	<h4 class="widget__title">Tags</h4>
+	<div class="widget__content">
+		<a class="widget-taglist__link widget__link btn" href="/tags/backend/" title="backend">backend</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/c#/" title="c#">c#</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/concurrency/" title="concurrency">concurrency</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/css/" title="css">css</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/django/" title="django">django</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/docker/" title="docker">docker</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/es6/" title="ES6">ES6</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/github/" title="github">github</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/golang/" title="golang">golang</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/gpg/" title="gpg">gpg</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/javascript/" title="javascript">javascript</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/networking/" title="networking">networking</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/postgres/" title="postgres">postgres</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/python/" title="python">python</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/rate-limiter/" title="rate limiter">rate limiter</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/react/" title="react">react</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/redis/" title="redis">redis</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/rust/" title="rust">rust</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/scrapy/" title="scrapy">scrapy</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/tcp/" title="tcp">tcp</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/testing/" title="testing">testing</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/turbofish/" title="turbofish">turbofish</a>
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2023 Tek Shinobi Blog.
+			
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+</body>
+</html>

@@ -142,6 +142,33 @@
     </item>
     
     <item>
+      <title>django</title>
+      <link>https://tek-shinobi.github.io/tags/django/</link>
+      <pubDate>Fri, 07 Sep 2018 16:18:09 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/tags/django/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>c#</title>
+      <link>https://tek-shinobi.github.io/tags/c#/</link>
+      <pubDate>Fri, 07 Sep 2018 16:09:23 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/tags/c#/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>backend</title>
+      <link>https://tek-shinobi.github.io/tags/backend/</link>
+      <pubDate>Fri, 07 Sep 2018 09:42:46 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/tags/backend/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>scrapy</title>
       <link>https://tek-shinobi.github.io/tags/scrapy/</link>
       <pubDate>Wed, 05 Sep 2018 11:13:58 +0300</pubDate>
@@ -151,20 +178,29 @@
     </item>
     
     <item>
+      <title>javascript</title>
+      <link>https://tek-shinobi.github.io/tags/javascript/</link>
+      <pubDate>Thu, 07 Sep 2017 09:50:40 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/tags/javascript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>react</title>
+      <link>https://tek-shinobi.github.io/tags/react/</link>
+      <pubDate>Thu, 07 Sep 2017 09:50:40 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/tags/react/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>ES6</title>
       <link>https://tek-shinobi.github.io/tags/es6/</link>
       <pubDate>Tue, 05 Sep 2017 11:25:18 +0300</pubDate>
       
       <guid>https://tek-shinobi.github.io/tags/es6/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>javascript</title>
-      <link>https://tek-shinobi.github.io/tags/javascript/</link>
-      <pubDate>Tue, 05 Sep 2017 11:25:18 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/tags/javascript/</guid>
       <description></description>
     </item>
     

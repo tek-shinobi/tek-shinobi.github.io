@@ -17,6 +17,28 @@ Also note that before flexbox, this alignment was achieved using either inline-b
     </item>
     
     <item>
+      <title>Frontend CSS:Common Tricks:Avoid Text Wrapping at Whitespace</title>
+      <link>https://tek-shinobi.github.io/posts/frontend-csscommon-tricksavoid-text-wrapping-at-whitespace/</link>
+      <pubDate>Thu, 07 Sep 2017 13:59:41 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/frontend-csscommon-tricksavoid-text-wrapping-at-whitespace/</guid>
+      <description>Here is how to avoid wrapping of text in elements like btn, div etc (block, or inline-block elements).
+add this to the btn styling: white-space: nowrap;
+You will find this code often. We strip off any padding around ul because it is automatically added by browsers
+ul{ padding: 0; } If you want the list items to be displayed horizontally, instead of vertically, just put an inline-block
+ul li { display: inline-block; } </description>
+    </item>
+    
+    <item>
+      <title>Frontend React:Tips for Making Reusable Components:props</title>
+      <link>https://tek-shinobi.github.io/posts/frontend-reacttips-for-making-reusable-componentsprops/</link>
+      <pubDate>Thu, 07 Sep 2017 09:50:40 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/frontend-reacttips-for-making-reusable-componentsprops/</guid>
+      <description>props.children const Picture = (props) =&amp;gt; { return ( &amp;lt;div&amp;gt; &amp;lt;img src={props.src}/&amp;gt; {props.children} &amp;lt;/div&amp;gt; ) } render () { return ( &amp;lt;div className=&amp;#39;container&amp;#39;&amp;gt; &amp;lt;Picture key={picture.id} src={picture.src}&amp;gt; //what is placed here is passed as props.children  &amp;lt;/Picture&amp;gt; &amp;lt;/div&amp;gt; ) } Instead of invoking the component with a self-closing tag &amp;lt;Picture /&amp;gt; if you invoke it will full opening and closing tags &amp;lt;Picture&amp;gt; &amp;lt;/Picture&amp;gt; you can then place more code between it and display using this.</description>
+    </item>
+    
+    <item>
       <title>Frontend CSS:When to Use Float vs Position vs Display for Laying Out Elements and Aligning Blocks on Page</title>
       <link>https://tek-shinobi.github.io/posts/frontend-csswhen-to-use-float-vs-position-vs-display-for-laying-out-elements-and-aligning-blocks-on-page/</link>
       <pubDate>Mon, 05 Sep 2016 11:32:27 +0300</pubDate>

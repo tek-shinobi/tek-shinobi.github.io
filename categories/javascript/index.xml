@@ -5,7 +5,29 @@
     <link>https://tek-shinobi.github.io/categories/javascript/</link>
     <description>Recent content in javascript on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 05 Sep 2017 11:25:18 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/categories/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 07 Sep 2018 09:42:46 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/categories/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Javascript:Generator Functions Part 2</title>
+      <link>https://tek-shinobi.github.io/posts/javascriptgenerator-functions-part-2/</link>
+      <pubDate>Fri, 07 Sep 2018 09:42:46 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/javascriptgenerator-functions-part-2/</guid>
+      <description>We will be building on prev post titled Javascript:Generator Functions Part 1:using Co
+Here we will focus on how to implement something analogous to co. i.e. actually implement an iterable.
+How to run the function* Steps involved in running through a generator function. If its a bit confusing, it will be clear when we look at the implementation.
+ we first invoke the function and store it in a variable. The invocation of the function returns an iterable object back to us.</description>
+    </item>
+    
+    <item>
+      <title>Javascript:Generator Functions Part 1:using Co</title>
+      <link>https://tek-shinobi.github.io/posts/javascriptgenerator-functions-part-1using-co/</link>
+      <pubDate>Fri, 07 Sep 2018 09:32:30 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/javascriptgenerator-functions-part-1using-co/</guid>
+      <description>Generator functions are a concept lifted likely from Python where they are used heavily in applications like web-crawlers. There are no prerequisites to this article but if you had an idea about Python generators, its the exact same concept implemented in Javascript.
+Definition  Generators are functions which can be exited and later re-entered. Their context (variable bindings) will be saved across re-entrances. Generators are cooperative, which means that it chooses when it will allow an interruption so that it can cooperate with the rest of the program.</description>
+    </item>
+    
     <item>
       <title>Javascript ES6:Quick Recap Cookbook</title>
       <link>https://tek-shinobi.github.io/posts/javascript-es6quick-recap-cookbook/</link>

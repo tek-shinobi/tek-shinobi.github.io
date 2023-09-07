@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Backend c#:Reading RSA key pair from PEM files in .NET with C# using Bouncy Castle and Digitally Sign and Verify payload - Tek Shinobi Blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo">
+		<a class="logo__link" href="/" title="Tek Shinobi Blog" rel="home">
+			<div class="logo__item logo__text">
+					<div class="logo__title">Tek Shinobi Blog</div>
+					
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Backend c#:Reading RSA key pair from PEM files in .NET with C# using Bouncy Castle and Digitally Sign and Verify payload</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2018-09-07T16:09:23&#43;03:00">September 07, 2018</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/backend/" rel="category">backend</a>
+	</span>
+</div></div>
+		</header>
+		<div class="content post__content clearfix">
+			<p>.NET does not have an easy way to directly deal with .pem format files generated using OpenSSL. I had to look into Bouncy Castle library to do it. Lets see how. We will also generate a dummy payload and then sign it using the generated pem keys and then verify it.</p>
+<p>First let us generate RSA key pair using OpenSSL. Please install OpenSSL before hand.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>user@host secure<span style="color:#f92672">]</span>~ openssl genrsa -out posvendor.key.pem <span style="color:#ae81ff">2048</span>
+<span style="color:#f92672">[</span>user@host secure<span style="color:#f92672">]</span>~ openssl rsa -in posvendor.key.pem -pubout -out posvendor.pub.pem
+</code></pre></div><p>writing RSA key</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>user@host secure<span style="color:#f92672">]</span>~ ls
+</code></pre></div><p>output:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">posvendor.key.pem
+posvendor.pub.pem
+</code></pre></div><p>OK.. so we have public and private keys generated.
+For the same of example, here is the path of the pem files generated above:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">string</span> public_pem = <span style="color:#e6db74">&#34;D:\\Projects\\Crypt\\ConsoleApplication1\\posvendor.pub.pem&#34;</span>;
+<span style="color:#66d9ef">string</span> private_pem = <span style="color:#e6db74">&#34;D:\\Projects\\Crypt\\ConsoleApplication1\\posvendor.key.pem&#34;</span>;
+</code></pre></div><p>Now install Bouncy castle through nouget.
+Also install Newtonsoft Json.</p>
+<p>The implementation looks like so:
+My includes look like so:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">using</span> Newtonsoft.Json;
+<span style="color:#66d9ef">using</span> Org.BouncyCastle.Crypto;
+<span style="color:#66d9ef">using</span> Org.BouncyCastle.Crypto.Parameters;
+<span style="color:#66d9ef">using</span> Org.BouncyCastle.OpenSsl;
+<span style="color:#66d9ef">using</span> Org.BouncyCastle.Security;
+<span style="color:#66d9ef">using</span> System;
+<span style="color:#66d9ef">using</span> System.Collections.Generic;
+<span style="color:#66d9ef">using</span> System.IO;
+<span style="color:#66d9ef">using</span> System.Linq;
+<span style="color:#66d9ef">using</span> System.Net;
+<span style="color:#66d9ef">using</span> System.Security.Cryptography;
+<span style="color:#66d9ef">using</span> System.Text;
+<span style="color:#66d9ef">using</span> System.Xml.Serialization;
+</code></pre></div><p>Note that classes <code>GetPayload</code>, <code>GetUnixTime</code>, <code>GetNonce</code> are there to provide some dummy data to form a payload that can be signed and then verified with the above pem keys. Also, <code>PublicKeyString</code> and <code>PrivateKeyString</code> methods are there to generate a print friendly version of the parsed pem keys.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RsaEnc</span>
+    {
+        
+        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> RSACryptoServiceProvider csp = <span style="color:#66d9ef">new</span> RSACryptoServiceProvider(<span style="color:#ae81ff">2048</span>);
+        <span style="color:#66d9ef">private</span> RSAParameters <span style="color:#ae81ff">_</span>privateKey;
+        <span style="color:#66d9ef">private</span> RSAParameters <span style="color:#ae81ff">_</span>publicKey;
+
+        <span style="color:#66d9ef">public</span> RsaEnc()
+        {
+            <span style="color:#66d9ef">string</span> public_pem = <span style="color:#e6db74">&#34;D:\\Projects\\Crypt\\ConsoleApplication1\\posvendor.pub.pem&#34;</span>;
+            <span style="color:#66d9ef">string</span> private_pem = <span style="color:#e6db74">&#34;D:\\Projects\\Crypt\\ConsoleApplication1\\posvendor.key.pem&#34;</span>;
+
+
+            <span style="color:#66d9ef">var</span> pub = RsaEnc.GetPublicKeyFromPemFile(public_pem);
+            <span style="color:#66d9ef">var</span> pri = RsaEnc.GetPrivateKeyFromPemFile(private_pem);
+
+            
+            <span style="color:#ae81ff">_</span>publicKey = pub.ExportParameters(<span style="color:#66d9ef">false</span>);
+            <span style="color:#ae81ff">_</span>privateKey = pri.ExportParameters(<span style="color:#66d9ef">true</span>);
+        }
+
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> RSACryptoServiceProvider GetPrivateKeyFromPemFile(<span style="color:#66d9ef">string</span> filePath)
+        {
+            <span style="color:#66d9ef">using</span> (TextReader privateKeyTextReader = <span style="color:#66d9ef">new</span> StringReader(File.ReadAllText(filePath)))
+            {
+                AsymmetricCipherKeyPair readKeyPair = (AsymmetricCipherKeyPair)<span style="color:#66d9ef">new</span> PemReader(privateKeyTextReader).ReadObject();
+
+                RSAParameters rsaParams = DotNetUtilities.ToRSAParameters((RsaPrivateCrtKeyParameters)readKeyPair.Private);
+                RSACryptoServiceProvider csp = <span style="color:#66d9ef">new</span> RSACryptoServiceProvider();<span style="color:#75715e">// cspParams);
+</span><span style="color:#75715e"></span>                csp.ImportParameters(rsaParams);
+                <span style="color:#66d9ef">return</span> csp;
+            }
+        }
+
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> RSACryptoServiceProvider GetPublicKeyFromPemFile(String filePath)
+        {
+            <span style="color:#66d9ef">using</span> (TextReader publicKeyTextReader = <span style="color:#66d9ef">new</span> StringReader(File.ReadAllText(filePath)))
+            {
+                RsaKeyParameters publicKeyParam = (RsaKeyParameters)<span style="color:#66d9ef">new</span> PemReader(publicKeyTextReader).ReadObject();
+
+                RSAParameters rsaParams = DotNetUtilities.ToRSAParameters((RsaKeyParameters)publicKeyParam);
+
+                RSACryptoServiceProvider csp = <span style="color:#66d9ef">new</span> RSACryptoServiceProvider();<span style="color:#75715e">// cspParams);
+</span><span style="color:#75715e"></span>                csp.ImportParameters(rsaParams);
+                <span style="color:#66d9ef">return</span> csp;
+            }
+        }
+
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> PublicKeyString()
+        {
+            <span style="color:#66d9ef">var</span> sw = <span style="color:#66d9ef">new</span> StringWriter();
+            <span style="color:#66d9ef">var</span> xs = <span style="color:#66d9ef">new</span> XmlSerializer(<span style="color:#66d9ef">typeof</span>(RSAParameters));
+            xs.Serialize(sw, <span style="color:#ae81ff">_</span>publicKey);
+            <span style="color:#66d9ef">return</span> sw.ToString();
+        }
+
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> PrivateKeyString()
+        {
+            <span style="color:#66d9ef">var</span> sw = <span style="color:#66d9ef">new</span> StringWriter();
+            <span style="color:#66d9ef">var</span> xs = <span style="color:#66d9ef">new</span> XmlSerializer(<span style="color:#66d9ef">typeof</span>(RSAParameters));
+            xs.Serialize(sw, <span style="color:#ae81ff">_</span>privateKey);
+            <span style="color:#66d9ef">return</span> sw.ToString();
+        }
+
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> GetPayload()
+        {
+            Dictionary&lt;<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">string</span>&gt; message = <span style="color:#66d9ef">new</span> Dictionary&lt;<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">string</span>&gt;
+                                                {
+                                                    {<span style="color:#e6db74">&#34;0&#34;</span>, <span style="color:#e6db74">&#34;0200&#34;</span>},
+                                                    {<span style="color:#e6db74">&#34;1&#34;</span>, <span style="color:#e6db74">&#34;a238408000c080000000010001000000&#34;</span>},
+                                                    {<span style="color:#e6db74">&#34;3&#34;</span>, <span style="color:#e6db74">&#34;000000&#34;</span>},
+                                                    {<span style="color:#e6db74">&#34;7&#34;</span>, <span style="color:#e6db74">&#34;1231235959&#34;</span>},
+                                                    {<span style="color:#e6db74">&#34;11&#34;</span>, <span style="color:#e6db74">&#34;000135&#34;</span>},
+                                                    {<span style="color:#e6db74">&#34;12&#34;</span>, <span style="color:#e6db74">&#34;235959&#34;</span>},
+                                                    {<span style="color:#e6db74">&#34;13&#34;</span>, <span style="color:#e6db74">&#34;1231&#34;</span>},
+                                                    {<span style="color:#e6db74">&#34;18&#34;</span>, <span style="color:#e6db74">&#34;5814&#34;</span>},
+                                                    {<span style="color:#e6db74">&#34;25&#34;</span>, <span style="color:#e6db74">&#34;24&#34;</span>},
+                                                    {<span style="color:#e6db74">&#34;41&#34;</span>, <span style="color:#e6db74">&#34;2222&#34;</span>},
+                                                    {<span style="color:#e6db74">&#34;42&#34;</span>, <span style="color:#e6db74">&#34;111111111111&#34;</span>},
+                                                    {<span style="color:#e6db74">&#34;49&#34;</span>, <span style="color:#e6db74">&#34;SGD&#34;</span>},
+                                                    {<span style="color:#e6db74">&#34;88&#34;</span>, <span style="color:#e6db74">&#34;000000001235&#34;</span>},
+                                                    {<span style="color:#e6db74">&#34;104&#34;</span>, <span style="color:#e6db74">&#34;demo transaction order_5cb68edb5b9c4&#34;</span>}
+                                                };
+
+            <span style="color:#66d9ef">string</span> json = JsonConvert.SerializeObject(message, Formatting.None);
+            <span style="color:#66d9ef">byte</span>[] bytes = Encoding.Default.GetBytes(json);
+            <span style="color:#66d9ef">string</span> json_utf8encoded = Encoding.UTF8.GetString(bytes);
+            <span style="color:#66d9ef">return</span> json_utf8encoded;
+        }
+
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">byte</span>[] SignData(<span style="color:#66d9ef">byte</span>[] hashOfDataToSign)
+        {
+            <span style="color:#66d9ef">using</span> (<span style="color:#66d9ef">var</span> rsa = <span style="color:#66d9ef">new</span> RSACryptoServiceProvider(<span style="color:#ae81ff">2048</span>))
+            {
+                rsa.ImportParameters(<span style="color:#ae81ff">_</span>privateKey);
+                <span style="color:#66d9ef">var</span> rsaFormatter = <span style="color:#66d9ef">new</span> RSAPKCS1SignatureFormatter(rsa);
+                rsaFormatter.SetHashAlgorithm(<span style="color:#e6db74">&#34;SHA256&#34;</span>);
+                <span style="color:#66d9ef">return</span> rsaFormatter.CreateSignature(hashOfDataToSign);
+            }
+        }
+
+        <span style="color:#75715e">// 10 digit unix time
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> GetUnixTime()
+        {
+            <span style="color:#66d9ef">var</span> epoch_10_digit_unix_time = (DateTime.Now.ToUniversalTime().Ticks - <span style="color:#ae81ff">621355968000000000</span>) / <span style="color:#ae81ff">10000000</span>;
+            <span style="color:#66d9ef">return</span> epoch_10_digit_unix_time.ToString();
+        }
+
+        <span style="color:#66d9ef">public</span> Guid GetNonce()
+        {
+            Guid guid = Guid.NewGuid();
+            <span style="color:#66d9ef">return</span> guid;
+        }
+
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">byte</span>[] GetHash(<span style="color:#66d9ef">string</span> plaintext)
+        {
+            HashAlgorithm algorithm = SHA256.Create();
+            <span style="color:#66d9ef">return</span> algorithm.ComputeHash(Encoding.UTF8.GetBytes(plaintext));
+        }
+
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">bool</span> VerifySignature(<span style="color:#66d9ef">byte</span>[] hashOfDataToSign, <span style="color:#66d9ef">byte</span>[] signature)
+        {
+            <span style="color:#66d9ef">using</span> (<span style="color:#66d9ef">var</span> rsa = <span style="color:#66d9ef">new</span> RSACryptoServiceProvider(<span style="color:#ae81ff">2048</span>))
+            {
+                rsa.ImportParameters(<span style="color:#ae81ff">_</span>publicKey);
+                <span style="color:#66d9ef">var</span> rsaDeformatter = <span style="color:#66d9ef">new</span> RSAPKCS1SignatureDeformatter(rsa);
+                rsaDeformatter.SetHashAlgorithm(<span style="color:#e6db74">&#34;SHA256&#34;</span>);
+                <span style="color:#66d9ef">return</span> rsaDeformatter.VerifySignature(hashOfDataToSign, signature);
+            }
+        }
+   }
+</code></pre></div><p>Now you can easily test the implementation. Note that in the testing, I am using private key to sign and public key to verify from the above generated pem keys. In reality, you will use your private key to sign and a public key from someone else to verify (from same person who gave you the payload).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> Main(<span style="color:#66d9ef">string</span>[] args)
+        {
+            RsaEnc rs = <span style="color:#66d9ef">new</span> RsaEnc();
+            
+            Console.WriteLine(<span style="color:#e6db74">&#34;PublicKey:\n&#34;</span> + rs.PublicKeyString() + <span style="color:#e6db74">&#34;\n&#34;</span>);
+            Console.WriteLine(<span style="color:#e6db74">&#34;PrivateKey:\n&#34;</span> + rs.PrivateKeyString() + <span style="color:#e6db74">&#34;\n&#34;</span>);
+            Console.WriteLine(<span style="color:#e6db74">&#34;Guid:&#34;</span> + rs.GetNonce());
+            Console.WriteLine(<span style="color:#e6db74">&#34;Epoch:&#34;</span> + rs.GetUnixTime());
+            Console.WriteLine(<span style="color:#e6db74">&#34;Payload:&#34;</span> + rs.GetPayload() + <span style="color:#e6db74">&#34;\n&#34;</span>);
+            <span style="color:#66d9ef">string</span> for_digesting = rs.GetPayload() + rs.GetUnixTime() + rs.GetNonce();
+            <span style="color:#66d9ef">byte</span>[] bytes_in_for_digesting = Encoding.UTF8.GetBytes(for_digesting);
+            Console.WriteLine(<span style="color:#e6db74">&#34;bytes_in_for_digesting:&#34;</span> + bytes_in_for_digesting.Count());
+            <span style="color:#66d9ef">byte</span>[] for_digesting_hashed = rs.GetHash(for_digesting);
+            <span style="color:#66d9ef">var</span> sign = rs.SignData(for_digesting_hashed);
+            <span style="color:#66d9ef">string</span> sign_str = System.Convert.ToBase64String(sign);
+            <span style="color:#66d9ef">var</span> verify = rs.VerifySignature(for_digesting_hashed, System.Convert.FromBase64String(sign_str));
+            HeaderFields fields = <span style="color:#66d9ef">new</span> HeaderFields();
+            fields.Timestamp = rs.GetUnixTime();
+            fields.Nonce = rs.GetNonce().ToString();
+            fields.Sign = sign_str;
+        }
+</code></pre></div><p><strong>PS</strong>: the above code snippets are from my experimentation project. This is NOT production code. I have not included exception handling anywhere. Variable assignments and Console.Writelines are all over the place. Please don’t judge. This is more of a scratchpad note for myself, in case I need to revisit the same scenario.</p>
+
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/c/" rel="tag">c#</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+
+
+
+			</div>
+			<aside class="sidebar">
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="LinkedIn" rel="noopener noreferrer" href="https://linkedin.com/in/himanshu-singh-remote/" target="_blank">
+				<svg class="widget-social__link-icon icon icon-linkedin" width="24" height="24" viewBox="0 0 352 352"><path d="M0,40v272c0,21.9,18.1,40,40,40h272c21.9,0,40-18.1,40-40V40c0-21.9-18.1-40-40-40H40C18.1,0,0,18.1,0,40z M312,32 c4.6,0,8,3.4,8,8v272c0,4.6-3.4,8-8,8H40c-4.6,0-8-3.4-8-8V40c0-4.6,3.4-8,8-8H312z M59.5,87c0,15.2,12.3,27.5,27.5,27.5 c15.2,0,27.5-12.3,27.5-27.5c0-15.2-12.3-27.5-27.5-27.5C71.8,59.5,59.5,71.8,59.5,87z M187,157h-1v-21h-45v152h47v-75 c0-19.8,3.9-39,28.5-39c24.2,0,24.5,22.4,24.5,40v74h47v-83.5c0-40.9-8.7-72-56.5-72C208.5,132.5,193.3,145.1,187,157z M64,288h47.5 V136H64V288z"/></svg>
+				<span>LinkedIn</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/tek-shinobi" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+
+		
+	</div>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/posts/golangdistributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/rate-limiting-in-distributed-system/">Rate Limiting in a Distributed System</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-testing-creating-large-files/">Golang Testing: Creating Large Files</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/add-gpg-keys-to-repo/">Add Gpg Keys to Repo</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-handling-null-in-database-tables/">Golang: Handling Null in Database Tables</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/using-postgres-inside-docker-container/">Golang: Using Postgres Inside Docker Container</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-common-concurrency-patterns/">Golang: Common Concurrency Patterns</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-channels/">Golang Channels</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-unmarshal-json-blob-with-unknown-schema/">Golang: Unmarshal Json Blob With Unknown Schema</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/rust-gotchas-copy-and-clone/">Rust Gotchas Copy and Clone</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/backend/">backend</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/distributed-system-design/">distributed system design</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/frontend/">frontend</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/github/">github</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">javascript</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/networking/">networking</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/python/">python</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/rust/">rust</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-taglist widget">
+	<h4 class="widget__title">Tags</h4>
+	<div class="widget__content">
+		<a class="widget-taglist__link widget__link btn" href="/tags/backend/" title="backend">backend</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/c#/" title="c#">c#</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/concurrency/" title="concurrency">concurrency</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/css/" title="css">css</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/django/" title="django">django</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/docker/" title="docker">docker</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/es6/" title="ES6">ES6</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/github/" title="github">github</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/golang/" title="golang">golang</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/gpg/" title="gpg">gpg</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/javascript/" title="javascript">javascript</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/networking/" title="networking">networking</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/postgres/" title="postgres">postgres</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/python/" title="python">python</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/rate-limiter/" title="rate limiter">rate limiter</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/react/" title="react">react</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/redis/" title="redis">redis</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/rust/" title="rust">rust</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/scrapy/" title="scrapy">scrapy</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/tcp/" title="tcp">tcp</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/testing/" title="testing">testing</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/turbofish/" title="turbofish">turbofish</a>
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2023 Tek Shinobi Blog.
+			
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+</body>
+</html>

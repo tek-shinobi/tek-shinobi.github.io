@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Backend Python:Django Rest Framework Project Setup Template - Tek Shinobi Blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo">
+		<a class="logo__link" href="/" title="Tek Shinobi Blog" rel="home">
+			<div class="logo__item logo__text">
+					<div class="logo__title">Tek Shinobi Blog</div>
+					
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Backend Python:Django Rest Framework Project Setup Template</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2018-09-07T16:18:09&#43;03:00">September 07, 2018</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/backend/" rel="category">backend</a>, <a class="meta__link" href="/categories/python/" rel="category">python</a>
+	</span>
+</div></div>
+		</header>
+		<div class="content post__content clearfix">
+			<p>I am assuming that pipenv is already installed. Also, assuming that Python 3.5+ already installed in the base environment.</p>
+<ol>
+<li>create new environment: <code>pipenv shell</code></li>
+<li><code>pipenv install django djangorestframework markdown django-filter pygments flake8 httpie pytest pytest-django pytest-factoryboy pytest-cov django-extensions djangorestframework-simplejwt django-cors-headers mypy djangorestframework-stubs</code></li>
+<li><code>pipenv install --dev --pre black</code></li>
+<li><code>create django project:django-admin.py startproject my_proj</code></li>
+<li><code>cd my_proj</code></li>
+<li><code>python manage.py startapp my_app</code></li>
+</ol>
+<p>The above is a basic boiler plate.</p>
+<p>Some explanation of what got installed:</p>
+<ol>
+<li><code>django djangorestframework markdown django-filter pygments</code> are recommended essentials from Django rest framework installation guide <a href="https://www.django-rest-framework.org/#installation"> here </a></li>
+<li><code>httpie</code> for making command-line http requests</li>
+<li><code>flake8</code> for linting</li>
+<li><code>pytest pytest-django pytest-factoryboy</code> for testing.</li>
+<li><code>django-extensions</code> really cool extension. Offers lots of goodies. I mainly use it for <code>shell_plus</code> to load all the models whenever I start shell. Real timesaver when developing.</li>
+<li><code>djangorestframework-simplejwt</code> for jwt based token authentication. Really cool and much better than vanilla token authentication since it does not require database persistance/lookup of tokens.</li>
+<li><code>django-cors-headers</code> for cors setup.</li>
+<li><code>mypy djangorestframework-stubs</code> for type checking. In case of a <strong>Django project</strong>, use <code>django-stubs</code></li>
+<li><code>pipenv install --dev --pre black</code> for code formatting. –pre is needed because black is still in beta.</li>
+</ol>
+<h2 id="setting-up-django-extensions">Setting up django-extensions</h2>
+<p>Easy-peasy. <code>my_proj/my_proj.settings.py</code> -&gt; add <code>'django-extensions'</code> to INSTALLED_APPS</p>
+<h2 id="setting-up-mypy">Setting up mypy</h2>
+<p>You can write mypy setting in either setup.cfg file or <code>mypy.ini</code> file. I prefer <code>mypy.ini</code>. This file is at the project root (same level as <code>manage.py</code>)</p>
+<p>Since my project is a Django rest framework project, I would need to add both <code>django-stubs</code> and <code>djangorestframework-stubs</code>. My <code>mypy.ini</code> file looks like this:</p>
+<pre tabindex="0"><code>[mypy]
+plugins =
+    mypy_django_plugin.main,
+    mypy_drf_plugin.main
+
+ignore_missing_imports = True
+warn_unused_ignores = True
+strict_optional = True
+check_untyped_defs = True
+follow_imports = silent
+show_column_numbers = True
+disallow_any_generics = True
+disallow_untyped_calls = True
+disallow_untyped_decorators = True
+ignore_errors = False
+implicit_reexport = False
+strict_equality = True
+no_implicit_optional = True
+warn_redundant_casts = True
+warn_unused_configs = True
+warn_unreachable = True
+warn_no_return = True
+
+[mypy.plugins.django-stubs]
+django_settings_module = 'todo.settings'
+
+[mypy-*.migrations.*]
+ignore_errors = True
+</code></pre><p>Note that following two lines are essential for mypy to work:</p>
+<pre tabindex="0"><code>[mypy.plugins.django-stubs]
+django_settings_module = 'todo.settings'
+[mypy-*.migrations.*]
+ignore_errors = True
+</code></pre><p>First one tells mypy where the settings file is for the project. Replace <code>todo.settings</code> with <code>your_project.settings</code></p>
+<p>The second one is specifically meant to ignore type checking in migrations folder.</p>
+<p>Also, this line <code>disallow_any_generics = False</code> can sometimes cause mypy errors especially in models. For example, if you have this line in your custom user model,
+<code>class UserManager(BaseUserManager):</code>, BaseUserManager is a generic type. This will cause mypy type error if <code>disallow_any_generics=True</code>. In this scenario, put this to False.</p>
+<p>Further more, in all of my test files, <code>manage.py</code> and <code>settings.py</code> file, I add this on top:</p>
+<h1 id="mypy-ignore-errors">mypy: ignore-errors</h1>
+<p>Any file that has this line on top, will be ignored by mypy for type check.</p>
+<h2 id="setting-up-pytest">Setting up pytest</h2>
+<p>We will setup the skeleton for testing first.</p>
+<ol>
+<li>create a directory &lsquo;tests&rsquo; in my_proj (inside same folder as <code>manage.py</code>)</li>
+<li>cd tests</li>
+<li>touch <strong>init</strong>.py</li>
+<li>mkdir my_app</li>
+<li>touch <strong>init</strong>.py</li>
+<li><code>touch test_views.py</code> (in this file we will do integration tests, testing views in <code>my_app/views.py</code>)</li>
+<li>come back to tests folder and create a file called factories.py here. In this file, we will setup all factory objects to create fake data for testing</li>
+</ol>
+<p>Note that DRF has its own <code>tests.py</code> file in every app we create but with pytest, we don’t use this file. We setup all our tests inside tests folder we setup in step 1. tests.py is used when we use the DRF provided testing mechanism which is sort of based on Python unittest framework. pytest is a more advanced framework also built on top of unittest.</p>
+<h2 id="setting-up-json-web-token-authentication-jwt">Setting up JSON Web Token authentication (JWT)</h2>
+<p>Goto my_proj/my_proj/settings.py file and add the following at the bottom:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">REST_FRAMEWORK <span style="color:#f92672">=</span> {
+<span style="color:#e6db74">&#39;DEFAULT_AUTHENTICATION_CLASSES&#39;</span>: (<span style="color:#e6db74">&#39;rest_framework_simplejwt.authentication.JWTAuthentication&#39;</span>,)
+}
+</code></pre></div><p>Then goto my_proj/urls.py file add these:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> rest_framework_simplejwt.views <span style="color:#f92672">import</span> TokenObtainPairView, TokenRefreshView
+
+urlpatterns <span style="color:#f92672">=</span> [
+<span style="color:#f92672">...</span>,
+path(<span style="color:#e6db74">&#39;api/token/&#39;</span>, TokenObtainPairView<span style="color:#f92672">.</span>as_view(), name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;token_obtain_pair&#39;</span>),
+path(<span style="color:#e6db74">&#39;api/token/refresh/&#39;</span>, TokenRefreshView<span style="color:#f92672">.</span>as_view(), name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;token_refresh&#39;</span>),
+<span style="color:#f92672">...</span>,
+]
+</code></pre></div><p>That’s it. jwt authentication is setup. We use this to guard specific view methods like this..</p>
+<p>Suppose there is an endpoint called ProductsList that lists all products and we want to guard this so that only admin users can see all the products.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> rest_framework.views <span style="color:#f92672">import</span> APIView
+<span style="color:#f92672">from</span> rest_framework.response <span style="color:#f92672">import</span> Response
+<span style="color:#f92672">from</span> rest_framework <span style="color:#f92672">import</span> status
+<span style="color:#f92672">from</span> rest_framework.permissions <span style="color:#f92672">import</span> IsAuthenticated
+
+<span style="color:#f92672">from</span> .serializers <span style="color:#f92672">import</span> ProductSerializer
+<span style="color:#f92672">from</span> .models <span style="color:#f92672">import</span> Product
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ProductsList</span>(APIView):
+    permission_classes <span style="color:#f92672">=</span> (IsAuthenticated,)
+    
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get</span>(self, request, format<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>):
+        <span style="color:#66d9ef">try</span>:
+            products <span style="color:#f92672">=</span> Product<span style="color:#f92672">.</span>objects<span style="color:#f92672">.</span>all()
+            serializer <span style="color:#f92672">=</span> ProductSerializer(products, many<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+            <span style="color:#66d9ef">return</span> Response(serializer<span style="color:#f92672">.</span>data)
+        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span>:
+            <span style="color:#66d9ef">return</span> Response(status<span style="color:#f92672">=</span>status<span style="color:#f92672">.</span>HTTP_500_INTERNAL_SERVER_ERROR)
+</code></pre></div><p>In the above code, these two lines implement the guards:</p>
+<p><code>from rest_framework.permissions import IsAuthenticated</code>
+<code>permission_classes = (IsAuthenticated,)</code></p>
+<p>Note that <code>IsAuthenticated</code> class is only useful to check if user is admin or not. If you want to setup object level permissions (as in what tables a user can see) or row-object level permissions (as in what rows in a specific table a user can see), you will need something like <code>django-guardian</code>.</p>
+<p>Also, we need to setup a superuser using <code>python manage.py createsuperuser</code> to actually get the token. To see how to exactly use tokens as well as customize tokens see <a href="https://github.com/davesque/django-rest-framework-simplejwt#Usage"> here </a>.</p>
+<h2 id="cors-setup">CORS setup</h2>
+<p>Add this to my_proj/my_proj/settings.py file:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">MIDDLEWARE <span style="color:#f92672">=</span> [
+<span style="color:#e6db74">&#39;corsheaders.middleware.CorsMiddleware&#39;</span>,
+<span style="color:#f92672">...</span>
+]
+</code></pre></div><p>As you see, &lsquo;corsheaders.middleware.CorsMiddleware&rsquo; being the first entry in the list is intentional. This is to ensure that CORS header check is done early on so as to avoid some other middleware intercepting the request and rejecting it due to improper CORS before our CORSMiddleware has had a chance to setup proper CORS headers.
+Then in the same settings.py file, add these entries too:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">CORS_ORIGIN_ALLOW_ALL <span style="color:#f92672">=</span> <span style="color:#66d9ef">False</span>
+CORS_ALLOW_CREDENTIALS <span style="color:#f92672">=</span> <span style="color:#66d9ef">True</span>
+CORS_ORIGIN_WHITELIST <span style="color:#f92672">=</span> [
+<span style="color:#75715e"># TODO - set this properly for production</span>
+<span style="color:#75715e">#&#39;http://127.0.0.1:8080&#39;,</span>
+<span style="color:#75715e">#&#39;http://127.0.0.1:8000&#39;,</span>
+]
+CORS_ORIGIN_REGEX_WHITELIST <span style="color:#f92672">=</span> [
+<span style="color:#75715e">#&#39;http://localhost:8000&#39;,</span>
+]
+</code></pre></div><p>You will setup CORS_ORIGIN_WHITELIST and CORS_ORIGIN_REGEX_WHITELIST with proper values before putting the site in production</p>
+<p>OK, so now that everything is installed, lets get rolling.</p>
+<h2 id="optional">Optional</h2>
+<p>DRF does not need placeholders for static files like css and js but I anyway do the configuration for these as well. Simply out of habit. If your project is Django only, you will most likely need it. Note that even if we are hosting static files in CDN like AWS, its still good to set them up in ‘settings.py’ since then we can use django management commands to collect all project wide static files into a known directory and then dump this directory into the CDN and reference it in front-end client code.</p>
+<p>Firstly, the default settings.py file has <code>STATIC_URL = '/static/'</code>
+Here ‘/static/’ is just a prefix. You can leave it so. You can even have it set to None. You will need to check this is production. More on this after we have discussed STATIC_ROOT.</p>
+<p>Here is tho code snippet of my static file setup.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">STATIC_URL <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;/static/&#39;</span>
+STATICFILES_DIRS <span style="color:#f92672">=</span> [
+    os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(BASE_DIR, <span style="color:#e6db74">&#39;local_dev_static&#39;</span>),
+]
+STATIC_ROOT <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(BASE_DIR), <span style="color:#e6db74">&#39;static_cdn&#39;</span>, <span style="color:#e6db74">&#39;static_root&#39;</span>)
+MEDIA_URL <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;/media/&#39;</span>
+MEDIA_ROOT <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(BASE_DIR), <span style="color:#e6db74">&#39;static_cdn&#39;</span>, <span style="color:#e6db74">&#39;media_root&#39;</span>)
+</code></pre></div><p>When it comes to static files, we have multiple places to put them when developing. For app specific static files, the Django recommended way is to make a ‘static’ folder in the app and put all content there. For non-app specific static content, we have STATICFILES_DIRS. I name it ‘local_dev_static’ to make it clear for anyone eyeballing the hierarchy that this is only for local static file storage. Meaning, in production, the static files are not served from here. During development, if we have non-app specific staic files, we can dump them all here. Then call <code>python manage.py collectstatic</code> to collect the static files from STATICFILES_DIRS and all ‘static’ folders inside the apps and dump them in STATIC_ROOT.</p>
+<p>STATIC_ROOT is the absolute path to the directory where <code>python manage.py collectstatic</code> will collect static files for deployment. Note this is might not be the place from where the server will serve them. This is just a convenience location to use django management commands to collect all static files in one directory. Then you can put all the STATIC_ROOT contents into the directory that actually serves them. Note this step is manual. As in you will have to copy paste these files from STATIC_ROOT to location indicated by STATIC_URL (you can of course write your automation but it is outside of Django).</p>
+<p>When STATIC_URL is ‘/static/’ then the web server (Apache/Nginx) will automatically prepend the path to mean ‘http://example.com/static/’ where ‘http://example.com’ is your domain. If you decide to actually serve your static files from a sub-domain, like ‘http://static.example.com/’, you need to do this: STATIC_URL = ‘http://static.example.com/’. Of course, you will need to copy-paste all the collected files from STATIC_ROOT to location pointed to by the subdomain in the server.</p>
+<p>If STATIC_URL is not set to None, you can use it in your templates like so:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stylesheet&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ STATIC_URL }}css/base.css&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/css&#34;</span> /&gt;
+</code></pre></div><p>and this will be treated as (in this case STATIC_URL is the subdomain):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stylesheet&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://static.example.com/css/base.css&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/css&#34;</span> /&gt;
+</code></pre></div><p>It is recommended to use STATIC_URL and not hard code URLs in templates, even though STATIC_URL can be set to None.</p>
+<p>Finally, MEDIA_ROOT and MEDIA_URL. These are on the same lines as STATIC_ROOT and STATIC_URL. Media files are anything we upload.</p>
+<p>Since I want all STATIC and MEDIA files in one place, I create a directory called ‘static_cdn’. Again, this is just a convenience location. I chose it at the same level as the parent folder of the project. In this directory we have STATIC_ROOT and MEDIA_ROOT. Then we can dump all of its contents to a CDN. In templates, use MEDIA_URL for referencing media files and STATIC_URL for referencing static files.</p>
+<p>Please note that in production, Django plays no role in serving static files. Serving static files is totally handled by the server (Apache or Nginx). You can even put all the static files in a CDN like AWS.</p>
+<p>Then we also need to setup urlpatterns to serve the media files when using development server. Do it like so:</p>
+<p>First include these two imports in urls.py:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> django.conf <span style="color:#f92672">import</span> settings
+<span style="color:#f92672">from</span> django.conf.urls.static <span style="color:#f92672">import</span> static
+</code></pre></div><p>then add the urlspatterns for MEDIA like so:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">urlpatterns <span style="color:#f92672">=</span> [
+    url(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;^products/(?P&lt;pk&gt;\d+)&#39;</span>, EcomProductDetailView<span style="color:#f92672">.</span>as_view()),
+    url(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;^products&#39;</span>, EcomProductListView<span style="color:#f92672">.</span>as_view()),
+    url(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;^admin/&#39;</span>, admin<span style="color:#f92672">.</span>site<span style="color:#f92672">.</span>urls),
+] <span style="color:#f92672">+</span> static(settings<span style="color:#f92672">.</span>MEDIA_URL, document_root<span style="color:#f92672">=</span>settings<span style="color:#f92672">.</span>MEDIA_ROOT)
+</code></pre></div><p>Note that adding the MEDIA urlpatterns this way, we do not have to explicitly check if we are in DEBUG mode or not as Django will ensure this is only used in Debug mode.
+<a href="https://docs.djangoproject.com/en/2.1/howto/static-files/#serving-files-uploaded-by-a-user-during-development"> Here </a> is some documentation from Django 2.1.</p>
+<p>Prior to Django 1.7, it was done like so:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> django.conf <span style="color:#f92672">import</span> settings
+
+<span style="color:#75715e"># ... your normal urlpatterns here</span>
+
+<span style="color:#66d9ef">if</span> settings<span style="color:#f92672">.</span>DEBUG:
+    <span style="color:#75715e"># static files (images, css, javascript, etc.)</span>
+    urlpatterns <span style="color:#f92672">+=</span> patterns(<span style="color:#e6db74">&#39;&#39;</span>,
+        (<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;^media/(?P&lt;path&gt;.*)$&#39;</span>, <span style="color:#e6db74">&#39;django.views.static.serve&#39;</span>, {
+        <span style="color:#e6db74">&#39;document_root&#39;</span>: settings<span style="color:#f92672">.</span>MEDIA_ROOT}))
+</code></pre></div>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/python/" rel="tag">python</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/django/" rel="tag">django</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+
+
+
+			</div>
+			<aside class="sidebar">
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="LinkedIn" rel="noopener noreferrer" href="https://linkedin.com/in/himanshu-singh-remote/" target="_blank">
+				<svg class="widget-social__link-icon icon icon-linkedin" width="24" height="24" viewBox="0 0 352 352"><path d="M0,40v272c0,21.9,18.1,40,40,40h272c21.9,0,40-18.1,40-40V40c0-21.9-18.1-40-40-40H40C18.1,0,0,18.1,0,40z M312,32 c4.6,0,8,3.4,8,8v272c0,4.6-3.4,8-8,8H40c-4.6,0-8-3.4-8-8V40c0-4.6,3.4-8,8-8H312z M59.5,87c0,15.2,12.3,27.5,27.5,27.5 c15.2,0,27.5-12.3,27.5-27.5c0-15.2-12.3-27.5-27.5-27.5C71.8,59.5,59.5,71.8,59.5,87z M187,157h-1v-21h-45v152h47v-75 c0-19.8,3.9-39,28.5-39c24.2,0,24.5,22.4,24.5,40v74h47v-83.5c0-40.9-8.7-72-56.5-72C208.5,132.5,193.3,145.1,187,157z M64,288h47.5 V136H64V288z"/></svg>
+				<span>LinkedIn</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/tek-shinobi" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+
+		
+	</div>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/posts/golangdistributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/rate-limiting-in-distributed-system/">Rate Limiting in a Distributed System</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-testing-creating-large-files/">Golang Testing: Creating Large Files</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/add-gpg-keys-to-repo/">Add Gpg Keys to Repo</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-handling-null-in-database-tables/">Golang: Handling Null in Database Tables</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/using-postgres-inside-docker-container/">Golang: Using Postgres Inside Docker Container</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-common-concurrency-patterns/">Golang: Common Concurrency Patterns</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-channels/">Golang Channels</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-unmarshal-json-blob-with-unknown-schema/">Golang: Unmarshal Json Blob With Unknown Schema</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/rust-gotchas-copy-and-clone/">Rust Gotchas Copy and Clone</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/backend/">backend</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/distributed-system-design/">distributed system design</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/frontend/">frontend</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/github/">github</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">javascript</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/networking/">networking</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/python/">python</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/rust/">rust</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-taglist widget">
+	<h4 class="widget__title">Tags</h4>
+	<div class="widget__content">
+		<a class="widget-taglist__link widget__link btn" href="/tags/backend/" title="backend">backend</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/c#/" title="c#">c#</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/concurrency/" title="concurrency">concurrency</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/css/" title="css">css</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/django/" title="django">django</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/docker/" title="docker">docker</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/es6/" title="ES6">ES6</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/github/" title="github">github</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/golang/" title="golang">golang</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/gpg/" title="gpg">gpg</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/javascript/" title="javascript">javascript</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/networking/" title="networking">networking</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/postgres/" title="postgres">postgres</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/python/" title="python">python</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/rate-limiter/" title="rate limiter">rate limiter</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/react/" title="react">react</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/redis/" title="redis">redis</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/rust/" title="rust">rust</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/scrapy/" title="scrapy">scrapy</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/tcp/" title="tcp">tcp</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/testing/" title="testing">testing</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/turbofish/" title="turbofish">turbofish</a>
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2023 Tek Shinobi Blog.
+			
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+</body>
+</html>
