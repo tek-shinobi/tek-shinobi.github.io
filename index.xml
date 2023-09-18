@@ -91,6 +91,21 @@ var c1, c2 &amp;lt;-chan int for { // Either loop infinitely or range over somet
     </item>
     
     <item>
+      <title>Kubernetes tutorial &#43; Minikube:cheatsheet</title>
+      <link>https://tek-shinobi.github.io/posts/minikubecheatsheet/</link>
+      <pubDate>Wed, 15 Sep 2021 09:59:30 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/minikubecheatsheet/</guid>
+      <description>To create a virtual machine:
+minikube start --driver=virtualbox --no-vtx-check you can open Virtualbox and see that a new virtual machine is now up and running
+check if cluster is ok and everything installed correctly:
+minikube status the output is like this:
+❯ minikube status minikube type: Control Plane host: Running kubelet: Running apiserver: Running kubeconfig: Configured from here: https://minikube.sigs.k8s.io/docs/start/ now check that kubectl commands are working:
+check nodes:
+kubectl get nodes output:</description>
+    </item>
+    
+    <item>
       <title>Golang: Unmarshal Json Blob With Unknown Schema</title>
       <link>https://tek-shinobi.github.io/posts/golang-unmarshal-json-blob-with-unknown-schema/</link>
       <pubDate>Fri, 11 Jun 2021 22:07:45 +0300</pubDate>

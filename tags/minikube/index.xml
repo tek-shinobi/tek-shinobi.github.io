@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>minikube on Tek Shinobi Blog</title>
+    <link>https://tek-shinobi.github.io/tags/minikube/</link>
+    <description>Recent content in minikube on Tek Shinobi Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 15 Sep 2021 09:59:30 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/minikube/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Kubernetes tutorial &#43; Minikube:cheatsheet</title>
+      <link>https://tek-shinobi.github.io/posts/minikubecheatsheet/</link>
+      <pubDate>Wed, 15 Sep 2021 09:59:30 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/minikubecheatsheet/</guid>
+      <description>To create a virtual machine:
+minikube start --driver=virtualbox --no-vtx-check you can open Virtualbox and see that a new virtual machine is now up and running
+check if cluster is ok and everything installed correctly:
+minikube status the output is like this:
+❯ minikube status minikube type: Control Plane host: Running kubelet: Running apiserver: Running kubeconfig: Configured from here: https://minikube.sigs.k8s.io/docs/start/ now check that kubectl commands are working:
+check nodes:
+kubectl get nodes output:</description>
+    </item>
+    
+  </channel>
+</rss>
