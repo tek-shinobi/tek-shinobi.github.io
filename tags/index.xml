@@ -5,25 +5,7 @@
     <link>https://tek-shinobi.github.io/tags/</link>
     <description>Recent content in Tags on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 21 Sep 2023 11:01:27 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>automation</title>
-      <link>https://tek-shinobi.github.io/tags/automation/</link>
-      <pubDate>Thu, 21 Sep 2023 11:01:27 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/tags/automation/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>tools</title>
-      <link>https://tek-shinobi.github.io/tags/tools/</link>
-      <pubDate>Thu, 21 Sep 2023 11:01:27 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/tags/tools/</guid>
-      <description></description>
-    </item>
-    
+    <lastBuildDate>Tue, 25 Jul 2023 10:41:57 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>golang</title>
       <link>https://tek-shinobi.github.io/tags/golang/</link>
@@ -111,6 +93,24 @@
       <pubDate>Wed, 15 Sep 2021 09:59:30 +0300</pubDate>
       
       <guid>https://tek-shinobi.github.io/tags/minikube/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>automation</title>
+      <link>https://tek-shinobi.github.io/tags/automation/</link>
+      <pubDate>Mon, 21 Jun 2021 11:01:27 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/tags/automation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tools</title>
+      <link>https://tek-shinobi.github.io/tags/tools/</link>
+      <pubDate>Mon, 21 Jun 2021 11:01:27 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/tags/tools/</guid>
       <description></description>
     </item>
     

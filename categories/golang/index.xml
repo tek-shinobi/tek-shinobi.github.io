@@ -5,18 +5,7 @@
     <link>https://tek-shinobi.github.io/categories/golang/</link>
     <description>Recent content in golang on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 21 Sep 2023 11:01:27 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/categories/golang/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Golang:Go Tools Cheatsheet</title>
-      <link>https://tek-shinobi.github.io/posts/golanggo-tools-cheatsheet/</link>
-      <pubDate>Thu, 21 Sep 2023 11:01:27 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/golanggo-tools-cheatsheet/</guid>
-      <description>Note: Starting in Go 1.17, installing executables with go get is deprecated. go install may be used instead. In Go 1.18, go get will no longer build packages&amp;hellip;
-In other words, go get in 1.18 and beyond will no longer install executables. Use go install
- Go has an impressive number of command line tools integreated into go &amp;lt;tool_name&amp;gt; that us developers use daily. You can get a list of them by</description>
-    </item>
-    
+    <lastBuildDate>Tue, 25 Jul 2023 10:41:57 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/categories/golang/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Golang: Distributed Rate Limiting Using Fixed Window and Redis</title>
       <link>https://tek-shinobi.github.io/posts/golangdistributed-rate-limiting-using-fixed-window/</link>
@@ -79,6 +68,17 @@ var c1, c2 &amp;lt;-chan int for { // Either loop infinitely or range over somet
       <description>When dealing with conccurency problems, it is harder to reason about when moving down the stack of abstraction (machine, process, thread, hardware components, etc). Most programming languages use thread as its highest level of abstraction. Fortunately, Go builds on top of that &amp;amp; introduced Goroutine.
  “Share memory by communicating, don’t communicate by sharing memory.”
  One of Go’s mottos   Although Golang provides traditional locking mechanism in sync package, its philosophy prefers “share memory by communicating”.</description>
+    </item>
+    
+    <item>
+      <title>Golang:Go Tools Cheatsheet</title>
+      <link>https://tek-shinobi.github.io/posts/golanggo-tools-cheatsheet/</link>
+      <pubDate>Mon, 21 Jun 2021 11:01:27 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/golanggo-tools-cheatsheet/</guid>
+      <description>Note: Starting in Go 1.17, installing executables with go get is deprecated. go install may be used instead. In Go 1.18, go get will no longer build packages&amp;hellip;
+In other words, go get in 1.18 and beyond will no longer install executables. Use go install
+ Go has an impressive number of command line tools integreated into go &amp;lt;tool_name&amp;gt; that us developers use daily. You can get a list of them by</description>
     </item>
     
     <item>

@@ -2,29 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://tek-shinobi.github.io/tags/automation/</loc>
-    <lastmod>2023-09-21T11:01:27+03:00</lastmod>
-  </url><url>
     <loc>https://tek-shinobi.github.io/categories/</loc>
-    <lastmod>2023-09-21T11:01:27+03:00</lastmod>
-  </url><url>
-    <loc>https://tek-shinobi.github.io/categories/golang/</loc>
-    <lastmod>2023-09-21T11:01:27+03:00</lastmod>
-  </url><url>
-    <loc>https://tek-shinobi.github.io/posts/golanggo-tools-cheatsheet/</loc>
-    <lastmod>2023-09-21T11:01:27+03:00</lastmod>
-  </url><url>
-    <loc>https://tek-shinobi.github.io/posts/</loc>
-    <lastmod>2023-09-21T11:01:27+03:00</lastmod>
-  </url><url>
-    <loc>https://tek-shinobi.github.io/tags/</loc>
-    <lastmod>2023-09-21T11:01:27+03:00</lastmod>
-  </url><url>
-    <loc>https://tek-shinobi.github.io/</loc>
-    <lastmod>2023-09-21T11:01:27+03:00</lastmod>
-  </url><url>
-    <loc>https://tek-shinobi.github.io/tags/tools/</loc>
-    <lastmod>2023-09-21T11:01:27+03:00</lastmod>
+    <lastmod>2023-07-25T10:41:57+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/categories/distributed-system-design/</loc>
     <lastmod>2023-07-25T10:41:57+03:00</lastmod>
@@ -32,13 +11,25 @@
     <loc>https://tek-shinobi.github.io/tags/golang/</loc>
     <lastmod>2023-07-25T10:41:57+03:00</lastmod>
   </url><url>
+    <loc>https://tek-shinobi.github.io/categories/golang/</loc>
+    <lastmod>2023-07-25T10:41:57+03:00</lastmod>
+  </url><url>
     <loc>https://tek-shinobi.github.io/posts/golangdistributed-rate-limiting-using-fixed-window/</loc>
+    <lastmod>2023-07-25T10:41:57+03:00</lastmod>
+  </url><url>
+    <loc>https://tek-shinobi.github.io/posts/</loc>
     <lastmod>2023-07-25T10:41:57+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/tags/rate-limiter/</loc>
     <lastmod>2023-07-25T10:41:57+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/tags/redis/</loc>
+    <lastmod>2023-07-25T10:41:57+03:00</lastmod>
+  </url><url>
+    <loc>https://tek-shinobi.github.io/tags/</loc>
+    <lastmod>2023-07-25T10:41:57+03:00</lastmod>
+  </url><url>
+    <loc>https://tek-shinobi.github.io/</loc>
     <lastmod>2023-07-25T10:41:57+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/posts/rate-limiting-in-distributed-system/</loc>
@@ -94,6 +85,15 @@
   </url><url>
     <loc>https://tek-shinobi.github.io/tags/minikube/</loc>
     <lastmod>2021-09-15T09:59:30+03:00</lastmod>
+  </url><url>
+    <loc>https://tek-shinobi.github.io/tags/automation/</loc>
+    <lastmod>2021-06-21T11:01:27+03:00</lastmod>
+  </url><url>
+    <loc>https://tek-shinobi.github.io/posts/golanggo-tools-cheatsheet/</loc>
+    <lastmod>2021-06-21T11:01:27+03:00</lastmod>
+  </url><url>
+    <loc>https://tek-shinobi.github.io/tags/tools/</loc>
+    <lastmod>2021-06-21T11:01:27+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/posts/golang-unmarshal-json-blob-with-unknown-schema/</loc>
     <lastmod>2021-06-11T22:07:45+03:00</lastmod>
