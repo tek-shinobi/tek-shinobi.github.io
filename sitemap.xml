@@ -77,6 +77,12 @@
     <loc>https://tek-shinobi.github.io/posts/golang-channels/</loc>
     <lastmod>2021-10-11T16:24:24+03:00</lastmod>
   </url><url>
+    <loc>https://tek-shinobi.github.io/posts/golangcobra-and-viper-tutorial/</loc>
+    <lastmod>2021-09-23T13:04:41+03:00</lastmod>
+  </url><url>
+    <loc>https://tek-shinobi.github.io/tags/tools/</loc>
+    <lastmod>2021-09-23T13:04:41+03:00</lastmod>
+  </url><url>
     <loc>https://tek-shinobi.github.io/categories/kubernetes/</loc>
     <lastmod>2021-09-15T09:59:30+03:00</lastmod>
   </url><url>
@@ -90,9 +96,6 @@
     <lastmod>2021-06-21T11:01:27+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/posts/golanggo-tools-cheatsheet/</loc>
-    <lastmod>2021-06-21T11:01:27+03:00</lastmod>
-  </url><url>
-    <loc>https://tek-shinobi.github.io/tags/tools/</loc>
     <lastmod>2021-06-21T11:01:27+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/posts/golang-unmarshal-json-blob-with-unknown-schema/</loc>

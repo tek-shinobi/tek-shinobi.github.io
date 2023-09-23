@@ -5,7 +5,19 @@
     <link>https://tek-shinobi.github.io/tags/tools/</link>
     <description>Recent content in tools on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 21 Jun 2021 11:01:27 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/tools/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 23 Sep 2021 13:04:41 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/tools/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Golang:Cobra and Viper Tutorial</title>
+      <link>https://tek-shinobi.github.io/posts/golangcobra-and-viper-tutorial/</link>
+      <pubDate>Thu, 23 Sep 2021 13:04:41 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/golangcobra-and-viper-tutorial/</guid>
+      <description>Cobra is a tool for making CLI application. Viper is a configuration management solution for Go applications which allows you to specify configuration options for your application in several ways, including configuration files, environment variables, and command-line flags.
+Install cobra: go install github.com/spf13/cobra Assuming that this is a blank project with just go.mod file, create the boilerplate by:
+cobra-cli init Your project structure will now look like this:
+. ├── cmd │ └── root.</description>
+    </item>
+    
     <item>
       <title>Golang:Go Tools Cheatsheet</title>
       <link>https://tek-shinobi.github.io/posts/golanggo-tools-cheatsheet/</link>

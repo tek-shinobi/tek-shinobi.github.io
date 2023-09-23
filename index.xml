@@ -91,6 +91,18 @@ var c1, c2 &amp;lt;-chan int for { // Either loop infinitely or range over somet
     </item>
     
     <item>
+      <title>Golang:Cobra and Viper Tutorial</title>
+      <link>https://tek-shinobi.github.io/posts/golangcobra-and-viper-tutorial/</link>
+      <pubDate>Thu, 23 Sep 2021 13:04:41 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/golangcobra-and-viper-tutorial/</guid>
+      <description>Cobra is a tool for making CLI application. Viper is a configuration management solution for Go applications which allows you to specify configuration options for your application in several ways, including configuration files, environment variables, and command-line flags.
+Install cobra: go install github.com/spf13/cobra Assuming that this is a blank project with just go.mod file, create the boilerplate by:
+cobra-cli init Your project structure will now look like this:
+. ├── cmd │ └── root.</description>
+    </item>
+    
+    <item>
       <title>Kubernetes tutorial &#43; Minikube:cheatsheet</title>
       <link>https://tek-shinobi.github.io/posts/minikubecheatsheet/</link>
       <pubDate>Wed, 15 Sep 2021 09:59:30 +0300</pubDate>

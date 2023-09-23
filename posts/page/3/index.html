@@ -45,6 +45,23 @@
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
+			<a href="/posts/backend-pythontemporary-files-in-python/" rel="bookmark">
+			Backend Python:Temporary Files in Python
+			</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2019-09-05T11:01:54&#43;03:00">September 05, 2019</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/backend/" rel="category">backend</a>, <a class="meta__link" href="/categories/python/" rel="category">python</a>
+	</span>
+</div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		Let me start with an actual use case scenario. As a backend developer, I need to process the user uploaded file data all the time. Here temporary files shine. The best part about these is that they make cleanup easier. If you make a real file, you need to use some OS level utility to manually delete the file after you are done with it. If you are using temporary files – option-1, then just by closing the file, you are guaranteed that OS will later clear it up.
+	</div>
+</article><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
 			<a href="/posts/frontend-cssflexbox-in-a-nutshell/" rel="bookmark">
 			Frontend CSS:Flexbox in a Nutshell
 			</a>
@@ -212,24 +229,6 @@ In this tutorial we will see how to populate a table with some contents of a csv
 		A very nice explanation on SO regarding what and why about AJAX from Django perspective: https://stackoverflow.com/questions/20306981/how-do-i-integrate-ajax-with-django-applications
 So, specifically in Django, when we use AJAX to do a form POST request, we need a CSRF token. This is a security feature. If we are using Django templates, the templates do the job of generating a csrf token and tacking it along with the POST request data sent to the server. But when we are doing form POST via AJAX call, there are no Django templates involved.
 	</div>
-</article><article class="list__item post">
-	
-	<header class="list__header">
-		<h2 class="list__title post__title">
-			<a href="/posts/backend-pythonadding-login-and-registration-in-django/" rel="bookmark">
-			Backend Python:Adding Login and Registration in Django
-			</a>
-		</h2>
-		<div class="list__meta meta">
-<div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2018-09-07T13:47:36&#43;03:00">September 07, 2018</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/backend/" rel="category">backend</a>, <a class="meta__link" href="/categories/python/" rel="category">python</a>
-	</span>
-</div></div>
-	</header>
-	<div class="content list__excerpt post__content clearfix">
-		Adding login and registration is very straight forward in Django. Note that Django provides a built in User model.
-User model exists ONLY for authentication. Use the User model to only store absolutely necessary info for authentication. Like Username and password (or if using custom user model, email and password.. I usually make the email as the unique field). Nothing else. Anything else, like gender, blah blah blah goes in other models like profile etc.
-	</div>
 </article>
 </main>
 
@@ -273,8 +272,8 @@ User model exists ONLY for authentication. Use the User model to only store abso
 			<li class="widget__item"><a class="widget__link" href="/posts/using-postgres-inside-docker-container/">Golang: Using Postgres Inside Docker Container</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golang-common-concurrency-patterns/">Golang: Common Concurrency Patterns</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golang-channels/">Golang Channels</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golangcobra-and-viper-tutorial/">Golang:Cobra and Viper Tutorial</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/minikubecheatsheet/">Kubernetes tutorial &#43; Minikube:cheatsheet</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/golanggo-tools-cheatsheet/">Golang:Go Tools Cheatsheet</a></li>
 		</ul>
 	</div>
 </div>
