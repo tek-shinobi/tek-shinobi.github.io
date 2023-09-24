@@ -97,9 +97,7 @@ var c1, c2 &amp;lt;-chan int for { // Either loop infinitely or range over somet
       
       <guid>https://tek-shinobi.github.io/posts/golangcobra-and-viper-tutorial/</guid>
       <description>Cobra is a tool for making CLI application. Viper is a configuration management solution for Go applications which allows you to specify configuration options for your application in several ways, including configuration files, environment variables, and command-line flags.
-Install cobra: go install github.com/spf13/cobra Assuming that this is a blank project with just go.mod file, create the boilerplate by:
-cobra-cli init Your project structure will now look like this:
-. ├── cmd │ └── root.</description>
+Why viper for config management?  It can find, load, and unmarshal values from a config file. It supports many types of files, such as JSON, TOML, YAML, ENV, or INI. It can also read values from environment variables or command-line flags.</description>
     </item>
     
     <item>

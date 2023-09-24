@@ -49,6 +49,18 @@
 		</header>
 		<div class="content post__content clearfix">
 			<p>Cobra is a tool for making CLI application. Viper is a configuration management solution for Go applications which allows you to specify configuration options for your application in several ways, including <strong>configuration files, environment variables, and command-line flags</strong>.</p>
+<h2 id="why-viper-for-config-management">Why viper for config management?</h2>
+<ul>
+<li>It can find, load, and unmarshal values from a config file.</li>
+<li>It supports many types of files, such as JSON, TOML, YAML, ENV, or INI.</li>
+<li>It can also read values from environment variables or command-line flags.</li>
+<li>It gives us the ability to set or override default values.</li>
+<li>Moreover, if you prefer to store your settings in a remote system such as Etcd or Consul, then you can use viper to read data from them directly.</li>
+<li>It works for both unencrypted and encrypted values.</li>
+<li>One more interesting thing about Viper is, it can watch for changes in the config file, and notify the application about it.</li>
+<li>We can also use viper to save any config modification we made to the file.</li>
+</ul>
+<h2 id="lets-do-it">Let&rsquo;s do it</h2>
 <p>Install cobra: <code>go install github.com/spf13/cobra</code>
 Assuming that this is a blank project with just <code>go.mod</code> file, create the boilerplate by:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cobra-cli init
@@ -123,6 +135,9 @@ Here are some more additions:</p>
 }
 </code></pre></div><p>The important part is the function called in the pre-run hook:<code>initializeConfig</code>:
 Some things to note. Viper allows us to manage configurations supplied via command-line args, environment variables and config files. A common paradigm is that of the 3, only two are supported.. like config-file + env-vars OR command-line-args + env-vars. It&rsquo;s so because its not a good pattern to spread configuration in too many places. Here, we are supporting command-line-args + env-vars.</p>
+<p>Reading values from file/command-line-args allows us to easily specify default configuration for local development and testing.</p>
+<p>While reading values from environment variables will help us override the default settings when deploying our application to staging or production using docker containers.</p>
+<h2 id="command-line-args--env-vars-approach">command-line-args + env-vars approach</h2>
 <p><code>v := viper.New()</code> creates a new viper object.</p>
 <p><code>v.SetEnvKeyReplacer(strings.NewReplacer(&quot;-&quot;, &quot;_&quot;))</code> : this line is more tricky to understand. So, here&rsquo;s the explanation:
 Let&rsquo;s say you launched this code like so:</p>
@@ -136,7 +151,64 @@ Here, we are trying to fetch the configuration variable with the key <code>publi
 Here, for <code>f.Name</code> = <code>public-http-port</code>, <code>v.IsSet(configName)</code> will be true (configname is <code>public-http-port</code>) and since we have set the <code>PUBLIC_HTTP_SERVER=8021</code>, <code>v.IsSet</code> will be true. <code>f.Changed</code> will be false as we did not set this flag from command line (its set to default value), so <code>!f.Changed</code> will be true. And then this line <code>_ = cmd.Flags().Set(f.Name, fmt.Sprintf(&quot;%v&quot;, val))</code> will cause the corresponding flag (<code>public-http-port</code>) set to 8021, which means <code>Cfg.PublicHTTPPort</code> is set to <code>8021</code> as that is where the flag&rsquo;s value is set (remember.. this flag was created as StringVar type, with its value persisted in <code>Cfg.PublicHTTPPort</code>).</p>
 <p>lastly, note this line from <code>init()</code>:
 <code>serverCmd.PersistentFlags().StringVar(&amp;Cfg.PublicHTTPPort, &quot;public-http-port&quot;, &quot;8081&quot;, &quot;public HTTP port&quot;)</code>: here we are storing the value passed to command line arguement <code>public-http-port</code> into its corresponding field in <code>Cfg</code>. In other words, <code>Cfg</code> is a struct where we store all values passed via command line arguements to access them later. The <code>Cfg</code> struct is a mechanism through which we can access values passed to cobra commands via command line arguements.</p>
-<p>Note: If you are providing values from a config file + env vars, follow this excellent post(<a href="https://dev.to/techschoolguru/load-config-from-file-environment-variables-in-golang-with-viper-2j2d)">https://dev.to/techschoolguru/load-config-from-file-environment-variables-in-golang-with-viper-2j2d)</a>. The concepts discussed are the same. In this scenario, you can still have a cobra cli app, just that it will not have any flags. Instead, your <code>initializeConfig</code> will have similar code as <code>LoadConfig</code> in the link.</p>
+<h2 id="config-file--env-vars-approach">config-file + env-vars approach</h2>
+<p>first create a struct to store the config file path that will be supplied via command line args. So, in <code>config/Config.go</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">config</span>
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Config</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">PublicHTTPPort</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`mapstructure:&#34;PUBLIC_HTTP_PORT&#34;`</span>
+}
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">CfgFile</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">Path</span> <span style="color:#66d9ef">string</span>
+    <span style="color:#a6e22e">Name</span> <span style="color:#66d9ef">string</span>
+    <span style="color:#a6e22e">Type</span> <span style="color:#66d9ef">string</span>
+}
+</code></pre></div><p>Notice that <code>Config</code> struct has <code>mapstructure</code> tag added. This is because in order to get the value of the variables from config file and store them in this struct, we need to use the unmarshaling feature of Viper. Viper uses the <code>mapstructure</code> package under the hood for unmarshaling values, so we use the mapstructure tags to specify the name of each config field. Also, we must use the exact name of each variable as being declared in the supplied config file. So, if in the file its <code>PUBLIC_HTTP_PORT</code>, then use exact same value as tag name for <code>PublicHTTPPort</code></p>
+<p>declare <code>var CfgF config.CfgFile</code> globally, at top of <code>cmd/server.go</code> file</p>
+<p>Rest is nearly the same as we saw above. The only difference being in <code>init()</code> and <code>initializeConfig()</code></p>
+<p><code>init()</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">init</span>() {
+	<span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">AddCommand</span>(<span style="color:#a6e22e">serverCmd</span>)
+	<span style="color:#a6e22e">serverCmd</span>.<span style="color:#a6e22e">PersistentFlags</span>().<span style="color:#a6e22e">StringVar</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">CfgF</span>.<span style="color:#a6e22e">Path</span>, <span style="color:#e6db74">&#34;config-file-path&#34;</span>, <span style="color:#e6db74">&#34;.&#34;</span>, <span style="color:#e6db74">&#34;confuguration file path&#34;</span>)
+	<span style="color:#a6e22e">serverCmd</span>.<span style="color:#a6e22e">PersistentFlags</span>().<span style="color:#a6e22e">StringVar</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">CfgF</span>.<span style="color:#a6e22e">Name</span>, <span style="color:#e6db74">&#34;config-file-name&#34;</span>, <span style="color:#e6db74">&#34;cfg&#34;</span>, <span style="color:#e6db74">&#34;confuguration file name&#34;</span>)
+	<span style="color:#a6e22e">serverCmd</span>.<span style="color:#a6e22e">PersistentFlags</span>().<span style="color:#a6e22e">StringVar</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">CfgF</span>.<span style="color:#a6e22e">Type</span>, <span style="color:#e6db74">&#34;config-file-type&#34;</span>, <span style="color:#e6db74">&#34;env&#34;</span>, <span style="color:#e6db74">&#34;confuguration file type&#34;</span>)
+}
+</code></pre></div><p>and here is our <code>initializeConfig</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">initializeConfig</span>(<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>) <span style="color:#66d9ef">error</span> {
+	<span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">viper</span>.<span style="color:#a6e22e">New</span>()
+	<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">AddConfigPath</span>(<span style="color:#a6e22e">CfgFile</span>.<span style="color:#a6e22e">Path</span>)
+	<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">SetConfigName</span>(<span style="color:#a6e22e">CfgFile</span>.<span style="color:#a6e22e">Name</span>)
+	<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">SetConfigType</span>(<span style="color:#a6e22e">CfgFile</span>.<span style="color:#a6e22e">Type</span>)
+
+	<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">AutomaticEnv</span>()
+
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">ReadInConfig</span>(); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+	}
+
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Unmarshal</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Cfg</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+	}
+    <span style="color:#75715e">/* only for demo */</span>
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;the port:%s\n&#34;</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;PUBLIC_HTTP_PORT&#34;</span>))
+    <span style="color:#75715e">/* only for demo */</span>
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;the port in Cfg:%#v\n&#34;</span>, <span style="color:#a6e22e">Cfg</span>)
+	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+}
+</code></pre></div><p>First, we call v.AddConfigPath() to tell Viper the location of the config file. In this case, the location is given by the input path argument.</p>
+<p>Next, we call v.SetConfigName() to tell Viper to look for a config file with a specific name. Our config file is app.env, so its name is app.</p>
+<p>We also tell Viper the type of the config file, which is env in this case, by calling v.SetConfigFile() and pass in env. You can also use JSON, XML or any other format here if you want, just make sure your config file has the correct format and extension.</p>
+<p>Now, besides reading configurations from file, we also want viper to read values from environment variables. So we call v.AutomaticEnv() to tell viper to automatically override values that it has read from config file with the values of the corresponding environment variables if they exist.</p>
+<p>After that, we call v.ReadInConfig() to start reading config values. If error is not nil, then we simply return it.</p>
+<p>Otherwise, we call v.Unmarshal() to unmarshal the values into the target config object. And finally just return the config object and any error if it occurs.</p>
+<h2 id="using-the-configuration-values">Using the configuration values</h2>
+<p>Now, that we have configuration values loaded into our target configuration object, <code>Cfg</code>, it will be available to use in the function passed to <code>Run</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">Run</span>: <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">cobra</span>.<span style="color:#a6e22e">Command</span>, <span style="color:#a6e22e">args</span> []<span style="color:#66d9ef">string</span>) {
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;server called&#34;</span>)
+},
+</code></pre></div><p>You can write your code in this method that needs these config values.</p>
+<p>Note that you can access the values read into viper from environment directly via <code>v.Get</code>, doing so is not considered a good practise. Rather inject them from this method (one with <code>Run</code>). This is good for testability.</p>
 
 		</div>
 		<footer class="post__footer">
