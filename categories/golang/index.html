@@ -211,6 +211,27 @@ It and can be used to delay parsing until the schema is known.
 Here&rsquo;s an example of how to use json.RawMessage:
 type UnknownSchema struct { Data json.RawMessage `json:&#34;data&#34;` } func main() { jsonStr := `{&#34;data&#34;:{&#34;name&#34;:&#34;John&#34;,&#34;age&#34;:30}}` var obj UnknownSchema err := json.Unmarshal([]byte(jsonStr), &amp;obj) if err != nil { panic(err) } // The schema of the data field is still unknown at this point  fmt.
 	</div>
+</article><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/posts/golangnewprojsteps/" rel="bookmark">
+			Golang:NewProjSteps
+			</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2018-09-24T17:35:09&#43;03:00">September 24, 2018</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/golang/" rel="category">golang</a>
+	</span>
+</div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		Database create and run a docker postgres container in detached mode. Container name is modelapp-postgres. The postgres image used is postgres:latest:
+docker run --name modelapp-postgres -d --rm -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -p 5432:5432 postgres:latest check logs of running docker container:
+docker logs modelapp-postgres | bat -l man inspect docker container:
+docker inspect modelapp-postgres | bat -l man login to container as root, to see if postgres is running:
+docker exec -it modelapp-postgres psql -U root further check if postgres running ok and in a ready state by running the select now(); at root console:
+	</div>
 </article>
 </main>
 

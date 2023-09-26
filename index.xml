@@ -249,6 +249,19 @@ Also note that before flexbox, this alignment was achieved using either inline-b
     </item>
     
     <item>
+      <title>Golang:NewProjSteps</title>
+      <link>https://tek-shinobi.github.io/posts/golangnewprojsteps/</link>
+      <pubDate>Mon, 24 Sep 2018 17:35:09 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/golangnewprojsteps/</guid>
+      <description>Database create and run a docker postgres container in detached mode. Container name is modelapp-postgres. The postgres image used is postgres:latest:
+docker run --name modelapp-postgres -d --rm -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -p 5432:5432 postgres:latest check logs of running docker container:
+docker logs modelapp-postgres | bat -l man inspect docker container:
+docker inspect modelapp-postgres | bat -l man login to container as root, to see if postgres is running:
+docker exec -it modelapp-postgres psql -U root further check if postgres running ok and in a ready state by running the select now(); at root console:</description>
+    </item>
+    
+    <item>
       <title>Backend Python:Working With Python Lxml Parser for Creating XML Elements</title>
       <link>https://tek-shinobi.github.io/posts/backend-pythonworking-with-python-lxml-parser-for-creating-xml-elements/</link>
       <pubDate>Fri, 07 Sep 2018 21:44:59 +0300</pubDate>

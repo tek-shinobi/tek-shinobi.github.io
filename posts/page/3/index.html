@@ -80,6 +80,27 @@ Also note that before flexbox, this alignment was achieved using either inline-b
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
+			<a href="/posts/golangnewprojsteps/" rel="bookmark">
+			Golang:NewProjSteps
+			</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2018-09-24T17:35:09&#43;03:00">September 24, 2018</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/golang/" rel="category">golang</a>
+	</span>
+</div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		Database create and run a docker postgres container in detached mode. Container name is modelapp-postgres. The postgres image used is postgres:latest:
+docker run --name modelapp-postgres -d --rm -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -p 5432:5432 postgres:latest check logs of running docker container:
+docker logs modelapp-postgres | bat -l man inspect docker container:
+docker inspect modelapp-postgres | bat -l man login to container as root, to see if postgres is running:
+docker exec -it modelapp-postgres psql -U root further check if postgres running ok and in a ready state by running the select now(); at root console:
+	</div>
+</article><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
 			<a href="/posts/backend-pythonworking-with-python-lxml-parser-for-creating-xml-elements/" rel="bookmark">
 			Backend Python:Working With Python Lxml Parser for Creating XML Elements
 			</a>
@@ -211,30 +232,12 @@ First let us generate RSA key pair using OpenSSL. Please install OpenSSL before 
 The benefit of management command script is that this script executes within Django environment. You can run all of Django ORM queries within this script. You can import models. You have access to project resources.
 In this tutorial we will see how to populate a table with some contents of a csv file.
 	</div>
-</article><article class="list__item post">
-	
-	<header class="list__header">
-		<h2 class="list__title post__title">
-			<a href="/posts/backend-pythonadding-ajax-to-python-django-projects/" rel="bookmark">
-			Backend Python:Adding AJAX to Python Django Projects
-			</a>
-		</h2>
-		<div class="list__meta meta">
-<div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2018-09-07T13:55:19&#43;03:00">September 07, 2018</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/backend/" rel="category">backend</a>, <a class="meta__link" href="/categories/python/" rel="category">python</a>
-	</span>
-</div></div>
-	</header>
-	<div class="content list__excerpt post__content clearfix">
-		A very nice explanation on SO regarding what and why about AJAX from Django perspective: https://stackoverflow.com/questions/20306981/how-do-i-integrate-ajax-with-django-applications
-So, specifically in Django, when we use AJAX to do a form POST request, we need a CSRF token. This is a security feature. If we are using Django templates, the templates do the job of generating a csrf token and tacking it along with the POST request data sent to the server. But when we are doing form POST via AJAX call, there are no Django templates involved.
-	</div>
 </article>
 </main>
 
 <div class="pagination">
 	<a class="pagination__item pagination__item--prev btn" href="/posts/page/2/">«</a>
-	<span class="pagination__item pagination__item--current">3/5</span>
+	<span class="pagination__item pagination__item--current">3/6</span>
 	<a class="pagination__item pagination__item--next btn" href="/posts/page/4/">»</a>
 </div>
 
