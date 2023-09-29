@@ -141,6 +141,25 @@ html_text = response.text.encode(&#39;ascii&#39;, errors=&#39;ignore&#39;).decod
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
+			<a href="/posts/golangevans-cli-tutorial/" rel="bookmark">
+			Golang:Evans Cli Tutorial
+			</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2017-09-29T14:17:37&#43;03:00">September 29, 2017</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/golang/" rel="category">golang</a>
+	</span>
+</div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		to launch evans on localhost and port 8080: evans --host localhost --port 8080 -r repl
+to list all rpc services: show service Note: if in above step, you see nothing, probably you are in the wrong package. Services belong to a package. Switch to the right package by show package and then choose the package by package &lt;package_name&gt;
+call an rpc named: Login call Login (you will be prompted to fill out the request object params)
+	</div>
+</article><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
 			<a href="/posts/virtualboxfirst-steps-after-install-ubuntu/" rel="bookmark">
 			Virtualbox:First Steps After Install Ubuntu
 			</a>
@@ -211,24 +230,6 @@ ul li { display: inline-block; }
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		// crreate a whole random number between [0,20) function wholeRandomNumber(){ return Math.floor(Math.random() * 20) } console.log(wholeRandomNumber()) // random numbers within a range [min, max] function randomRange(min, max){ return Math.floor(Math.random()*(max-min + 1)) + min } console.log(randomRange(1,2)) // parseInt  // return integer from a string. It will returrn NaN if string cannot be converted to a number function convertToIntegerr(str){ return parseInt(str) } console.log(&#34;parseInt: &#34;+ convertToIntegerr(&#34;55&#34;)) console.log(&#34;parseInt: &#34;+ convertToIntegerr(&#34;ABC&#34;)) // parseInt also takes in a radix.
-	</div>
-</article><article class="list__item post">
-	
-	<header class="list__header">
-		<h2 class="list__title post__title">
-			<a href="/posts/frontend-csswhen-to-use-float-vs-position-vs-display-for-laying-out-elements-and-aligning-blocks-on-page/" rel="bookmark">
-			Frontend CSS:When to Use Float vs Position vs Display for Laying Out Elements and Aligning Blocks on Page
-			</a>
-		</h2>
-		<div class="list__meta meta">
-<div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2016-09-05T11:32:27&#43;03:00">September 05, 2016</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/frontend/" rel="category">frontend</a>
-	</span>
-</div></div>
-	</header>
-	<div class="content list__excerpt post__content clearfix">
-		Here are the recommendations:
-Float:  Use this for content that flows around (i.e. variable and flexible content). A good example is an image surrounded by texts of different lengths. So even if the amount of text can change, but using float will allow it to flow around the image. Float is also very useful in laying out major parts of layout like header, footer or sidebar.  Display:  Can be useful for aligning page components but you need to account for the extra space around the element(display: inline-block will put a default space between elements having it) Very useful in creating centered horizontal navs because of the fact that the property text-align: center works on aligning child elements as well.
 	</div>
 </article>
 </main>

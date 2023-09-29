@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Posts - Tek Shinobi Blog</title>
+	<title>golang - Tek Shinobi Blog</title>
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +14,7 @@
 
 	<link rel="stylesheet" href="/css/style.css">
 	
-	<link rel="alternate" type="application/rss+xml" href="/posts/index.xml" title="Tek Shinobi Blog">
+	<link rel="alternate" type="application/rss+xml" href="/categories/golang/index.xml" title="Tek Shinobi Blog">
 
 	<link rel="shortcut icon" href="/favicon.ico">
 		
@@ -40,69 +40,32 @@
 			
 <main class="main list" role="main">
 	<header class="main__header">
-		<h1 class="main__title">Posts</h1>
+		<h1 class="main__title">golang</h1>
 	</header><article class="list__item post">
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
-			<a href="/posts/frontend-csswhen-to-use-float-vs-position-vs-display-for-laying-out-elements-and-aligning-blocks-on-page/" rel="bookmark">
-			Frontend CSS:When to Use Float vs Position vs Display for Laying Out Elements and Aligning Blocks on Page
+			<a href="/posts/golangevans-cli-tutorial/" rel="bookmark">
+			Golang:Evans Cli Tutorial
 			</a>
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2016-09-05T11:32:27&#43;03:00">September 05, 2016</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/frontend/" rel="category">frontend</a>
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2017-09-29T14:17:37&#43;03:00">September 29, 2017</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/golang/" rel="category">golang</a>
 	</span>
 </div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
-		Here are the recommendations:
-Float:  Use this for content that flows around (i.e. variable and flexible content). A good example is an image surrounded by texts of different lengths. So even if the amount of text can change, but using float will allow it to flow around the image. Float is also very useful in laying out major parts of layout like header, footer or sidebar.  Display:  Can be useful for aligning page components but you need to account for the extra space around the element(display: inline-block will put a default space between elements having it) Very useful in creating centered horizontal navs because of the fact that the property text-align: center works on aligning child elements as well.
-	</div>
-</article><article class="list__item post">
-	
-	<header class="list__header">
-		<h2 class="list__title post__title">
-			<a href="/posts/frontend-cssstacking-order-of-elements-in-a-layout/" rel="bookmark">
-			Frontend CSS:Stacking Order of Elements in a Layout
-			</a>
-		</h2>
-		<div class="list__meta meta">
-<div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2015-08-03T11:40:26&#43;03:00">August 03, 2015</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/frontend/" rel="category">frontend</a>
-	</span>
-</div></div>
-	</header>
-	<div class="content list__excerpt post__content clearfix">
-		Lets take a look at this code:
-HTML:
-&lt;html&gt; &lt;head&gt;&lt;/head&gt; &lt;body&gt; &lt;p&gt;body content&lt;/p&gt; &lt;div class=&#34;block1&#34;&gt;block1&lt;/div&gt; &lt;div class=&#34;block2&#34;&gt;block1&lt;/div&gt; &lt;div class=&#34;float&#34;&gt; &lt;p&gt;float&lt;/p&gt; &lt;span&gt; class=&#34;inline&#34;&gt;inline&lt;/span&gt; &lt;/div&gt; &lt;div class=&#34;position&#34;&gt;position&lt;/div&gt; &lt;/body&gt; &lt;/html&gt; CSS:
-.block1{ background: pink; } .block2{ background: red; margin: -60px 0 0 20px; } .float{ background: lightblue; float: left; margin: -150px 0 0 100px; } .inline{ background: blue; color: white; padding: 10px 40px 10px 10px; } .position{ background: orange; position: relative; left: 180px; top: -165px; height: 110px; } The natural staking order of elements in this piece of code is (in ascending order in the stack):
-	</div>
-</article><article class="list__item post">
-	
-	<header class="list__header">
-		<h2 class="list__title post__title">
-			<a href="/posts/frontend-cssreset-css-and-normalize-css/" rel="bookmark">
-			Frontend CSS:Reset CSS and Normalize CSS
-			</a>
-		</h2>
-		<div class="list__meta meta">
-<div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2015-07-02T11:49:24&#43;03:00">July 02, 2015</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/frontend/" rel="category">frontend</a>
-	</span>
-</div></div>
-	</header>
-	<div class="content list__excerpt post__content clearfix">
-		Often there is some guesswork involved when styling elements due to mystery spaces and padding appearing from heaven. These are due to default styling applied by browsers and can cause some confusion as they vary between different browser vendors. To remedy this, many leading developers in the frontend community have come up with two solutions:
-Reset CSS stylesheet: This CSS stylesheet aims to remove all default styling applied. After this stylesheet is applied, the all elements in browsers across the vendors return to unstyled state.
+		to launch evans on localhost and port 8080: evans --host localhost --port 8080 -r repl
+to list all rpc services: show service Note: if in above step, you see nothing, probably you are in the wrong package. Services belong to a package. Switch to the right package by show package and then choose the package by package &lt;package_name&gt;
+call an rpc named: Login call Login (you will be prompted to fill out the request object params)
 	</div>
 </article>
 </main>
 
 <div class="pagination">
-	<a class="pagination__item pagination__item--prev btn" href="/posts/page/5/">«</a>
-	<span class="pagination__item pagination__item--current">6/6</span>
+	<a class="pagination__item pagination__item--prev btn" href="/categories/golang/">«</a>
+	<span class="pagination__item pagination__item--current">2/2</span>
 </div>
 
 			</div>
