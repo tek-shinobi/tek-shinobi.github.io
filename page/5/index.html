@@ -140,6 +140,26 @@ html_text = response.text.encode(&#39;ascii&#39;, errors=&#39;ignore&#39;).decod
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
+			<a href="/posts/virtualboxfirst-steps-after-install-ubuntu/" rel="bookmark">
+			Virtualbox:First Steps After Install Ubuntu
+			</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2017-09-29T11:14:07&#43;03:00">September 29, 2017</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/virtualbox/" rel="category">Virtualbox</a>
+	</span>
+</div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		If you are installing ubuntu, always install with &ldquo;skip unattended&rdquo; checkmarked. Otherwise, you won&rsquo;t have terminal access and no sudo.
+Have the new VM with ubuntu in running state and open terminal in the running VM
+To enable copy-paste:
+ sudo apt update Devices -&gt; Insert Guest Additions CD image Devices -&gt; Shared Clipboard -&gt; choose Bidirectional Devices -&gt; Drag and Drop -&gt; choose Bidirectional sudo apt install build-essential create some directories to mount the disk inserted in step 2:  sudo mkdir /mnt/cdrom this will create a directory called cdrom in mnt sudo mount /dev/cdrom /mnt/cdrom this will mount the /dev/cdrom onto the new directory we created cd /mnt/cdrom ls sudo sh .
+	</div>
+</article><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
 			<a href="/posts/frontend-csscommon-tricksavoid-text-wrapping-at-whitespace/" rel="bookmark">
 			Frontend CSS:Common Tricks:Avoid Text Wrapping at Whitespace
 			</a>
@@ -208,26 +228,6 @@ ul li { display: inline-block; }
 	<div class="content list__excerpt post__content clearfix">
 		Here are the recommendations:
 Float:  Use this for content that flows around (i.e. variable and flexible content). A good example is an image surrounded by texts of different lengths. So even if the amount of text can change, but using float will allow it to flow around the image. Float is also very useful in laying out major parts of layout like header, footer or sidebar.  Display:  Can be useful for aligning page components but you need to account for the extra space around the element(display: inline-block will put a default space between elements having it) Very useful in creating centered horizontal navs because of the fact that the property text-align: center works on aligning child elements as well.
-	</div>
-</article><article class="list__item post">
-	
-	<header class="list__header">
-		<h2 class="list__title post__title">
-			<a href="/posts/frontend-cssstacking-order-of-elements-in-a-layout/" rel="bookmark">
-			Frontend CSS:Stacking Order of Elements in a Layout
-			</a>
-		</h2>
-		<div class="list__meta meta">
-<div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2015-08-03T11:40:26&#43;03:00">August 03, 2015</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/frontend/" rel="category">frontend</a>
-	</span>
-</div></div>
-	</header>
-	<div class="content list__excerpt post__content clearfix">
-		Lets take a look at this code:
-HTML:
-&lt;html&gt; &lt;head&gt;&lt;/head&gt; &lt;body&gt; &lt;p&gt;body content&lt;/p&gt; &lt;div class=&#34;block1&#34;&gt;block1&lt;/div&gt; &lt;div class=&#34;block2&#34;&gt;block1&lt;/div&gt; &lt;div class=&#34;float&#34;&gt; &lt;p&gt;float&lt;/p&gt; &lt;span&gt; class=&#34;inline&#34;&gt;inline&lt;/span&gt; &lt;/div&gt; &lt;div class=&#34;position&#34;&gt;position&lt;/div&gt; &lt;/body&gt; &lt;/html&gt; CSS:
-.block1{ background: pink; } .block2{ background: red; margin: -60px 0 0 20px; } .float{ background: lightblue; float: left; margin: -150px 0 0 100px; } .inline{ background: blue; color: white; padding: 10px 40px 10px 10px; } .position{ background: orange; position: relative; left: 180px; top: -165px; height: 110px; } The natural staking order of elements in this piece of code is (in ascending order in the stack):
 	</div>
 </article>
 </main>
@@ -302,6 +302,8 @@ HTML:
 				<a class="widget__link" href="/categories/python/">python</a></li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/rust/">rust</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/virtualbox/">Virtualbox</a></li>
 		</ul>
 	</div>
 </div>
@@ -333,6 +335,7 @@ HTML:
 		<a class="widget-taglist__link widget__link btn" href="/tags/testing/" title="testing">testing</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/tools/" title="tools">tools</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/turbofish/" title="turbofish">turbofish</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/virtualbox/" title="virtualbox">virtualbox</a>
 	</div>
 </div>
 </aside>

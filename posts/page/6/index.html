@@ -45,6 +45,26 @@
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
+			<a href="/posts/frontend-cssstacking-order-of-elements-in-a-layout/" rel="bookmark">
+			Frontend CSS:Stacking Order of Elements in a Layout
+			</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2015-08-03T11:40:26&#43;03:00">August 03, 2015</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/frontend/" rel="category">frontend</a>
+	</span>
+</div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		Lets take a look at this code:
+HTML:
+&lt;html&gt; &lt;head&gt;&lt;/head&gt; &lt;body&gt; &lt;p&gt;body content&lt;/p&gt; &lt;div class=&#34;block1&#34;&gt;block1&lt;/div&gt; &lt;div class=&#34;block2&#34;&gt;block1&lt;/div&gt; &lt;div class=&#34;float&#34;&gt; &lt;p&gt;float&lt;/p&gt; &lt;span&gt; class=&#34;inline&#34;&gt;inline&lt;/span&gt; &lt;/div&gt; &lt;div class=&#34;position&#34;&gt;position&lt;/div&gt; &lt;/body&gt; &lt;/html&gt; CSS:
+.block1{ background: pink; } .block2{ background: red; margin: -60px 0 0 20px; } .float{ background: lightblue; float: left; margin: -150px 0 0 100px; } .inline{ background: blue; color: white; padding: 10px 40px 10px 10px; } .position{ background: orange; position: relative; left: 180px; top: -165px; height: 110px; } The natural staking order of elements in this piece of code is (in ascending order in the stack):
+	</div>
+</article><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
 			<a href="/posts/frontend-cssreset-css-and-normalize-css/" rel="bookmark">
 			Frontend CSS:Reset CSS and Normalize CSS
 			</a>
@@ -132,6 +152,8 @@ Reset CSS stylesheet: This CSS stylesheet aims to remove all default styling app
 				<a class="widget__link" href="/categories/python/">python</a></li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/rust/">rust</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/virtualbox/">Virtualbox</a></li>
 		</ul>
 	</div>
 </div>
@@ -163,6 +185,7 @@ Reset CSS stylesheet: This CSS stylesheet aims to remove all default styling app
 		<a class="widget-taglist__link widget__link btn" href="/tags/testing/" title="testing">testing</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/tools/" title="tools">tools</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/turbofish/" title="turbofish">turbofish</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/virtualbox/" title="virtualbox">virtualbox</a>
 	</div>
 </div>
 </aside>

@@ -511,6 +511,18 @@ html_text = response.text.encode(&amp;#39;ascii&amp;#39;, errors=&amp;#39;ignore
     </item>
     
     <item>
+      <title>Virtualbox:First Steps After Install Ubuntu</title>
+      <link>https://tek-shinobi.github.io/posts/virtualboxfirst-steps-after-install-ubuntu/</link>
+      <pubDate>Fri, 29 Sep 2017 11:14:07 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/virtualboxfirst-steps-after-install-ubuntu/</guid>
+      <description>If you are installing ubuntu, always install with &amp;ldquo;skip unattended&amp;rdquo; checkmarked. Otherwise, you won&amp;rsquo;t have terminal access and no sudo.
+Have the new VM with ubuntu in running state and open terminal in the running VM
+To enable copy-paste:
+ sudo apt update Devices -&amp;gt; Insert Guest Additions CD image Devices -&amp;gt; Shared Clipboard -&amp;gt; choose Bidirectional Devices -&amp;gt; Drag and Drop -&amp;gt; choose Bidirectional sudo apt install build-essential create some directories to mount the disk inserted in step 2:  sudo mkdir /mnt/cdrom this will create a directory called cdrom in mnt sudo mount /dev/cdrom /mnt/cdrom this will mount the /dev/cdrom onto the new directory we created cd /mnt/cdrom ls sudo sh .</description>
+    </item>
+    
+    <item>
       <title>Frontend CSS:Common Tricks:Avoid Text Wrapping at Whitespace</title>
       <link>https://tek-shinobi.github.io/posts/frontend-csscommon-tricksavoid-text-wrapping-at-whitespace/</link>
       <pubDate>Thu, 07 Sep 2017 13:59:41 +0300</pubDate>
