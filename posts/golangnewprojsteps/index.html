@@ -90,6 +90,12 @@ docker exec -it modelapp-postgres dropdb --username<span style="color:#f92672">=
 </code></pre></div><h2 id="golang-migrate">Golang migrate</h2>
 <p>create migration schema file:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./migrate create -ext sql -dir internal/repository/migrations/postgres -seq create_users_table
+</code></pre></div><p>for running migration:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./migrate -path internal/repository/migrations/postgres -database <span style="color:#e6db74">&#34;postgresql://root:secret@localhost:5432/modelapp?sslmode=disable&#34;</span> up
+</code></pre></div><p>in case there was a problem in doing migration, it will be marked as dirty for current migration number. After the bug was fixed that caused migration failure, we will have to first reset the migration dirty to false. A shortcult way of solving this is to force migration to some lower one:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./migrate -path internal/repository/migrations/postgres -database <span style="color:#e6db74">&#34;postgresql://root:secret@localhost:5432/modelapp?sslmode=disable&#34;</span> -verbose force <span style="color:#ae81ff">1</span>
+</code></pre></div><p>above the current dirty migration was set at 3. So first forced migrated it to some lower value like 1. This will be successful. Then do up</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">./migrate -path internal/repository/migrations/postgres -database <span style="color:#e6db74">&#34;postgresql://root:secret@localhost:5432/modelapp?sslmode=disable&#34;</span> up
 </code></pre></div>
 		</div>
 		<footer class="post__footer">
