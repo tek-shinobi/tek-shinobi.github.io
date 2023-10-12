@@ -48,9 +48,17 @@
 </div></div>
 		</header>
 		<div class="content post__content clearfix">
-			<p>Some thoughts and experiences when setting up AWS S3 and single-store for Grafana-Loki. Some context, using GLP stack (grafana, loki, promtail). Promtail collects logs from a Kafka stream and sends them to Loki for storage. It also indexes them by EC2 instance ids.</p>
+			<p>Some thoughts and experiences when setting up AWS S3 and single-store for Grafana-Loki.
+Some context:</p>
+<ul>
+<li>using GLP stack (grafana, loki, promtail)</li>
+<li>Promtail collects logs from a Kafka stream and sends them to Loki for storage. It also indexes them by EC2 instance ids.</li>
+</ul>
 <h2 id="why-this-post">Why this post?</h2>
-<p>The official docs from Grafana are at times confusing. Also, I tried doing it in 3 ways, with different weirdness. Documenting here for future reference.</p>
+<ol>
+<li>Persisting loki logs somewhere is important otherwise, everytime loki service is restarted, all previous logs and corresponding visualizations on grafana dashboard will be lost.</li>
+<li>The official docs from Grafana are at times confusing. Also, I tried doing it in 3 ways, with different weirdness. Documenting here for future reference.</li>
+</ol>
 <h2 id="aws-s3-configuration">AWS S3 configuration</h2>
 <p>Create a IAM user (NOT a root user). Create a group with policy <code>AmazonS3FullAccess</code> and assign the user to this group (Grafana recommends setting specific policies, that is fine as well).</p>
 <h2 id="docker-container-approach">Docker container approach</h2>
@@ -99,7 +107,6 @@
 Here is a stack overflow post with fellow strugglers&hellip; <a href="https://stackoverflow.com/questions/65032914/promtail-error-pipeline-stage-must-only-contain-one-key">https://stackoverflow.com/questions/65032914/promtail-error-pipeline-stage-must-only-contain-one-key</a></p>
 <p>pipeline_stage is needed to parse and index the log line. Here is an example log line that is being indexed by &ldquo;instanceId&rdquo;:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{<span style="color:#f92672">&#34;instanceId&#34;</span>:<span style="color:#e6db74">&#34;14524720-6c65-49a8-aca4-a9d14691a235&#34;</span>,<span style="color:#f92672">&#34;cpuUsage&#34;</span>:{<span style="color:#f92672">&#34;processCPUTime&#34;</span>:<span style="color:#ae81ff">368560000</span>,<span style="color:#f92672">&#34;systemCPULoad&#34;</span>:<span style="color:#ae81ff">0</span>,<span style="color:#f92672">&#34;processCPULoad&#34;</span>:<span style="color:#ae81ff">0</span>},<span style="color:#f92672">&#34;jvmMemoryUsage&#34;</span>:{<span style="color:#f92672">&#34;maxMemory&#34;</span>:<span style="color:#ae81ff">973078528</span>,<span style="color:#f92672">&#34;totalMemory&#34;</span>:<span style="color:#ae81ff">681574400</span>,<span style="color:#f92672">&#34;freeMemory&#34;</span>:<span style="color:#ae81ff">464074192</span>,<span style="color:#f92672">&#34;inUseMemory&#34;</span>:<span style="color:#ae81ff">217500208</span>},<span style="color:#f92672">&#34;systemInfo&#34;</span>:{<span style="color:#f92672">&#34;osName&#34;</span>:<span style="color:#e6db74">&#34;Linux&#34;</span>,<span style="color:#f92672">&#34;osArch&#34;</span>:<span style="color:#e6db74">&#34;amd64&#34;</span>,<span style="color:#f92672">&#34;javaVersion&#34;</span>:<span style="color:#e6db74">&#34;11&#34;</span>,<span style="color:#f92672">&#34;processorCount&#34;</span>:<span style="color:#ae81ff">2</span>},<span style="color:#f92672">&#34;systemMemoryInfo&#34;</span>:{<span style="color:#f92672">&#34;virtualMemory&#34;</span>:<span style="color:#ae81ff">3874603008</span>,<span style="color:#f92672">&#34;totalMemory&#34;</span>:<span style="color:#ae81ff">3892285440</span>,<span style="color:#f92672">&#34;freeMemory&#34;</span>:<span style="color:#ae81ff">1666928640</span>,<span style="color:#f92672">&#34;inUseMemory&#34;</span>:<span style="color:#ae81ff">2225356800</span>,<span style="color:#f92672">&#34;totalSwapSpace&#34;</span>:<span style="color:#ae81ff">0</span>,<span style="color:#f92672">&#34;freeSwapSpace&#34;</span>:<span style="color:#ae81ff">0</span>,<span style="color:#f92672">&#34;inUseSwapSpace&#34;</span>:<span style="color:#ae81ff">0</span>,<span style="color:#f92672">&#34;availableMemory&#34;</span>:<span style="color:#ae81ff">2378375168</span>},<span style="color:#f92672">&#34;fileSystemInfo&#34;</span>:{<span style="color:#f92672">&#34;usableSpace&#34;</span>:<span style="color:#ae81ff">5310873600</span>,<span style="color:#f92672">&#34;totalSpace&#34;</span>:<span style="color:#ae81ff">10213466112</span>,<span style="color:#f92672">&#34;freeSpace&#34;</span>:<span style="color:#ae81ff">5327650816</span>,<span style="color:#f92672">&#34;inUseSpace&#34;</span>:<span style="color:#ae81ff">4885815296</span>},<span style="color:#f92672">&#34;jvmNativeMemoryUsage&#34;</span>:{<span style="color:#f92672">&#34;inUseMemory&#34;</span>:<span style="color:#ae81ff">1024630784</span>,<span style="color:#f92672">&#34;maxMemory&#34;</span>:<span style="color:#ae81ff">3892314112</span>},<span style="color:#f92672">&#34;gpuUsageInfo&#34;</span>:[],<span style="color:#f92672">&#34;ffmpegBuildInfo&#34;</span>:<span style="color:#e6db74">&#34;--prefix\u003d.. --disable-iconv --disable-opencl --disable-sdl2 --disable-bzlib --disable-lzma --disable-linux-perf --disable-xlib --disable-decoder\u003dh264_crystalhd --disable-decoder\u003dmpeg2_crystalhd --disable-decoder\u003dvc1_crystalhd --disable-decoder\u003dmpeg4_crystalhd --disable-decoder\u003dmsmpeg4_crystalhd --disable-decoder\u003dmsmpeg4_crystalhd --disable-decoder\u003dwmv3_crystalhd --enable-shared --enable-version3 --enable-runtime-cpudetect --enable-zlib --enable-libmp3lame --enable-libspeex --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libvo-amrwbenc --enable-openssl --enable-libopenh264 --enable-libvpx --enable-libfreetype --enable-libopus --enable-libxml2 --enable-libsrt --enable-libwebp --enable-libmfx --enable-libnpp --enable-nonfree --extra-cflags\u003d-I/usr/local/cuda/include --extra-ldflags\u003d-L/usr/local/cuda/lib64 --enable-cuda --enable-cuvid --enable-nvenc --enable-pthreads --enable-libxcb --cc\u003d\u0027gcc -m64\u0027 --extra-cflags\u003d\u0027-I../include/ -I../include/libxml2 \u0027 --extra-ldflags\u003d-L../lib/ --extra-libs\u003d\u0027-lstdc++ -lpthread -ldl -lz -lm -lva-drm -lva-x11 -lva\u0027&#34;</span>,<span style="color:#f92672">&#34;encoders-blocked&#34;</span>:<span style="color:#ae81ff">0</span>,<span style="color:#f92672">&#34;encoders-not-opened&#34;</span>:<span style="color:#ae81ff">0</span>,<span style="color:#f92672">&#34;publish-timeout-errors&#34;</span>:<span style="color:#ae81ff">0</span>,<span style="color:#f92672">&#34;server-timing&#34;</span>:{<span style="color:#f92672">&#34;up-time&#34;</span>:<span style="color:#ae81ff">42343897</span>,<span style="color:#f92672">&#34;start-time&#34;</span>:<span style="color:#ae81ff">1697101393013</span>},<span style="color:#f92672">&#34;time&#34;</span>:<span style="color:#e6db74">&#34;2023-10-12T20:48:56.528253Z&#34;</span>,<span style="color:#f92672">&#34;host-address&#34;</span>:<span style="color:#e6db74">&#34;198.44.37.257&#34;</span>,<span style="color:#f92672">&#34;ip-address&#34;</span>:<span style="color:#e6db74">&#34;4.345.51.44&#34;</span>}
-
 
 </code></pre></div><p>Another point to notice is this line:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">- url: http://loki:3100/loki/api/v1/push
@@ -349,6 +356,82 @@ WantedBy<span style="color:#f92672">=</span>multi-user.target
 <p>and launch via
 <code>sudo systemctl start loki</code> and <code>sudo systemctl start promtail</code></p>
 <p>you can tail their logs at files pointed to in <code>StandardOutput</code> setting</p>
+<h2 id="only-persist-loki-logs-on-local-filesystem">Only persist loki logs on local filesystem</h2>
+<p>Not really recommended, since if running on an EC2 instance and that instance dies for some reason, all locally stored logs will be lost. Also, makes sense to centralize the log storage when multiple instances are involved, only possible with something like S3.</p>
+<p>Note, we will be taking the docker container approach, launching both loki and promatail in respective docker containers and connection them via network.
+so, here is the <code>loki-config.yaml</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">auth_enabled</span>: <span style="color:#66d9ef">false</span>
+
+<span style="color:#f92672">server</span>:
+  <span style="color:#f92672">http_listen_port</span>: <span style="color:#ae81ff">3100</span>
+  <span style="color:#f92672">grpc_listen_port</span>: <span style="color:#ae81ff">9096</span>
+
+<span style="color:#f92672">common</span>:
+  <span style="color:#f92672">instance_addr</span>: <span style="color:#ae81ff">127.0.0.1</span>
+  <span style="color:#f92672">path_prefix</span>: <span style="color:#ae81ff">loki</span>
+  <span style="color:#f92672">storage</span>:
+    <span style="color:#f92672">filesystem</span>:
+      <span style="color:#f92672">chunks_directory</span>: <span style="color:#ae81ff">/tmp/loki/chunks</span>
+      <span style="color:#f92672">rules_directory</span>: <span style="color:#ae81ff">/tmp/loki/rules</span>
+  <span style="color:#f92672">replication_factor</span>: <span style="color:#ae81ff">1</span>
+  <span style="color:#f92672">ring</span>:
+    <span style="color:#f92672">kvstore</span>:
+      <span style="color:#f92672">store</span>: <span style="color:#ae81ff">inmemory</span>
+
+<span style="color:#f92672">query_range</span>:
+  <span style="color:#f92672">results_cache</span>:
+    <span style="color:#f92672">cache</span>:
+      <span style="color:#f92672">embedded_cache</span>:
+        <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">true</span>
+        <span style="color:#f92672">max_size_mb</span>: <span style="color:#ae81ff">100</span>
+
+<span style="color:#f92672">schema_config</span>:
+  <span style="color:#f92672">configs</span>:
+    - <span style="color:#f92672">from</span>: <span style="color:#e6db74">2020-10-24</span>
+      <span style="color:#f92672">store</span>: <span style="color:#ae81ff">boltdb-shipper</span>
+      <span style="color:#f92672">object_store</span>: <span style="color:#ae81ff">filesystem</span>
+      <span style="color:#f92672">schema</span>: <span style="color:#ae81ff">v11</span>
+      <span style="color:#f92672">index</span>:
+        <span style="color:#f92672">prefix</span>: <span style="color:#ae81ff">index_</span>
+        <span style="color:#f92672">period</span>: <span style="color:#ae81ff">24h</span>
+
+<span style="color:#f92672">storage_config</span>:
+  <span style="color:#f92672">boltdb</span>:
+    <span style="color:#f92672">directory</span>: <span style="color:#ae81ff">/loki/index</span>
+
+<span style="color:#f92672">compactor</span>:
+  <span style="color:#f92672">working_directory</span>: <span style="color:#ae81ff">/loki/compactor</span>
+  <span style="color:#f92672">shared_store</span>: <span style="color:#ae81ff">filesystem</span>
+  <span style="color:#f92672">retention_enabled</span>: <span style="color:#66d9ef">true</span>
+
+<span style="color:#f92672">chunk_store_config</span>:
+  <span style="color:#f92672">max_look_back_period</span>: <span style="color:#ae81ff">48h</span>
+
+<span style="color:#f92672">limits_config</span>:
+  <span style="color:#f92672">retention_period</span>: <span style="color:#ae81ff">48h</span>
+
+<span style="color:#f92672">table_manager</span>:
+  <span style="color:#f92672">retention_deletes_enabled</span>: <span style="color:#66d9ef">true</span>
+  <span style="color:#f92672">retention_period</span>: <span style="color:#ae81ff">48h</span>
+
+<span style="color:#f92672">ruler</span>:
+  <span style="color:#f92672">alertmanager_url</span>: <span style="color:#ae81ff">http://localhost:9093</span>
+
+<span style="color:#75715e"># By default, Loki will send anonymous, but uniquely-identifiable usage and configuration</span>
+<span style="color:#75715e"># analytics to Grafana Labs. These statistics are sent to https://stats.grafana.org/</span>
+<span style="color:#75715e">#</span>
+<span style="color:#75715e"># Statistics help us better understand how Loki is used, and they show us performance</span>
+<span style="color:#75715e"># levels for most users. This helps us prioritize features and documentation.</span>
+<span style="color:#75715e"># For more information on what&#39;s sent, look at</span>
+<span style="color:#75715e"># https://github.com/grafana/loki/blob/main/pkg/usagestats/stats.go</span>
+<span style="color:#75715e"># Refer to the buildReport method to see what goes into a report.</span>
+<span style="color:#75715e">#</span>
+<span style="color:#75715e"># If you would like to disable reporting, uncomment the following lines:</span>
+<span style="color:#f92672">analytics</span>:
+ <span style="color:#f92672">reporting_enabled</span>: <span style="color:#66d9ef">false</span>
+                                
+</code></pre></div><p>Use <code>promtail-config.docker.yaml</code> from above for promtail config.</p>
+<p>Launch commands are exactly same as the one shown for docker case. Just that, in this case, no export to S3 will happen and all records will be stored into the mounted directory, <code>lokilogs</code>.</p>
 
 		</div>
 		<footer class="post__footer">

@@ -56,8 +56,8 @@
 </div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
-		Some thoughts and experiences when setting up AWS S3 and single-store for Grafana-Loki. Some context, using GLP stack (grafana, loki, promtail). Promtail collects logs from a Kafka stream and sends them to Loki for storage. It also indexes them by EC2 instance ids.
-Why this post? The official docs from Grafana are at times confusing. Also, I tried doing it in 3 ways, with different weirdness. Documenting here for future reference.
+		Some thoughts and experiences when setting up AWS S3 and single-store for Grafana-Loki. Some context:
+ using GLP stack (grafana, loki, promtail) Promtail collects logs from a Kafka stream and sends them to Loki for storage. It also indexes them by EC2 instance ids.  Why this post?  Persisting loki logs somewhere is important otherwise, everytime loki service is restarted, all previous logs and corresponding visualizations on grafana dashboard will be lost.
 	</div>
 </article><article class="list__item post">
 	
