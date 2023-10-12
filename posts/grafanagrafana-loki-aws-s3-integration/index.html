@@ -341,7 +341,11 @@ StandardOutput<span style="color:#f92672">=</span>file:/var/log/promtail-systemd
 
 <span style="color:#f92672">[</span>Install<span style="color:#f92672">]</span>
 WantedBy<span style="color:#f92672">=</span>multi-user.target
-</code></pre></div>
+</code></pre></div><p>save both <code>loki.service</code> and <code>promtail.service</code> in <code>/etc/systemd/system</code></p>
+<p>and launch via
+<code>sudo systemctl start loki</code> and <code>sudo systemctl start promtail</code></p>
+<p>you can tail their logs at files pointed to in <code>StandardOutput</code> setting</p>
+
 		</div>
 		<footer class="post__footer">
 			
