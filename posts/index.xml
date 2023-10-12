@@ -5,7 +5,17 @@
     <link>https://tek-shinobi.github.io/posts/</link>
     <description>Recent content in Posts on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 25 Jul 2023 10:41:57 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 12 Oct 2023 21:14:50 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Grafana:Grafana Loki AWS S3 Integration</title>
+      <link>https://tek-shinobi.github.io/posts/grafanagrafana-loki-aws-s3-integration/</link>
+      <pubDate>Thu, 12 Oct 2023 21:14:50 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/grafanagrafana-loki-aws-s3-integration/</guid>
+      <description>Some thoughts and experiences when setting up AWS S3 and single-store for Grafana-Loki. Some context, using GLP stack (grafana, loki, promtail). Promtail collects logs from a Kafka stream and sends them to Loki for storage. It also indexes them by EC2 instance ids.
+Why this post? The official docs from Grafana are at times confusing. Also, I tried doing it in 3 ways, with different weirdness. Documenting here for future reference.</description>
+    </item>
+    
     <item>
       <title>Golang: Distributed Rate Limiting Using Fixed Window and Redis</title>
       <link>https://tek-shinobi.github.io/posts/golangdistributed-rate-limiting-using-fixed-window/</link>

@@ -5,22 +5,22 @@
     <link>https://tek-shinobi.github.io/categories/</link>
     <description>Recent content in Categories on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 25 Jul 2023 10:41:57 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 12 Oct 2023 21:14:50 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>golang</title>
+      <link>https://tek-shinobi.github.io/categories/golang/</link>
+      <pubDate>Thu, 12 Oct 2023 21:14:50 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/categories/golang/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>distributed system design</title>
       <link>https://tek-shinobi.github.io/categories/distributed-system-design/</link>
       <pubDate>Tue, 25 Jul 2023 10:41:57 +0300</pubDate>
       
       <guid>https://tek-shinobi.github.io/categories/distributed-system-design/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>golang</title>
-      <link>https://tek-shinobi.github.io/categories/golang/</link>
-      <pubDate>Tue, 25 Jul 2023 10:41:57 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/categories/golang/</guid>
       <description></description>
     </item>
     

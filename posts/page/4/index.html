@@ -45,6 +45,25 @@
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
+			<a href="/posts/backend-pythonwriting-custom-django-management-commands/" rel="bookmark">
+			Backend Python:Writing Custom Django Management Commands
+			</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2018-09-07T14:02:37&#43;03:00">September 07, 2018</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/backend/" rel="category">backend</a>, <a class="meta__link" href="/categories/python/" rel="category">python</a>
+	</span>
+</div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		Any command given with manage.py is called management command. Django comes with many built-in management commands like runserver, startapp etc. To see a full list of built-in management commands, type: python manage.py help
+The benefit of management command script is that this script executes within Django environment. You can run all of Django ORM queries within this script. You can import models. You have access to project resources.
+In this tutorial we will see how to populate a table with some contents of a csv file.
+	</div>
+</article><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
 			<a href="/posts/backend-pythonadding-ajax-to-python-django-projects/" rel="bookmark">
 			Backend Python:Adding AJAX to Python Django Projects
 			</a>
@@ -217,24 +236,6 @@ Inside the cloned repo, create virtual env by running: pipenv install --python 3
 Above step creates a virtualenv using python 3.8 (already installed on my system)
 now install all the required packages. The basic ones I always install are: pytest, pytest-cov, typing, codecov, mypy and flake8
 	</div>
-</article><article class="list__item post">
-	
-	<header class="list__header">
-		<h2 class="list__title post__title">
-			<a href="/posts/backend-pythondefault-parameter-gotcha/" rel="bookmark">
-			Backend Python:Default Parameter Gotcha
-			</a>
-		</h2>
-		<div class="list__meta meta">
-<div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2018-09-07T10:12:33&#43;03:00">September 07, 2018</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/backend/" rel="category">backend</a>, <a class="meta__link" href="/categories/python/" rel="category">python</a>
-	</span>
-</div></div>
-	</header>
-	<div class="content list__excerpt post__content clearfix">
-		Take a look at this code. All it does is return a list with appended parameter. In case no list is supplied, it defaults to an empty list and appends to it. Or is it???
-def add_to_list(item, item_list=[]): item_list.append(item) return item_list add_to_list(&#34;gold&#34;) # expected: [&#34;gold&#34;] #actual: [&#34;gold&#34;] add_to_list(&#34;silver&#34;) # expected: [&#34;silver&#34;] #actual: [&#34;gold&#34;,&#34;silver&#34;] Look at the second result. We expected [&quot;silver&quot;] expecting the item to be appended to an empty list as we never passed in a list and expected a default empty list as in function definition.
-	</div>
 </article>
 </main>
 
@@ -270,6 +271,7 @@ def add_to_list(item, item_list=[]): item_list.append(item) return item_list add
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/posts/grafanagrafana-loki-aws-s3-integration/">Grafana:Grafana Loki AWS S3 Integration</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golangdistributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/rate-limiting-in-distributed-system/">Rate Limiting in a Distributed System</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golang-testing-creating-large-files/">Golang Testing: Creating Large Files</a></li>
@@ -279,7 +281,6 @@ def add_to_list(item, item_list=[]): item_list.append(item) return item_list add
 			<li class="widget__item"><a class="widget__link" href="/posts/golang-common-concurrency-patterns/">Golang: Common Concurrency Patterns</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golang-channels/">Golang Channels</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golangcobra-and-viper-tutorial/">Golang:Cobra and Viper Tutorial</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/minikubecheatsheet/">Kubernetes tutorial &#43; Minikube:cheatsheet</a></li>
 		</ul>
 	</div>
 </div>
