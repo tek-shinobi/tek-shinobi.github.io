@@ -7,11 +7,29 @@
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Thu, 12 Oct 2023 21:14:50 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>tools</title>
-      <link>https://tek-shinobi.github.io/tags/tools/</link>
+      <title>aws</title>
+      <link>https://tek-shinobi.github.io/tags/aws/</link>
       <pubDate>Thu, 12 Oct 2023 21:14:50 +0300</pubDate>
       
-      <guid>https://tek-shinobi.github.io/tags/tools/</guid>
+      <guid>https://tek-shinobi.github.io/tags/aws/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>loki</title>
+      <link>https://tek-shinobi.github.io/tags/loki/</link>
+      <pubDate>Thu, 12 Oct 2023 21:14:50 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/tags/loki/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>s3</title>
+      <link>https://tek-shinobi.github.io/tags/s3/</link>
+      <pubDate>Thu, 12 Oct 2023 21:14:50 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/tags/s3/</guid>
       <description></description>
     </item>
     
@@ -93,6 +111,15 @@
       <pubDate>Fri, 15 Oct 2021 15:41:34 +0300</pubDate>
       
       <guid>https://tek-shinobi.github.io/tags/concurrency/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tools</title>
+      <link>https://tek-shinobi.github.io/tags/tools/</link>
+      <pubDate>Thu, 23 Sep 2021 13:04:41 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/tags/tools/</guid>
       <description></description>
     </item>
     
