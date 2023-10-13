@@ -131,6 +131,8 @@ Port: 80</p>
 <p>Protocol version: HTTP1</p>
 <p>&ldquo;Health Checks&rdquo; -&gt; very important section. Here is where you hook the endpoint path for the healthckeck of you application. From grafana documentation, their healthcheck endpoint is at <code>/api/health</code>. So put this path in &ldquo;Health check path&rdquo;. <strong>IMPORTANT</strong>: &ldquo;Health checl protocol&rdquo; HTTP (and NOT HTTPS). Since grafana application has no idea what https is, use HTTP.</p>
 <p>thats it. save.</p>
+<p><strong>IMPORTANT</strong>: Register targets
+this step is v important once you have created a target group, stay on the created page and click on &ldquo;Register targets&rdquo;. Choose the EC2 instance you want this group to target.. in our case the instance that is running our grafana application. Then, <strong>very important</strong>: &ldquo;Ports for the selected instances&rdquo; : 3000 . Then click on &ldquo;include as pending below&rdquo;. Then save.</p>
 <p>You dont need to create another target group for port 443. TLS certificate handling is done in the Load balancer itself. Let&rsquo;s see how to do this. Trick is to add listener on port 443. Click Add listener-&gt; Protocol HTTPS (it will auto select 443 port for you)</p>
 <p>Routing actions -&gt; Forward to target groups</p>
 <p>Target group -&gt; choose the grafana-80 target group that we made</p>
