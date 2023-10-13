@@ -3,13 +3,28 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://tek-shinobi.github.io/tags/aws/</loc>
-    <lastmod>2023-10-12T21:14:50+03:00</lastmod>
+    <lastmod>2023-10-13T12:06:40+03:00</lastmod>
+  </url><url>
+    <loc>https://tek-shinobi.github.io/posts/awssetup-reverse-proxy-in-aws-using-elb/</loc>
+    <lastmod>2023-10-13T12:06:40+03:00</lastmod>
+  </url><url>
+    <loc>https://tek-shinobi.github.io/categories/backend/</loc>
+    <lastmod>2023-10-13T12:06:40+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/categories/</loc>
-    <lastmod>2023-10-12T21:14:50+03:00</lastmod>
+    <lastmod>2023-10-13T12:06:40+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/categories/grafana/</loc>
-    <lastmod>2023-10-12T21:14:50+03:00</lastmod>
+    <lastmod>2023-10-13T12:06:40+03:00</lastmod>
+  </url><url>
+    <loc>https://tek-shinobi.github.io/posts/</loc>
+    <lastmod>2023-10-13T12:06:40+03:00</lastmod>
+  </url><url>
+    <loc>https://tek-shinobi.github.io/tags/</loc>
+    <lastmod>2023-10-13T12:06:40+03:00</lastmod>
+  </url><url>
+    <loc>https://tek-shinobi.github.io/</loc>
+    <lastmod>2023-10-13T12:06:40+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/posts/grafanagrafana-loki-aws-s3-integration/</loc>
     <lastmod>2023-10-12T21:14:50+03:00</lastmod>
@@ -17,16 +32,7 @@
     <loc>https://tek-shinobi.github.io/tags/loki/</loc>
     <lastmod>2023-10-12T21:14:50+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/</loc>
-    <lastmod>2023-10-12T21:14:50+03:00</lastmod>
-  </url><url>
     <loc>https://tek-shinobi.github.io/tags/s3/</loc>
-    <lastmod>2023-10-12T21:14:50+03:00</lastmod>
-  </url><url>
-    <loc>https://tek-shinobi.github.io/tags/</loc>
-    <lastmod>2023-10-12T21:14:50+03:00</lastmod>
-  </url><url>
-    <loc>https://tek-shinobi.github.io/</loc>
     <lastmod>2023-10-12T21:14:50+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/categories/distributed-system-design/</loc>
@@ -157,9 +163,6 @@
   </url><url>
     <loc>https://tek-shinobi.github.io/posts/what-is-a-tcp-stream/</loc>
     <lastmod>2020-02-08T18:34:10+03:00</lastmod>
-  </url><url>
-    <loc>https://tek-shinobi.github.io/categories/backend/</loc>
-    <lastmod>2019-09-05T11:01:54+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/posts/backend-pythontemporary-files-in-python/</loc>
     <lastmod>2019-09-05T11:01:54+03:00</lastmod>

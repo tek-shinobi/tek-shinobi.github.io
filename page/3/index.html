@@ -44,6 +44,24 @@
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
+			<a href="/posts/rust-tips-box-rc-arc-cell-refcell-mutex/" rel="bookmark">
+			Rust Tips: Box Rc Arc Cell Refcell Mutex
+			</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2021-03-08T11:58:32&#43;03:00">March 08, 2021</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/rust/" rel="category">rust</a>
+	</span>
+</div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		Difference Between Box, Rc, Arc, Cell (and its various variants.. RefCell, Mutex, RwLock) in Rust:
+ Box is for single ownership. A great use case is to use this when we want to store primitive types (stored on stack) on heap. Rc is for multiple ownership. Arc is for multiple ownership, but threadsafe. RefCell is for “interior mutability”; that is, when you need to mutate something behind a &amp;T. Cell is for “interior mutability” for Copy types; that is, when you need to mutate something behind a &amp;T.
+	</div>
+</article><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
 			<a href="/posts/what-is-a-tcp-stream/" rel="bookmark">
 			What Is a Tcp Stream
 			</a>
@@ -214,24 +232,6 @@ Some explanation of what got installed:
 First let us generate RSA key pair using OpenSSL. Please install OpenSSL before hand.
 [user@host secure]~ openssl genrsa -out posvendor.
 	</div>
-</article><article class="list__item post">
-	
-	<header class="list__header">
-		<h2 class="list__title post__title">
-			<a href="/posts/backend-pythonlogging-in-django-and-django-rest-framework-projects/" rel="bookmark">
-			Backend Python:Logging in Django and Django Rest Framework Projects
-			</a>
-		</h2>
-		<div class="list__meta meta">
-<div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2018-09-07T16:02:36&#43;03:00">September 07, 2018</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/backend/" rel="category">backend</a>, <a class="meta__link" href="/categories/python/" rel="category">python</a>
-	</span>
-</div></div>
-	</header>
-	<div class="content list__excerpt post__content clearfix">
-		Logging is extremely necessary, during development and production. There are two ways to implement logging.
- In apps with high scale, we log to console and then have some in-the-cloud solution like Sentry to log the messages from the console. This is great because large scale apps often run on multiple servers and we can converge all the logs to one place. Alternately, we can log the messages to file on the server itself.
-	</div>
 </article>
 </main>
 
@@ -266,6 +266,7 @@ First let us generate RSA key pair using OpenSSL. Please install OpenSSL before 
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/posts/awssetup-reverse-proxy-in-aws-using-elb/">AWS:Setup Reverse Proxy in AWS Using ELB</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/grafanagrafana-loki-aws-s3-integration/">Grafana:Grafana Loki AWS S3 Integration</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golangdistributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/rate-limiting-in-distributed-system/">Rate Limiting in a Distributed System</a></li>
@@ -275,7 +276,6 @@ First let us generate RSA key pair using OpenSSL. Please install OpenSSL before 
 			<li class="widget__item"><a class="widget__link" href="/posts/using-postgres-inside-docker-container/">Golang: Using Postgres Inside Docker Container</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golang-common-concurrency-patterns/">Golang: Common Concurrency Patterns</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golang-channels/">Golang Channels</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/golangcobra-and-viper-tutorial/">Golang:Cobra and Viper Tutorial</a></li>
 		</ul>
 	</div>
 </div>

@@ -170,6 +170,11 @@ Here is a stack overflow post with fellow strugglers&hellip; <a href="https://st
 <span style="color:#f92672">ruler</span>:
   <span style="color:#f92672">alertmanager_url</span>: <span style="color:#ae81ff">http://localhost:9093</span>
 
+<span style="color:#75715e"># bug in grafana 2.4.2+ versions causing frontend to show &#34;too many outstanding requests&#34; for periods larger than 16 hours. Workaround for that</span>
+<span style="color:#75715e"># https://github.com/grafana/loki/issues/5123</span>
+<span style="color:#f92672">query_scheduler</span>:
+  <span style="color:#f92672">max_outstanding_requests_per_tenant</span>: <span style="color:#ae81ff">10000</span>
+
 <span style="color:#75715e"># By default, Loki will send anonymous, but uniquely-identifiable usage and configuration</span>
 <span style="color:#75715e"># analytics to Grafana Labs. These statistics are sent to https://stats.grafana.org/</span>
 <span style="color:#75715e">#</span>
@@ -307,6 +312,11 @@ Here is a stack overflow post with fellow strugglers&hellip; <a href="https://st
 <span style="color:#f92672">ruler</span>:
   <span style="color:#f92672">alertmanager_url</span>: <span style="color:#ae81ff">http://localhost:9093</span>
 
+<span style="color:#75715e"># bug in grafana 2.4.2+ versions causing frontend to show &#34;too many outstanding requests&#34; for periods larger than 16 hours. Workaround for that</span>
+<span style="color:#75715e"># https://github.com/grafana/loki/issues/5123</span>
+<span style="color:#f92672">query_scheduler</span>:
+  <span style="color:#f92672">max_outstanding_requests_per_tenant</span>: <span style="color:#ae81ff">10000</span>
+
 <span style="color:#75715e"># By default, Loki will send anonymous, but uniquely-identifiable usage and configuration</span>
 <span style="color:#75715e"># analytics to Grafana Labs. These statistics are sent to https://stats.grafana.org/</span>
 <span style="color:#75715e">#</span>
@@ -417,6 +427,11 @@ so, here is the <code>loki-config.yaml</code>:</p>
 <span style="color:#f92672">ruler</span>:
   <span style="color:#f92672">alertmanager_url</span>: <span style="color:#ae81ff">http://localhost:9093</span>
 
+<span style="color:#75715e"># bug in grafana 2.4.2+ versions causing frontend to show &#34;too many outstanding requests&#34; for periods larger than 16 hours. Workaround for that</span>
+<span style="color:#75715e"># https://github.com/grafana/loki/issues/5123</span>
+<span style="color:#f92672">query_scheduler</span>:
+  <span style="color:#f92672">max_outstanding_requests_per_tenant</span>: <span style="color:#ae81ff">10000</span>
+
 <span style="color:#75715e"># By default, Loki will send anonymous, but uniquely-identifiable usage and configuration</span>
 <span style="color:#75715e"># analytics to Grafana Labs. These statistics are sent to https://stats.grafana.org/</span>
 <span style="color:#75715e">#</span>
@@ -482,6 +497,7 @@ so, here is the <code>loki-config.yaml</code>:</p>
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/posts/awssetup-reverse-proxy-in-aws-using-elb/">AWS:Setup Reverse Proxy in AWS Using ELB</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/grafanagrafana-loki-aws-s3-integration/">Grafana:Grafana Loki AWS S3 Integration</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golangdistributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/rate-limiting-in-distributed-system/">Rate Limiting in a Distributed System</a></li>
@@ -491,7 +507,6 @@ so, here is the <code>loki-config.yaml</code>:</p>
 			<li class="widget__item"><a class="widget__link" href="/posts/using-postgres-inside-docker-container/">Golang: Using Postgres Inside Docker Container</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golang-common-concurrency-patterns/">Golang: Common Concurrency Patterns</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golang-channels/">Golang Channels</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/golangcobra-and-viper-tutorial/">Golang:Cobra and Viper Tutorial</a></li>
 		</ul>
 	</div>
 </div>

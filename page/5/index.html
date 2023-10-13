@@ -44,6 +44,30 @@
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
+			<a href="/posts/backend-pythonsteps-for-new-python-library-or-package/" rel="bookmark">
+			Backend Python:Steps for New Python Library or Package
+			</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2018-09-07T10:49:17&#43;03:00">September 07, 2018</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/backend/" rel="category">backend</a>, <a class="meta__link" href="/categories/python/" rel="category">python</a>
+	</span>
+</div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		Here are the steps.
+Create repo on github with license, gitignore and readme stubs.
+Clone the repo in the work area.
+Lets say, my new library is called new-library
+new-library is the repo name.
+Inside the cloned repo, create virtual env by running: pipenv install --python 3.8
+Above step creates a virtualenv using python 3.8 (already installed on my system)
+now install all the required packages. The basic ones I always install are: pytest, pytest-cov, typing, codecov, mypy and flake8
+	</div>
+</article><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
 			<a href="/posts/backend-pythondefault-parameter-gotcha/" rel="bookmark">
 			Backend Python:Default Parameter Gotcha
 			</a>
@@ -214,23 +238,6 @@ You will find this code often. We strip off any padding around ul because it is 
 ul{ padding: 0; } If you want the list items to be displayed horizontally, instead of vertically, just put an inline-block
 ul li { display: inline-block; } 
 	</div>
-</article><article class="list__item post">
-	
-	<header class="list__header">
-		<h2 class="list__title post__title">
-			<a href="/posts/frontend-reacttips-for-making-reusable-componentsprops/" rel="bookmark">
-			Frontend React:Tips for Making Reusable Components:props
-			</a>
-		</h2>
-		<div class="list__meta meta">
-<div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2017-09-07T09:50:40&#43;03:00">September 07, 2017</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/frontend/" rel="category">frontend</a>
-	</span>
-</div></div>
-	</header>
-	<div class="content list__excerpt post__content clearfix">
-		props.children const Picture = (props) =&gt; { return ( &lt;div&gt; &lt;img src={props.src}/&gt; {props.children} &lt;/div&gt; ) } render () { return ( &lt;div className=&#39;container&#39;&gt; &lt;Picture key={picture.id} src={picture.src}&gt; //what is placed here is passed as props.children  &lt;/Picture&gt; &lt;/div&gt; ) } Instead of invoking the component with a self-closing tag &lt;Picture /&gt; if you invoke it will full opening and closing tags &lt;Picture&gt; &lt;/Picture&gt; you can then place more code between it and display using this.
-	</div>
 </article>
 </main>
 
@@ -265,6 +272,7 @@ ul li { display: inline-block; }
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/posts/awssetup-reverse-proxy-in-aws-using-elb/">AWS:Setup Reverse Proxy in AWS Using ELB</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/grafanagrafana-loki-aws-s3-integration/">Grafana:Grafana Loki AWS S3 Integration</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golangdistributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/rate-limiting-in-distributed-system/">Rate Limiting in a Distributed System</a></li>
@@ -274,7 +282,6 @@ ul li { display: inline-block; }
 			<li class="widget__item"><a class="widget__link" href="/posts/using-postgres-inside-docker-container/">Golang: Using Postgres Inside Docker Container</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golang-common-concurrency-patterns/">Golang: Common Concurrency Patterns</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golang-channels/">Golang Channels</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/golangcobra-and-viper-tutorial/">Golang:Cobra and Viper Tutorial</a></li>
 		</ul>
 	</div>
 </div>

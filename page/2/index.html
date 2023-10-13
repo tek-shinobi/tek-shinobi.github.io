@@ -44,6 +44,24 @@
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
+			<a href="/posts/golangcobra-and-viper-tutorial/" rel="bookmark">
+			Golang:Cobra and Viper Tutorial
+			</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2021-09-23T13:04:41&#43;03:00">September 23, 2021</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/golang/" rel="category">golang</a>
+	</span>
+</div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		Cobra is a tool for making CLI application. Viper is a configuration management solution for Go applications which allows you to specify configuration options for your application in several ways, including configuration files, environment variables, and command-line flags.
+Why viper for config management?  It can find, load, and unmarshal values from a config file. It supports many types of files, such as JSON, TOML, YAML, ENV, or INI. It can also read values from environment variables or command-line flags.
+	</div>
+</article><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
 			<a href="/posts/minikubecheatsheet/" rel="bookmark">
 			Kubernetes tutorial &#43; Minikube:cheatsheet
 			</a>
@@ -219,24 +237,6 @@ error[E0282]: type annotations needed --&gt; src/main.rs:4:9 | 4 | let doubled =
 std::io::{self,Cursor}; What this is equivalent to is:
 use std::io; use std::io::Cursor; which means explicitly use std::io::Cursor and also use std::io itself. Thus, Cursor need not be prefixed but you’d still need to do io::BufReader and so on.
 	</div>
-</article><article class="list__item post">
-	
-	<header class="list__header">
-		<h2 class="list__title post__title">
-			<a href="/posts/rust-tips-box-rc-arc-cell-refcell-mutex/" rel="bookmark">
-			Rust Tips: Box Rc Arc Cell Refcell Mutex
-			</a>
-		</h2>
-		<div class="list__meta meta">
-<div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2021-03-08T11:58:32&#43;03:00">March 08, 2021</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/rust/" rel="category">rust</a>
-	</span>
-</div></div>
-	</header>
-	<div class="content list__excerpt post__content clearfix">
-		Difference Between Box, Rc, Arc, Cell (and its various variants.. RefCell, Mutex, RwLock) in Rust:
- Box is for single ownership. A great use case is to use this when we want to store primitive types (stored on stack) on heap. Rc is for multiple ownership. Arc is for multiple ownership, but threadsafe. RefCell is for “interior mutability”; that is, when you need to mutate something behind a &amp;T. Cell is for “interior mutability” for Copy types; that is, when you need to mutate something behind a &amp;T.
-	</div>
 </article>
 </main>
 
@@ -271,6 +271,7 @@ use std::io; use std::io::Cursor; which means explicitly use std::io::Cursor and
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/posts/awssetup-reverse-proxy-in-aws-using-elb/">AWS:Setup Reverse Proxy in AWS Using ELB</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/grafanagrafana-loki-aws-s3-integration/">Grafana:Grafana Loki AWS S3 Integration</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golangdistributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/rate-limiting-in-distributed-system/">Rate Limiting in a Distributed System</a></li>
@@ -280,7 +281,6 @@ use std::io; use std::io::Cursor; which means explicitly use std::io::Cursor and
 			<li class="widget__item"><a class="widget__link" href="/posts/using-postgres-inside-docker-container/">Golang: Using Postgres Inside Docker Container</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golang-common-concurrency-patterns/">Golang: Common Concurrency Patterns</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golang-channels/">Golang Channels</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/golangcobra-and-viper-tutorial/">Golang:Cobra and Viper Tutorial</a></li>
 		</ul>
 	</div>
 </div>
