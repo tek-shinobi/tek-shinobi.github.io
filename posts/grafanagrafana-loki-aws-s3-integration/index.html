@@ -169,6 +169,15 @@ Here is a stack overflow post with fellow strugglers&hellip; <a href="https://st
 
 <span style="color:#f92672">ruler</span>:
   <span style="color:#f92672">alertmanager_url</span>: <span style="color:#ae81ff">http://localhost:9093</span>
+  <span style="color:#f92672">rule_path</span>: <span style="color:#ae81ff">/loki/rules</span>
+  <span style="color:#f92672">enable_api</span>: <span style="color:#66d9ef">true</span>
+  <span style="color:#f92672">ring</span>:
+    <span style="color:#f92672">kvstore</span>:
+      <span style="color:#f92672">store</span>: <span style="color:#ae81ff">inmemory</span>
+  <span style="color:#f92672">storage</span>:
+    <span style="color:#f92672">type</span>: <span style="color:#ae81ff">local</span>
+    <span style="color:#f92672">local</span>:
+      <span style="color:#f92672">directory</span>: <span style="color:#ae81ff">/loki/rules</span>
 
 <span style="color:#75715e"># bug in grafana 2.4.2+ versions causing frontend to show &#34;too many outstanding requests&#34; for periods larger than 16 hours. Workaround for that</span>
 <span style="color:#75715e"># https://github.com/grafana/loki/issues/5123</span>
@@ -187,7 +196,8 @@ Here is a stack overflow post with fellow strugglers&hellip; <a href="https://st
 <span style="color:#75715e"># If you would like to disable reporting, uncomment the following lines:</span>
 <span style="color:#f92672">analytics</span>:
  <span style="color:#f92672">reporting_enabled</span>: <span style="color:#66d9ef">false</span>
-</code></pre></div><p>some grafana undocumented weirdness here. Note these lines:</p>
+</code></pre></div><p>Note the <code>ruler</code> section. It&rsquo;s needed if you wish to set alert rules to get grafana managed alerts.</p>
+<p>some grafana undocumented weirdness here. Note these lines:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">  aws:
     s3: s3://ACCESS_KEY:SECRET_ACCESS_KEY@eu-central-1/bucket-name
     s3forcepathstyle: true
@@ -311,6 +321,15 @@ Here is a stack overflow post with fellow strugglers&hellip; <a href="https://st
 
 <span style="color:#f92672">ruler</span>:
   <span style="color:#f92672">alertmanager_url</span>: <span style="color:#ae81ff">http://localhost:9093</span>
+  <span style="color:#f92672">rule_path</span>: <span style="color:#ae81ff">/loki/rules</span>
+  <span style="color:#f92672">enable_api</span>: <span style="color:#66d9ef">true</span>
+  <span style="color:#f92672">ring</span>:
+    <span style="color:#f92672">kvstore</span>:
+      <span style="color:#f92672">store</span>: <span style="color:#ae81ff">inmemory</span>
+  <span style="color:#f92672">storage</span>:
+    <span style="color:#f92672">type</span>: <span style="color:#ae81ff">local</span>
+    <span style="color:#f92672">local</span>:
+      <span style="color:#f92672">directory</span>: <span style="color:#ae81ff">/loki/rules</span>
 
 <span style="color:#75715e"># bug in grafana 2.4.2+ versions causing frontend to show &#34;too many outstanding requests&#34; for periods larger than 16 hours. Workaround for that</span>
 <span style="color:#75715e"># https://github.com/grafana/loki/issues/5123</span>
@@ -381,8 +400,8 @@ so, here is the <code>loki-config.yaml</code>:</p>
   <span style="color:#f92672">path_prefix</span>: <span style="color:#ae81ff">loki</span>
   <span style="color:#f92672">storage</span>:
     <span style="color:#f92672">filesystem</span>:
-      <span style="color:#f92672">chunks_directory</span>: <span style="color:#ae81ff">/tmp/loki/chunks</span>
-      <span style="color:#f92672">rules_directory</span>: <span style="color:#ae81ff">/tmp/loki/rules</span>
+      <span style="color:#f92672">chunks_directory</span>: <span style="color:#ae81ff">/loki/chunks</span>
+      <span style="color:#f92672">rules_directory</span>: <span style="color:#ae81ff">/loki/rules</span>
   <span style="color:#f92672">replication_factor</span>: <span style="color:#ae81ff">1</span>
   <span style="color:#f92672">ring</span>:
     <span style="color:#f92672">kvstore</span>:
@@ -426,6 +445,15 @@ so, here is the <code>loki-config.yaml</code>:</p>
 
 <span style="color:#f92672">ruler</span>:
   <span style="color:#f92672">alertmanager_url</span>: <span style="color:#ae81ff">http://localhost:9093</span>
+  <span style="color:#f92672">rule_path</span>: <span style="color:#ae81ff">/loki/rules</span>
+  <span style="color:#f92672">enable_api</span>: <span style="color:#66d9ef">true</span>
+  <span style="color:#f92672">ring</span>:
+    <span style="color:#f92672">kvstore</span>:
+      <span style="color:#f92672">store</span>: <span style="color:#ae81ff">inmemory</span>
+  <span style="color:#f92672">storage</span>:
+    <span style="color:#f92672">type</span>: <span style="color:#ae81ff">local</span>
+    <span style="color:#f92672">local</span>:
+      <span style="color:#f92672">directory</span>: <span style="color:#ae81ff">/loki/rules</span>
 
 <span style="color:#75715e"># bug in grafana 2.4.2+ versions causing frontend to show &#34;too many outstanding requests&#34; for periods larger than 16 hours. Workaround for that</span>
 <span style="color:#75715e"># https://github.com/grafana/loki/issues/5123</span>
