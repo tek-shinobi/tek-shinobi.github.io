@@ -44,6 +44,47 @@
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
+			<a href="/posts/virtualboxfirst-steps-after-install-ubuntu/" rel="bookmark">
+			Virtualbox:First Steps After Install Ubuntu
+			</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2017-09-29T11:14:07&#43;03:00">September 29, 2017</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/virtualbox/" rel="category">Virtualbox</a>
+	</span>
+</div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		If you are installing ubuntu, always install with &ldquo;skip unattended&rdquo; checkmarked. Otherwise, you won&rsquo;t have terminal access and no sudo.
+Have the new VM with ubuntu in running state and open terminal in the running VM
+To enable copy-paste:
+ sudo apt update Devices -&gt; Insert Guest Additions CD image Devices -&gt; Shared Clipboard -&gt; choose Bidirectional Devices -&gt; Drag and Drop -&gt; choose Bidirectional sudo apt install build-essential create some directories to mount the disk inserted in step 2:  sudo mkdir /mnt/cdrom this will create a directory called cdrom in mnt sudo mount /dev/cdrom /mnt/cdrom this will mount the /dev/cdrom onto the new directory we created cd /mnt/cdrom ls sudo sh .
+	</div>
+</article><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/posts/frontend-csscommon-tricksavoid-text-wrapping-at-whitespace/" rel="bookmark">
+			Frontend CSS:Common Tricks:Avoid Text Wrapping at Whitespace
+			</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2017-09-07T13:59:41&#43;03:00">September 07, 2017</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/frontend/" rel="category">frontend</a>
+	</span>
+</div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		Here is how to avoid wrapping of text in elements like btn, div etc (block, or inline-block elements).
+add this to the btn styling: white-space: nowrap;
+You will find this code often. We strip off any padding around ul because it is automatically added by browsers
+ul{ padding: 0; } If you want the list items to be displayed horizontally, instead of vertically, just put an inline-block
+ul li { display: inline-block; } 
+	</div>
+</article><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
 			<a href="/posts/frontend-reacttips-for-making-reusable-componentsprops/" rel="bookmark">
 			Frontend React:Tips for Making Reusable Components:props
 			</a>
@@ -163,6 +204,8 @@ Reset CSS stylesheet: This CSS stylesheet aims to remove all default styling app
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/posts/githubmanaging-multiple-accounts/">Github:managing Multiple Accounts: SSH configuration</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/linuxiptables-cheatsheet/">Linux:Iptables Cheatsheet</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/awssetup-reverse-proxy-in-aws-using-elb/">AWS:Setup Reverse Proxy in AWS Using ELB</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/grafanagrafana-loki-aws-s3-integration/">Grafana:Grafana Loki AWS S3 Integration</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golangdistributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
@@ -171,8 +214,6 @@ Reset CSS stylesheet: This CSS stylesheet aims to remove all default styling app
 			<li class="widget__item"><a class="widget__link" href="/posts/add-gpg-keys-to-repo/">Add Gpg Keys to Repo</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golang-handling-null-in-database-tables/">Golang: Handling Null in Database Tables</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/using-postgres-inside-docker-container/">Golang: Using Postgres Inside Docker Container</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/golang-common-concurrency-patterns/">Golang: Common Concurrency Patterns</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/golang-channels/">Golang Channels</a></li>
 		</ul>
 	</div>
 </div>
@@ -199,6 +240,8 @@ Reset CSS stylesheet: This CSS stylesheet aims to remove all default styling app
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/kubernetes/">kubernetes</a></li>
 			<li class="widget__item">
+				<a class="widget__link" href="/categories/linux/">Linux</a></li>
+			<li class="widget__item">
 				<a class="widget__link" href="/categories/networking/">networking</a></li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/python/">python</a></li>
@@ -224,6 +267,7 @@ Reset CSS stylesheet: This CSS stylesheet aims to remove all default styling app
 		<a class="widget-taglist__link widget__link btn" href="/tags/github/" title="github">github</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/golang/" title="golang">golang</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/gpg/" title="gpg">gpg</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/iptables/" title="iptables">iptables</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/javascript/" title="javascript">javascript</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/loki/" title="loki">loki</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/minikube/" title="minikube">minikube</a>

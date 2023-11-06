@@ -45,6 +45,44 @@
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
+			<a href="/posts/backend-pythondjango-rest-framework-project-setup-template/" rel="bookmark">
+			Backend Python:Django Rest Framework Project Setup Template
+			</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2018-09-07T16:18:09&#43;03:00">September 07, 2018</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/backend/" rel="category">backend</a>, <a class="meta__link" href="/categories/python/" rel="category">python</a>
+	</span>
+</div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		I am assuming that pipenv is already installed. Also, assuming that Python 3.5+ already installed in the base environment.
+ create new environment: pipenv shell pipenv install django djangorestframework markdown django-filter pygments flake8 httpie pytest pytest-django pytest-factoryboy pytest-cov django-extensions djangorestframework-simplejwt django-cors-headers mypy djangorestframework-stubs pipenv install --dev --pre black create django project:django-admin.py startproject my_proj cd my_proj python manage.py startapp my_app  The above is a basic boiler plate.
+Some explanation of what got installed:
+	</div>
+</article><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/posts/backend-netdigital-signature-of-payload-in-net/" rel="bookmark">
+			Backend c#:Reading RSA key pair from PEM files in .NET with C# using Bouncy Castle and Digitally Sign and Verify payload
+			</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2018-09-07T16:09:23&#43;03:00">September 07, 2018</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/backend/" rel="category">backend</a>
+	</span>
+</div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		.NET does not have an easy way to directly deal with .pem format files generated using OpenSSL. I had to look into Bouncy Castle library to do it. Lets see how. We will also generate a dummy payload and then sign it using the generated pem keys and then verify it.
+First let us generate RSA key pair using OpenSSL. Please install OpenSSL before hand.
+[user@host secure]~ openssl genrsa -out posvendor.
+	</div>
+</article><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
 			<a href="/posts/backend-pythonlogging-in-django-and-django-rest-framework-projects/" rel="bookmark">
 			Backend Python:Logging in Django and Django Rest Framework Projects
 			</a>
@@ -191,45 +229,6 @@ What exactly is a User model for? Django uses a User model for only one purpose,
 Step 1 Create named urls:
 from django.conf.urls import url, include from django.contrib import admin from django.conf import settings from django.conf.urls.static import static from .views import ( HomeView, AboutView, ContactView, LoginView, RegistrationView ) urlpatterns = [ #url(r&#39;^products/(?P&lt;slug&gt;[\w-]+)/$&#39;, EcomProductDetailSlugView.as_view()), url(r&#39;^$&#39;, HomeView.as_view(), name=&#39;home&#39;), url(r&#39;^about/$&#39;, AboutView.as_view(), name=&#39;about&#39;), url(r&#39;^contact/$&#39;, ContactView.as_view(), name=&#39;contact&#39;), url(r&#39;^login/$&#39;, LoginView.as_view(), name=&#39;login&#39;), url(r&#39;^register/$&#39;, RegistrationView.
 	</div>
-</article><article class="list__item post">
-	
-	<header class="list__header">
-		<h2 class="list__title post__title">
-			<a href="/posts/backend-pythondjango-sessions-for-anonymous-users/" rel="bookmark">
-			Backend Python:Django Sessions for Anonymous Users
-			</a>
-		</h2>
-		<div class="list__meta meta">
-<div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2018-09-07T11:39:04&#43;03:00">September 07, 2018</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/backend/" rel="category">backend</a>, <a class="meta__link" href="/categories/python/" rel="category">python</a>
-	</span>
-</div></div>
-	</header>
-	<div class="content list__excerpt post__content clearfix">
-		We know that all logged in users are connected to a session. This is something done for you by Django middlewares.
-Similarly, for anonymous users (not logged in), every time the server receives a request, django creates a session object (meaning, an object with session_key, session_data and expire_data values). But the catch here is that you won’t see this session object in the django_session table because django sessions are saved only when modified .
-	</div>
-</article><article class="list__item post">
-	
-	<header class="list__header">
-		<h2 class="list__title post__title">
-			<a href="/posts/backend-pythondjango-orm-tips-set/" rel="bookmark">
-			Backend Python:Django ORM Tips: _set meaning in Django ORM relationship
-			</a>
-		</h2>
-		<div class="list__meta meta">
-<div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2018-09-07T11:18:20&#43;03:00">September 07, 2018</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/backend/" rel="category">backend</a>, <a class="meta__link" href="/categories/python/" rel="category">python</a>
-	</span>
-</div></div>
-	</header>
-	<div class="content list__excerpt post__content clearfix">
-		_set is associated with reverse relation on a model.
-Django allows you to access reverse relations on a model. By default, Django creates a manager (RelatedManager) on your model to handle this, named &lt;model&gt;_set, where &lt;model&gt; is your model name in lowercase.
-Excellent link on StackOverflow here: https://stackoverflow.com/questions/25386119/whats-the-difference-between-a-onetoone-manytomany-and-a-foreignkey-field-in-d
-If we have these models:
-class User(models.Model): username = models.CharField(max_length=100, unique=True) companies = models.ManyToManyField(&#39;Company&#39;, blank=True) class Company(models.Model): name = models.CharField(max_length=255) In Django,
-	</div>
 </article>
 </main>
 
@@ -265,6 +264,8 @@ class User(models.Model): username = models.CharField(max_length=100, unique=Tru
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/posts/githubmanaging-multiple-accounts/">Github:managing Multiple Accounts: SSH configuration</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/linuxiptables-cheatsheet/">Linux:Iptables Cheatsheet</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/awssetup-reverse-proxy-in-aws-using-elb/">AWS:Setup Reverse Proxy in AWS Using ELB</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/grafanagrafana-loki-aws-s3-integration/">Grafana:Grafana Loki AWS S3 Integration</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golangdistributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
@@ -273,8 +274,6 @@ class User(models.Model): username = models.CharField(max_length=100, unique=Tru
 			<li class="widget__item"><a class="widget__link" href="/posts/add-gpg-keys-to-repo/">Add Gpg Keys to Repo</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golang-handling-null-in-database-tables/">Golang: Handling Null in Database Tables</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/using-postgres-inside-docker-container/">Golang: Using Postgres Inside Docker Container</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/golang-common-concurrency-patterns/">Golang: Common Concurrency Patterns</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/golang-channels/">Golang Channels</a></li>
 		</ul>
 	</div>
 </div>
@@ -301,6 +300,8 @@ class User(models.Model): username = models.CharField(max_length=100, unique=Tru
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/kubernetes/">kubernetes</a></li>
 			<li class="widget__item">
+				<a class="widget__link" href="/categories/linux/">Linux</a></li>
+			<li class="widget__item">
 				<a class="widget__link" href="/categories/networking/">networking</a></li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/python/">python</a></li>
@@ -326,6 +327,7 @@ class User(models.Model): username = models.CharField(max_length=100, unique=Tru
 		<a class="widget-taglist__link widget__link btn" href="/tags/github/" title="github">github</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/golang/" title="golang">golang</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/gpg/" title="gpg">gpg</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/iptables/" title="iptables">iptables</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/javascript/" title="javascript">javascript</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/loki/" title="loki">loki</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/minikube/" title="minikube">minikube</a>

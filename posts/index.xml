@@ -5,7 +5,35 @@
     <link>https://tek-shinobi.github.io/posts/</link>
     <description>Recent content in Posts on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 13 Oct 2023 12:06:40 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 06 Nov 2023 19:53:20 +0200</lastBuildDate><atom:link href="https://tek-shinobi.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Github:managing Multiple Accounts: SSH configuration</title>
+      <link>https://tek-shinobi.github.io/posts/githubmanaging-multiple-accounts/</link>
+      <pubDate>Mon, 06 Nov 2023 19:53:20 +0200</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/githubmanaging-multiple-accounts/</guid>
+      <description>Notes for SSH key configuration with multiple Github accounts.
+I have multiple github accounts. Say one for work and one that is personal.
+ NOTE: This logic can be extended to more than two accounts.
+ The setup can be done in 5 easy steps:
+Steps:  Step 1 : Create SSH keys for all accounts Step 2 : Add SSH keys to SSH Agent Step 3 : Add SSH public key to the Github Step 4 : Create a Config File and Make Host Entries Step 5 : Clone GitHub repositories using different accounts OR modify remote url for existing repos  Step 1 Create SSH keys for all accounts First make sure your current directory is your .</description>
+    </item>
+    
+    <item>
+      <title>Linux:Iptables Cheatsheet</title>
+      <link>https://tek-shinobi.github.io/posts/linuxiptables-cheatsheet/</link>
+      <pubDate>Tue, 17 Oct 2023 13:23:19 +0300</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/linuxiptables-cheatsheet/</guid>
+      <description>5 types of tables:
+ Filter NAT Mangle Raw Security  Last two tables are not very frequently used. Default table is Filter table.
+List table:
+sudo iptables -L -n -v L: list n: numeric format v: verbose
+since no table was mentioned in the above command, it will list all contents of default table, Filter.
+below will display contents of mangle table:
+sudo iptables -t mangle -L -n -v Syntax of iptables is case sensitive.</description>
+    </item>
+    
     <item>
       <title>AWS:Setup Reverse Proxy in AWS Using ELB</title>
       <link>https://tek-shinobi.github.io/posts/awssetup-reverse-proxy-in-aws-using-elb/</link>

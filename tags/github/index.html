@@ -45,6 +45,27 @@
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
+			<a href="/posts/githubmanaging-multiple-accounts/" rel="bookmark">
+			Github:managing Multiple Accounts: SSH configuration
+			</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2023-11-06T19:53:20&#43;02:00">November 06, 2023</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/github/" rel="category">github</a>
+	</span>
+</div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		Notes for SSH key configuration with multiple Github accounts.
+I have multiple github accounts. Say one for work and one that is personal.
+ NOTE: This logic can be extended to more than two accounts.
+ The setup can be done in 5 easy steps:
+Steps:  Step 1 : Create SSH keys for all accounts Step 2 : Add SSH keys to SSH Agent Step 3 : Add SSH public key to the Github Step 4 : Create a Config File and Make Host Entries Step 5 : Clone GitHub repositories using different accounts OR modify remote url for existing repos  Step 1 Create SSH keys for all accounts First make sure your current directory is your .
+	</div>
+</article><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
 			<a href="/posts/add-gpg-keys-to-repo/" rel="bookmark">
 			Add Gpg Keys to Repo
 			</a>
@@ -89,6 +110,8 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/posts/githubmanaging-multiple-accounts/">Github:managing Multiple Accounts: SSH configuration</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/linuxiptables-cheatsheet/">Linux:Iptables Cheatsheet</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/awssetup-reverse-proxy-in-aws-using-elb/">AWS:Setup Reverse Proxy in AWS Using ELB</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/grafanagrafana-loki-aws-s3-integration/">Grafana:Grafana Loki AWS S3 Integration</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golangdistributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
@@ -97,8 +120,6 @@
 			<li class="widget__item"><a class="widget__link" href="/posts/add-gpg-keys-to-repo/">Add Gpg Keys to Repo</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golang-handling-null-in-database-tables/">Golang: Handling Null in Database Tables</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/using-postgres-inside-docker-container/">Golang: Using Postgres Inside Docker Container</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/golang-common-concurrency-patterns/">Golang: Common Concurrency Patterns</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/golang-channels/">Golang Channels</a></li>
 		</ul>
 	</div>
 </div>
@@ -125,6 +146,8 @@
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/kubernetes/">kubernetes</a></li>
 			<li class="widget__item">
+				<a class="widget__link" href="/categories/linux/">Linux</a></li>
+			<li class="widget__item">
 				<a class="widget__link" href="/categories/networking/">networking</a></li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/python/">python</a></li>
@@ -150,6 +173,7 @@
 		<a class="widget-taglist__link widget__link btn" href="/tags/github/" title="github">github</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/golang/" title="golang">golang</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/gpg/" title="gpg">gpg</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/iptables/" title="iptables">iptables</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/javascript/" title="javascript">javascript</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/loki/" title="loki">loki</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/minikube/" title="minikube">minikube</a>
