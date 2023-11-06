@@ -110,7 +110,8 @@ The public key will have an extention <strong>.pub</strong> and private key will
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">     touch config
 </code></pre></div><p>Paste the following in the <code>config</code> file:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">Host github.com
-  IdentitiesOnly<span style="color:#f92672">=</span>yes
+  HostName github.com
+  User git
   IdentityFile ~/.ssh/github-personal
 
 Host github.com-github-work
@@ -148,6 +149,7 @@ goto the respective repo folder. and the cd to <code>.git</code> directory. Now 
 	url <span style="color:#f92672">=</span> github.com-github-work:kubernetes/kubernetes
 	fetch <span style="color:#f92672">=</span> +refs/heads/*:refs/remotes/origin/*
 </code></pre></div><p>Here, <code>kubernetes/kubernetes</code>  is in format <code>username/reponame</code> format. You will of course have your own repo name here, but this part will be the same <code>github.com-github-work</code></p>
+<p>You will need to do this to all of your existing work repos.</p>
 
 		</div>
 		<footer class="post__footer">
