@@ -144,7 +144,7 @@ Connection to github.com closed.</p>
 <h3 id="modify-existing-repo">modify existing repo</h3>
 <p>In case you have an existing repo, if that repo is related to your default account, nothing needs to be done.</p>
 <p>For the repos related to the work account, you will either need to reset remote origin or set one (if not already set):
-goto the respective repo folder. and the cd to <code>.git</code> directory. Now do <code>nano config</code> and make sure that it looks like this:</p>
+goto the respective repo folder. and the cd to <code>.git</code> directory. Now do <code>nano config</code> and make sure that <code>url</code> looks like this:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>remote <span style="color:#e6db74">&#34;origin&#34;</span><span style="color:#f92672">]</span>
 	url <span style="color:#f92672">=</span> github.com-github-work:kubernetes/kubernetes
 	fetch <span style="color:#f92672">=</span> +refs/heads/*:refs/remotes/origin/*
