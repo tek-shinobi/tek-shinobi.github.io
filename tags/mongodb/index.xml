@@ -5,11 +5,11 @@
     <link>https://tek-shinobi.github.io/tags/mongodb/</link>
     <description>Recent content in mongodb on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 14 Nov 2023 10:25:50 +0200</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/mongodb/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 14 Nov 2021 10:25:50 +0200</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/mongodb/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>MongoDB: Cheatsheet</title>
       <link>https://tek-shinobi.github.io/posts/mongodbcheatsheet/</link>
-      <pubDate>Tue, 14 Nov 2023 10:25:50 +0200</pubDate>
+      <pubDate>Sun, 14 Nov 2021 10:25:50 +0200</pubDate>
       
       <guid>https://tek-shinobi.github.io/posts/mongodbcheatsheet/</guid>
       <description>create and run mongodb docker container:

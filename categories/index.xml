@@ -5,16 +5,7 @@
     <link>https://tek-shinobi.github.io/categories/</link>
     <description>Recent content in Categories on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 14 Nov 2023 10:25:50 +0200</lastBuildDate><atom:link href="https://tek-shinobi.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>mongodb</title>
-      <link>https://tek-shinobi.github.io/categories/mongodb/</link>
-      <pubDate>Tue, 14 Nov 2023 10:25:50 +0200</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/categories/mongodb/</guid>
-      <description></description>
-    </item>
-    
+    <lastBuildDate>Mon, 06 Nov 2023 19:53:20 +0200</lastBuildDate><atom:link href="https://tek-shinobi.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>github</title>
       <link>https://tek-shinobi.github.io/categories/github/</link>
@@ -75,6 +66,15 @@
       <pubDate>Thu, 05 May 2022 10:38:56 +0300</pubDate>
       
       <guid>https://tek-shinobi.github.io/categories/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>mongodb</title>
+      <link>https://tek-shinobi.github.io/categories/mongodb/</link>
+      <pubDate>Sun, 14 Nov 2021 10:25:50 +0200</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/categories/mongodb/</guid>
       <description></description>
     </item>
     
