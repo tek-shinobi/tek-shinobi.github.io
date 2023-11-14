@@ -45,6 +45,30 @@
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
+			<a href="/posts/mongodbcheatsheet/" rel="bookmark">
+			MongoDB: Cheatsheet
+			</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2021-11-14T10:25:50&#43;02:00">November 14, 2021</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/mongodb/" rel="category">mongodb</a>
+	</span>
+</div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		create and run mongodb docker container:
+docker run --name mongodb -d -p 27017:27017 mongo:7 login to mongodb container:
+docker exec -it mongodb sh run mongosh to enter mongo shell
+&gt; mongosh it will automatically show a test&gt; prompt which is a default test database
+to clear screen:
+cls to ompletely exit out of mongosh and docker shell terminal:
+exit this command will show all dbs:
+show dbs to create a new database:
+	</div>
+</article><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
 			<a href="/posts/golang-common-concurrency-patterns/" rel="bookmark">
 			Golang: Common Concurrency Patterns
 			</a>
@@ -220,24 +244,6 @@ To remove docker image by image_id: sudo docker rmi &lt;your_image_id1&gt; &lt;y
 		I was looking for Python style temporary files and temporary directories in Rust. Very handy when writing tests for simulating actual files, or when we need to use files once or cache large amount of data for short time. We then let the operating system delete the files at a later time automatically or by its clean-up feature manually.
 Doing ourselves using Operating System Temporary Directory Let&rsquo;s first implement this by ourselves to understand what is going on.
 	</div>
-</article><article class="list__item post">
-	
-	<header class="list__header">
-		<h2 class="list__title post__title">
-			<a href="/posts/rust-file-builder-pattern-for-file-read-writes/" rel="bookmark">
-			Rust File Builder Pattern for File Read Writes
-			</a>
-		</h2>
-		<div class="list__meta meta">
-<div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2021-03-20T11:14:09&#43;03:00">March 20, 2021</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/rust/" rel="category">rust</a>
-	</span>
-</div></div>
-	</header>
-	<div class="content list__excerpt post__content clearfix">
-		Consider the following test code that creates a file, writes to it and then reads back to confirm what it wrote.
-#[cfg(test)] mod tests { #[allow(unused_imports)] use super::*; use std::fs::{self, File, OpenOptions}; use std::io::{Read, Seek, SeekFrom, Write}; use tempfile::{tempdir, tempfile, NamedTempFile}; #[test] fn test_file() { let dir = tempdir().unwrap(); let file_path = dir.path().join(&#34;foo.txt&#34;); let mut file = File::create(file_path.to_owned()).unwrap(); file.write_all(&#34;Bar Baz&#34;.as_bytes()) .unwrap(); file.seek(SeekFrom::Start(0)).unwrap(); let mut contents = String::new(); file.read_to_string(&amp;mut contents).unwrap(); assert_eq!(contents, &#34;Bar Baz&#34;); drop(file); dir.
-	</div>
 </article>
 </main>
 
@@ -311,6 +317,8 @@ Doing ourselves using Operating System Temporary Directory Let&rsquo;s first imp
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/linux/">Linux</a></li>
 			<li class="widget__item">
+				<a class="widget__link" href="/categories/mongodb/">mongodb</a></li>
+			<li class="widget__item">
 				<a class="widget__link" href="/categories/networking/">networking</a></li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/python/">python</a></li>
@@ -340,6 +348,7 @@ Doing ourselves using Operating System Temporary Directory Let&rsquo;s first imp
 		<a class="widget-taglist__link widget__link btn" href="/tags/javascript/" title="javascript">javascript</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/loki/" title="loki">loki</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/minikube/" title="minikube">minikube</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/mongodb/" title="mongodb">mongodb</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/networking/" title="networking">networking</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/postgres/" title="postgres">postgres</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/python/" title="python">python</a>
@@ -363,7 +372,7 @@ Doing ourselves using Operating System Temporary Directory Let&rsquo;s first imp
 		
 		<div class="footer__copyright">
 			&copy; 2023 Tek Shinobi Blog.
-			
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
 		</div>
 	</div>
 </footer>

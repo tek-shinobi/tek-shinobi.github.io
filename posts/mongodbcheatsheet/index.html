@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>MongoDB: Cheatsheet - Tek Shinobi Blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo">
+		<a class="logo__link" href="/" title="Tek Shinobi Blog" rel="home">
+			<div class="logo__item logo__text">
+					<div class="logo__title">Tek Shinobi Blog</div>
+					
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">MongoDB: Cheatsheet</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2021-11-14T10:25:50&#43;02:00">November 14, 2021</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/mongodb/" rel="category">mongodb</a>
+	</span>
+</div></div>
+		</header>
+		<div class="content post__content clearfix">
+			<p>create and run mongodb docker container:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">docker run --name mongodb -d -p 27017:27017 mongo:7 
+</code></pre></div><p>login to mongodb container:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">docker exec -it mongodb sh
+</code></pre></div><p>run mongosh to enter mongo shell</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">&gt; mongosh
+</code></pre></div><p>it will automatically show a <code>test&gt;</code> prompt which is a default test database</p>
+<p>to clear screen:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cls
+</code></pre></div><p>to ompletely exit out of mongosh and docker shell terminal:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">exit
+</code></pre></div><p>this command will show all dbs:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">show dbs
+</code></pre></div><p>to create a new database:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">use appdb
+</code></pre></div><p>here <code>appdb</code> is the name of the new database. It will create the database and then switch to that database. (it might be that at this stage, if you do <code>show dbs</code>, you cannot see <code>appdb</code>. This is because that db will get created when data is added to it)</p>
+<p>to delete a database, first do <code>use &lt;dbname&gt;</code> to switch to that database and then:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">db.dropDatabase<span style="color:#f92672">()</span>
+</code></pre></div><p>note that above command will still keep you at <code>appdb&gt;</code> prompt even if that database does not exist. It is because in mongodb, if a database does not exist and you try to add data or collections to it, it will automatically get created.</p>
+<p>to view all collections in the database:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">show collections
+</code></pre></div><p>to access a current database (after running <code>use appdb</code> .. where <code>appdb</code> is the name of database I am using):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">db
+</code></pre></div><p>it will return the name of the current database</p>
+<p><code>db</code> actually has a bunch of methods on it.</p>
+<p>to insert record into a collection named <code>users</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">appdb&gt; db.users.insertOne<span style="color:#f92672">({</span>name: <span style="color:#e6db74">&#34;Dingo&#34;</span><span style="color:#f92672">})</span>
+</code></pre></div><p>to see the above inserted record:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">appdb&gt; db.users.find<span style="color:#f92672">()</span>
+</code></pre></div><p>the above method will return all records in the collection <code>users</code></p>
+<p>insert another record:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">appdb&gt; db.users.insertOne<span style="color:#f92672">({</span>name: <span style="color:#e6db74">&#34;Sally&#34;</span>, age: 19, address: <span style="color:#f92672">{</span>street: <span style="color:#e6db74">&#34;987 North St&#34;</span><span style="color:#f92672">}</span>, hobbies:<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;Running&#34;</span><span style="color:#f92672">]})</span>
+</code></pre></div><p>As seen above, with mongodb, we don&rsquo;t need to have all documents within a collection share the same fields. Also, we can nest objects within objects, like the address object and hobbies array in above record.</p>
+<p>to insert multiple documents:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">appdb&gt; db.users.insertMany<span style="color:#f92672">([{</span>name: <span style="color:#e6db74">&#34;Jill&#34;</span><span style="color:#f92672">}</span>, <span style="color:#f92672">{</span>name: <span style="color:#e6db74">&#34;Mike&#34;</span><span style="color:#f92672">}])</span>
+appdb&gt; db.users.insertMany<span style="color:#f92672">([{</span>name: <span style="color:#e6db74">&#34;Kyle&#34;</span>, age: 26, hobbies:<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;Weight lifting&#34;</span>, <span style="color:#e6db74">&#34;Bowling&#34;</span><span style="color:#f92672">]</span>, address:<span style="color:#f92672">{</span>street: <span style="color:#e6db74">&#34;123 Main St&#34;</span>, city: <span style="color:#e6db74">&#34;New York City&#34;</span><span style="color:#f92672">}}</span>, <span style="color:#f92672">{</span>name: <span style="color:#e6db74">&#34;Billy&#34;</span>, age: 41, hobbies:<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;Swimming&#34;</span>, <span style="color:#e6db74">&#34;Bowling&#34;</span><span style="color:#f92672">]</span>, address:<span style="color:#f92672">{</span>street: <span style="color:#e6db74">&#34;442 South St&#34;</span>, city: <span style="color:#e6db74">&#34;New York City&#34;</span><span style="color:#f92672">}}])</span>
+</code></pre></div><p>to limit the results to 2:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">appdb&gt; db.users.find<span style="color:#f92672">()</span>.limit<span style="color:#f92672">(</span>2<span style="color:#f92672">)</span>
+</code></pre></div><p>to sort alphabetically on <code>name</code>, <code>1</code> for ascending, <code>-1</code> for descending:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">appdb&gt; db.users.find<span style="color:#f92672">()</span>.sort<span style="color:#f92672">({</span>name: 1<span style="color:#f92672">})</span>.limit<span style="color:#f92672">(</span>2<span style="color:#f92672">)</span>
+</code></pre></div><p>to sort with multiple fields: we will first sort in order on <code>age</code> and then in reverse order on <code>name</code> :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">appdb&gt; db.users.find<span style="color:#f92672">()</span>.sort<span style="color:#f92672">({</span>age: 1, name: 1<span style="color:#f92672">})</span>.limit<span style="color:#f92672">(</span>2<span style="color:#f92672">)</span>
+</code></pre></div><p>if you want to skip some results:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">appdb&gt; db.users.find<span style="color:#f92672">()</span>.sort<span style="color:#f92672">({</span>age: 1, name: 1<span style="color:#f92672">})</span>.skip<span style="color:#f92672">(</span>1<span style="color:#f92672">)</span>.limit<span style="color:#f92672">(</span>2<span style="color:#f92672">)</span>
+</code></pre></div><p>this will skip first result</p>
+<p>to return only a select few fields:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">appdb&gt; db.users.find<span style="color:#f92672">({</span>name: <span style="color:#e6db74">&#34;Kyle&#34;</span><span style="color:#f92672">}</span>, <span style="color:#f92672">{</span>name: 1, age: 1, _id: 0<span style="color:#f92672">})</span>
+</code></pre></div><p>here we pass a second object within <code>find()</code> that has the fields that I want set to 1. Exception is <code>_id</code> which is also returned by default. To not have it, pass 0 for it.</p>
+<p>Also, to send all the fields except for <code>age</code> in the result:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">appdb&gt; db.users.find<span style="color:#f92672">({</span>name: <span style="color:#e6db74">&#34;Kyle&#34;</span><span style="color:#f92672">}</span>, <span style="color:#f92672">{</span>age: 0<span style="color:#f92672">})</span>
+</code></pre></div><h4 id="more-complex-find-queries">more complex find queries</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">appdb&gt; db.users.find<span style="color:#f92672">({</span>name: <span style="color:#f92672">{</span>$ne: <span style="color:#e6db74">&#34;Kyle&#34;</span><span style="color:#f92672">}})</span>
+</code></pre></div><p>here it will return all records where name is not Kyle.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">appdb&gt; db.users.find<span style="color:#f92672">({</span>age: <span style="color:#f92672">{</span>$gt: 13<span style="color:#f92672">}})</span>
+</code></pre></div><p>here it will return all records where age is greater than 13.</p>
+<ul>
+<li><code>$gte</code> is for greater than or equal to</li>
+<li><code>$lte</code> is for less than or equal to</li>
+<li><code>$lt</code> is for less than</li>
+</ul>
+<p>a query where return all records where <code>name</code> is within a list of values:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">appdb&gt; db.users.find<span style="color:#f92672">({</span>name: <span style="color:#f92672">{</span>$in: <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;Kyle&#34;</span>, <span style="color:#e6db74">&#34;Sally&#34;</span><span style="color:#f92672">]}})</span>
+</code></pre></div><p>this will return all records where name is either Kyle or Sally.
+to achieve the opposite of this, use <code>$nin</code> which is <code>not in</code></p>
+<p>to return all records where <code>age</code> property is set:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">appdb&gt; db.users.find<span style="color:#f92672">({</span>age: <span style="color:#f92672">{</span>$exists: true<span style="color:#f92672">}})</span>
+</code></pre></div><p>to return all records where <code>age</code> property is not set:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">appdb&gt; db.users.find<span style="color:#f92672">({</span>age: <span style="color:#f92672">{</span>$exists: false<span style="color:#f92672">}})</span>
+</code></pre></div><p>note that <code>$exists</code> only checks if the key exists. For example, in above examples, it will check if key <code>age</code> exists.</p>
+<p>If however the key exists but its value is set to null, <code>$exists</code> will still evaluate to true. So it only checks is key exists and not if the value also exists.</p>
+<p>to return all records within a range:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">appdb&gt; db.users.find<span style="color:#f92672">({</span>age: <span style="color:#f92672">{</span>$gte: 20, $lte: 40<span style="color:#f92672">}})</span>
+</code></pre></div><p>to do an <code>AND</code> style query where we return all records within a range AND with name Kyle:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">appdb&gt; db.users.find<span style="color:#f92672">({</span>age: <span style="color:#f92672">{</span>$gte: 20, $lte: 40<span style="color:#f92672">}</span>, name: <span style="color:#e6db74">&#34;Kyle&#34;</span><span style="color:#f92672">})</span>
+</code></pre></div><p>there is another way to do the same <code>AND</code> query:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">appdb&gt; db.users.find<span style="color:#f92672">({</span>$and: <span style="color:#f92672">[{</span>age: <span style="color:#f92672">{</span>$gte: 20, $lte: 40<span style="color:#f92672">}}</span>, <span style="color:#f92672">{</span>name: <span style="color:#e6db74">&#34;Kyle&#34;</span><span style="color:#f92672">}]})</span>
+</code></pre></div><p>generally you don&rsquo;t need to do AND style queries with <code>$and</code> because all other ways also support and. But where you do need this dollar style syntax is for OR queries.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">appdb&gt; db.users.find<span style="color:#f92672">({</span>$or: <span style="color:#f92672">[{</span>age: <span style="color:#f92672">{</span>$gte: 20, $lte: 40<span style="color:#f92672">}}</span>, <span style="color:#f92672">{</span>name: <span style="color:#e6db74">&#34;Kyle&#34;</span><span style="color:#f92672">}]})</span>
+</code></pre></div><p>let&rsquo;s also do a <code>$not</code> query:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">appdb&gt; db.users.find<span style="color:#f92672">({</span>age: <span style="color:#f92672">{</span>$not: <span style="color:#f92672">{</span>$lte: 20<span style="color:#f92672">}}})</span>
+</code></pre></div><p>this will return all users whose age is not less than or equal to 20, as well as those users who do not have age key defined.</p>
+<p>if we tried to do this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">appdb&gt; db.users.find<span style="color:#f92672">({</span>age: <span style="color:#f92672">{</span>$gt: 20<span style="color:#f92672">}})</span>
+</code></pre></div><p>we would think that this is equivalent of the one with <code>$not</code> but this one will only return records where key age is defined and whose age is greter than 20. This is one of the places where <code>$not</code> based queries are helpful.</p>
+<p>Let&rsquo;s insert this data now:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">appdb&gt; db.users.insertMany<span style="color:#f92672">([{</span>name: <span style="color:#e6db74">&#34;Tom&#34;</span>, balance: 100, debt: 200<span style="color:#f92672">}</span>,<span style="color:#f92672">{</span>name: <span style="color:#e6db74">&#34;Kristin&#34;</span>, balance: 20, debt: 0<span style="color:#f92672">}])</span>
+</code></pre></div><p>Let&rsquo;s now write a query for users whose debt is greater than their balance (essentially users who are in debt). So here will need to compare two different properties on an object. We use <code>$expr</code> for this.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">appdb&gt; db.users.find<span style="color:#f92672">({</span>$expr: <span style="color:#f92672">{</span>$gt: <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;</span>$debt<span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74">&#34;</span>$balance<span style="color:#e6db74">&#34;</span><span style="color:#f92672">]}})</span>
+</code></pre></div><p>notice the <code>$</code> before <code>debt</code> and <code>balance</code>. This is special way to indicate that we want to access these columns. If there was <code>$</code> missing before theses two, we would not get proper results.</p>
+<p>if we wanted to include nested fields in our query, like stree within address:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">appdb&gt; db.users.find<span style="color:#f92672">({</span><span style="color:#e6db74">&#34;address.street&#34;</span>: <span style="color:#e6db74">&#34;123 Main St&#34;</span><span style="color:#f92672">})</span>
+</code></pre></div><p>so here <code>address.street</code> is just like any other column name.</p>
+<p>we can also do a <code>findOne</code> to return the very first result:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">appdb&gt; db.users.findOne<span style="color:#f92672">({</span>age: <span style="color:#f92672">{</span>$lte: 40<span style="color:#f92672">}})</span>
+</code></pre></div><p>We can also return a count:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">appdb&gt; db.users.countDocuments<span style="color:#f92672">({</span>age: <span style="color:#f92672">{</span>$lte: 40<span style="color:#f92672">}})</span>
+</code></pre></div><h4 id="update-data">Update data</h4>
+<p>the very first object passed to <code>updateOne</code> is the object for filtering, same as for find queries. The second parameter passed is the atomic operator that contains the updated field and values. This has a special syntax as this operation operation needs to be atomic</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">appdb&gt; db.users.updateOne<span style="color:#f92672">({</span>age: 26<span style="color:#f92672">}</span>, <span style="color:#f92672">{</span>$set:<span style="color:#f92672">{</span>age: 27<span style="color:#f92672">}})</span>
+</code></pre></div><p>here <code>$set</code> is the atomic operator and <code>{age: 27}</code> is the update. So this query will replace all age=26 entries to age=27. And each of these update operations will be atomic.</p>
+<p>when doing based on <code>_id</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">appdb&gt; db.users.updateOne<span style="color:#f92672">({</span>_id: ObjectId<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;1232132323123ec&#34;</span><span style="color:#f92672">)}</span>, <span style="color:#f92672">{</span>$set:<span style="color:#f92672">{</span>age: 27<span style="color:#f92672">}})</span>
+</code></pre></div><p>to increment a value by 3:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">appdb&gt; db.users.updateOne<span style="color:#f92672">({</span>_id: ObjectId<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;1232132323123ec&#34;</span><span style="color:#f92672">)}</span>, <span style="color:#f92672">{</span>$inc:<span style="color:#f92672">{</span>age: 3<span style="color:#f92672">}})</span>
+</code></pre></div><p>to rename a field:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">appdb&gt; db.users.updateOne<span style="color:#f92672">({</span>_id: ObjectId<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;1232132323123ec&#34;</span><span style="color:#f92672">)}</span>, <span style="color:#f92672">{</span>$rename:<span style="color:#f92672">{</span>name: <span style="color:#e6db74">&#34;firstName&#34;</span><span style="color:#f92672">}})</span>
+</code></pre></div><p>this will rename &ldquo;name&rdquo; column to &ldquo;firstName&rdquo;</p>
+<p>to completely remove a field from an object, use <code>unset</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">appdb&gt; db.users.updateOne<span style="color:#f92672">({</span>_id: ObjectId<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;1232132323123ec&#34;</span><span style="color:#f92672">)}</span>, <span style="color:#f92672">{</span>$unset:<span style="color:#f92672">{</span>age: <span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">}})</span>
+</code></pre></div><p>here, the <code>age</code> property will be removed from the document at id 1232132323123ec. Moreover, <code>{age: &quot;&quot;}</code> here the empty value part is just a placeholder and does not matter as this property will be removed entirely.</p>
+<p>to add values to an array:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">appdb&gt; db.users.updateOne<span style="color:#f92672">({</span>_id: ObjectId<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;1232132323123ec&#34;</span><span style="color:#f92672">)}</span>, <span style="color:#f92672">{</span>$push: <span style="color:#f92672">{</span>hobbies: <span style="color:#e6db74">&#34;Swimming&#34;</span><span style="color:#f92672">}})</span>
+</code></pre></div><p>this query will append &ldquo;Swimming&rdquo; to the contents of array <code>hobbies</code></p>
+<p>to do the opposite, remove an entry from an array:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">appdb&gt; db.users.updateOne<span style="color:#f92672">({</span>_id: ObjectId<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;1232132323123ec&#34;</span><span style="color:#f92672">)}</span>, <span style="color:#f92672">{</span>$pull: <span style="color:#f92672">{</span>hobbies: <span style="color:#e6db74">&#34;Bowling&#34;</span><span style="color:#f92672">}})</span>
+</code></pre></div><p>will remove Bowling from hobbies.</p>
+<p>to update many records at once, for example to remove address property from all documents that have it:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">appdb&gt; db.users.updateMany<span style="color:#f92672">({</span>address: <span style="color:#f92672">{</span>$exists: true<span style="color:#f92672">}}</span>, <span style="color:#f92672">{</span>$unset: <span style="color:#f92672">{</span>address: <span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">}})</span>
+</code></pre></div><p>we also have replace, that can replace an object entirely:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">appdb&gt; db.users.replaceOne<span style="color:#f92672">({</span>age: 30<span style="color:#f92672">}</span>, <span style="color:#f92672">{</span>name: <span style="color:#e6db74">&#34;John&#34;</span><span style="color:#f92672">})</span>
+</code></pre></div><p>here, the first arguement is the filter and the second arguement is the replacement object.</p>
+<h4 id="delete">delete</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">appdb&gt; db.users.deleteOne<span style="color:#f92672">({</span>name: <span style="color:#e6db74">&#34;John&#34;</span><span style="color:#f92672">})</span>
+</code></pre></div><p>just give the filter. Like here, it will delete the user John that we inserted in previous step.</p>
+<p>to do multiple deletes:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">appdb&gt; db.users.deleteMany<span style="color:#f92672">({</span>age: <span style="color:#f92672">{</span>$exists: false<span style="color:#f92672">}})</span>
+</code></pre></div><p>this will delete all documents that dont have age property.</p>
+
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/mongodb/" rel="tag">mongodb</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/docker/" rel="tag">docker</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+
+
+
+			</div>
+			<aside class="sidebar">
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="LinkedIn" rel="noopener noreferrer" href="https://linkedin.com/in/himanshu-singh-remote/" target="_blank">
+				<svg class="widget-social__link-icon icon icon-linkedin" width="24" height="24" viewBox="0 0 352 352"><path d="M0,40v272c0,21.9,18.1,40,40,40h272c21.9,0,40-18.1,40-40V40c0-21.9-18.1-40-40-40H40C18.1,0,0,18.1,0,40z M312,32 c4.6,0,8,3.4,8,8v272c0,4.6-3.4,8-8,8H40c-4.6,0-8-3.4-8-8V40c0-4.6,3.4-8,8-8H312z M59.5,87c0,15.2,12.3,27.5,27.5,27.5 c15.2,0,27.5-12.3,27.5-27.5c0-15.2-12.3-27.5-27.5-27.5C71.8,59.5,59.5,71.8,59.5,87z M187,157h-1v-21h-45v152h47v-75 c0-19.8,3.9-39,28.5-39c24.2,0,24.5,22.4,24.5,40v74h47v-83.5c0-40.9-8.7-72-56.5-72C208.5,132.5,193.3,145.1,187,157z M64,288h47.5 V136H64V288z"/></svg>
+				<span>LinkedIn</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/tek-shinobi" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+
+		
+	</div>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/posts/githubmanaging-multiple-accounts/">Github:managing Multiple Accounts: SSH configuration</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/linuxiptables-cheatsheet/">Linux:Iptables Cheatsheet</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/awssetup-reverse-proxy-in-aws-using-elb/">AWS:Setup Reverse Proxy in AWS Using ELB</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/grafanagrafana-loki-aws-s3-integration/">Grafana:Grafana Loki AWS S3 Integration</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golangdistributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/rate-limiting-in-distributed-system/">Rate Limiting in a Distributed System</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-testing-creating-large-files/">Golang Testing: Creating Large Files</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/add-gpg-keys-to-repo/">Add Gpg Keys to Repo</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-handling-null-in-database-tables/">Golang: Handling Null in Database Tables</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/using-postgres-inside-docker-container/">Golang: Using Postgres Inside Docker Container</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/backend/">backend</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/distributed-system-design/">distributed system design</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/frontend/">frontend</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/github/">github</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/grafana/">grafana</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">javascript</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kubernetes/">kubernetes</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/linux/">Linux</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/mongodb/">mongodb</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/networking/">networking</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/python/">python</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/rust/">rust</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/virtualbox/">Virtualbox</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-taglist widget">
+	<h4 class="widget__title">Tags</h4>
+	<div class="widget__content">
+		<a class="widget-taglist__link widget__link btn" href="/tags/automation/" title="automation">automation</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/aws/" title="aws">aws</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/backend/" title="backend">backend</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/c#/" title="c#">c#</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/concurrency/" title="concurrency">concurrency</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/css/" title="css">css</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/django/" title="django">django</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/docker/" title="docker">docker</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/es6/" title="ES6">ES6</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/github/" title="github">github</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/golang/" title="golang">golang</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/gpg/" title="gpg">gpg</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/iptables/" title="iptables">iptables</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/javascript/" title="javascript">javascript</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/loki/" title="loki">loki</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/minikube/" title="minikube">minikube</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/mongodb/" title="mongodb">mongodb</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/networking/" title="networking">networking</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/postgres/" title="postgres">postgres</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/python/" title="python">python</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/rate-limiter/" title="rate limiter">rate limiter</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/react/" title="react">react</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/redis/" title="redis">redis</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/rust/" title="rust">rust</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/s3/" title="s3">s3</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/scrapy/" title="scrapy">scrapy</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/tcp/" title="tcp">tcp</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/testing/" title="testing">testing</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/tools/" title="tools">tools</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/turbofish/" title="turbofish">turbofish</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/virtualbox/" title="virtualbox">virtualbox</a>
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2023 Tek Shinobi Blog.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+</body>
+</html>

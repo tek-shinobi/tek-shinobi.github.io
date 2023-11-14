@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>mongodb on Tek Shinobi Blog</title>
+    <link>https://tek-shinobi.github.io/categories/mongodb/</link>
+    <description>Recent content in mongodb on Tek Shinobi Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 14 Nov 2021 10:25:50 +0200</lastBuildDate><atom:link href="https://tek-shinobi.github.io/categories/mongodb/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MongoDB: Cheatsheet</title>
+      <link>https://tek-shinobi.github.io/posts/mongodbcheatsheet/</link>
+      <pubDate>Sun, 14 Nov 2021 10:25:50 +0200</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/mongodbcheatsheet/</guid>
+      <description>create and run mongodb docker container:
+docker run --name mongodb -d -p 27017:27017 mongo:7 login to mongodb container:
+docker exec -it mongodb sh run mongosh to enter mongo shell
+&amp;gt; mongosh it will automatically show a test&amp;gt; prompt which is a default test database
+to clear screen:
+cls to ompletely exit out of mongosh and docker shell terminal:
+exit this command will show all dbs:
+show dbs to create a new database:</description>
+    </item>
+    
+  </channel>
+</rss>

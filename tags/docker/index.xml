@@ -18,6 +18,22 @@ sudo ss -lptn &#39;sport = :5432&#39; the above command will also display the pi
     </item>
     
     <item>
+      <title>MongoDB: Cheatsheet</title>
+      <link>https://tek-shinobi.github.io/posts/mongodbcheatsheet/</link>
+      <pubDate>Sun, 14 Nov 2021 10:25:50 +0200</pubDate>
+      
+      <guid>https://tek-shinobi.github.io/posts/mongodbcheatsheet/</guid>
+      <description>create and run mongodb docker container:
+docker run --name mongodb -d -p 27017:27017 mongo:7 login to mongodb container:
+docker exec -it mongodb sh run mongosh to enter mongo shell
+&amp;gt; mongosh it will automatically show a test&amp;gt; prompt which is a default test database
+to clear screen:
+cls to ompletely exit out of mongosh and docker shell terminal:
+exit this command will show all dbs:
+show dbs to create a new database:</description>
+    </item>
+    
+    <item>
       <title>Docker Notes</title>
       <link>https://tek-shinobi.github.io/posts/docker-notes/</link>
       <pubDate>Mon, 10 May 2021 08:15:54 +0300</pubDate>
