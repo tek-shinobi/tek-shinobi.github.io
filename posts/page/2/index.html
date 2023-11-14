@@ -45,25 +45,20 @@
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
-			<a href="/posts/mongodbcheatsheet/" rel="bookmark">
-			MongoDB: Cheatsheet
+			<a href="/posts/using-postgres-inside-docker-container/" rel="bookmark">
+			Golang: Using Postgres Inside Docker Container
 			</a>
 		</h2>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2021-11-14T10:25:50&#43;02:00">November 14, 2021</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/mongodb/" rel="category">mongodb</a>
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-05-05T10:38:56&#43;03:00">May 05, 2022</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/docker/" rel="category">docker</a>, <a class="meta__link" href="/categories/golang/" rel="category">golang</a>
 	</span>
 </div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
-		create and run mongodb docker container:
-docker run --name mongodb -d -p 27017:27017 mongo:7 login to mongodb container:
-docker exec -it mongodb sh run mongosh to enter mongo shell
-&gt; mongosh it will automatically show a test&gt; prompt which is a default test database
-to clear screen:
-cls to ompletely exit out of mongosh and docker shell terminal:
-exit this command will show all dbs:
-show dbs to create a new database:
+		Cleanup if default postgres port not free If port 5432 is already in use, run this to see what process is using it:
+sudo ss -lptn 'sport = :5432' the above command will also display the pid using which you can kill the process. For example, if the pid is 1667, kill it by sudo kill 1667
+ To connect to an existing running docker container via its container id, scroll to end To see how to connect to it using only golang standard library (database/sql) + a database driver (lib/pq in this case for postgres), without helper methods from 3rd party libraries like sqlx, scroll to end  Connecting to postgres from scratch First launch the postgres container in interactive mode:
 	</div>
 </article><article class="list__item post">
 	
@@ -279,6 +274,7 @@ Doing ourselves using Operating System Temporary Directory Let&rsquo;s first imp
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/posts/mongodbcheatsheet/">MongoDB: Cheatsheet</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/githubmanaging-multiple-accounts/">Github:managing Multiple Accounts: SSH configuration</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/linuxiptables-cheatsheet/">Linux:Iptables Cheatsheet</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/awssetup-reverse-proxy-in-aws-using-elb/">AWS:Setup Reverse Proxy in AWS Using ELB</a></li>
@@ -288,7 +284,6 @@ Doing ourselves using Operating System Temporary Directory Let&rsquo;s first imp
 			<li class="widget__item"><a class="widget__link" href="/posts/golang-testing-creating-large-files/">Golang Testing: Creating Large Files</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/add-gpg-keys-to-repo/">Add Gpg Keys to Repo</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golang-handling-null-in-database-tables/">Golang: Handling Null in Database Tables</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/using-postgres-inside-docker-container/">Golang: Using Postgres Inside Docker Container</a></li>
 		</ul>
 	</div>
 </div>
