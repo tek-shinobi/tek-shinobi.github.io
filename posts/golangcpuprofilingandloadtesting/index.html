@@ -141,7 +141,7 @@ Paste the following in that file:</p>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">analysis</span><span style="color:#f92672">:</span>
 </span></span><span style="display:flex;"><span>	@echo <span style="color:#e6db74">&#34;Analyzing load test results&#34;</span>
 </span></span><span style="display:flex;"><span>	go build -o main main.go
-</span></span><span style="display:flex;"><span>	go tool pprof main test.prof
+</span></span><span style="display:flex;"><span>	go tool pprof main cpuprofile.prof
 </span></span></code></pre></div><p><strong>Step 4: Run</strong></p>
 <ol>
 <li>Run the application: <code>go run main.go</code></li>
