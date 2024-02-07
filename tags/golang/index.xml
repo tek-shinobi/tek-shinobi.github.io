@@ -5,83 +5,64 @@
     <link>https://tek-shinobi.github.io/tags/golang/</link>
     <description>Recent content in golang on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 25 Jul 2023 10:41:57 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Tue, 25 Jul 2023 10:41:57 +0300</lastBuildDate>
+    <atom:link href="https://tek-shinobi.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Golang: Distributed Rate Limiting Using Fixed Window and Redis</title>
-      <link>https://tek-shinobi.github.io/posts/golangdistributed-rate-limiting-using-fixed-window/</link>
+      <link>https://tek-shinobi.github.io/posts/golang_distributed-rate-limiting-using-fixed-window/</link>
       <pubDate>Tue, 25 Jul 2023 10:41:57 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/golangdistributed-rate-limiting-using-fixed-window/</guid>
+      <guid>https://tek-shinobi.github.io/posts/golang_distributed-rate-limiting-using-fixed-window/</guid>
       <description>Fixed Window rate limiter is the simplest form of rate limiting. It means that once the expiration has been set, a client that reaches the limit will be blocked from making further requests until the expiration time arrives. If a client has a limit of 50 requests every minute and makes all 50 requests in the first 5 seconds of the minute, it will have to wait 55 seconds to make another request.</description>
     </item>
-    
     <item>
       <title>Golang Testing: Creating Large Files</title>
       <link>https://tek-shinobi.github.io/posts/golang-testing-creating-large-files/</link>
       <pubDate>Tue, 11 Jul 2023 15:17:34 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/posts/golang-testing-creating-large-files/</guid>
-      <description>Needed a quick hack to generate a known file size, to test that file upload limit logic works in an endpoint
-Another option is to just generate a temporary file, using nearly the same process. This approach is fine but can slow down the test since file needs to be generated each time the test is run and beyond a certain size, this file generation time can become non-trivial.
-package main import ( &amp;#34;encoding/json&amp;#34; &amp;#34;fmt&amp;#34; &amp;#34;math/rand&amp;#34; &amp;#34;os&amp;#34; &amp;#34;time&amp;#34; ) type LargeData struct { Data []byte } const desiredSize = 12 * 1024 * 1024 // 12MB  func main() { rand.</description>
+      <description>Needed a quick hack to generate a known file size, to test that file upload limit logic works in an endpoint&#xA;Another option is to just generate a temporary file, using nearly the same process. This approach is fine but can slow down the test since file needs to be generated each time the test is run and beyond a certain size, this file generation time can become non-trivial.&#xA;package main import ( &amp;#34;encoding/json&amp;#34; &amp;#34;fmt&amp;#34; &amp;#34;math/rand&amp;#34; &amp;#34;os&amp;#34; &amp;#34;time&amp;#34; ) type LargeData struct { Data []byte } const desiredSize = 12 * 1024 * 1024 // 12MB func main() { rand.</description>
     </item>
-    
     <item>
       <title>Golang: Handling Null in Database Tables</title>
       <link>https://tek-shinobi.github.io/posts/golang-handling-null-in-database-tables/</link>
       <pubDate>Wed, 11 May 2022 01:52:51 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/posts/golang-handling-null-in-database-tables/</guid>
-      <description>Consider this table schema (Postgres):
-CREATE TABLE IF NOT EXISTS mytable ( id BIGSERIAL PRIMARY KEY, title TEXT NULL, version INTEGER NULL ); if we write its Go model, title is string and version is int. But here we have a problem. Zero value of string in Go is &amp;quot;&amp;quot; not nil. Same for int whose zero value is 0 and not nil.
-If we tried to write the above model in Go like this:</description>
+      <description>Consider this table schema (Postgres):&#xA;CREATE TABLE IF NOT EXISTS mytable ( id BIGSERIAL PRIMARY KEY, title TEXT NULL, version INTEGER NULL ); if we write its Go model, title is string and version is int. But here we have a problem. Zero value of string in Go is &amp;quot;&amp;quot; not nil. Same for int whose zero value is 0 and not nil.&#xA;If we tried to write the above model in Go like this:</description>
     </item>
-    
     <item>
       <title>Golang: Using Postgres Inside Docker Container</title>
       <link>https://tek-shinobi.github.io/posts/using-postgres-inside-docker-container/</link>
       <pubDate>Thu, 05 May 2022 10:38:56 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/posts/using-postgres-inside-docker-container/</guid>
-      <description>Cleanup if default postgres port not free If port 5432 is already in use, run this to see what process is using it:
-sudo ss -lptn &#39;sport = :5432&#39; the above command will also display the pid using which you can kill the process. For example, if the pid is 1667, kill it by sudo kill 1667
- To connect to an existing running docker container via its container id, scroll to end To see how to connect to it using only golang standard library (database/sql) + a database driver (lib/pq in this case for postgres), without helper methods from 3rd party libraries like sqlx, scroll to end  Connecting to postgres from scratch First launch the postgres container in interactive mode:</description>
+      <description>Cleanup if default postgres port not free If port 5432 is already in use, run this to see what process is using it:&#xA;sudo ss -lptn &amp;#39;sport = :5432&amp;#39; the above command will also display the pid using which you can kill the process. For example, if the pid is 1667, kill it by sudo kill 1667&#xA;To connect to an existing running docker container via its container id, scroll to end To see how to connect to it using only golang standard library (database/sql) + a database driver (lib/pq in this case for postgres), without helper methods from 3rd party libraries like sqlx, scroll to end Connecting to postgres from scratch First launch the postgres container in interactive mode:</description>
     </item>
-    
     <item>
       <title>Golang: Common Concurrency Patterns</title>
       <link>https://tek-shinobi.github.io/posts/golang-common-concurrency-patterns/</link>
       <pubDate>Fri, 15 Oct 2021 15:41:34 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/posts/golang-common-concurrency-patterns/</guid>
-      <description>Some simple concurrency patterns which are often used in Golang
-1. for-select pattern This is a fundamental pattern. It is typically used to read data from multiple channels.
-var c1, c2 &amp;lt;-chan int for { // Either loop infinitely or range over something  select { case &amp;lt;-c1: // Do some work with channels  case &amp;lt;-c2: default: // auto run if other cases are not ready  } // do some work } The select statement looks like switch one, but its behavior is different.</description>
+      <description>Some simple concurrency patterns which are often used in Golang&#xA;1. for-select pattern This is a fundamental pattern. It is typically used to read data from multiple channels.&#xA;var c1, c2 &amp;lt;-chan int for { // Either loop infinitely or range over something select { case &amp;lt;-c1: // Do some work with channels case &amp;lt;-c2: default: // auto run if other cases are not ready } // do some work } The select statement looks like switch one, but its behavior is different.</description>
     </item>
-    
     <item>
       <title>Golang Channels</title>
       <link>https://tek-shinobi.github.io/posts/golang-channels/</link>
       <pubDate>Mon, 11 Oct 2021 16:24:24 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/posts/golang-channels/</guid>
-      <description>When dealing with conccurency problems, it is harder to reason about when moving down the stack of abstraction (machine, process, thread, hardware components, etc). Most programming languages use thread as its highest level of abstraction. Fortunately, Go builds on top of that &amp;amp; introduced Goroutine.
- “Share memory by communicating, don’t communicate by sharing memory.”
- One of Go’s mottos   Although Golang provides traditional locking mechanism in sync package, its philosophy prefers “share memory by communicating”.</description>
+      <description>When dealing with conccurency problems, it is harder to reason about when moving down the stack of abstraction (machine, process, thread, hardware components, etc). Most programming languages use thread as its highest level of abstraction. Fortunately, Go builds on top of that &amp;amp; introduced Goroutine.&#xA;“Share memory by communicating, don’t communicate by sharing memory.”&#xA;One of Go’s mottos Although Golang provides traditional locking mechanism in sync package, its philosophy prefers “share memory by communicating”.</description>
     </item>
-    
     <item>
       <title>Golang: Unmarshal Json Blob With Unknown Schema</title>
       <link>https://tek-shinobi.github.io/posts/golang-unmarshal-json-blob-with-unknown-schema/</link>
       <pubDate>Fri, 11 Jun 2021 22:07:45 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/posts/golang-unmarshal-json-blob-with-unknown-schema/</guid>
-      <description>There are two ways to handle this:
-Approach 1: Using json.RawMessage json.RawMessage: represents a raw JSON value
-It and can be used to delay parsing until the schema is known.
-Here&amp;rsquo;s an example of how to use json.RawMessage:
-type UnknownSchema struct { Data json.RawMessage `json:&amp;#34;data&amp;#34;` } func main() { jsonStr := `{&amp;#34;data&amp;#34;:{&amp;#34;name&amp;#34;:&amp;#34;John&amp;#34;,&amp;#34;age&amp;#34;:30}}` var obj UnknownSchema err := json.Unmarshal([]byte(jsonStr), &amp;amp;obj) if err != nil { panic(err) } // The schema of the data field is still unknown at this point  fmt.</description>
+      <description>There are two ways to handle this:&#xA;Approach 1: Using json.RawMessage json.RawMessage: represents a raw JSON value&#xA;It and can be used to delay parsing until the schema is known.&#xA;Here&amp;rsquo;s an example of how to use json.RawMessage:&#xA;type UnknownSchema struct { Data json.RawMessage `json:&amp;#34;data&amp;#34;` } func main() { jsonStr := `{&amp;#34;data&amp;#34;:{&amp;#34;name&amp;#34;:&amp;#34;John&amp;#34;,&amp;#34;age&amp;#34;:30}}` var obj UnknownSchema err := json.Unmarshal([]byte(jsonStr), &amp;amp;obj) if err != nil { panic(err) } // The schema of the data field is still unknown at this point fmt.</description>
     </item>
-    
+    <item>
+      <title>Golang: CPU Profiling And Load Testing</title>
+      <link>https://tek-shinobi.github.io/posts/golangcpuprofilingandloadtesting/</link>
+      <pubDate>Wed, 07 Feb 2018 08:05:22 +0200</pubDate>
+      <guid>https://tek-shinobi.github.io/posts/golangcpuprofilingandloadtesting/</guid>
+      <description>Goal: We want to do a CPU profile when a particular endpoint handler or set of handlers is/are called.&#xA;Idea: We have a service and we want to build a profile to have insights where the time is spent the most&#xA;Execution: If we already have an endpoint that directly invokes the service, its good. Otherwise create a temporary endpoint and call that service from there. Doing this makes it easy to run a load testing tool like vegeta against that endpoint to create some load when building the profile.</description>
+    </item>
   </channel>
 </rss>

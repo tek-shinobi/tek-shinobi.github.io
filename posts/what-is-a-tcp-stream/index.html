@@ -51,8 +51,8 @@
 			<p>The TCP protocol is modeled on the concept of a <em><strong>single continuous stream</strong></em> of unlimited length. This is a very important concept to understand, and is the <em><strong>number one cause of confusion</strong></em> that we see.</p>
 <p>What exactly does this mean, and how does it affect developers?</p>
 <p>Imagine that you&rsquo;re trying to send a few messages over the socket. So you do something like this (in pseudocode):</p>
-<pre tabindex="0"><code>socket.write(&quot;Hi Sandy.&quot;);
-socket.write(&quot;Are you busy tonight?&quot;);
+<pre tabindex="0"><code>socket.write(&#34;Hi Sandy.&#34;);
+socket.write(&#34;Are you busy tonight?&#34;);
 </code></pre><p>How does the data show up on the other end? If you think the other end will receive two separate sentences in two separate reads, then you&rsquo;ve just fallen victim to a common pitfall! <em><strong>Gasp!</strong></em> Read on.</p>
 <p>TCP does not treat the writes as separate data. TCP considers all writes to be part of a single continuous stream. So when you issue the above writes, TCP will simply copy the data into its buffer:</p>
 <p>TCP_Buffer = &ldquo;Hi Sandy.Are you busy tonight?&rdquo;</p>
@@ -76,8 +76,8 @@ Host: google.com
 Content-Length: 216
 </code></pre><p>Again, the HTTP protocol makes it easy to use TCP. Read data until you get back-to-back CRLF. That&rsquo;s your header. Then parse the content-length from the header, and now you can simply read a certain number of bytes.</p>
 <p>Returning to our original example, we could simply use a designated terminator for our messages:</p>
-<pre tabindex="0"><code>socket.write(&quot;Hi Sandy.\n&quot;);
-socket.write(&quot;Are you busy tonight?\n&quot;);
+<pre tabindex="0"><code>socket.write(&#34;Hi Sandy.\n&#34;);
+socket.write(&#34;Are you busy tonight?\n&#34;);
 </code></pre><p>And if Sandy was using AsyncSocket she would be in luck! Because AsyncSocket provides really easy-to-use read methods that allow you to specify the terminator to look for. AsyncSocket does the rest for you, and would deliver two separate sentences in two separate reads!</p>
 <h3 id="writes">Writes</h3>
 <p><em><strong>What happens when you write data to a TCP socket?</strong></em> When the write is complete, does that mean the other party received that data? Can we at least assume the computer has sent the data? The answer is NO and NO.</p>
@@ -157,11 +157,11 @@ socket.write(&quot;Are you busy tonight?\n&quot;);
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
-			<li class="widget__item"><a class="widget__link" href="/posts/githubmanaging-multiple-accounts/">Github:managing Multiple Accounts: SSH configuration</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/linuxiptables-cheatsheet/">Linux:Iptables Cheatsheet</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/awssetup-reverse-proxy-in-aws-using-elb/">AWS:Setup Reverse Proxy in AWS Using ELB</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/grafanagrafana-loki-aws-s3-integration/">Grafana:Grafana Loki AWS S3 Integration</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/golangdistributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/github_managing-multiple-accounts/">Github:managing Multiple Accounts: SSH configuration</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/linux_iptables-cheatsheet/">Linux:Iptables Cheatsheet</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/aws_setup-reverse-proxy-in-aws-using-elb/">AWS:Setup Reverse Proxy in AWS Using ELB</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/grafana_grafana-loki-aws-s3-integration/">Grafana:Grafana Loki AWS S3 Integration</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang_distributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/rate-limiting-in-distributed-system/">Rate Limiting in a Distributed System</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golang-testing-creating-large-files/">Golang Testing: Creating Large Files</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/add-gpg-keys-to-repo/">Add Gpg Keys to Repo</a></li>
@@ -249,7 +249,7 @@ socket.write(&quot;Are you busy tonight?\n&quot;);
 	<div class="container footer__container flex">
 		
 		<div class="footer__copyright">
-			&copy; 2023 Tek Shinobi Blog.
+			&copy; 2024 Tek Shinobi Blog.
 			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
 		</div>
 	</div>

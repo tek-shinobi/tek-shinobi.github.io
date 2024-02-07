@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
-	<meta name="generator" content="Hugo 0.92.2" />
+	<meta name="generator" content="Hugo 0.122.0">
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -44,7 +44,26 @@
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
-			<a href="/posts/golangevans-cli-tutorial/" rel="bookmark">
+			<a href="/posts/golangcpuprofilingandloadtesting/" rel="bookmark">
+			Golang: CPU Profiling And Load Testing
+			</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2018-02-07T08:05:22&#43;02:00">February 07, 2018</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/golang/" rel="category">golang</a>
+	</span>
+</div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		Goal: We want to do a CPU profile when a particular endpoint handler or set of handlers is/are called.
+Idea: We have a service and we want to build a profile to have insights where the time is spent the most
+Execution: If we already have an endpoint that directly invokes the service, its good. Otherwise create a temporary endpoint and call that service from there. Doing this makes it easy to run a load testing tool like vegeta against that endpoint to create some load when building the profile.
+	</div>
+</article><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/posts/golang_evans-cli-tutorial/" rel="bookmark">
 			Golang:Evans Cli Tutorial
 			</a>
 		</h2>
@@ -63,7 +82,7 @@ call an rpc named: Login call Login (you will be prompted to fill out the reques
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
-			<a href="/posts/virtualboxfirst-steps-after-install-ubuntu/" rel="bookmark">
+			<a href="/posts/virtualbox_first-steps-after-install-ubuntu/" rel="bookmark">
 			Virtualbox:First Steps After Install Ubuntu
 			</a>
 		</h2>
@@ -77,13 +96,13 @@ call an rpc named: Login call Login (you will be prompted to fill out the reques
 		If you are installing ubuntu, always install with &ldquo;skip unattended&rdquo; checkmarked. Otherwise, you won&rsquo;t have terminal access and no sudo.
 Have the new VM with ubuntu in running state and open terminal in the running VM
 To enable copy-paste:
- sudo apt update Devices -&gt; Insert Guest Additions CD image Devices -&gt; Shared Clipboard -&gt; choose Bidirectional Devices -&gt; Drag and Drop -&gt; choose Bidirectional sudo apt install build-essential create some directories to mount the disk inserted in step 2:  sudo mkdir /mnt/cdrom this will create a directory called cdrom in mnt sudo mount /dev/cdrom /mnt/cdrom this will mount the /dev/cdrom onto the new directory we created cd /mnt/cdrom ls sudo sh .
+sudo apt update Devices -&gt; Insert Guest Additions CD image Devices -&gt; Shared Clipboard -&gt; choose Bidirectional Devices -&gt; Drag and Drop -&gt; choose Bidirectional sudo apt install build-essential create some directories to mount the disk inserted in step 2: sudo mkdir /mnt/cdrom this will create a directory called cdrom in mnt sudo mount /dev/cdrom /mnt/cdrom this will mount the /dev/cdrom onto the new directory we created cd /mnt/cdrom ls sudo sh .
 	</div>
 </article><article class="list__item post">
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
-			<a href="/posts/frontend-csscommon-tricksavoid-text-wrapping-at-whitespace/" rel="bookmark">
+			<a href="/posts/frontend-css_common-tricks_avoid-text-wrapping-at-whitespace/" rel="bookmark">
 			Frontend CSS:Common Tricks:Avoid Text Wrapping at Whitespace
 			</a>
 		</h2>
@@ -104,7 +123,7 @@ ul li { display: inline-block; }
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
-			<a href="/posts/frontend-reacttips-for-making-reusable-componentsprops/" rel="bookmark">
+			<a href="/posts/frontend-react_tips-for-making-reusable-components_props/" rel="bookmark">
 			Frontend React:Tips for Making Reusable Components:props
 			</a>
 		</h2>
@@ -115,13 +134,13 @@ ul li { display: inline-block; }
 </div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
-		props.children const Picture = (props) =&gt; { return ( &lt;div&gt; &lt;img src={props.src}/&gt; {props.children} &lt;/div&gt; ) } render () { return ( &lt;div className=&#39;container&#39;&gt; &lt;Picture key={picture.id} src={picture.src}&gt; //what is placed here is passed as props.children  &lt;/Picture&gt; &lt;/div&gt; ) } Instead of invoking the component with a self-closing tag &lt;Picture /&gt; if you invoke it will full opening and closing tags &lt;Picture&gt; &lt;/Picture&gt; you can then place more code between it and display using this.
+		props.children const Picture = (props) =&gt; { return ( &lt;div&gt; &lt;img src={props.src}/&gt; {props.children} &lt;/div&gt; ) } render () { return ( &lt;div className=&#39;container&#39;&gt; &lt;Picture key={picture.id} src={picture.src}&gt; //what is placed here is passed as props.children &lt;/Picture&gt; &lt;/div&gt; ) } Instead of invoking the component with a self-closing tag &lt;Picture /&gt; if you invoke it will full opening and closing tags &lt;Picture&gt; &lt;/Picture&gt; you can then place more code between it and display using this.
 	</div>
 </article><article class="list__item post">
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
-			<a href="/posts/javascript-es6quick-recap-cookbook/" rel="bookmark">
+			<a href="/posts/javascript-es6_quick-recap-cookbook/" rel="bookmark">
 			Javascript ES6:Quick Recap Cookbook
 			</a>
 		</h2>
@@ -132,13 +151,13 @@ ul li { display: inline-block; }
 </div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
-		// crreate a whole random number between [0,20) function wholeRandomNumber(){ return Math.floor(Math.random() * 20) } console.log(wholeRandomNumber()) // random numbers within a range [min, max] function randomRange(min, max){ return Math.floor(Math.random()*(max-min + 1)) + min } console.log(randomRange(1,2)) // parseInt  // return integer from a string. It will returrn NaN if string cannot be converted to a number function convertToIntegerr(str){ return parseInt(str) } console.log(&#34;parseInt: &#34;+ convertToIntegerr(&#34;55&#34;)) console.log(&#34;parseInt: &#34;+ convertToIntegerr(&#34;ABC&#34;)) // parseInt also takes in a radix.
+		// crreate a whole random number between [0,20) function wholeRandomNumber(){ return Math.floor(Math.random() * 20) } console.log(wholeRandomNumber()) // random numbers within a range [min, max] function randomRange(min, max){ return Math.floor(Math.random()*(max-min + 1)) + min } console.log(randomRange(1,2)) // parseInt // return integer from a string. It will returrn NaN if string cannot be converted to a number function convertToIntegerr(str){ return parseInt(str) } console.log(&#34;parseInt: &#34;+ convertToIntegerr(&#34;55&#34;)) console.log(&#34;parseInt: &#34;+ convertToIntegerr(&#34;ABC&#34;)) // parseInt also takes in a radix.
 	</div>
 </article><article class="list__item post">
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
-			<a href="/posts/frontend-csswhen-to-use-float-vs-position-vs-display-for-laying-out-elements-and-aligning-blocks-on-page/" rel="bookmark">
+			<a href="/posts/frontend-css_when-to-use-float-vs-position-vs-display-for-laying-out-elements-and-aligning-blocks-on-page/" rel="bookmark">
 			Frontend CSS:When to Use Float vs Position vs Display for Laying Out Elements and Aligning Blocks on Page
 			</a>
 		</h2>
@@ -150,13 +169,13 @@ ul li { display: inline-block; }
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		Here are the recommendations:
-Float:  Use this for content that flows around (i.e. variable and flexible content). A good example is an image surrounded by texts of different lengths. So even if the amount of text can change, but using float will allow it to flow around the image. Float is also very useful in laying out major parts of layout like header, footer or sidebar.  Display:  Can be useful for aligning page components but you need to account for the extra space around the element(display: inline-block will put a default space between elements having it) Very useful in creating centered horizontal navs because of the fact that the property text-align: center works on aligning child elements as well.
+Float: Use this for content that flows around (i.e. variable and flexible content). A good example is an image surrounded by texts of different lengths. So even if the amount of text can change, but using float will allow it to flow around the image. Float is also very useful in laying out major parts of layout like header, footer or sidebar. Display: Can be useful for aligning page components but you need to account for the extra space around the element(display: inline-block will put a default space between elements having it) Very useful in creating centered horizontal navs because of the fact that the property text-align: center works on aligning child elements as well.
 	</div>
 </article><article class="list__item post">
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
-			<a href="/posts/frontend-cssstacking-order-of-elements-in-a-layout/" rel="bookmark">
+			<a href="/posts/frontend-css_stacking-order-of-elements-in-a-layout/" rel="bookmark">
 			Frontend CSS:Stacking Order of Elements in a Layout
 			</a>
 		</h2>
@@ -176,7 +195,7 @@ HTML:
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
-			<a href="/posts/frontend-cssreset-css-and-normalize-css/" rel="bookmark">
+			<a href="/posts/frontend-css_reset-css-and-normalize-css/" rel="bookmark">
 			Frontend CSS:Reset CSS and Normalize CSS
 			</a>
 		</h2>
@@ -223,11 +242,11 @@ Reset CSS stylesheet: This CSS stylesheet aims to remove all default styling app
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
-			<li class="widget__item"><a class="widget__link" href="/posts/githubmanaging-multiple-accounts/">Github:managing Multiple Accounts: SSH configuration</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/linuxiptables-cheatsheet/">Linux:Iptables Cheatsheet</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/awssetup-reverse-proxy-in-aws-using-elb/">AWS:Setup Reverse Proxy in AWS Using ELB</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/grafanagrafana-loki-aws-s3-integration/">Grafana:Grafana Loki AWS S3 Integration</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/golangdistributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/github_managing-multiple-accounts/">Github:managing Multiple Accounts: SSH configuration</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/linux_iptables-cheatsheet/">Linux:Iptables Cheatsheet</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/aws_setup-reverse-proxy-in-aws-using-elb/">AWS:Setup Reverse Proxy in AWS Using ELB</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/grafana_grafana-loki-aws-s3-integration/">Grafana:Grafana Loki AWS S3 Integration</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang_distributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/rate-limiting-in-distributed-system/">Rate Limiting in a Distributed System</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golang-testing-creating-large-files/">Golang Testing: Creating Large Files</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/add-gpg-keys-to-repo/">Add Gpg Keys to Repo</a></li>
@@ -315,7 +334,7 @@ Reset CSS stylesheet: This CSS stylesheet aims to remove all default styling app
 	<div class="container footer__container flex">
 		
 		<div class="footer__copyright">
-			&copy; 2023 Tek Shinobi Blog.
+			&copy; 2024 Tek Shinobi Blog.
 			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
 		</div>
 	</div>

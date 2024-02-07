@@ -53,54 +53,54 @@
 <p><code>json.RawMessage</code>: represents a raw JSON value</p>
 <p>It and can be used to delay parsing until the schema is known.</p>
 <p>Here&rsquo;s an example of how to use <code>json.RawMessage</code>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">UnknownSchema</span> <span style="color:#66d9ef">struct</span> {
-    <span style="color:#a6e22e">Data</span> <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">RawMessage</span> <span style="color:#e6db74">`json:&#34;data&#34;`</span>
-}
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-    <span style="color:#a6e22e">jsonStr</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">`{&#34;data&#34;:{&#34;name&#34;:&#34;John&#34;,&#34;age&#34;:30}}`</span>
-
-    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">obj</span> <span style="color:#a6e22e">UnknownSchema</span>
-    <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">Unmarshal</span>([]byte(<span style="color:#a6e22e">jsonStr</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">obj</span>)
-    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-        panic(<span style="color:#a6e22e">err</span>)
-    }
-
-    <span style="color:#75715e">// The schema of the data field is still unknown at this point
-</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(string(<span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">Data</span>))
-
-    <span style="color:#75715e">// Now we can unmarshal the data field using the appropriate schema
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">data</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">interface</span>{}
-    <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">Unmarshal</span>(<span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">Data</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">data</span>)
-    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-        panic(<span style="color:#a6e22e">err</span>)
-    }
-
-    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">data</span>[<span style="color:#e6db74">&#34;name&#34;</span>]) <span style="color:#75715e">// &#34;John&#34;
-</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">data</span>[<span style="color:#e6db74">&#34;age&#34;</span>]) <span style="color:#75715e">// 30
-</span><span style="color:#75715e"></span>}
-</code></pre></div><p>Here, we have a struct <code>UnknownSchema</code> with a field <code>Data</code> of type <code>json.RawMessage</code>. We can then unmarshal the JSON string into this struct.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">UnknownSchema</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Data</span> <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">RawMessage</span> <span style="color:#e6db74">`json:&#34;data&#34;`</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">jsonStr</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">`{&#34;data&#34;:{&#34;name&#34;:&#34;John&#34;,&#34;age&#34;:30}}`</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">obj</span> <span style="color:#a6e22e">UnknownSchema</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">Unmarshal</span>([]byte(<span style="color:#a6e22e">jsonStr</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">obj</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>        panic(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// The schema of the data field is still unknown at this point
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(string(<span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">Data</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Now we can unmarshal the data field using the appropriate schema
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">data</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">interface</span>{}
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">Unmarshal</span>(<span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">Data</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">data</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>        panic(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">data</span>[<span style="color:#e6db74">&#34;name&#34;</span>]) <span style="color:#75715e">// &#34;John&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">data</span>[<span style="color:#e6db74">&#34;age&#34;</span>]) <span style="color:#75715e">// 30
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>Here, we have a struct <code>UnknownSchema</code> with a field <code>Data</code> of type <code>json.RawMessage</code>. We can then unmarshal the JSON string into this struct.</p>
 <p>After unmarshalling, the Data field will contain the raw JSON value, which we can print to the console. At this point, we don&rsquo;t know the schema of the data field.</p>
 <p>We can then unmarshal the Data field into a map of type <code>map[string]interface{}</code>, which will allow us to access the individual fields of the JSON object.</p>
 <blockquote>
 <p>Note that using <code>map[string]interface{}</code> can be less type-safe than using a defined struct, but it allows us to handle unknown JSON schemas.</p>
 </blockquote>
 <h2 id="approach-2-using-jsondecoder">Approach 2: using <code>json.Decoder</code></h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-    <span style="color:#a6e22e">jsonStr</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">`{&#34;name&#34;:&#34;John&#34;,&#34;age&#34;:30}`</span>
-
-    <span style="color:#a6e22e">dec</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">NewDecoder</span>(<span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">NewReader</span>(<span style="color:#a6e22e">jsonStr</span>))
-
-    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">data</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">interface</span>{}
-    <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">dec</span>.<span style="color:#a6e22e">Decode</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">data</span>)
-    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-        panic(<span style="color:#a6e22e">err</span>)
-    }
-
-    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">data</span>[<span style="color:#e6db74">&#34;name&#34;</span>]) <span style="color:#75715e">// &#34;John&#34;
-</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">data</span>[<span style="color:#e6db74">&#34;age&#34;</span>]) <span style="color:#75715e">// 30
-</span><span style="color:#75715e"></span>}
-</code></pre></div><p>Here, we create a new <code>json.Decoder</code> with a <code>strings.Reader</code> that contains our JSON string. We then decode the JSON data into a map of type <code>map[string]interface{}</code>, which allows us to access the individual fields of the JSON object.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">jsonStr</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">`{&#34;name&#34;:&#34;John&#34;,&#34;age&#34;:30}`</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">dec</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">NewDecoder</span>(<span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">NewReader</span>(<span style="color:#a6e22e">jsonStr</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">data</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">interface</span>{}
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">dec</span>.<span style="color:#a6e22e">Decode</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">data</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>        panic(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">data</span>[<span style="color:#e6db74">&#34;name&#34;</span>]) <span style="color:#75715e">// &#34;John&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">data</span>[<span style="color:#e6db74">&#34;age&#34;</span>]) <span style="color:#75715e">// 30
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>Here, we create a new <code>json.Decoder</code> with a <code>strings.Reader</code> that contains our JSON string. We then decode the JSON data into a map of type <code>map[string]interface{}</code>, which allows us to access the individual fields of the JSON object.</p>
 <p>Using <code>json.Decoder</code> can be more memory efficient than using <code>json.Unmarshal</code>, especially for large JSON strings, because it reads and decodes the JSON data in a stream-like fashion rather than loading the entire JSON string into memory at once. Additionally, <code>json.Decoder</code> can be used to decode JSON data from an <code>io.Reader</code> source, such as an HTTP response or a file, which can be useful in certain situations.</p>
 
 		</div>
@@ -146,11 +146,11 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
-			<li class="widget__item"><a class="widget__link" href="/posts/githubmanaging-multiple-accounts/">Github:managing Multiple Accounts: SSH configuration</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/linuxiptables-cheatsheet/">Linux:Iptables Cheatsheet</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/awssetup-reverse-proxy-in-aws-using-elb/">AWS:Setup Reverse Proxy in AWS Using ELB</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/grafanagrafana-loki-aws-s3-integration/">Grafana:Grafana Loki AWS S3 Integration</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/golangdistributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/github_managing-multiple-accounts/">Github:managing Multiple Accounts: SSH configuration</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/linux_iptables-cheatsheet/">Linux:Iptables Cheatsheet</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/aws_setup-reverse-proxy-in-aws-using-elb/">AWS:Setup Reverse Proxy in AWS Using ELB</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/grafana_grafana-loki-aws-s3-integration/">Grafana:Grafana Loki AWS S3 Integration</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang_distributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/rate-limiting-in-distributed-system/">Rate Limiting in a Distributed System</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golang-testing-creating-large-files/">Golang Testing: Creating Large Files</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/add-gpg-keys-to-repo/">Add Gpg Keys to Repo</a></li>
@@ -238,7 +238,7 @@
 	<div class="container footer__container flex">
 		
 		<div class="footer__copyright">
-			&copy; 2023 Tek Shinobi Blog.
+			&copy; 2024 Tek Shinobi Blog.
 			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
 		</div>
 	</div>

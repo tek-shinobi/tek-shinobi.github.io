@@ -5,29 +5,22 @@
     <link>https://tek-shinobi.github.io/categories/github/</link>
     <description>Recent content in github on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 06 Nov 2023 19:53:20 +0200</lastBuildDate><atom:link href="https://tek-shinobi.github.io/categories/github/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Mon, 06 Nov 2023 19:53:20 +0200</lastBuildDate>
+    <atom:link href="https://tek-shinobi.github.io/categories/github/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Github:managing Multiple Accounts: SSH configuration</title>
-      <link>https://tek-shinobi.github.io/posts/githubmanaging-multiple-accounts/</link>
+      <link>https://tek-shinobi.github.io/posts/github_managing-multiple-accounts/</link>
       <pubDate>Mon, 06 Nov 2023 19:53:20 +0200</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/githubmanaging-multiple-accounts/</guid>
-      <description>Notes for SSH key configuration with multiple Github accounts.
-I have multiple github accounts. Say one for work and one that is personal.
- NOTE: This logic can be extended to more than two accounts.
- The setup can be done in 5 easy steps:
-Steps:  Step 1 : Create SSH keys for all accounts Step 2 : Add SSH keys to SSH Agent Step 3 : Add SSH public key to the Github Step 4 : Create a Config File and Make Host Entries Step 5 : Clone GitHub repositories using different accounts OR modify remote url for existing repos  Step 1 Create SSH keys for all accounts First make sure your current directory is your .</description>
+      <guid>https://tek-shinobi.github.io/posts/github_managing-multiple-accounts/</guid>
+      <description>Notes for SSH key configuration with multiple Github accounts.&#xA;I have multiple github accounts. Say one for work and one that is personal.&#xA;NOTE: This logic can be extended to more than two accounts.&#xA;The setup can be done in 5 easy steps:&#xA;Steps: Step 1 : Create SSH keys for all accounts Step 2 : Add SSH keys to SSH Agent Step 3 : Add SSH public key to the Github Step 4 : Create a Config File and Make Host Entries Step 5 : Clone GitHub repositories using different accounts OR modify remote url for existing repos Step 1 Create SSH keys for all accounts First make sure your current directory is your .</description>
     </item>
-    
     <item>
       <title>Add Gpg Keys to Repo</title>
       <link>https://tek-shinobi.github.io/posts/add-gpg-keys-to-repo/</link>
       <pubDate>Sat, 07 Jan 2023 22:53:11 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/posts/add-gpg-keys-to-repo/</guid>
-      <description>Add GPG keys to github repo and local The process involves a set of simple steps:
- Create GPG keys from commandline terminal Export the created keys using armor into a text blob. Take the blob and head over to github account -&amp;gt; Settings -&amp;gt; SSH and GPG keys and add it as GPG key The most important point: cd to you local repo directory and configure the key there. This step will need to be done for every local repo.</description>
+      <description>Add GPG keys to github repo and local The process involves a set of simple steps:&#xA;Create GPG keys from commandline terminal Export the created keys using armor into a text blob. Take the blob and head over to github account -&amp;gt; Settings -&amp;gt; SSH and GPG keys and add it as GPG key The most important point: cd to you local repo directory and configure the key there. This step will need to be done for every local repo.</description>
     </item>
-    
   </channel>
 </rss>

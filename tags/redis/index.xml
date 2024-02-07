@@ -5,15 +5,15 @@
     <link>https://tek-shinobi.github.io/tags/redis/</link>
     <description>Recent content in redis on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 25 Jul 2023 10:41:57 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/redis/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Tue, 25 Jul 2023 10:41:57 +0300</lastBuildDate>
+    <atom:link href="https://tek-shinobi.github.io/tags/redis/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Golang: Distributed Rate Limiting Using Fixed Window and Redis</title>
-      <link>https://tek-shinobi.github.io/posts/golangdistributed-rate-limiting-using-fixed-window/</link>
+      <link>https://tek-shinobi.github.io/posts/golang_distributed-rate-limiting-using-fixed-window/</link>
       <pubDate>Tue, 25 Jul 2023 10:41:57 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/golangdistributed-rate-limiting-using-fixed-window/</guid>
+      <guid>https://tek-shinobi.github.io/posts/golang_distributed-rate-limiting-using-fixed-window/</guid>
       <description>Fixed Window rate limiter is the simplest form of rate limiting. It means that once the expiration has been set, a client that reaches the limit will be blocked from making further requests until the expiration time arrives. If a client has a limit of 50 requests every minute and makes all 50 requests in the first 5 seconds of the minute, it will have to wait 55 seconds to make another request.</description>
     </item>
-    
   </channel>
 </rss>

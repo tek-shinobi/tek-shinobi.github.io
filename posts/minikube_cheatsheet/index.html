@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Kubernetes tutorial &#43; Minikube:cheatsheet - Tek Shinobi Blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo">
+		<a class="logo__link" href="/" title="Tek Shinobi Blog" rel="home">
+			<div class="logo__item logo__text">
+					<div class="logo__title">Tek Shinobi Blog</div>
+					
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Kubernetes tutorial &#43; Minikube:cheatsheet</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2021-09-15T09:59:30&#43;03:00">September 15, 2021</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/kubernetes/" rel="category">kubernetes</a>
+	</span>
+</div></div>
+		</header>
+		<div class="content post__content clearfix">
+			<p>To create a virtual machine:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>minikube start --driver<span style="color:#f92672">=</span>virtualbox  --no-vtx-check
+</span></span></code></pre></div><p>you can open Virtualbox and see that a new virtual machine is now up and running</p>
+<p>check if cluster is ok and everything installed correctly:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>minikube status
+</span></span></code></pre></div><p>the output is like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>❯ minikube status
+</span></span><span style="display:flex;"><span>minikube
+</span></span><span style="display:flex;"><span>type: Control Plane
+</span></span><span style="display:flex;"><span>host: Running
+</span></span><span style="display:flex;"><span>kubelet: Running
+</span></span><span style="display:flex;"><span>apiserver: Running
+</span></span><span style="display:flex;"><span>kubeconfig: Configured
+</span></span></code></pre></div><p>from here: <a href="https://minikube.sigs.k8s.io/docs/start/">https://minikube.sigs.k8s.io/docs/start/</a>
+now check that <strong>kubectl</strong> commands are working:</p>
+<p>check nodes:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl get nodes
+</span></span></code></pre></div><p>output:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>❯ kubectl get nodes
+</span></span><span style="display:flex;"><span>NAME       STATUS   ROLES           AGE     VERSION
+</span></span><span style="display:flex;"><span>minikube   Ready    control-plane   5m44s   v1.26.3
+</span></span></code></pre></div><p>so we see that there is one node and its in ready state, and its running 1.26.3 version of kubernetes</p>
+<p>so let&rsquo;s create some deployments using <code>create deployment</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl create deployment hello-minikube --image<span style="color:#f92672">=</span>kicbase/echo-server:1.0
+</span></span></code></pre></div><p>you can list the deploymets like so:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl get deployments
+</span></span></code></pre></div><p>output:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>❯ kubectl get deployments
+</span></span><span style="display:flex;"><span>NAME             READY   UP-TO-DATE   AVAILABLE   AGE
+</span></span><span style="display:flex;"><span>hello-minikube   1/1     <span style="color:#ae81ff">1</span>            <span style="color:#ae81ff">1</span>           28s
+</span></span><span style="display:flex;"><span>❯ 
+</span></span></code></pre></div><p>now expose this deployment as a service:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl expose deployment hello-minikube --type<span style="color:#f92672">=</span>NodePort --port<span style="color:#f92672">=</span><span style="color:#ae81ff">8080</span>
+</span></span></code></pre></div><p>check the url of the service:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>minikube service hello-minikube --url
+</span></span></code></pre></div><p>it should return something like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>❯ minikube service hello-minikube --url
+</span></span><span style="display:flex;"><span>http://192.168.59.100:30673
+</span></span></code></pre></div><p>the service will be running at that url and can be visited on url</p>
+<p>so setup works</p>
+<p>lets cleanup the stuff:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl delete services hello-minikube
+</span></span><span style="display:flex;"><span>kubectl delete deployment hello-minikube
+</span></span></code></pre></div><p>With the above demo, we know that kubernetes cluster is working properly</p>
+<p>to install an application in a new pod on a kubernetes cluster:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl run nginx --image<span style="color:#f92672">=</span>nginx
+</span></span></code></pre></div><p>here application will create a new pod named <strong>nginx</strong>  is installed in it and the source of its download is specfied by <code>--image</code> , in this case, the image named  <strong>nginx</strong> on dockerhub will be downloaded and installed in a new pod. You can also add tags to the docker image name.</p>
+<p>You can configure kubernetes to pull the image from the public dockerhub or a private repo</p>
+<p>to list all running pods:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl get pods
+</span></span></code></pre></div><p>OR use the <code>wide</code> option to get some more details like node where pod is running and theinternal IP address of thepod within the kubernetes cluster</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl get pods -o wide
+</span></span></code></pre></div><p>the output under <code>Ready</code> will be something like <code>1/2</code>.. here it means <code>total number of containers in ready state in the pod / total number of containers in the pod</code>.. so <code>1/2</code> here would mean that the pod contains a total of 2 containers out of which 1 is in ready state</p>
+<p>to get more info on a pod named <code>nginx</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl describe pod nginx
+</span></span></code></pre></div><p>To create a deployment using imperative command, use <strong>kubectl create:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ kubectl create deployment nginx --image<span style="color:#f92672">=</span>nginx 
+</span></span></code></pre></div><p>In practise however, we will create pods uing yaml definition file.</p>
+<h2 id="kubernetes-definition-file">Kubernetes definition file</h2>
+<p>kubernetes definition file always has 4 top level fields (also called root level properties):</p>
+<ul>
+<li>apiVersion</li>
+<li>kind</li>
+<li>metadata</li>
+<li>spec</li>
+</ul>
+<p>there is a relationship between apiVersion value and kind value</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Kind</th>
+<th style="text-align:center">Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">POD</td>
+<td style="text-align:center">v1</td>
+</tr>
+<tr>
+<td style="text-align:left">Service</td>
+<td style="text-align:center">v1</td>
+</tr>
+<tr>
+<td style="text-align:left">ReplicaSet</td>
+<td style="text-align:center">apps/v1</td>
+</tr>
+<tr>
+<td style="text-align:left">Deployment</td>
+<td style="text-align:center">apps/v1</td>
+</tr>
+</tbody>
+</table>
+<p>example metadata. Imaging that in a pod definition file (<code>pod-definition.yaml</code>) like so:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Pod</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">myapp-pod</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">app</span>: <span style="color:#ae81ff">myapp</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">type</span>: <span style="color:#ae81ff">front-end</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">containers</span>:
+</span></span><span style="display:flex;"><span>        -   <span style="color:#f92672">name</span>: <span style="color:#ae81ff">nginx-container</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">image</span>: <span style="color:#ae81ff">nginx</span>
+</span></span></code></pre></div><p><code>labels</code> field above helps in filtering the pods. For example, if we have thousands of pods running with labels.type as <code>front-end</code>, <code>back-end</code> etc, we will be able to filter all front-end pods using this label. <code>name</code> refers to the name of the object created using this yaml file, in this case a pod.
+Important: under metadata, you can only add names, lables or any other property that kubernetes expects as metadata. However, under labels, you can have any key-value pair as you see fit.</p>
+<p><code>spec</code> specifies the container or image in the pod.
+<code>spec</code> contains a property called <code>containers</code> which is an array as a pod can have multiple containers inside it, though most of the time, it only has one.
+<code>image</code> key has the value <code>nginx</code> which is the name of the docker image in the dockerhub repository. If you are using an image repository other than dockerhub, then puth the full path to the image here instead of just <code>nginx</code></p>
+<p>now, to create the pod from this definition file,</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl create -f pod-definition.yaml
+</span></span></code></pre></div><p><strong>Note</strong>: <code>kubectl create</code> and <code>kubectl apply</code> are the same. You can use either <code>create</code> or <code>apply</code></p>
+<p>once you have created pod, to see it:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl get pods
+</span></span></code></pre></div><p>to see all the pods running</p>
+<p>to see pod details:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl describe pod myapp-pod
+</span></span></code></pre></div><p><strong>Tip</strong>: To make changes to a running kubernetes pod/instance (for example, the instance is in waiting/error state because a wrong docker image was specified in its manifest.. you can either delete the pod and then update tha manifest and then re-launch the pod&hellip; OR.. you can use <code>kubectl edit</code> to access the running container&rsquo;s spec and edit them, this will only make changes to this container) <code>kubectl edit pod &lt;pod_name&gt;</code> like <code>kubectl edit pod myapp-pod</code> &hellip; this will not open the file <code>pod-definition.yaml</code> but the file that kubernetes generated in the background (actually a temporary file generated by kubernetes and living in-memory.. and generated to give you access to the kubernetes object. Changes made to this file are directly applied to the instance of the object running in the cluster, as soon as the file is saved.. so you must be very careful with the changes that you are making here) and this will give you access to the pod definition file used internally by the kubernetes. So, now make changes directly to opened file (like fixing the image name shown under <code>containers</code> as that was the error we were looking to fix)</p>
+<p><strong>Summary</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># show all pods</span>
+</span></span><span style="display:flex;"><span>kubectl get pods
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># show pods with some additional details like which node is it running on</span>
+</span></span><span style="display:flex;"><span>kubectl get pods -o wide
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># show details for a specific pod by name</span>
+</span></span><span style="display:flex;"><span>kubectl describe pod myapp-pod
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># to create a pod from a pod-definition file named pod-definition.yaml</span>
+</span></span><span style="display:flex;"><span>kubectl create -f pod-definition.yaml
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># to delete a pod by name</span>
+</span></span><span style="display:flex;"><span>kubectl delete pod myapp-pod
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># to edit a running instance of pod</span>
+</span></span><span style="display:flex;"><span>kubectl edit pod myapp-pod
+</span></span></code></pre></div><h2 id="kubernets-controllers">Kubernets Controllers</h2>
+<p>Controllers are the brains behind kubernetes. They are the processes that monitor kubernetes objects and respond accordingly.</p>
+<h4 id="replication-controller">Replication Controller</h4>
+<p>There are different kinds of controllers. Replication controller is one of these.
+Replication controller&rsquo;s job is to:</p>
+<ul>
+<li>ensure that the specified number of pods are running all the time. So, even if we are only running a single pod, and that pod dies, replication controller detects this and ensures to create a new pod to replace the one that just died.</li>
+<li><strong>Load Balancing and Scaling</strong>: share the load across multiple pods. The replication controller can scale the pods across different nodes within the cluster to distribute load.</li>
+</ul>
+<p><strong>Important</strong>: There are two similar terms: <code>Replication Controller</code> and <code>Replica Set</code>. Both have the same purpose but they are not the same. <code>Replication Controller</code> is the older technology that is being replaced by <code>Replica Set</code>. <code>Replica Set</code> is the new recommended way to setup replication.</p>
+<h4 id="how-to-create-a-replication-controller">How to create a replication controller</h4>
+<p>As for a pod, we start with a replication controller defition file: <code>rc-definition.yaml</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ReplicationController</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">myapp-rc</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">app</span>: <span style="color:#ae81ff">myapp</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">type</span>: <span style="color:#ae81ff">front-end</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>    -   <span style="color:#f92672">template</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">name</span>: <span style="color:#ae81ff">myapp-pod</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">myapp</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">type</span>: <span style="color:#ae81ff">front-end</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">containers</span>:
+</span></span><span style="display:flex;"><span>                    -   <span style="color:#f92672">name</span>: <span style="color:#ae81ff">nginx-container</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">nginx</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">replicas</span>: <span style="color:#ae81ff">3</span>
+</span></span></code></pre></div><p>Since replication controller is supported in kubernetes API version <code>v1</code>, we specify that in <code>apiVersion</code></p>
+<p>Also, in this replication controller, we are managing replicas of pod we created in <code>pod-definition.yaml</code>, instead of manually managing the pod creating via <code>pod-definition.yaml</code>, we just copy the <code>metadata</code> and <code>spec</code> sections of it and put it under <code>template</code> in Replication Controller definition file. We will also specify the number of replicas we want</p>
+<p>we can now create the pods like so:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl create -f rc-definition.yaml
+</span></span></code></pre></div><p>to see the replication controller created;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl get replicationcontroller
+</span></span></code></pre></div><p>in the output, <code>DESIRED</code> meand desired number of replicas. Current means actual number of replicas at the moment. <code>READY</code> means how many of those desired replicas are running</p>
+<p>to see the pods created by the replication controller:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl get pods
+</span></span></code></pre></div><h4 id="how-to-create-a-replicaset-controller">How to create a Replicaset Controller</h4>
+<p>It is very similar to the replication controller.
+<code>replicaset-definition.yaml</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">apps/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ReplicaSet</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">myapp-replicaset</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">app</span>: <span style="color:#ae81ff">myapp</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">type</span>: <span style="color:#ae81ff">front-end</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>    -   <span style="color:#f92672">template</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">name</span>: <span style="color:#ae81ff">myapp-pod</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">myapp</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">type</span>: <span style="color:#ae81ff">front-end</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">containers</span>:
+</span></span><span style="display:flex;"><span>                    -   <span style="color:#f92672">name</span>: <span style="color:#ae81ff">nginx-container</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">nginx</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">replicas</span>: <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">selector</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">matchLabels</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">type</span>: <span style="color:#ae81ff">front-end</span>
+</span></span></code></pre></div><p>Since replicaset controller is supported in kubernetes API version <code>apps/v1</code>, we specify that in <code>apiVersion</code></p>
+<p><code>selector</code> is specific to replica-set (is not present in replication controller) and is used to identify which pods fall under the replicaset-controller. Although <code>selector</code> is also present in replication-controller, it is an optional field. That&rsquo;s why we had skipped it in <code>rc-defition.yaml</code>. In case of replicaSets, it is a required field and also has some addition functionality not supported in replication-controller.</p>
+<p><em><strong>But why would you need to provode the <code>selector</code> to identify what pods fall under it when you have provided the same info in the <code>template</code> section?</strong></em>
+It&rsquo;s because replica-set controller can also manage pods that were not part of replica-set creation</p>
+<p>For example, if there are pods present before the replica-set creation that have the same labels as in the template section, the replica-set will take those in consideration when creating the replicas.</p>
+<p><code>selector</code>: always has the same structure as shown above.</p>
+<p>to create replicaSet,</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl create -f replicaset-definition.yaml
+</span></span></code></pre></div><p>to get all replicasets running:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl get replicaset
+</span></span></code></pre></div><p>to delete a replicaset,</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl delete replicaset myapp-replicaset
+</span></span></code></pre></div><p>(the above delete command will also delete all the underlying pods)</p>
+<h6 id="labels-and-selectors">Labels and Selectors</h6>
+<p><em><strong>So why do we label our pods and objects in kubernetes?</strong></em>
+Let&rsquo;s see a simple scenario. Let&rsquo;s say that we have 3 instances of our frontend application as 3 pods. We would like to setup a replicaset-controller to ensure that we always have 3 replicas at any time. Yes, this is one of the use-cases of replicasets. You can use them to monitor already created pods as in this example. The role of the replicaset is to monitor the pods and if any one of them were to fail, to deploy a new one. The replicaset is in fact a process that monitors the pods. But how does a replicaset know which pods to monitor?  There could be 100s of other pods in the cluster running different applications. This is where labeling our pods during creation comes in handy. We can now provide label as a filter for the replicaset. Under the <code>matchLabels</code> within <code>selector</code>, we provide the same labels we used when creating the pods. This way the replica set knows which pods to monitor.</p>
+<h5 id="how-to-scale-the-replicasets">How to scale the replicasets</h5>
+<p>Using the previous <code>replicaset-definition.yaml</code> file, we have 3 replicas. If in the future, we wanted to scale up to 6 replicas, how do we update our defintion files? There are multiple ways of doing it.</p>
+<ol>
+<li>First one is to update the number of needed replicas in the <code>replicaset-definition.yaml</code> itself. Then use <code>kubectl replace -f replicaset-definition.yaml</code> to replace the replicaset definition file. This will update the replicaset to have 6 replicas.</li>
+<li><code>kubectl scale --replicaset=6 replicaset-definition.yaml</code> (either like this, by providing the name of the replicaset definition file) OR <code>kubectl scale --replicas=6 replicaset myapp-replicaset</code> (or like this.. by providing the name of the replicaset in the type name format&hellip; here type being <code>replicaset</code> and name being <code>myapp-replicaset</code>) . However, using the file-name as input will not result in updating the number of replicas in the file.</li>
+<li>There are also options available to automatically scale the replicas based on load.</li>
+</ol>
+<p><strong>tip</strong>: If you changed the pod template inside a replicaset, the changes are not applied to existing pods. If you want changes to be applied, you either need to delete the existing pods manually, or better delete the existing instance of replicaset and create a new one.</p>
+<p><em><strong>summary</strong></em>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># create</span>
+</span></span><span style="display:flex;"><span>kubectl create -f replicaset-definition.yaml
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># list all created/existing replicasets</span>
+</span></span><span style="display:flex;"><span>kubectl get replicaset
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># list all created/existing replicasets.... rs is shorthand for replicaset</span>
+</span></span><span style="display:flex;"><span>kubectl get rs
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># describe replicaset</span>
+</span></span><span style="display:flex;"><span>kubectl describe replicaset myapp-replicaset
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># delete a replicaset by name</span>
+</span></span><span style="display:flex;"><span>kubectl delete replicaset myapp-replicaset
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># replace a replicaset </span>
+</span></span><span style="display:flex;"><span>kubectl replace -f replicaset-definition.yaml
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># scale a replicaset</span>
+</span></span><span style="display:flex;"><span>kubectl scale --replicas<span style="color:#f92672">=</span><span style="color:#ae81ff">6</span> replicaset myapp-replicaset
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># to edit a running instance of replicaset</span>
+</span></span><span style="display:flex;"><span>kubectl edit replicaset myapp-replicaset
+</span></span></code></pre></div><h5 id="export">Export</h5>
+<p>At any time, if you want to export the definition file of any kubernetes object, lets say replicaset in this case, do it like so:
+(very handy in scenarios where you don&rsquo;t have a definition file for the running kubernetes objects)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl get rs myapp-replicaset -o yaml &gt; new-replicaset.yaml
+</span></span></code></pre></div><p>this will export the definition file in yaml format for the replicaset object named <code>myapp-replicaset</code></p>
+<h4 id="deployment-controller">Deployment Controller</h4>
+<p>We generally don&rsquo;t use Replicasets directly. We manage them via Deployments.
+A deployment controller manages things like rolling updates (apply new changes to docker image into running instances in progressive manner.. like if 100 pods are running, update one pod at a time instead of updating all pods at same time.. this is to ensure least downtime), rollback of updates, grouping a set of changes and apply them as one update, scaling (think of everything that replicaset offers&hellip; since they manage replicasets internally)</p>
+<p>In the kubernetes hierarchy, deployment controller comes higher up in the hierarchy, sitting above replicaset controller. Giving ability to apply seamless updates to underlying replicaset instance (which internally manages a whole set of pods), scaling, rolling updates to pods within replicaset instance etc. In fact, you can copy the <code>spec</code> section of the replicaset-definition.yaml file and set it as <code>spec</code> for <code>deployment-definition.yaml</code></p>
+<p>To create a deployment, we create a deployment definiton file:
+<code>deployment-definition.yaml</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">apps/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Deployment</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">myapp-deployment</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">myapp</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">type</span>: <span style="color:#ae81ff">front-end</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">replicas</span>: <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">selector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">matchLabels</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">type</span>: <span style="color:#ae81ff">front-end</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">template</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">name</span>: <span style="color:#ae81ff">myapp-pod</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">app</span>: <span style="color:#ae81ff">myapp</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">type</span>: <span style="color:#ae81ff">front-end</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">containers</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">nginx-container</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">nginx:1.14.2</span>
+</span></span></code></pre></div><p>As you see above, the template in a deployment-controller definition has a pod definition inside it.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># create deployment from the definition file</span>
+</span></span><span style="display:flex;"><span>kubectl create -f deployment-definition.yaml
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># to see the newly create deployment</span>
+</span></span><span style="display:flex;"><span>kubectl get deployments
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># to get more info of the deployment object</span>
+</span></span><span style="display:flex;"><span>kubectl describe deployment myapp-deployment
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># deployment automatically creates a replicaset</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># the created rs by default has the same name as the deployment</span>
+</span></span><span style="display:flex;"><span>kubectl get rs
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># since rs automatically creates pods</span>
+</span></span><span style="display:flex;"><span>kubectl get pods 
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># to see all objects created in the cluster at once</span>
+</span></span><span style="display:flex;"><span>kubectl get all
+</span></span></code></pre></div><p>the output of <code>kubectl get deployments</code>  contains <code>READY</code> which means <code>actual-pods/desired-pods</code> and <code>AVAILABLE</code> which means how many of the actual pods are available.</p>
+<h5 id="rollout-and-versioning">Rollout and Versioning</h5>
+<p>When you first create a deployment, it triggers a rollout. A new rollout creates a new deployment revision. Let&rsquo;s call it revision 1. In the future, when the application is updated, meaning when the container version is updated to a new one, a new rollout is triggered and a new deployment revision is created, named revision 2. This helps us keep track of changes to our deployments and to revert back to a previous version.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># to track the status of rollout</span>
+</span></span><span style="display:flex;"><span>kubectl rollout status deployment/myapp-deployment
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># to track deployment history</span>
+</span></span><span style="display:flex;"><span>kubectl rollout history deployment/myapp-deployment
+</span></span></code></pre></div><p>there is a <code>CHANGE-CAUSE</code> listed under the output of history. This records what command triggered the change. To make sure its recorded, use the create command like so:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl create -f deployment-definition.yaml --record
+</span></span></code></pre></div><p>In fact you can use <code>--record</code> with any command that causes a change like <code>edit</code> command  or <code>set image</code> command and this will make sure that the command that triggered the change is recorded in the revision history.</p>
+<h5 id="deployment-strategy">Deployment strategy</h5>
+<p>There are two types of deployment strategies.</p>
+<h6 id="recreate-strategy">Recreate Strategy</h6>
+<p>Imagine that there are 5 replicas of our web application instance deployed. One way to upgrade all of these is to destroy all of these instances and then create new instances of the web application. Meaning, first destroy 5 running instances and then deploy 5 new instances of the new application version. The problem with this approach is that between the time the instance are destroyed and the time when new deployments are available, the application is down and inaccessible to the users. This strategy is called the <code>Recreate Strategy</code>. This is not the default deployment strategy.</p>
+<h6 id="rolling-update-strategy">Rolling Update Strategy</h6>
+<p>The second strategy is where we do not destroy all running instances at once. Instead we take down the older version and create the newer version one by one. This way, the application never goes down and the upgrade is seamless. This is the default deployment strategy.</p>
+<p><strong>tip</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl describe deployment myapp-deployment
+</span></span></code></pre></div><p>will display the deployment strategy used under <code>StrategyType</code></p>
+<h6 id="doing-the-update">Doing the update</h6>
+<p>Application update can mean multiple things. Changing the docker image to a new one in the template, changing the number of replicas, changing the labels in the deployment-definition.yaml file etc.</p>
+<p>Once we have made the changes, the folowing command applies the changes:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl apply -f deployment-definition.yaml
+</span></span></code></pre></div><p>This command triggers a new rollout and a new revision is created.</p>
+<p>If you only wanted to change the image, you could use this command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl set image deployment/myapp-deployment nginx<span style="color:#f92672">=</span>nginx:1.9.1
+</span></span></code></pre></div><p>but be careful with this command, as like <code>edit</code> command, this only changes the in-memory deployment file and not the actual <code>deployment-definition.yaml</code></p>
+<h6 id="upgrades">Upgrades</h6>
+<p>Let&rsquo;s take a look at upgrades in more detail. Here we will look at what happens when deployments trigger an upgrade.</p>
+<p>When a new deployment is created to, say create 5 replicas, it first create a replica-set automatically, which in turn creates the number of pods to meet the number of replicas.</p>
+<p>When you now trigger an upgrade, the kubernetes creates a new replicaset under the hood and starts deploying the containers there, at the same time, taking down the pods in the old replicaset, following a rolling upgrade strategy. This can be see with <code>kubectl get rs</code> command which will also display old replicaset (with 0 pods) and new replicaset with 5 pods. Now, say the at some point of time we realize that something isn&rsquo;t right with the new version of the application and we want to roll back the upgrade. Kubernetes deployments allow you to rollback to a previous revision.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># to undo a change</span>
+</span></span><span style="display:flex;"><span>kubectl rollout undo deployment/myapp-deployment  
+</span></span></code></pre></div><p>with the abve <code>undo</code> command, the deployment will now destroy the pods in the new replicaset and bring the older ones up in the old replicaset. And your application will be back to its older format.</p>
+<p>Once again, you will be able to notice this difference when doing the <code>kubectl get rs</code> command.</p>
+<p>finally:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl run nginx --image<span style="color:#f92672">=</span>nginx
+</span></span></code></pre></div><p>actually creates a deployment with the mentioned docker image. This is another way of creating a deployment by only using the image name and not a definition file. The required replicasets and the pods are automatically created in the backend. Using a definition file is recommended though as you can keep it in source control.</p>
+<h2 id="kubernetes-networking">Kubernetes Networking</h2>
+<p>Let&rsquo;s start with a single node cluster. The node has an IP address, say 192.168.1.2. This will be the IP address used to acccess the kubernetes node, SSH into it etc. On a side note, if for example you are using a minikube single cluster node, then we are talking about the minikube IP address inside the hypervisor (the hypervisor will also be assigned an IP address, say 192.168.1.10). So its important to understand how your VMs are setup.</p>
+<p>So, on a single node kubernetes cluster, we have created a pod. As you know, a pod contains a container. Unlike in a docker world, where an IP address is always assigned to a docker container, in the kubernetes world, the IP address is assigned to a pod. Each pod gets its own internal IP address. In this case, its in the range 10.244.<em>.</em> series and let&rsquo;s say that the IP assigned to the pod is 10.244.0.2. So, how is it getting this IP address? With kubernetes is initially configured, we create an internal private network with the address 10.244.0.0 and all the pods are attached to it. When you deploy a different pod, they get a different IP assigned from this network. The pods can communicate with each other through this IP. But accessing other pods using this internal IP address is not a good idea as its subject to change when pods are recreated. We will see better ways to establish communication between pods in a while. For now, its important to understand how the internal networking works in kubernetes.</p>
+<p>So, its all easy and simply to know when its networking within a single node, but how does it work when you have multiple nodes in your cluster. Let&rsquo;s say that in our case, we have two nodes in the cluster with IP addresses 192.168.1.2 and 192.168.1.3 assigned to them. Note that they are not part of the cluster yet. Each of them have a single pod deployed. These pods are attached to their respective internal networks and they have their IP addresses assigned (say, each one is assigned 10.244.0.2). So, as you see, they are assigned the same IP address on their respective nternal networks. The two internal networks also have the same address of 10.244.0.0. But this is not going to work when the nodes become part of the same cluster. The pods have the same IP address assigned to them and this will lead to IP conflicts in the network. Now that&rsquo;s a problem. Also, when kubernetes creates a cluster, it doen not provide a network to handle these kinds of issues. In fact, kubernetes expects us to provide a network to meet fundamental networking requirements within a cluster. Some of these requirements are:</p>
+<ul>
+<li>All containers /Pods can communicate to one another without having to configure NAT</li>
+<li>All nodes can communicate with all containers and vice-versa without NAT</li>
+</ul>
+<p>Kubernetes expects us to provides a networking solution that meets this criteria.</p>
+<p>Fortunately, there are multiple pre-built solutions available. Like Cisco&rsquo;s ACI network, cilium, bitcloud fabric, flannel, VMWare NSXt and Calico. Depending on the platform you are deploying the kubernetes cluster on, you may use one of these solutions. So, in my cluster above, once I have provided a networkign solution, it makes sure that each network within the cluster is assigned a unique IP address. THis creates a virtual network of all pods and nodes where they are all assigned a unique IP address.</p>
+<h2 id="kubernets-services">Kubernets Services</h2>
+<p>Kubernets services enable communication between various components within and outside the application. Kubernetes Services helps us connect our application with other applications or other users. For example, our application has groups of pods for different sections. Such as one group of pods for serving frontend to users, another group of pods for running the backend servers, and a third group connecting to an external datasource. It is services that enable connectivity between these groups of pods. Servics enable frontend application to be available to end users, it helps communication between backend and frontend pods and helps in connectivity to an external datasource. Thus services enable loose coupling between microservices in our application.</p>
+<p>In the previous section we briefly discussed how pods communicate with eachother through internal networking. Let&rsquo;s discuss some other aspects of networking. Let&rsquo;s start with external communication. So, we deployed our pod running a web application. How do we, as an external user, access the webpage?</p>
+<p>First of all, let us look at the existing setup. The kubernetes node has an IP address, let&rsquo;s say 192.168.1.2. My laptop is on the same network as well, so it has an IP address of 192.168.1.10. The internal pod network is in the range 10.244.0.0 and the pod has an IP of 10.244.0.2. Clearly, I cannot ping the pod 10.244.10.2 as it is a separate network. So what are the options to see the webpage.</p>
+<p>We could SSH into the kubernetes node at 192.168.1.2. And then from the node, we could access the webpage by doing a <code>curl http://10.244.0.2</code>. But this is fron inside the kubernetes node and this is not what I really want. I want to be able to access the web-page simply by <code>curl http://192.168.1.2</code> (just by the kubernetes IP address&hellip; without the need of SSH).</p>
+<p>So we need something connecting node to our laptop on one side and node and the pod (running the webserver) on the other side. This is where kubernetes service comes into play. Kubernetes service is just an object, just like pods, replicaset, and deployments seen before. One of its use cases is to listen to a port on the node and forward that request to a port on the pod running the web-application. This type of service is called a <strong>NodePort</strong> service because the service listens to a port on the node and forwards the request to the pod.</p>
+<p>There are other kinds of services available which we will now discuss.</p>
+<h4 id="service-types">Service Types</h4>
+<ul>
+<li><strong>NodePort</strong>: This service make an internal pod accesible on a port on the node.</li>
+<li><strong>ClusterIP</strong>: This service creates a virtual IP inside the cluster to enable communication between different services such as a set of frontend servers to a set of backend servers.</li>
+<li><strong>LoadBalancer</strong>: This service provisions a loadbalancer for our application in supported cloud providers.</li>
+</ul>
+<h4 id="nodeport-kubernetes-service">NodePort Kubernetes Service</h4>
+<p>This service helps making a pod accessible by mapping a port on the node to a port on the pod.</p>
+<figure><img src="/kube-service.png"
+         alt="Kubernetes NodePort Service"/><figcaption>
+            <p>Kubernetes NodePort Service</p>
+        </figcaption>
+</figure>
+
+<p>In the above figure, we can see that in this service there are 3 ports involved.</p>
+<ol>
+<li>the port on the pod where the actual webserver is running is <code>80</code> and it is referred to as <code>TargetPort</code> because that is where the service forwards the request to</li>
+<li>the port on the service itself. It is simply referred to as the <code>Port</code> (remember, these terms are from the point of view of the service). The service is in fact like a virtual server inside the node. Inside the cluster, this service has its own IP address and this IP address is called the <strong>ClusterIP</strong> of the service. In the figure, this is <code>10.106.1.12</code></li>
+<li>the port on the node itself which we use to access externally and that is known as the <code>NodePort</code>. In the figure below, it is <code>30008</code>. The port value anything in range 30000 - 32767</li>
+</ol>
+<p><code>service-definition.yaml</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Service</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">myapp-service</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">type</span>: <span style="color:#ae81ff">NodePort</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>    -   <span style="color:#f92672">targetPort</span>: <span style="color:#ae81ff">80</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">port</span>: <span style="color:#ae81ff">80</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">nodePort</span>: <span style="color:#ae81ff">30008</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">selector</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">app</span>: <span style="color:#ae81ff">myapp</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">type</span>: <span style="color:#ae81ff">front-end</span>
+</span></span></code></pre></div><p>In the definiton file, the <code>type</code> refers to the type of service we are creating. It could be <code>ClusterIP</code>, <code>LoadBalancer</code> or <code>NodePort</code></p>
+<p>For each array element in <code>ports</code>, the only mandatory field is <code>port</code>. If you don&rsquo;t provide a <code>targetPort</code>, it is assumed to be same as <code>port</code>. And, if no nodePort is specified, any available port in the region 30000 - 32767 is assigned as nodePort.</p>
+<p>Also, since <code>ports</code> is an array, we can have multiple such port mappings within a service.</p>
+<p>As you can see here, there could be 100s of pods in a cluster with webservices running on port 80. So, how do we connect the exact pod with this service? Well, what connects this service to the pod is the part under <code>selector</code> which is exactly what it is in <code>label</code> in pod-definition.yaml (literally copy pasted from <code>pod-definition.yaml</code>, the section under <code>labels</code>). This is a technique used often in kubernetes definition files, createing assiciation between objects using <code>labels</code> from one file and putting them as <code>selectors</code> in another.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># to create the service:</span>
+</span></span><span style="display:flex;"><span>kubectl create -f service-definition.yaml
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># to see the services created</span>
+</span></span><span style="display:flex;"><span>kubectl get services
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># to see the services created</span>
+</span></span><span style="display:flex;"><span>kubectl get svc
+</span></span></code></pre></div><p>Note that when you create a NodePort service, a ClusterIP service is also created. In fact, the <code>get svc</code> command will show both.</p>
+<p>with the above in place, you will be able to access the webpage using:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>curl http://192.168.1.2:30008
+</span></span></code></pre></div><p>where the <code>192.168.1.2</code> is the IP address of the worker node.</p>
+<p>So, to access the web-page, you need to know the IP address of the worker node. Since we are running this on minikube, we could do</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>minikube service myapp-service --url
+</span></span></code></pre></div><p>and this will print us the url where the service is available, something like:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; minikube service myapp-service --url
+</span></span><span style="display:flex;"><span>http://192.168.1.2:30008
+</span></span></code></pre></div><p>So, till now we have seen the case of a service mapped to a single pod. But this is not always the case. In real world, we have many instances of the same service in different pods for loadbalancing and fault-tolerance. In this case, we have multiple similar pods running our web application. They all have the same label in pod definition:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">myapp</span>
+</span></span></code></pre></div><p>and for the matching selector in the service definition file:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">selector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">myapp</span>
+</span></span></code></pre></div><p>So, imagine that we have 3 pods running the same webapplication for load balancing purposes. Each of them has the same label since thay were all created from the same pod-definition. So when as service tries to match with a pod using selector, it finds 3 pods with the same label as its selector. The service then automatically selects all the 3 pods as endpoints to forward the external request coming from the user. You don&rsquo;t have to do any additional configuration to make this happen. It used &ldquo;Random&rdquo; algorithm to bakance the load across the 3 different pods. Thus the service acts as a built in load balancer to distribute load across different pods.</p>
+<p>And finally, lets see what happens when pods are distrubuted across multiple nodes. In this case, we have the web application on pods on separate node in the cluster. When we create a service, without us having to do any additional configuration, kubernetes automatically creates a service that spans across all the nodes in the cluster and maps the targetPort on the same nodePort on all the nodes in the cluster. This way, you can access the web-application using any node in the cluster and using the same portNumber.</p>
+<h4 id="clusterip-kubernetes-service">ClusterIP Kubernetes Service</h4>
+<figure><img src="/clusterIP.png"
+         alt="ClusterIP service"/><figcaption>
+            <p>ClusterIP service</p>
+        </figcaption>
+</figure>
+
+<p>A full stack app has different kinds of pods hosting different parts of the application.</p>
+<p>You may have a number of pods running a frontend webserver, another set of pods running a backend server and yet another set of pods running a key-value store like redis and another set of pods running a persistent database like mysql.</p>
+<p>The web-frontend servers need to communicate with the backend servers and the backend servers need to communicate with the redis and the mysql servies etc. So, what is the right way to establish connectivity between these services or tiers of my application? The pods all have an IP address assigned to them. But thse IPs as we know are not static. These pods can go down anytime and new pods are created all the time. And so you cannot rely on these IP addresses for internal communication between different tiers of the application.</p>
+<p>Also, as in the image above, if front-end server at 10.244.0.3 needs to communicate with the backend server, which of the three pods it goes to and who makes that decision?</p>
+<p>A kubernetes service can help us group the pods together and provide a single interface to access the pods in a group. For example, a service created for the backend pod will help group all the backend pods together and provide a single interface for other pods to access this service. The requests are forwarded to pods under the service randomly. Similarly create additional service for redis and allow the backend pods to access the redis systems through this service. This enables us to easily and effectively deploy a microservices based application on kubernetes cluster. Each layer can scale or move as required without impacting communication between the various services. Each service gets an IP and a name assigned to it inside the cluster and that is the name that should be used by the other pods to access the service. This type of service is called <strong>ClusterIP</strong> service.
+<code>service-definition.yaml</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Service</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">back-end</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">type</span>: <span style="color:#ae81ff">ClusterIP</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>        -   <span style="color:#f92672">targetPort</span>: <span style="color:#ae81ff">80</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">port</span>: <span style="color:#ae81ff">80</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">selector</span>: 
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">app</span>: <span style="color:#ae81ff">myapp</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">type</span>: <span style="color:#ae81ff">back-end</span>
+</span></span></code></pre></div><p>In fact, ClusterIP is the default type for a service. So, if we had skipped the <code>type: ClusterIP</code>, kubernetes would have anyways assumed the definition file to be for ClusterIP service.</p>
+<h2 id="loadbalancer-kubernetes-service">LoadBalancer Kubernetes Service</h2>
+<p>So we have seen NodePort service make an external facing application available on the port on worker nodes.</p>
+<p>LoadBalancer type Service is only supported on specific kubernetes provoders like AWS, GCP and Azure. Instead of using an external LoadBalancer like nginx, HAProxy etc, you could use a supported LoadBalancer service.</p>
+<h2 id="running-microservices-on-kubernetes">Running microservices on Kubernetes</h2>
+<p>Let&rsquo;s take an example of the demo application provided by docker <a href="https://github.com/dockersamples/example-voting-app">https://github.com/dockersamples/example-voting-app</a>
+<figure><img src="/microservices.png"
+         alt="Microservices"/><figcaption>
+            <p>Microservices</p>
+        </figcaption>
+</figure>
+</p>
+<p>Here, there is a votiing app implemented across 5 docker containers.</p>
+<ul>
+<li><code>vote</code> is a python application that enables a user to vote</li>
+<li><code>redis</code> serves as in-memory database for <code>vote</code> application</li>
+<li><code>worker</code> is a .NET application that takes in data from <code>redis</code> and sends it to <code>db</code></li>
+<li><code>db</code> is a postgres database</li>
+<li><code>result</code> is a NodeJS application that gets its data from <code>db</code> and then displays the reults of the vote in realtime</li>
+</ul>
+<p>Without using docker-compose or swarm, we can manually run each application in a docker container and then link them together (<code>--link</code>) so that we are able to access the applications via hostname</p>
+<p>here <code>--link</code> has the format <code>container_name:hostname</code></p>
+<p>Note the hostname used in the <code>try</code> block in the .NET application code example. We are using <code>redis</code> and <code>db</code> as hostnames</p>
+<p>Note that directly linking docker containers like this is deprecated and this feature might be removed completely in future in favor of docker compose or swarm.</p>
+<h4 id="deploying-microservices-in-kubernetes">Deploying microservices in Kubernetes</h4>
+<p>In previous section, we saw how to deploy microservices within docker using containers and linking them together. Let&rsquo;s see how to do this on a Kubernetes cluster.</p>
+<p>On a kubernetes cluster, we can&rsquo;t deploy a docker container directly. The smallest unit for deployment on a Kubernetes cluster is a pod. So for simplicity sake, we will create a pod-definition file and then use that info to create a deployment-definition and then create Services to make the application accessible. Let&rsquo;s see this in the figure below:</p>
+<figure><img src="/services.png"
+         alt="Microservices"/><figcaption>
+            <p>Kubernetes Microservices</p>
+        </figcaption>
+</figure>
+
+<p>So let&rsquo;s take a moment to create a high level strategy on how to start with Kubernetes deployment.</p>
+<p>Steps:</p>
+<ol>
+<li>Deploy Pods for the 5 microservices</li>
+<li>Note that since only <code>voting-app</code>, <code>result-app</code>, <code>redis</code> and <code>postgres</code> pods have arrows coming in, meaning only these pods are accessed either from outside or from other pods, we will only need to configure services for these 4 pods. Since <code>worker</code> does not have any arrows coming in, it does not get accessed by anyone, so no need to create a service for this.</li>
+<li>Since the services <code>redis</code> and <code>postgres</code> are not to be accessed outside the cluster, they will just be of type <code>ClusterIP</code></li>
+<li>Now that we have decided that <code>redis</code> and <code>postgres</code> pods will have services of type <code>ClusterIP</code> to make them accessible by other parts of application, we need to decide what name to use for those services. Service name is important because that is how you will access the service.
+<ul>
+<li>As we see in figure captioned <code>redis</code>, since we access redis microservice from code using hostname as <code>redis</code> in code (in the connection string), we will name the redis service as <code>redis</code></li>
+<li>As we see in the figure captioned <code>postgres</code>, since we access postgres microservice from code using hostname as <code>db</code> in code (in the connection string), we will name the postgres service as <code>db</code></li>
+<li>Also note that in the figure captioned <code>postgres</code>, we see that in the connection string for the database, we also supoly a Username and Password. We must ensure that these credentials must be set accordingly when we setup the database inside the pod.</li>
+</ul>
+</li>
+<li>Next task is to enable external access. As we know, service of type <code>NodePort</code> does this.
+<ul>
+<li>Create a service for <code>voting-app</code> and set its type to <code>NodePort</code></li>
+<li>Create a service for <code>result-app</code> and set its type to <code>NodePort</code></li>
+<li>We can decide on what port to make them available on, it would be a high port, with the port number greater than 30000.</li>
+</ul>
+</li>
+</ol>
+<p><figure><img src="/redis.png"
+         alt="Redis"/><figcaption>
+            <p>redis</p>
+        </figcaption>
+</figure>
+
+<figure><img src="/postgres.png"
+         alt="postgres"/><figcaption>
+            <p>postgres</p>
+        </figcaption>
+</figure>
+</p>
+<p><strong>Note</strong>: A service is only needed when the application has some kind of process or database or webservice that needs to be exposed, that needs to be accessible by others. So, for example, in the above example, since <code>worker</code> app didn&rsquo;t need this accebility by others, it did not need a service.</p>
+<p>Lets get to the code.
+We mentioned that step 1 is to write pod definition files for all 5 applications we have. In reality, we don&rsquo;t use pod-definition files or replicaset-definition files. The reason being that doing this way causes us to first take down the instances first before rolling new ones, when we are updating the applications to a new version. Also there are no rolling updates, rollbacks etc as deployments offer you. So, in practise, we write deployment-definition files instead of pod-definition files or replicaset definition files.</p>
+<p><code>postgres-deploy.yaml</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">apps/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Deployment</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">postgres-deploy</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">postgres-deploy</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">demo-voting-app</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">replicas</span>: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">selector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">matchLabels</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">name</span>: <span style="color:#ae81ff">postgres-pod</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">app</span>: <span style="color:#ae81ff">demo-voting-app</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">template</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">name</span>: <span style="color:#ae81ff">postgres-pod</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">name</span>: <span style="color:#ae81ff">postgres-pod</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">app</span>: <span style="color:#ae81ff">demo-voting-app</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">containers</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">postgres</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">postgres</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">containerPort</span>: <span style="color:#ae81ff">5432</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">env</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">POSTGRES_USER</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;postgres&#34;</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">POSTGRES_PASSWORD</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;postgres&#34;</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">POSTGRES_HOST_AUTH_METHOD</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">value</span>: <span style="color:#ae81ff">trust</span>
+</span></span></code></pre></div><p><code>postgres-service.yaml</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Service</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">db</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">postgres-service</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">demo-voting-app</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">port</span>: <span style="color:#ae81ff">5432</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">targetPort</span>: <span style="color:#ae81ff">5432</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">selector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">postgres-pod</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">demo-voting-app</span>
+</span></span></code></pre></div><p><code>redis-deploy.yaml</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">apps/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Deployment</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">redis-deploy</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">redis-deploy</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">demo-voting-app</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">replicas</span>: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">selector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">matchLabels</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">name</span>: <span style="color:#ae81ff">redis-pod</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">app</span>: <span style="color:#ae81ff">demo-voting-app</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">template</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">name</span>: <span style="color:#ae81ff">redis-pod</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">name</span>: <span style="color:#ae81ff">redis-pod</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">app</span>: <span style="color:#ae81ff">demo-voting-app</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">containers</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">redis</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">redis</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">containerPort</span>: <span style="color:#ae81ff">6379</span>
+</span></span></code></pre></div><p><code>redis-service.yaml</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Service</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">redis</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">redis-service</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">demo-voting-app</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">port</span>: <span style="color:#ae81ff">6379</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">targetPort</span>: <span style="color:#ae81ff">6379</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">selector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">redis-pod</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">demo-voting-app</span>
+</span></span></code></pre></div><p><code>result-app-deploy.yaml</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">apps/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Deployment</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">result-app-deploy</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">result-app-deploy</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">demo-voting-app</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">replicas</span>: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">selector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">matchLabels</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">name</span>: <span style="color:#ae81ff">result-app-pod</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">app</span>: <span style="color:#ae81ff">demo-voting-app</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">template</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">name</span>: <span style="color:#ae81ff">result-app-pod</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">name</span>: <span style="color:#ae81ff">result-app-pod</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">app</span>: <span style="color:#ae81ff">demo-voting-app</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">containers</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">result-app</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">docker/example-voting-app-result</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">containerPort</span>: <span style="color:#ae81ff">80</span>
+</span></span></code></pre></div><p><code>result-app-service.yaml</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Service</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">result-service</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">result-service</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">demo-voting-app</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">type</span>: <span style="color:#ae81ff">NodePort</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">port</span>: <span style="color:#ae81ff">80</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">targetPort</span>: <span style="color:#ae81ff">80</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">nodePort</span>: <span style="color:#ae81ff">30005</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">selector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">result-app-pod</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">demo-voting-app</span>
+</span></span></code></pre></div><p><code>voting-app-deploy.yaml</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">apps/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Deployment</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">voting-app-deploy</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">voting-app-deploy</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">demo-voting-app</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">replicas</span>: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">selector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">matchLabels</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">name</span>: <span style="color:#ae81ff">voting-app-pod</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">app</span>: <span style="color:#ae81ff">demo-voting-app</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">template</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">name</span>: <span style="color:#ae81ff">voting-app-pod</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">name</span>: <span style="color:#ae81ff">voting-app-pod</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">app</span>: <span style="color:#ae81ff">demo-voting-app</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">containers</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">voting-app</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">docker/example-voting-app-vote</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">containerPort</span>: <span style="color:#ae81ff">80</span>
+</span></span></code></pre></div><p><code>voting-app-service.yaml</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Service</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">voting-service</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">voting-service</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">demo-voting-app</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">type</span>: <span style="color:#ae81ff">NodePort</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">port</span>: <span style="color:#ae81ff">80</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">targetPort</span>: <span style="color:#ae81ff">80</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">nodePort</span>: <span style="color:#ae81ff">30004</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">selector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">voting-app-pod</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">demo-voting-app</span>
+</span></span></code></pre></div><p><code>worker-app-deploy.yaml</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">apps/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Deployment</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">worker-app-deploy</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">worker-app-deploy</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">demo-voting-app</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">replicas</span>: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">selector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">matchLabels</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">name</span>: <span style="color:#ae81ff">worker-app-pod</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">app</span>: <span style="color:#ae81ff">demo-voting-app</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">template</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">name</span>: <span style="color:#ae81ff">worker-app-pod</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">name</span>: <span style="color:#ae81ff">worker-app-pod</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">app</span>: <span style="color:#ae81ff">demo-voting-app</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">containers</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">worker-app</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">docker/example-voting-app-worker</span>
+</span></span></code></pre></div><p>now we will create all the deployments and services:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># voting app</span>
+</span></span><span style="display:flex;"><span>kubectl create -f voting-app-deploy.yaml
+</span></span><span style="display:flex;"><span>kubectl create -f voting-app-service.yaml
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># do a quick check to make sure that above deplyment is in running state</span>
+</span></span><span style="display:flex;"><span>kubectl get deployments
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># postgres</span>
+</span></span><span style="display:flex;"><span>kubectl create -f postgres-deploy.yaml
+</span></span><span style="display:flex;"><span>kubectl create -f postgres-service.yaml
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># redis</span>
+</span></span><span style="display:flex;"><span>kubectl create -f redis-deploy.yaml
+</span></span><span style="display:flex;"><span>kubectl create -f redis-service.yaml
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># do a quick check to make sure that above deplyment is in running state</span>
+</span></span><span style="display:flex;"><span>kubectl get deployments
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># make sure that all pods are up as well as the service</span>
+</span></span><span style="display:flex;"><span>kubectl get pods,svc
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># worker</span>
+</span></span><span style="display:flex;"><span>kubectl create -f worker-app-deploy.yaml
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># make sure that all pods are up as well as the service</span>
+</span></span><span style="display:flex;"><span>kubectl get pods,svc
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># result app</span>
+</span></span><span style="display:flex;"><span>kubectl create -f result-app-deploy.yaml
+</span></span><span style="display:flex;"><span>kubectl create -f result-app-service.yaml
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># make sure that all deployments are up as well as the service</span>
+</span></span><span style="display:flex;"><span>kubectl get deployments,svc
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># get urls for the two frontend services</span>
+</span></span><span style="display:flex;"><span>minikube service voting-service --url
+</span></span><span style="display:flex;"><span>minikube service result-service --url
+</span></span></code></pre></div>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/minikube/" rel="tag">minikube</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+
+
+
+			</div>
+			<aside class="sidebar">
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="LinkedIn" rel="noopener noreferrer" href="https://linkedin.com/in/himanshu-singh-remote/" target="_blank">
+				<svg class="widget-social__link-icon icon icon-linkedin" width="24" height="24" viewBox="0 0 352 352"><path d="M0,40v272c0,21.9,18.1,40,40,40h272c21.9,0,40-18.1,40-40V40c0-21.9-18.1-40-40-40H40C18.1,0,0,18.1,0,40z M312,32 c4.6,0,8,3.4,8,8v272c0,4.6-3.4,8-8,8H40c-4.6,0-8-3.4-8-8V40c0-4.6,3.4-8,8-8H312z M59.5,87c0,15.2,12.3,27.5,27.5,27.5 c15.2,0,27.5-12.3,27.5-27.5c0-15.2-12.3-27.5-27.5-27.5C71.8,59.5,59.5,71.8,59.5,87z M187,157h-1v-21h-45v152h47v-75 c0-19.8,3.9-39,28.5-39c24.2,0,24.5,22.4,24.5,40v74h47v-83.5c0-40.9-8.7-72-56.5-72C208.5,132.5,193.3,145.1,187,157z M64,288h47.5 V136H64V288z"/></svg>
+				<span>LinkedIn</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/tek-shinobi" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+
+		
+	</div>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/posts/github_managing-multiple-accounts/">Github:managing Multiple Accounts: SSH configuration</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/linux_iptables-cheatsheet/">Linux:Iptables Cheatsheet</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/aws_setup-reverse-proxy-in-aws-using-elb/">AWS:Setup Reverse Proxy in AWS Using ELB</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/grafana_grafana-loki-aws-s3-integration/">Grafana:Grafana Loki AWS S3 Integration</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang_distributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/rate-limiting-in-distributed-system/">Rate Limiting in a Distributed System</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-testing-creating-large-files/">Golang Testing: Creating Large Files</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/add-gpg-keys-to-repo/">Add Gpg Keys to Repo</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-handling-null-in-database-tables/">Golang: Handling Null in Database Tables</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/using-postgres-inside-docker-container/">Golang: Using Postgres Inside Docker Container</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/backend/">backend</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/distributed-system-design/">distributed system design</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/frontend/">frontend</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/github/">github</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/grafana/">grafana</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">javascript</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kubernetes/">kubernetes</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/linux/">Linux</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/mongodb/">mongodb</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/networking/">networking</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/python/">python</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/rust/">rust</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/virtualbox/">Virtualbox</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-taglist widget">
+	<h4 class="widget__title">Tags</h4>
+	<div class="widget__content">
+		<a class="widget-taglist__link widget__link btn" href="/tags/automation/" title="automation">automation</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/aws/" title="aws">aws</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/backend/" title="backend">backend</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/c#/" title="c#">c#</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/concurrency/" title="concurrency">concurrency</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/css/" title="css">css</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/django/" title="django">django</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/docker/" title="docker">docker</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/es6/" title="ES6">ES6</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/github/" title="github">github</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/golang/" title="golang">golang</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/gpg/" title="gpg">gpg</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/iptables/" title="iptables">iptables</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/javascript/" title="javascript">javascript</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/loki/" title="loki">loki</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/minikube/" title="minikube">minikube</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/mongodb/" title="mongodb">mongodb</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/networking/" title="networking">networking</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/postgres/" title="postgres">postgres</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/python/" title="python">python</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/rate-limiter/" title="rate limiter">rate limiter</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/react/" title="react">react</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/redis/" title="redis">redis</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/rust/" title="rust">rust</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/s3/" title="s3">s3</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/scrapy/" title="scrapy">scrapy</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/tcp/" title="tcp">tcp</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/testing/" title="testing">testing</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/tools/" title="tools">tools</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/turbofish/" title="turbofish">turbofish</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/virtualbox/" title="virtualbox">virtualbox</a>
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2024 Tek Shinobi Blog.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+</body>
+</html>

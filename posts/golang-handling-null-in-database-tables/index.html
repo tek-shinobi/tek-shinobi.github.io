@@ -49,111 +49,111 @@
 		</header>
 		<div class="content post__content clearfix">
 			<p>Consider this table schema (Postgres):</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> <span style="color:#66d9ef">IF</span> <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">EXISTS</span> mytable (
-id BIGSERIAL <span style="color:#66d9ef">PRIMARY</span> <span style="color:#66d9ef">KEY</span>,
-title TEXT <span style="color:#66d9ef">NULL</span>,
-<span style="color:#66d9ef">version</span> INTEGER <span style="color:#66d9ef">NULL</span> 
-);
-</code></pre></div><p>if we write its Go model, <code>title</code> is <code>string</code> and <code>version</code> is <code>int</code>. But here we have a problem. Zero value of string in Go is <code>&quot;&quot;</code> not <code>nil</code>. Same for <code>int</code> whose zero value is <code>0</code> and not <code>nil</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> <span style="color:#66d9ef">IF</span> <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">EXISTS</span> mytable (
+</span></span><span style="display:flex;"><span>id BIGSERIAL <span style="color:#66d9ef">PRIMARY</span> <span style="color:#66d9ef">KEY</span>,
+</span></span><span style="display:flex;"><span>title TEXT <span style="color:#66d9ef">NULL</span>,
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">version</span> INTEGER <span style="color:#66d9ef">NULL</span> 
+</span></span><span style="display:flex;"><span>);
+</span></span></code></pre></div><p>if we write its Go model, <code>title</code> is <code>string</code> and <code>version</code> is <code>int</code>. But here we have a problem. Zero value of string in Go is <code>&quot;&quot;</code> not <code>nil</code>. Same for <code>int</code> whose zero value is <code>0</code> and not <code>nil</code>.</p>
 <p>If we tried to write the above model in Go like this:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">MyTable</span> <span style="color:#66d9ef">struct</span> {
-	<span style="color:#a6e22e">ID</span>      <span style="color:#66d9ef">int64</span>
-	<span style="color:#a6e22e">Title</span>  <span style="color:#66d9ef">string</span> 
-	<span style="color:#a6e22e">Version</span> <span style="color:#66d9ef">int</span>
-}
-</code></pre></div><p>there is a chance that when MyTable row was inserted in database, Title and Version are both <code>nil</code> since the database schema allows null values for them. Then when we tried to read that value into MyTable like so:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">	<span style="color:#a6e22e">query</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">`
-</span><span style="color:#e6db74">	select id, title, version 
-</span><span style="color:#e6db74">	from mytable 
-</span><span style="color:#e6db74">	where id = $1
-</span><span style="color:#e6db74">	`</span>
-	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">mt</span> <span style="color:#a6e22e">MyTable</span>
-
-	<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">DB</span>.<span style="color:#a6e22e">QueryRow</span>(<span style="color:#a6e22e">query</span>, <span style="color:#a6e22e">id</span>).<span style="color:#a6e22e">Scan</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">ID</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">Title</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">Version</span>)
-</code></pre></div><p>we will get a panic in the last line, scanning nil into Title or Version. Since those types don&rsquo;t allow nil.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">MyTable</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ID</span>      <span style="color:#66d9ef">int64</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Title</span>  <span style="color:#66d9ef">string</span> 
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Version</span> <span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>there is a chance that when MyTable row was inserted in database, Title and Version are both <code>nil</code> since the database schema allows null values for them. Then when we tried to read that value into MyTable like so:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>	<span style="color:#a6e22e">query</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">`
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">	select id, title, version 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">	from mytable 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">	where id = $1
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">	`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">mt</span> <span style="color:#a6e22e">MyTable</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">DB</span>.<span style="color:#a6e22e">QueryRow</span>(<span style="color:#a6e22e">query</span>, <span style="color:#a6e22e">id</span>).<span style="color:#a6e22e">Scan</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">ID</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">Title</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">Version</span>)
+</span></span></code></pre></div><p>we will get a panic in the last line, scanning nil into Title or Version. Since those types don&rsquo;t allow nil.</p>
 <p>So, clearly the <code>mytable</code> cannot be expressed in Go using its native data types.</p>
 <p>There are two ways of handling this. Both have their merits and demerits.</p>
 <h2 id="approach-1-using-sqlnull">Approach 1: using sql.Null*</h2>
 <p>Let&rsquo;s write the corresponding Go model using this approach:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">MyTable</span> <span style="color:#66d9ef">struct</span> {
-	<span style="color:#a6e22e">ID</span>      <span style="color:#66d9ef">int64</span>
-	<span style="color:#a6e22e">Title</span>   <span style="color:#a6e22e">sql</span>.<span style="color:#a6e22e">NullString</span>
-	<span style="color:#a6e22e">Version</span> <span style="color:#a6e22e">sql</span>.<span style="color:#a6e22e">NullInt32</span>
-}
-</code></pre></div><p>Here, <code>database/sql</code> provides <code>sql.Null*</code> types that already have a scanner interface implemented and in that implementation, they handle the mapping of sql null to Go native zero values. Using this approach, there will be no panic.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">MyTable</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ID</span>      <span style="color:#66d9ef">int64</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Title</span>   <span style="color:#a6e22e">sql</span>.<span style="color:#a6e22e">NullString</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Version</span> <span style="color:#a6e22e">sql</span>.<span style="color:#a6e22e">NullInt32</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Here, <code>database/sql</code> provides <code>sql.Null*</code> types that already have a scanner interface implemented and in that implementation, they handle the mapping of sql null to Go native zero values. Using this approach, there will be no panic.</p>
 <p>But we have a problem here. Now, if we wrote our Get method like so:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">n</span> <span style="color:#a6e22e">NullValModels</span>) <span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">id</span> <span style="color:#66d9ef">int64</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">MyTable</span>, <span style="color:#66d9ef">error</span>) {
-	<span style="color:#a6e22e">query</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">`
-</span><span style="color:#e6db74">	select id, title, version 
-</span><span style="color:#e6db74">	from mytable 
-</span><span style="color:#e6db74">	where id = $1
-</span><span style="color:#e6db74">	`</span>
-	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">mt</span> <span style="color:#a6e22e">MyTable</span>
-
-	<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">DB</span>.<span style="color:#a6e22e">QueryRow</span>(<span style="color:#a6e22e">query</span>, <span style="color:#a6e22e">id</span>).<span style="color:#a6e22e">Scan</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">ID</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">Title</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">Version</span>)
-	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">mt</span>, <span style="color:#a6e22e">err</span>
-}
-</code></pre></div><p>the native sql.Null* implementation is exposed to the rest of the application, when it should be isolated to the repository layer.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">n</span> <span style="color:#a6e22e">NullValModels</span>) <span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">id</span> <span style="color:#66d9ef">int64</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">MyTable</span>, <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">query</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">`
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">	select id, title, version 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">	from mytable 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">	where id = $1
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">	`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">mt</span> <span style="color:#a6e22e">MyTable</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">DB</span>.<span style="color:#a6e22e">QueryRow</span>(<span style="color:#a6e22e">query</span>, <span style="color:#a6e22e">id</span>).<span style="color:#a6e22e">Scan</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">ID</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">Title</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">Version</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">mt</span>, <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>the native sql.Null* implementation is exposed to the rest of the application, when it should be isolated to the repository layer.</p>
 <p>If we tried to print out the returned row, that have nulls in Title and Version, it will look like this:</p>
 <pre tabindex="0"><code class="language-terminal" data-lang="terminal">&amp;{ID:1 Title:{String: Valid:false} Version:{Int32:0 Valid:false}}
 </code></pre><p>This is not ideal if we are following clean architecture principles, and we should be. The service layer method that called this method should not be exposed to this internal <code>database/sql</code> implementation of handling nulls.</p>
 <p>Thus we would abstract this internal detail like so:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">NullValModels</span> <span style="color:#66d9ef">struct</span> {
-	<span style="color:#a6e22e">DB</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">sql</span>.<span style="color:#a6e22e">DB</span>
-}
-
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">MyTable</span> <span style="color:#66d9ef">struct</span> {
-	<span style="color:#a6e22e">ID</span>      <span style="color:#66d9ef">int64</span>
-	<span style="color:#a6e22e">Title</span>   <span style="color:#a6e22e">sql</span>.<span style="color:#a6e22e">NullString</span>
-	<span style="color:#a6e22e">Version</span> <span style="color:#a6e22e">sql</span>.<span style="color:#a6e22e">NullInt32</span>
-}
-
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">MyTableService</span> <span style="color:#66d9ef">struct</span> {
-	<span style="color:#a6e22e">ID</span>      <span style="color:#66d9ef">int64</span>
-	<span style="color:#a6e22e">Title</span>   <span style="color:#66d9ef">string</span>
-	<span style="color:#a6e22e">Version</span> <span style="color:#66d9ef">int</span>
-}
-
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">n</span> <span style="color:#a6e22e">NullValModels</span>) <span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">id</span> <span style="color:#66d9ef">int64</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">MyTableService</span>, <span style="color:#66d9ef">error</span>) {
-	<span style="color:#a6e22e">query</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">`
-</span><span style="color:#e6db74">	select id, title, version 
-</span><span style="color:#e6db74">	from mytable 
-</span><span style="color:#e6db74">	where id = $1
-</span><span style="color:#e6db74">	`</span>
-	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">mt</span> <span style="color:#a6e22e">MyTable</span>
-
-	<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">DB</span>.<span style="color:#a6e22e">QueryRow</span>(<span style="color:#a6e22e">query</span>, <span style="color:#a6e22e">id</span>).<span style="color:#a6e22e">Scan</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">ID</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">Title</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">Version</span>)
-	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">err</span>
-	}
-	<span style="color:#a6e22e">mts</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">MyTableService</span>{
-		<span style="color:#a6e22e">ID</span>:      <span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">ID</span>,
-		<span style="color:#a6e22e">Title</span>:   <span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">Title</span>.<span style="color:#a6e22e">String</span>,
-		<span style="color:#a6e22e">Version</span>: int(<span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">Version</span>.<span style="color:#a6e22e">Int32</span>),
-	}
-
-	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">mts</span>, <span style="color:#a6e22e">err</span>
-}
-</code></pre></div><p>This is a valid approach, the downside is the duplicated MyTable and MyTableService models. The upside is that in service layer we can use this data as is. What &ldquo;as is&rdquo; means will become clear when contrasted with the next approach.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">NullValModels</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">DB</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">sql</span>.<span style="color:#a6e22e">DB</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">MyTable</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ID</span>      <span style="color:#66d9ef">int64</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Title</span>   <span style="color:#a6e22e">sql</span>.<span style="color:#a6e22e">NullString</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Version</span> <span style="color:#a6e22e">sql</span>.<span style="color:#a6e22e">NullInt32</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">MyTableService</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ID</span>      <span style="color:#66d9ef">int64</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Title</span>   <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Version</span> <span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">n</span> <span style="color:#a6e22e">NullValModels</span>) <span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">id</span> <span style="color:#66d9ef">int64</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">MyTableService</span>, <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">query</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">`
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">	select id, title, version 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">	from mytable 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">	where id = $1
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">	`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">mt</span> <span style="color:#a6e22e">MyTable</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">DB</span>.<span style="color:#a6e22e">QueryRow</span>(<span style="color:#a6e22e">query</span>, <span style="color:#a6e22e">id</span>).<span style="color:#a6e22e">Scan</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">ID</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">Title</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">Version</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">mts</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">MyTableService</span>{
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">ID</span>:      <span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">ID</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Title</span>:   <span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">Title</span>.<span style="color:#a6e22e">String</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Version</span>: int(<span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">Version</span>.<span style="color:#a6e22e">Int32</span>),
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">mts</span>, <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This is a valid approach, the downside is the duplicated MyTable and MyTableService models. The upside is that in service layer we can use this data as is. What &ldquo;as is&rdquo; means will become clear when contrasted with the next approach.</p>
 <h2 id="approach-2-using-pointers-in-sql-model">Approach 2: using pointers in sql model</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">MyTable</span> <span style="color:#66d9ef">struct</span> {
-	<span style="color:#a6e22e">ID</span>      <span style="color:#66d9ef">int64</span>
-	<span style="color:#a6e22e">Title</span>   <span style="color:#f92672">*</span><span style="color:#66d9ef">string</span> 
-	<span style="color:#a6e22e">Version</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">int</span>
-}
-
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">n</span> <span style="color:#a6e22e">NullValModels</span>) <span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">id</span> <span style="color:#66d9ef">int64</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">MyTable</span>, <span style="color:#66d9ef">error</span>) {
-	<span style="color:#a6e22e">query</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">`
-</span><span style="color:#e6db74">	select id, title, version 
-</span><span style="color:#e6db74">	from mytable 
-</span><span style="color:#e6db74">	where id = $1
-</span><span style="color:#e6db74">	`</span>
-	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">mt</span> <span style="color:#a6e22e">MyTable</span>
-
-	<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">DB</span>.<span style="color:#a6e22e">QueryRow</span>(<span style="color:#a6e22e">query</span>, <span style="color:#a6e22e">id</span>).<span style="color:#a6e22e">Scan</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">ID</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">Title</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">Version</span>)
-	<span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>, <span style="color:#a6e22e">err</span>
-}
-</code></pre></div><p>This approach will output a result like so:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">MyTable</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ID</span>      <span style="color:#66d9ef">int64</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Title</span>   <span style="color:#f92672">*</span><span style="color:#66d9ef">string</span> 
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Version</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">n</span> <span style="color:#a6e22e">NullValModels</span>) <span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">id</span> <span style="color:#66d9ef">int64</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">MyTable</span>, <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">query</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">`
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">	select id, title, version 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">	from mytable 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">	where id = $1
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">	`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">mt</span> <span style="color:#a6e22e">MyTable</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">DB</span>.<span style="color:#a6e22e">QueryRow</span>(<span style="color:#a6e22e">query</span>, <span style="color:#a6e22e">id</span>).<span style="color:#a6e22e">Scan</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">ID</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">Title</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>.<span style="color:#a6e22e">Version</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mt</span>, <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This approach will output a result like so:</p>
 <pre tabindex="0"><code class="language-terminal" data-lang="terminal">&amp;{ID:1 Title:&lt;nil&gt; Version:&lt;nil&gt;}
 </code></pre><p>Notice the nils in the result. These will now be leaked into the service layer and will have to be handled there. So the upside is that there is no duplication but downside is that nils need to handled in service layer.</p>
 <h2 id="conclusion">Conclusion</h2>
@@ -206,11 +206,11 @@ title TEXT <span style="color:#66d9ef">NULL</span>,
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
-			<li class="widget__item"><a class="widget__link" href="/posts/githubmanaging-multiple-accounts/">Github:managing Multiple Accounts: SSH configuration</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/linuxiptables-cheatsheet/">Linux:Iptables Cheatsheet</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/awssetup-reverse-proxy-in-aws-using-elb/">AWS:Setup Reverse Proxy in AWS Using ELB</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/grafanagrafana-loki-aws-s3-integration/">Grafana:Grafana Loki AWS S3 Integration</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/golangdistributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/github_managing-multiple-accounts/">Github:managing Multiple Accounts: SSH configuration</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/linux_iptables-cheatsheet/">Linux:Iptables Cheatsheet</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/aws_setup-reverse-proxy-in-aws-using-elb/">AWS:Setup Reverse Proxy in AWS Using ELB</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/grafana_grafana-loki-aws-s3-integration/">Grafana:Grafana Loki AWS S3 Integration</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang_distributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/rate-limiting-in-distributed-system/">Rate Limiting in a Distributed System</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golang-testing-creating-large-files/">Golang Testing: Creating Large Files</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/add-gpg-keys-to-repo/">Add Gpg Keys to Repo</a></li>
@@ -298,7 +298,7 @@ title TEXT <span style="color:#66d9ef">NULL</span>,
 	<div class="container footer__container flex">
 		
 		<div class="footer__copyright">
-			&copy; 2023 Tek Shinobi Blog.
+			&copy; 2024 Tek Shinobi Blog.
 			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
 		</div>
 	</div>

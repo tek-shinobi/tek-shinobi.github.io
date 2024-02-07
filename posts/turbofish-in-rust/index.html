@@ -49,14 +49,14 @@
 		</header>
 		<div class="content post__content clearfix">
 			<p>Consider the following code (or run it in rust playground <a href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2018&amp;gist=7f0e8c951a3cd76a2622cf968ecded68">here</a>):</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
-    <span style="color:#66d9ef">let</span> a:Vec <span style="color:#f92672">=</span> vec![<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>];
-
-    <span style="color:#66d9ef">let</span> doubled <span style="color:#f92672">=</span> a.iter().map(<span style="color:#f92672">|&amp;</span>x<span style="color:#f92672">|</span> x <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>).collect();
-
-    assert_eq!(vec![<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">6</span>], doubled);
-}
-</code></pre></div><p>If you ran it in the playground linked above, you will see the following compiler error.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> a:Vec <span style="color:#f92672">=</span> vec![<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> doubled <span style="color:#f92672">=</span> a.iter().map(<span style="color:#f92672">|&amp;</span>x<span style="color:#f92672">|</span> x <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>).collect();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    assert_eq!(vec![<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">6</span>], doubled);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>If you ran it in the playground linked above, you will see the following compiler error.</p>
 <pre tabindex="0"><code class="language-terminal" data-lang="terminal">error[E0282]: type annotations needed
  --&gt; src/main.rs:4:9
   |
@@ -73,27 +73,27 @@ To learn more, run the command again with --verbose.
 <p>In the above case, it is not clear if the collection is supposed to be a Vec, VecDeque, HashSet, HashMap or anything else that implements FromIterator.</p>
 <p>There are two ways of fixing the above issue:</p>
 <h4 id="1st-way-by-annotating-doubled">1st Way: By annotating doubled:</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">let</span> doubled:Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">u32</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> a.iter().map(<span style="color:#f92672">|&amp;</span>amp;x<span style="color:#f92672">|</span> x <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>).collect();
-<span style="color:#75715e">// OR
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> doubled:Vec<span style="color:#f92672">&lt;</span>_<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> a.iter().map(<span style="color:#f92672">|&amp;</span>amp;x<span style="color:#f92672">|</span> x <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>).collect();
-</code></pre></div><p>In both cases, the type annotation on doubled makes it clear what type of collection the <code>collect()</code> is going to collect into. The second option works because the rust&rsquo;s compiler can infer exactly what type of <code>Vec&lt;_&gt;</code> collection it is going to be because iter returns u32. So compiler can exactly infer that the partial type hint <code>_</code> in <code>Vec&lt;_&gt;</code> has to be <code>Vec&lt;u32&gt;</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> doubled:Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">u32</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> a.iter().map(<span style="color:#f92672">|&amp;</span>amp;x<span style="color:#f92672">|</span> x <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>).collect();
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// OR
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> doubled:Vec<span style="color:#f92672">&lt;</span>_<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> a.iter().map(<span style="color:#f92672">|&amp;</span>amp;x<span style="color:#f92672">|</span> x <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>).collect();
+</span></span></code></pre></div><p>In both cases, the type annotation on doubled makes it clear what type of collection the <code>collect()</code> is going to collect into. The second option works because the rust&rsquo;s compiler can infer exactly what type of <code>Vec&lt;_&gt;</code> collection it is going to be because iter returns u32. So compiler can exactly infer that the partial type hint <code>_</code> in <code>Vec&lt;_&gt;</code> has to be <code>Vec&lt;u32&gt;</code>.</p>
 <h4 id="2nd-way-turbofish">2nd Way: turbofish:</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">let</span> doubled <span style="color:#f92672">=</span> a.iter().map(<span style="color:#f92672">|</span>x<span style="color:#f92672">|</span> x <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>).collect::<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;&gt;</span>();
-</code></pre></div><p>Like in 1st way, because collect() only cares about what you&rsquo;re collecting into, you can still use a partial type hint, <code>_</code>, with the turbofish:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">let</span> doubled <span style="color:#f92672">=</span> a.iter().map(<span style="color:#f92672">|</span>x<span style="color:#f92672">|</span> x <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>).collect::<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span>_<span style="color:#f92672">&gt;&gt;</span>();
-</code></pre></div><h3 id="turbofish-does-not-always-work">turbofish does not always work</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> doubled <span style="color:#f92672">=</span> a.iter().map(<span style="color:#f92672">|</span>x<span style="color:#f92672">|</span> x <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>).collect::<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i32</span><span style="color:#f92672">&gt;&gt;</span>();
+</span></span></code></pre></div><p>Like in 1st way, because collect() only cares about what you&rsquo;re collecting into, you can still use a partial type hint, <code>_</code>, with the turbofish:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> doubled <span style="color:#f92672">=</span> a.iter().map(<span style="color:#f92672">|</span>x<span style="color:#f92672">|</span> x <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>).collect::<span style="color:#f92672">&lt;</span>Vec<span style="color:#f92672">&lt;</span>_<span style="color:#f92672">&gt;&gt;</span>();
+</span></span></code></pre></div><h3 id="turbofish-does-not-always-work">turbofish does not always work</h3>
 <p>There are times where you need to make type explicit via annotation. Turbofish won&rsquo;t work. This has to do with history. Turbofish was created to deal with some corner cases in generics. If you apply on functions that don&rsquo;t support generics, turbofish will not work.</p>
 <p>Consider this code:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
-    <span style="color:#66d9ef">let</span> num <span style="color:#f92672">=</span> <span style="color:#ae81ff">15</span>;
-    <span style="color:#66d9ef">let</span> number <span style="color:#f92672">=</span> num.into();
-}
-</code></pre></div><p>Obviously, this gives an error as compiler does not know to what type do we want to convert num to, So, let&rsquo;s try turbofish.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
-    <span style="color:#66d9ef">let</span> num <span style="color:#f92672">=</span> <span style="color:#ae81ff">15</span>;
-    <span style="color:#66d9ef">let</span> number <span style="color:#f92672">=</span> num.into::<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i64</span><span style="color:#f92672">&gt;</span>();
-}
-</code></pre></div><p>No dice. We get a different error.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> num <span style="color:#f92672">=</span> <span style="color:#ae81ff">15</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> number <span style="color:#f92672">=</span> num.into();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Obviously, this gives an error as compiler does not know to what type do we want to convert num to, So, let&rsquo;s try turbofish.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> num <span style="color:#f92672">=</span> <span style="color:#ae81ff">15</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> number <span style="color:#f92672">=</span> num.into::<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">i64</span><span style="color:#f92672">&gt;</span>();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>No dice. We get a different error.</p>
 <pre tabindex="0"><code class="language-terminal" data-lang="terminal">error[E0107]: wrong number of type arguments: expected 0, found 1
  --&gt; src/main.rs:3:29
   |
@@ -107,13 +107,13 @@ error: could not compile `playground`
 
 To learn more, run the command again with --verbose.
 </code></pre><p>The only way to resolve this is via annotation in type space. (LHS is type space and RHS is expression space).</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">let</span> number :<span style="color:#66d9ef">i64</span> <span style="color:#f92672">=</span> num.into();
-</code></pre></div><p>This inconsistency is bit confusing and not very obvious in the beginning. This is because the of the way generics are implemented in into() function signature vs collect().
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> number :<span style="color:#66d9ef">i64</span> <span style="color:#f92672">=</span> num.into();
+</span></span></code></pre></div><p>This inconsistency is bit confusing and not very obvious in the beginning. This is because the of the way generics are implemented in into() function signature vs collect().
 Here is the function signature for into():</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">into</span>(self) -&gt; <span style="color:#a6e22e">T</span>
-</code></pre></div><p>and here is the function signature for collect():</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">collect</span><span style="color:#f92672">&lt;</span>B<span style="color:#f92672">&gt;</span>(self) -&gt; <span style="color:#a6e22e">B</span>
-</code></pre></div><p>it is that <code>&lt;B&gt;</code> in collect that makes it possible to use turbofish. Since into does not have this syntax, it will not work here.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">into</span>(self) -&gt; <span style="color:#a6e22e">T</span>
+</span></span></code></pre></div><p>and here is the function signature for collect():</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">collect</span><span style="color:#f92672">&lt;</span>B<span style="color:#f92672">&gt;</span>(self) -&gt; <span style="color:#a6e22e">B</span>
+</span></span></code></pre></div><p>it is that <code>&lt;B&gt;</code> in collect that makes it possible to use turbofish. Since into does not have this syntax, it will not work here.</p>
 <p>Turbofish has its share of haters as it makes generics syntax inconsistent in some cases. There is a whole reddit thread on this topic <a href="https://www.reddit.com/r/rust/comments/ld6q8u/bastion_of_the_turbofish_a_brief_tale_lamenting/">here</a> and the attempt to remove turbofish from rust that ended in absolute dismal failure.</p>
 
 		</div>
@@ -162,11 +162,11 @@ Here is the function signature for into():</p>
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
-			<li class="widget__item"><a class="widget__link" href="/posts/githubmanaging-multiple-accounts/">Github:managing Multiple Accounts: SSH configuration</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/linuxiptables-cheatsheet/">Linux:Iptables Cheatsheet</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/awssetup-reverse-proxy-in-aws-using-elb/">AWS:Setup Reverse Proxy in AWS Using ELB</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/grafanagrafana-loki-aws-s3-integration/">Grafana:Grafana Loki AWS S3 Integration</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/golangdistributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/github_managing-multiple-accounts/">Github:managing Multiple Accounts: SSH configuration</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/linux_iptables-cheatsheet/">Linux:Iptables Cheatsheet</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/aws_setup-reverse-proxy-in-aws-using-elb/">AWS:Setup Reverse Proxy in AWS Using ELB</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/grafana_grafana-loki-aws-s3-integration/">Grafana:Grafana Loki AWS S3 Integration</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang_distributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/rate-limiting-in-distributed-system/">Rate Limiting in a Distributed System</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golang-testing-creating-large-files/">Golang Testing: Creating Large Files</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/add-gpg-keys-to-repo/">Add Gpg Keys to Repo</a></li>
@@ -254,7 +254,7 @@ Here is the function signature for into():</p>
 	<div class="container footer__container flex">
 		
 		<div class="footer__copyright">
-			&copy; 2023 Tek Shinobi Blog.
+			&copy; 2024 Tek Shinobi Blog.
 			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
 		</div>
 	</div>

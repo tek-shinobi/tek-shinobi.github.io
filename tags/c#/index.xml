@@ -5,28 +5,22 @@
     <link>https://tek-shinobi.github.io/tags/c#/</link>
     <description>Recent content in c# on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 07 Sep 2018 16:09:23 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/c#/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Fri, 07 Sep 2018 16:09:23 +0300</lastBuildDate>
+    <atom:link href="https://tek-shinobi.github.io/tags/c#/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Backend c#:Reading RSA key pair from PEM files in .NET with C# using Bouncy Castle and Digitally Sign and Verify payload</title>
-      <link>https://tek-shinobi.github.io/posts/backend-netdigital-signature-of-payload-in-net/</link>
+      <link>https://tek-shinobi.github.io/posts/backend-net_digital-signature-of-payload-in-net/</link>
       <pubDate>Fri, 07 Sep 2018 16:09:23 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/backend-netdigital-signature-of-payload-in-net/</guid>
-      <description>.NET does not have an easy way to directly deal with .pem format files generated using OpenSSL. I had to look into Bouncy Castle library to do it. Lets see how. We will also generate a dummy payload and then sign it using the generated pem keys and then verify it.
-First let us generate RSA key pair using OpenSSL. Please install OpenSSL before hand.
-[user@host secure]~ openssl genrsa -out posvendor.</description>
+      <guid>https://tek-shinobi.github.io/posts/backend-net_digital-signature-of-payload-in-net/</guid>
+      <description>.NET does not have an easy way to directly deal with .pem format files generated using OpenSSL. I had to look into Bouncy Castle library to do it. Lets see how. We will also generate a dummy payload and then sign it using the generated pem keys and then verify it.&#xA;First let us generate RSA key pair using OpenSSL. Please install OpenSSL before hand.&#xA;[user@host secure]~ openssl genrsa -out posvendor.</description>
     </item>
-    
     <item>
       <title>Backend C# Add NLog Logger in .NET project</title>
       <link>https://tek-shinobi.github.io/posts/backend-c#-add-nlog-logger/</link>
       <pubDate>Fri, 07 Sep 2018 09:57:49 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/posts/backend-c#-add-nlog-logger/</guid>
-      <description>Recently, I was working on an enterprise project using Windows Forms and needed a logger that was thread-safe, allowed both structured and text based logging and provided an options to integrate email sending as well. Two options came standard NLog or log4Net.
-Had a brief look at both. log4Net looked like more of XML configuration. NLog looked like less so. Went with NLog.
-How to add NLog to your .NET solution: Scenario is that we have multiple projects in our solution.</description>
+      <description>Recently, I was working on an enterprise project using Windows Forms and needed a logger that was thread-safe, allowed both structured and text based logging and provided an options to integrate email sending as well. Two options came standard NLog or log4Net.&#xA;Had a brief look at both. log4Net looked like more of XML configuration. NLog looked like less so. Went with NLog.&#xA;How to add NLog to your .NET solution: Scenario is that we have multiple projects in our solution.</description>
     </item>
-    
   </channel>
 </rss>

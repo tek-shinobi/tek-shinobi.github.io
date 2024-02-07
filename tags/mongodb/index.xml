@@ -5,22 +5,15 @@
     <link>https://tek-shinobi.github.io/tags/mongodb/</link>
     <description>Recent content in mongodb on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 14 Nov 2021 10:25:50 +0200</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/mongodb/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Sun, 14 Nov 2021 10:25:50 +0200</lastBuildDate>
+    <atom:link href="https://tek-shinobi.github.io/tags/mongodb/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>MongoDB: Cheatsheet</title>
-      <link>https://tek-shinobi.github.io/posts/mongodbcheatsheet/</link>
+      <link>https://tek-shinobi.github.io/posts/mongodb_cheatsheet/</link>
       <pubDate>Sun, 14 Nov 2021 10:25:50 +0200</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/mongodbcheatsheet/</guid>
-      <description>create and run mongodb docker container:
-docker run --name mongodb -d -p 27017:27017 mongo:7 login to mongodb container:
-docker exec -it mongodb sh run mongosh to enter mongo shell
-&amp;gt; mongosh it will automatically show a test&amp;gt; prompt which is a default test database
-to clear screen:
-cls to ompletely exit out of mongosh and docker shell terminal:
-exit this command will show all dbs:
-show dbs to create a new database:</description>
+      <guid>https://tek-shinobi.github.io/posts/mongodb_cheatsheet/</guid>
+      <description>create and run mongodb docker container:&#xA;docker run --name mongodb -d -p 27017:27017 mongo:7 login to mongodb container:&#xA;docker exec -it mongodb sh run mongosh to enter mongo shell&#xA;&amp;gt; mongosh it will automatically show a test&amp;gt; prompt which is a default test database&#xA;to clear screen:&#xA;cls to ompletely exit out of mongosh and docker shell terminal:&#xA;exit this command will show all dbs:&#xA;show dbs to create a new database:</description>
     </item>
-    
   </channel>
 </rss>

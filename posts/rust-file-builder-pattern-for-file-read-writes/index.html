@@ -49,61 +49,61 @@
 		</header>
 		<div class="content post__content clearfix">
 			<p>Consider the following test code that creates a file, writes to it and then reads back to confirm what it wrote.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">#[cfg(test)]</span>
-<span style="color:#66d9ef">mod</span> tests {
-    <span style="color:#75715e">#[allow(unused_imports)]</span>
-    <span style="color:#66d9ef">use</span> <span style="color:#66d9ef">super</span>::<span style="color:#f92672">*</span>;
-    <span style="color:#66d9ef">use</span> std::fs::{self, File, OpenOptions};
-    <span style="color:#66d9ef">use</span> std::io::{Read, Seek, SeekFrom, Write};
-    <span style="color:#66d9ef">use</span> tempfile::{tempdir, tempfile, NamedTempFile};
-
-    <span style="color:#75715e">#[test]</span>
-    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">test_file</span>() {
-        <span style="color:#66d9ef">let</span> dir <span style="color:#f92672">=</span> tempdir().unwrap();
-        <span style="color:#66d9ef">let</span> file_path <span style="color:#f92672">=</span> dir.path().join(<span style="color:#e6db74">&#34;foo.txt&#34;</span>);
-        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> file <span style="color:#f92672">=</span> File::create(file_path.to_owned()).unwrap();
-        file.write_all(<span style="color:#e6db74">&#34;Bar Baz&#34;</span>.as_bytes())
-           .unwrap();
-        file.seek(SeekFrom::Start(<span style="color:#ae81ff">0</span>)).unwrap();
-        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> contents <span style="color:#f92672">=</span> String::new();
-        file.read_to_string(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> contents).unwrap();
-        assert_eq!(contents, <span style="color:#e6db74">&#34;Bar Baz&#34;</span>);
-        drop(file);
-        dir.close().unwrap();
-     }
-}
-</code></pre></div><p>This test fails with a very cryptic and unhelpful message:</p>
-<pre tabindex="0"><code class="language-terminal" data-lang="terminal">thread 'tests::test_tempfiles' panicked at 'called `Result::unwrap()` 
-on an `Err` value: Os { code: 9, kind: Other, message: &quot;Bad file descriptor&quot; }'
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">#[cfg(test)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">mod</span> tests {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#[allow(unused_imports)]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">use</span> <span style="color:#66d9ef">super</span>::<span style="color:#f92672">*</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">use</span> std::fs::{self, File, OpenOptions};
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">use</span> std::io::{Read, Seek, SeekFrom, Write};
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">use</span> tempfile::{tempdir, tempfile, NamedTempFile};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#[test]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">test_file</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> dir <span style="color:#f92672">=</span> tempdir().unwrap();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> file_path <span style="color:#f92672">=</span> dir.path().join(<span style="color:#e6db74">&#34;foo.txt&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> file <span style="color:#f92672">=</span> File::create(file_path.to_owned()).unwrap();
+</span></span><span style="display:flex;"><span>        file.write_all(<span style="color:#e6db74">&#34;Bar Baz&#34;</span>.as_bytes())
+</span></span><span style="display:flex;"><span>           .unwrap();
+</span></span><span style="display:flex;"><span>        file.seek(SeekFrom::Start(<span style="color:#ae81ff">0</span>)).unwrap();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> contents <span style="color:#f92672">=</span> String::new();
+</span></span><span style="display:flex;"><span>        file.read_to_string(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> contents).unwrap();
+</span></span><span style="display:flex;"><span>        assert_eq!(contents, <span style="color:#e6db74">&#34;Bar Baz&#34;</span>);
+</span></span><span style="display:flex;"><span>        drop(file);
+</span></span><span style="display:flex;"><span>        dir.close().unwrap();
+</span></span><span style="display:flex;"><span>     }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This test fails with a very cryptic and unhelpful message:</p>
+<pre tabindex="0"><code class="language-terminal" data-lang="terminal">thread &#39;tests::test_tempfiles&#39; panicked at &#39;called `Result::unwrap()` 
+on an `Err` value: Os { code: 9, kind: Other, message: &#34;Bad file descriptor&#34; }&#39;
 </code></pre><p>It will panic at this line</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust">file.read_to_string(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> contents).unwrap();
-</code></pre></div><p>What is happening is that <code>File::create</code> and <code>File::open</code> in rust are actually syntactic sugar for File Builder pattern. Here the file is being created and when the first write happens, the file mode become write only. If you tried to read from this file-handle, it would panic. It would have been helpful if the error message was less cryptic.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span>file.read_to_string(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> contents).unwrap();
+</span></span></code></pre></div><p>What is happening is that <code>File::create</code> and <code>File::open</code> in rust are actually syntactic sugar for File Builder pattern. Here the file is being created and when the first write happens, the file mode become write only. If you tried to read from this file-handle, it would panic. It would have been helpful if the error message was less cryptic.</p>
 <p>Moving on to file builder pattern, <code>OpenOptions</code>. Actually its just the builder pattern with an another unhelpful name. If it was named <code>FileBuilder</code>, it would have been super helpful. But for some reason, it is cryptically named <code>OpenOption</code>. Further rant. You would then proceed to <code>std::fs::File</code> documentation but that does not help either. If you were familiar with <code>OpenOptions</code>, then good, if not, you are in for some head scratching. In my opinion, using <code>OpenOption</code> should have been detailed first and then its syntactic sugars <code>File::open</code> and <code>File::create</code>.</p>
 <p>If you want to achieve file create, then file write and then file read, you need to give the file-handle permissions for both read and write. This is how you will do it:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">#[cfg(test)]</span>
-<span style="color:#66d9ef">mod</span> tests {
-    <span style="color:#75715e">#[allow(unused_imports)]</span>
-    <span style="color:#66d9ef">use</span> <span style="color:#66d9ef">super</span>::<span style="color:#f92672">*</span>;
-    <span style="color:#66d9ef">use</span> std::fs::{self, File, OpenOptions};
-    <span style="color:#66d9ef">use</span> std::io::{Read, Seek, SeekFrom, Write};
-    <span style="color:#66d9ef">use</span> tempfile::{tempdir, tempfile, NamedTempFile};
-
-    <span style="color:#75715e">#[test]</span>
-    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">test_file</span>() {
-        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> file <span style="color:#f92672">=</span> OpenOptions::new()
-            .read(<span style="color:#66d9ef">true</span>)
-            .write(<span style="color:#66d9ef">true</span>)
-            .create(<span style="color:#66d9ef">true</span>)
-            .open(<span style="color:#e6db74">&#34;foo.txt&#34;</span>)
-            .unwrap();
-        file.write_all(<span style="color:#e6db74">b&#34;Hello, world!&#34;</span>).unwrap();
-        file.seek(SeekFrom::Start(<span style="color:#ae81ff">0</span>)).unwrap();
-        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> contents <span style="color:#f92672">=</span> String::new();
-        file.read_to_string(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> contents).unwrap();
-        assert_eq!(contents, <span style="color:#e6db74">&#34;Hello, world!&#34;</span>);
-    }
-}
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">#[cfg(test)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">mod</span> tests {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#[allow(unused_imports)]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">use</span> <span style="color:#66d9ef">super</span>::<span style="color:#f92672">*</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">use</span> std::fs::{self, File, OpenOptions};
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">use</span> std::io::{Read, Seek, SeekFrom, Write};
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">use</span> tempfile::{tempdir, tempfile, NamedTempFile};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#[test]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">test_file</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> file <span style="color:#f92672">=</span> OpenOptions::new()
+</span></span><span style="display:flex;"><span>            .read(<span style="color:#66d9ef">true</span>)
+</span></span><span style="display:flex;"><span>            .write(<span style="color:#66d9ef">true</span>)
+</span></span><span style="display:flex;"><span>            .create(<span style="color:#66d9ef">true</span>)
+</span></span><span style="display:flex;"><span>            .open(<span style="color:#e6db74">&#34;foo.txt&#34;</span>)
+</span></span><span style="display:flex;"><span>            .unwrap();
+</span></span><span style="display:flex;"><span>        file.write_all(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;Hello, world!&#34;</span>).unwrap();
+</span></span><span style="display:flex;"><span>        file.seek(SeekFrom::Start(<span style="color:#ae81ff">0</span>)).unwrap();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> contents <span style="color:#f92672">=</span> String::new();
+</span></span><span style="display:flex;"><span>        file.read_to_string(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> contents).unwrap();
+</span></span><span style="display:flex;"><span>        assert_eq!(contents, <span style="color:#e6db74">&#34;Hello, world!&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
 		</div>
 		<footer class="post__footer">
 			
@@ -147,11 +147,11 @@ on an `Err` value: Os { code: 9, kind: Other, message: &quot;Bad file descriptor
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
-			<li class="widget__item"><a class="widget__link" href="/posts/githubmanaging-multiple-accounts/">Github:managing Multiple Accounts: SSH configuration</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/linuxiptables-cheatsheet/">Linux:Iptables Cheatsheet</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/awssetup-reverse-proxy-in-aws-using-elb/">AWS:Setup Reverse Proxy in AWS Using ELB</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/grafanagrafana-loki-aws-s3-integration/">Grafana:Grafana Loki AWS S3 Integration</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/golangdistributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/github_managing-multiple-accounts/">Github:managing Multiple Accounts: SSH configuration</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/linux_iptables-cheatsheet/">Linux:Iptables Cheatsheet</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/aws_setup-reverse-proxy-in-aws-using-elb/">AWS:Setup Reverse Proxy in AWS Using ELB</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/grafana_grafana-loki-aws-s3-integration/">Grafana:Grafana Loki AWS S3 Integration</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang_distributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/rate-limiting-in-distributed-system/">Rate Limiting in a Distributed System</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golang-testing-creating-large-files/">Golang Testing: Creating Large Files</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/add-gpg-keys-to-repo/">Add Gpg Keys to Repo</a></li>
@@ -239,7 +239,7 @@ on an `Err` value: Os { code: 9, kind: Other, message: &quot;Bad file descriptor
 	<div class="container footer__container flex">
 		
 		<div class="footer__copyright">
-			&copy; 2023 Tek Shinobi Blog.
+			&copy; 2024 Tek Shinobi Blog.
 			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
 		</div>
 	</div>

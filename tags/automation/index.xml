@@ -5,17 +5,15 @@
     <link>https://tek-shinobi.github.io/tags/automation/</link>
     <description>Recent content in automation on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 21 Jun 2021 11:01:27 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/automation/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Mon, 21 Jun 2021 11:01:27 +0300</lastBuildDate>
+    <atom:link href="https://tek-shinobi.github.io/tags/automation/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Golang:Go Tools Cheatsheet</title>
-      <link>https://tek-shinobi.github.io/posts/golanggo-tools-cheatsheet/</link>
+      <link>https://tek-shinobi.github.io/posts/golang_go-tools-cheatsheet/</link>
       <pubDate>Mon, 21 Jun 2021 11:01:27 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/golanggo-tools-cheatsheet/</guid>
-      <description>Note: Starting in Go 1.17, installing executables with go get is deprecated. go install may be used instead. In Go 1.18, go get will no longer build packages&amp;hellip;
-In other words, go get in 1.18 and beyond will no longer install executables. Use go install
- Go has an impressive number of command line tools integreated into go &amp;lt;tool_name&amp;gt; that us developers use daily. You can get a list of them by</description>
+      <guid>https://tek-shinobi.github.io/posts/golang_go-tools-cheatsheet/</guid>
+      <description>Note: Starting in Go 1.17, installing executables with go get is deprecated. go install may be used instead. In Go 1.18, go get will no longer build packages&amp;hellip;&#xA;In other words, go get in 1.18 and beyond will no longer install executables. Use go install&#xA;Go has an impressive number of command line tools integreated into go &amp;lt;tool_name&amp;gt; that us developers use daily. You can get a list of them by</description>
     </item>
-    
   </channel>
 </rss>

@@ -5,17 +5,22 @@
     <link>https://tek-shinobi.github.io/tags/testing/</link>
     <description>Recent content in testing on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 11 Jul 2023 15:17:34 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/testing/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Tue, 11 Jul 2023 15:17:34 +0300</lastBuildDate>
+    <atom:link href="https://tek-shinobi.github.io/tags/testing/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Golang Testing: Creating Large Files</title>
       <link>https://tek-shinobi.github.io/posts/golang-testing-creating-large-files/</link>
       <pubDate>Tue, 11 Jul 2023 15:17:34 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/posts/golang-testing-creating-large-files/</guid>
-      <description>Needed a quick hack to generate a known file size, to test that file upload limit logic works in an endpoint
-Another option is to just generate a temporary file, using nearly the same process. This approach is fine but can slow down the test since file needs to be generated each time the test is run and beyond a certain size, this file generation time can become non-trivial.
-package main import ( &amp;#34;encoding/json&amp;#34; &amp;#34;fmt&amp;#34; &amp;#34;math/rand&amp;#34; &amp;#34;os&amp;#34; &amp;#34;time&amp;#34; ) type LargeData struct { Data []byte } const desiredSize = 12 * 1024 * 1024 // 12MB  func main() { rand.</description>
+      <description>Needed a quick hack to generate a known file size, to test that file upload limit logic works in an endpoint&#xA;Another option is to just generate a temporary file, using nearly the same process. This approach is fine but can slow down the test since file needs to be generated each time the test is run and beyond a certain size, this file generation time can become non-trivial.&#xA;package main import ( &amp;#34;encoding/json&amp;#34; &amp;#34;fmt&amp;#34; &amp;#34;math/rand&amp;#34; &amp;#34;os&amp;#34; &amp;#34;time&amp;#34; ) type LargeData struct { Data []byte } const desiredSize = 12 * 1024 * 1024 // 12MB func main() { rand.</description>
     </item>
-    
+    <item>
+      <title>Golang: CPU Profiling And Load Testing</title>
+      <link>https://tek-shinobi.github.io/posts/golangcpuprofilingandloadtesting/</link>
+      <pubDate>Wed, 07 Feb 2018 08:05:22 +0200</pubDate>
+      <guid>https://tek-shinobi.github.io/posts/golangcpuprofilingandloadtesting/</guid>
+      <description>Goal: We want to do a CPU profile when a particular endpoint handler or set of handlers is/are called.&#xA;Idea: We have a service and we want to build a profile to have insights where the time is spent the most&#xA;Execution: If we already have an endpoint that directly invokes the service, its good. Otherwise create a temporary endpoint and call that service from there. Doing this makes it easy to run a load testing tool like vegeta against that endpoint to create some load when building the profile.</description>
+    </item>
   </channel>
 </rss>

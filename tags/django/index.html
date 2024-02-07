@@ -45,7 +45,7 @@
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
-			<a href="/posts/backend-pythondjango-rest-framework-project-setup-template/" rel="bookmark">
+			<a href="/posts/backend-python_django-rest-framework-project-setup-template/" rel="bookmark">
 			Backend Python:Django Rest Framework Project Setup Template
 			</a>
 		</h2>
@@ -57,14 +57,14 @@
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		I am assuming that pipenv is already installed. Also, assuming that Python 3.5+ already installed in the base environment.
- create new environment: pipenv shell pipenv install django djangorestframework markdown django-filter pygments flake8 httpie pytest pytest-django pytest-factoryboy pytest-cov django-extensions djangorestframework-simplejwt django-cors-headers mypy djangorestframework-stubs pipenv install --dev --pre black create django project:django-admin.py startproject my_proj cd my_proj python manage.py startapp my_app  The above is a basic boiler plate.
+create new environment: pipenv shell pipenv install django djangorestframework markdown django-filter pygments flake8 httpie pytest pytest-django pytest-factoryboy pytest-cov django-extensions djangorestframework-simplejwt django-cors-headers mypy djangorestframework-stubs pipenv install --dev --pre black create django project:django-admin.py startproject my_proj cd my_proj python manage.py startapp my_app The above is a basic boiler plate.
 Some explanation of what got installed:
 	</div>
 </article><article class="list__item post">
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
-			<a href="/posts/backend-pythonlogging-in-django-and-django-rest-framework-projects/" rel="bookmark">
+			<a href="/posts/backend-python_logging-in-django-and-django-rest-framework-projects/" rel="bookmark">
 			Backend Python:Logging in Django and Django Rest Framework Projects
 			</a>
 		</h2>
@@ -76,13 +76,13 @@ Some explanation of what got installed:
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		Logging is extremely necessary, during development and production. There are two ways to implement logging.
- In apps with high scale, we log to console and then have some in-the-cloud solution like Sentry to log the messages from the console. This is great because large scale apps often run on multiple servers and we can converge all the logs to one place. Alternately, we can log the messages to file on the server itself.
+In apps with high scale, we log to console and then have some in-the-cloud solution like Sentry to log the messages from the console. This is great because large scale apps often run on multiple servers and we can converge all the logs to one place. Alternately, we can log the messages to file on the server itself.
 	</div>
 </article><article class="list__item post">
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
-			<a href="/posts/backend-pythonwriting-custom-django-management-commands/" rel="bookmark">
+			<a href="/posts/backend-python_writing-custom-django-management-commands/" rel="bookmark">
 			Backend Python:Writing Custom Django Management Commands
 			</a>
 		</h2>
@@ -101,7 +101,7 @@ In this tutorial we will see how to populate a table with some contents of a csv
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
-			<a href="/posts/backend-pythonadding-ajax-to-python-django-projects/" rel="bookmark">
+			<a href="/posts/backend-python_adding-ajax-to-python-django-projects/" rel="bookmark">
 			Backend Python:Adding AJAX to Python Django Projects
 			</a>
 		</h2>
@@ -119,7 +119,7 @@ So, specifically in Django, when we use AJAX to do a form POST request, we need 
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
-			<a href="/posts/backend-pythonadding-login-and-registration-in-django/" rel="bookmark">
+			<a href="/posts/backend-python_adding-login-and-registration-in-django/" rel="bookmark">
 			Backend Python:Adding Login and Registration in Django
 			</a>
 		</h2>
@@ -137,7 +137,7 @@ User model exists ONLY for authentication. Use the User model to only store abso
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
-			<a href="/posts/backend-pythonadding-reverse-url-lookup-in-django/" rel="bookmark">
+			<a href="/posts/backend-python_adding-reverse-url-lookup-in-django/" rel="bookmark">
 			Backend Python:Adding Reverse Url Lookup in Django
 			</a>
 		</h2>
@@ -150,13 +150,13 @@ User model exists ONLY for authentication. Use the User model to only store abso
 	<div class="content list__excerpt post__content clearfix">
 		Reverse url lookup is very cool feature in Django that allows us to not hard-code urls in templates or controller logic. This helps us change the URLs later in urls.py and not have to make the same changes everywhere in templates and logic. Keep it DRY.
 To implement reverse url lookup, you need to do these:
- Make a namespace (if your urls are inside an app… otherwise omit this step).
+Make a namespace (if your urls are inside an app… otherwise omit this step). Making a namespace makes it possible to have multiple apps use the same name for named urls.
 	</div>
 </article><article class="list__item post">
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
-			<a href="/posts/backend-pythondjango-custom-queryset-vs-custom-manager-for-database-queries/" rel="bookmark">
+			<a href="/posts/backend-python_django-custom-queryset-vs-custom-manager-for-database-queries/" rel="bookmark">
 			Backend Python:Django Custom Queryset vs Custom Manager for Database Queries
 			</a>
 		</h2>
@@ -169,15 +169,15 @@ To implement reverse url lookup, you need to do these:
 	<div class="content list__excerpt post__content clearfix">
 		Note: this applies to Django &gt;= 1.7
 From the docs:
- A Manager is the interface through which database query operations are provided to Django models. At least one Manager exists for every model in a Django application.
+A Manager is the interface through which database query operations are provided to Django models. At least one Manager exists for every model in a Django application.
 There are two reasons you might want to customize a Manager: to add extra Manager methods, and/or to modify the initial QuerySet the Manager returns.
- Since Django 1.7 and onwards, we no longer need to create custom manager and custom queryset separately.
+Since Django 1.7 and onwards, we no longer need to create custom manager and custom queryset separately.
 	</div>
 </article><article class="list__item post">
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
-			<a href="/posts/backend-pythonadding-custom-user-model-in-django/" rel="bookmark">
+			<a href="/posts/backend-python_adding-custom-user-model-in-django/" rel="bookmark">
 			Backend Python:Adding Custom User Model in Django
 			</a>
 		</h2>
@@ -195,7 +195,7 @@ What exactly is a User model for? Django uses a User model for only one purpose,
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
-			<a href="/posts/backend-pythonsetting-active-navbar-link-in-django-template/" rel="bookmark">
+			<a href="/posts/backend-python_setting-active-navbar-link-in-django-template/" rel="bookmark">
 			Backend Python:Setting Active Navbar Link in Django Template
 			</a>
 		</h2>
@@ -214,7 +214,7 @@ from django.conf.urls import url, include from django.contrib import admin from 
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
-			<a href="/posts/backend-pythondjango-sessions-for-anonymous-users/" rel="bookmark">
+			<a href="/posts/backend-python_django-sessions-for-anonymous-users/" rel="bookmark">
 			Backend Python:Django Sessions for Anonymous Users
 			</a>
 		</h2>
@@ -262,11 +262,11 @@ Similarly, for anonymous users (not logged in), every time the server receives a
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
-			<li class="widget__item"><a class="widget__link" href="/posts/githubmanaging-multiple-accounts/">Github:managing Multiple Accounts: SSH configuration</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/linuxiptables-cheatsheet/">Linux:Iptables Cheatsheet</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/awssetup-reverse-proxy-in-aws-using-elb/">AWS:Setup Reverse Proxy in AWS Using ELB</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/grafanagrafana-loki-aws-s3-integration/">Grafana:Grafana Loki AWS S3 Integration</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/golangdistributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/github_managing-multiple-accounts/">Github:managing Multiple Accounts: SSH configuration</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/linux_iptables-cheatsheet/">Linux:Iptables Cheatsheet</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/aws_setup-reverse-proxy-in-aws-using-elb/">AWS:Setup Reverse Proxy in AWS Using ELB</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/grafana_grafana-loki-aws-s3-integration/">Grafana:Grafana Loki AWS S3 Integration</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang_distributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/rate-limiting-in-distributed-system/">Rate Limiting in a Distributed System</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golang-testing-creating-large-files/">Golang Testing: Creating Large Files</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/add-gpg-keys-to-repo/">Add Gpg Keys to Repo</a></li>
@@ -354,7 +354,7 @@ Similarly, for anonymous users (not logged in), every time the server receives a
 	<div class="container footer__container flex">
 		
 		<div class="footer__copyright">
-			&copy; 2023 Tek Shinobi Blog.
+			&copy; 2024 Tek Shinobi Blog.
 			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
 		</div>
 	</div>

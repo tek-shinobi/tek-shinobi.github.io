@@ -5,51 +5,36 @@
     <link>https://tek-shinobi.github.io/tags/tools/</link>
     <description>Recent content in tools on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 23 Sep 2021 13:04:41 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/tools/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Thu, 23 Sep 2021 13:04:41 +0300</lastBuildDate>
+    <atom:link href="https://tek-shinobi.github.io/tags/tools/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Golang:Cobra and Viper Tutorial</title>
-      <link>https://tek-shinobi.github.io/posts/golangcobra-and-viper-tutorial/</link>
+      <link>https://tek-shinobi.github.io/posts/golang_cobra-and-viper-tutorial/</link>
       <pubDate>Thu, 23 Sep 2021 13:04:41 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/golangcobra-and-viper-tutorial/</guid>
-      <description>Cobra is a tool for making CLI application. Viper is a configuration management solution for Go applications which allows you to specify configuration options for your application in several ways, including configuration files, environment variables, and command-line flags.
-Why viper for config management?  It can find, load, and unmarshal values from a config file. It supports many types of files, such as JSON, TOML, YAML, ENV, or INI. It can also read values from environment variables or command-line flags.</description>
+      <guid>https://tek-shinobi.github.io/posts/golang_cobra-and-viper-tutorial/</guid>
+      <description>Cobra is a tool for making CLI application. Viper is a configuration management solution for Go applications which allows you to specify configuration options for your application in several ways, including configuration files, environment variables, and command-line flags.&#xA;Why viper for config management? It can find, load, and unmarshal values from a config file. It supports many types of files, such as JSON, TOML, YAML, ENV, or INI. It can also read values from environment variables or command-line flags.</description>
     </item>
-    
     <item>
       <title>Golang:Go Tools Cheatsheet</title>
-      <link>https://tek-shinobi.github.io/posts/golanggo-tools-cheatsheet/</link>
+      <link>https://tek-shinobi.github.io/posts/golang_go-tools-cheatsheet/</link>
       <pubDate>Mon, 21 Jun 2021 11:01:27 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/golanggo-tools-cheatsheet/</guid>
-      <description>Note: Starting in Go 1.17, installing executables with go get is deprecated. go install may be used instead. In Go 1.18, go get will no longer build packages&amp;hellip;
-In other words, go get in 1.18 and beyond will no longer install executables. Use go install
- Go has an impressive number of command line tools integreated into go &amp;lt;tool_name&amp;gt; that us developers use daily. You can get a list of them by</description>
+      <guid>https://tek-shinobi.github.io/posts/golang_go-tools-cheatsheet/</guid>
+      <description>Note: Starting in Go 1.17, installing executables with go get is deprecated. go install may be used instead. In Go 1.18, go get will no longer build packages&amp;hellip;&#xA;In other words, go get in 1.18 and beyond will no longer install executables. Use go install&#xA;Go has an impressive number of command line tools integreated into go &amp;lt;tool_name&amp;gt; that us developers use daily. You can get a list of them by</description>
     </item>
-    
     <item>
       <title>Golang:NewProjSteps</title>
-      <link>https://tek-shinobi.github.io/posts/golangnewprojsteps/</link>
+      <link>https://tek-shinobi.github.io/posts/golang_newprojsteps/</link>
       <pubDate>Mon, 24 Sep 2018 17:35:09 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/golangnewprojsteps/</guid>
-      <description>Database create and run a docker postgres container in detached mode. Container name is modelapp-postgres. The postgres image used is postgres:latest:
-docker run --name modelapp-postgres -d --rm -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -p 5432:5432 postgres:latest check logs of running docker container:
-docker logs modelapp-postgres | bat -l man inspect docker container:
-docker inspect modelapp-postgres | bat -l man login to container as root, to see if postgres is running:
-docker exec -it modelapp-postgres psql -U root further check if postgres running ok and in a ready state by running the select now(); at root console:</description>
+      <guid>https://tek-shinobi.github.io/posts/golang_newprojsteps/</guid>
+      <description>Database create and run a docker postgres container in detached mode. Container name is modelapp-postgres. The postgres image used is postgres:latest:&#xA;docker run --name modelapp-postgres -d --rm -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -p 5432:5432 postgres:latest check logs of running docker container:&#xA;docker logs modelapp-postgres | bat -l man inspect docker container:&#xA;docker inspect modelapp-postgres | bat -l man login to container as root, to see if postgres is running:&#xA;docker exec -it modelapp-postgres psql -U root further check if postgres running ok and in a ready state by running the select now(); at root console:</description>
     </item>
-    
     <item>
       <title>Golang:Evans Cli Tutorial</title>
-      <link>https://tek-shinobi.github.io/posts/golangevans-cli-tutorial/</link>
+      <link>https://tek-shinobi.github.io/posts/golang_evans-cli-tutorial/</link>
       <pubDate>Fri, 29 Sep 2017 14:17:37 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/golangevans-cli-tutorial/</guid>
-      <description>to launch evans on localhost and port 8080: evans --host localhost --port 8080 -r repl
-to list all rpc services: show service Note: if in above step, you see nothing, probably you are in the wrong package. Services belong to a package. Switch to the right package by show package and then choose the package by package &amp;lt;package_name&amp;gt;
-call an rpc named: Login call Login (you will be prompted to fill out the request object params)</description>
+      <guid>https://tek-shinobi.github.io/posts/golang_evans-cli-tutorial/</guid>
+      <description>to launch evans on localhost and port 8080: evans --host localhost --port 8080 -r repl&#xA;to list all rpc services: show service Note: if in above step, you see nothing, probably you are in the wrong package. Services belong to a package. Switch to the right package by show package and then choose the package by package &amp;lt;package_name&amp;gt;&#xA;call an rpc named: Login call Login (you will be prompted to fill out the request object params)</description>
     </item>
-    
   </channel>
 </rss>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Golang:Go Tools Cheatsheet - Tek Shinobi Blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo">
+		<a class="logo__link" href="/" title="Tek Shinobi Blog" rel="home">
+			<div class="logo__item logo__text">
+					<div class="logo__title">Tek Shinobi Blog</div>
+					
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Golang:Go Tools Cheatsheet</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2021-06-21T11:01:27&#43;03:00">June 21, 2021</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/golang/" rel="category">golang</a>
+	</span>
+</div></div>
+		</header>
+		<div class="content post__content clearfix">
+			<blockquote>
+<p><strong>Note:</strong>
+Starting in Go 1.17, installing executables with <code>go get</code> is deprecated. go install may be used instead. In Go 1.18, <code>go get</code> will no longer build packages&hellip;</p>
+<p>In other words, <code>go get</code> in 1.18 and beyond will no longer install executables. Use <code>go install</code></p>
+</blockquote>
+<p>Go has an impressive number of command line tools integreated into <code>go &lt;tool_name&gt;</code> that us developers use daily. You can get a list of them by</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>go help | bat -l man
+</span></span></code></pre></div><blockquote>
+<p><code>bat</code> is similar to <code>cat</code> but supports some goodies syntax highlighting, ability to do git diff. Like in above case, am supplying the syntax formatting to be applied via <code>-l man</code> meaning <code>--language man</code></p>
+<p>to install it, <code>sudo apt install bat</code></p>
+<p>note that due to name collision with another package, the executable that is actually installed is called <code>batcat</code>. This is an apt issue. See here: <a href="https://github.com/sharkdp/bat#on-ubuntu-using-apt">https://github.com/sharkdp/bat#on-ubuntu-using-apt</a></p>
+</blockquote>
+<p>Many of these tools are used internally by IDEs to give us linting, formatting on save etc but knowing these tools is essential as they serve a cruicial role in the CI pipeline, aka automation. Also, using them directly enables us to also use all the options exposed by these tools, something not possible when IDE is managing this for you.</p>
+<p>Let&rsquo;s start with the most basic:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># will list all the env vars in the current proj directory.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># export to json format to pretty print via jq</span>
+</span></span><span style="display:flex;"><span>go env --json | jq .
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># or query a specific value from json output</span>
+</span></span><span style="display:flex;"><span>go env --json | jq -r <span style="color:#e6db74">&#39;.GOPROXY&#39;</span> 
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># or in paginated mode using bat</span>
+</span></span><span style="display:flex;"><span>go env | bat -l ini
+</span></span></code></pre></div><p>You can also see specific env vars like so:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>go env GOPROXY GOROOT GOCACHE
+</span></span></code></pre></div><h2 id="gofmt-and-goimports">gofmt and goimports</h2>
+<h4 id="gofmt">gofmt</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># list files whose formatting differs from gofmt&#39;s</span>
+</span></span><span style="display:flex;"><span>gofmt -l
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># code format: simplify and write results to (source) file</span>
+</span></span><span style="display:flex;"><span>gofmt -s -w
+</span></span></code></pre></div><h4 id="goimports">goimports</h4>
+<p><code>goimports</code> is superset of <code>gofmt</code>. It does everything that <code>gofmt</code> does and also fixes imports (meaning add missing imports or remove redundant imports)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>goimports -w
+</span></span></code></pre></div><p>the <code>-w</code> flags writes the changes to the source file in place.</p>
+<h2 id="go-doc">go doc</h2>
+<p><code>go doc</code> is a command to view the documentation. Its often integrated into IDEs. If you want to do it in terminal,</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># display all documentation for strings package</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># pipe it to less for searching and pagination</span>
+</span></span><span style="display:flex;"><span>go doc -all strings | less
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># to view documentation for specific</span>
+</span></span><span style="display:flex;"><span>go doc strings.Replace
+</span></span></code></pre></div><p>if you want to see the source code as well, pass the <code>-src</code> flag</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>go doc -src strings.Replace | bat -l go
+</span></span></code></pre></div><p>the above will show you the source code as well, directly in terminal</p>
+<h2 id="godoc">godoc</h2>
+<p>You can use <code>godoc</code> (as a single word) to launch an local server and it will give you all the documentation + some books like effective Go, running on localhost. Very useful when you are offline and need documentation</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># install godoc</span>
+</span></span><span style="display:flex;"><span>go install golang.org/x/tools/cmd/godoc@latest
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># now use godoc</span>
+</span></span><span style="display:flex;"><span>godoc -http<span style="color:#f92672">=</span>:6060 &amp;
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># launch</span>
+</span></span><span style="display:flex;"><span>open http://localhost:6060
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># once done kill the godoc process to kill the server</span>
+</span></span><span style="display:flex;"><span>pkill godoc
+</span></span></code></pre></div><h2 id="dependency-inspection">Dependency Inspection</h2>
+<p>The main tool to do dependency inspection is <code>go list</code>. Dependencies being all the packages I am importing in different files.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># get full description of list doc</span>
+</span></span><span style="display:flex;"><span>go help list | bat -l man
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># to list all the packages my project is importing (direct and indirect)</span>
+</span></span><span style="display:flex;"><span>go list all
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># to list all the modules my project is importing (direct and indirect) along with their module version</span>
+</span></span><span style="display:flex;"><span>go list -m all
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># introspect Go packages and their interdependencies</span>
+</span></span><span style="display:flex;"><span>go list  -f <span style="color:#e6db74">&#39;{{ join .Imports &#34;\n&#34; }}&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># list all modules</span>
+</span></span><span style="display:flex;"><span>go list -m all
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># list outdated direct modules</span>
+</span></span><span style="display:flex;"><span>go list -f <span style="color:#e6db74">&#39;{{if and (not .Indirect) .Update}}{{.}}{{end}}&#39;</span> -u -m all
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># or use depth for different visualization</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># here I am asking why regexp is used in my project</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># depth actually scans direct and indirect packages and builds a dependency tree</span>
+</span></span><span style="display:flex;"><span>depth -explain regexp gtoken
+</span></span></code></pre></div><p>For <code>list</code>, there is a flag <code>-f</code> that you can use to format the output but the same flag can also be used to filter the result. You can filter based on package structure or based on module structure (refer to <code>go help list | bat -l man</code> to see <code>Package</code> and <code>Module</code> structs used)</p>
+<p>for example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>go list -f <span style="color:#e6db74">&#39;{{ join .Imports &#34;\n&#34; }}&#39;</span>
+</span></span></code></pre></div><p>here, we collect all direct package imports from all files, join them, split them by newline nad then display them on STDOUT. Also, the <code>{{ }}</code> style syntax is standard go template syntax (this template sytax is commonly used in places like Hugo markdown templates)</p>
+<p>A more complex example: here we are listing all modules in our project (remember, the &ldquo;-m&rdquo; flag), that are direct imports and have updates available</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>go list -f <span style="color:#e6db74">&#39;{{if and (not .Indirect) .Update}}{{.}}{{end}}&#39;</span> -u -m all
+</span></span></code></pre></div><p>note here were are using <code>not .Indirect</code> because that is the flag for direct.</p>
+<h2 id="licensing-tools">Licensing tools</h2>
+<p><code>golicense</code> To analyze the licenses used by third party libraries I am importing. This is v important since Go is statically built, and compiles to a single binary file. So the code from the 3rd party libraries is embedded in the single binary file. So its important to understand that the code is compliant to the licenses and if ther are some licenses to avoid, you should know this.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># .golicense.json is the configuration file for golicense. Its optional, but you will need it if you want to filter based on licenses, like disallow some license types</span>
+</span></span><span style="display:flex;"><span>bat ../../.golicense.json
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># scan for embedded licenses</span>
+</span></span><span style="display:flex;"><span>golicense -verbose -license ../../.golicense.json .bin/gtoken
+</span></span></code></pre></div><p>The thing to know is that golicense scans the binary file and not the source code for all the 3rd party packages and then downloads their license files from their import paths (like from their github repo).</p>
+<p>example <code>.golicense.json</code> file:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;allow&#34;</span>: [<span style="color:#e6db74">&#34;MIT&#34;</span>, <span style="color:#e6db74">&#34;Apache-2.0&#34;</span>, <span style="color:#e6db74">&#34;MPL-2.0&#34;</span>, <span style="color:#e6db74">&#34;BSD-3-Clause&#34;</span>, <span style="color:#e6db74">&#34;ISC&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;deny&#34;</span>: [<span style="color:#e6db74">&#34;LGPL-2.0-or-later&#34;</span>, <span style="color:#e6db74">&#34;LGPL-3.0-or-later&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;override&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;github.com/russross/blackfriday&#34;</span>: <span style="color:#e6db74">&#34;BSD-2-Clause&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;sigs.k8s.io/yaml&#34;</span>: <span style="color:#e6db74">&#34;MIT&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The above <code>.golicense.json</code> file specifically lists the licenses to allow, the license I would like to deny.
+<code>override</code> is used for packages that golicense fails to detect license of. Sometimes, licenses are not defined properly or in the standard way in packages, hence the detection issue. So, use <code>override</code> allows you to manually add the license type for those packages.</p>
+<h2 id="builds">Builds</h2>
+<p>Go can build for multiple architectures and OS (platforms).
+If you want to see what architectures and platforms are supported:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>go tool dist list
+</span></span></code></pre></div><p>In order to compile binary to a specific platform and architecture, I need to provide two environment variables (GOOS and GOARCH):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>GOOS<span style="color:#f92672">=</span>linux GOARCH<span style="color:#f92672">=</span>amd64 go build -o<span style="color:#f92672">=</span>bin/goapp_linux .
+</span></span></code></pre></div><p>the above command will build an executable for linux on amd64.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>GOOS<span style="color:#f92672">=</span>windows GOARCH<span style="color:#f92672">=</span>amd64 go build -o<span style="color:#f92672">=</span>bin/goapp_windows .
+</span></span></code></pre></div><p>the above command will build an executable for windows on amd64.</p>
+<p>to inspect the compiled binary file:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>file bin/goapp_linux
+</span></span></code></pre></div><p>So, its very easy to cross compile your application for multiple platforms.</p>
+<h4 id="build-tags">build tags</h4>
+<p>if you want a go file to only be compiled for certain GOOS and GOARCH combination, put it as a comment at top (this is called build tag) in your go file</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// +build linux,arm64
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">app</span>
+</span></span></code></pre></div><p>very useful if you have code that is OS specific or platform specific</p>
+<h4 id="linking">linking</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>go tool lint -help
+</span></span></code></pre></div><p>the above command will show multiple flags for linker. A very common flag is <code>-X</code> which, when used with <code>-ldflags</code> can used to override variable in your package (provide tha package name dot variable name) at build/link time. Very commonly used to embed the version info into the binary file, while building it.</p>
+<p>For example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>export VERSION<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>git describe --tags --always --dirty<span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>export COMMIT<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>git rev-parse --short HEAD<span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>export BRANCH<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>git rev-parse --abbrev-ref HEAD<span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>export DATE<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>date +%FT%T%z<span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># build binary</span>
+</span></span><span style="display:flex;"><span>go build -ldflags <span style="color:#e6db74">&#34;-X main.Version=</span><span style="color:#e6db74">${</span>VERSION<span style="color:#e6db74">}</span><span style="color:#e6db74"> -X main.GitCommit=</span><span style="color:#e6db74">${</span>COMMIT<span style="color:#e6db74">}</span><span style="color:#e6db74"> -X main.GitBranch=</span><span style="color:#e6db74">${</span>BRANCH<span style="color:#e6db74">}</span><span style="color:#e6db74"> -X main.BuildDate=</span><span style="color:#e6db74">${</span>DATE<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> -o bin/goapp
+</span></span></code></pre></div><p>lets take git tag as a version.
+<code>ldflags</code> stands for linker flags, and is used to pass in flags to the underlying linker</p>
+<h2 id="testing">Testing</h2>
+<p>Use <code>gotests</code> to generate table driven test templates. <code>mockery</code> to generate mock implementations for go interfaces.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>gotests -all -w main.go
+</span></span></code></pre></div><p>the above code will generate a <code>main_test.go</code> file and will autogenerate some table driven boilerplate. See here for details <a href="https://github.com/cweill/gotests">https://github.com/cweill/gotests</a></p>
+<p>If you want a GoLand style colored test results, use <code>richgo</code> library <a href="https://github.com/kyoh86/richgo">https://github.com/kyoh86/richgo</a>
+you just use it like so <code>richgo test ./...</code> in place of <code>go test ./...</code></p>
+<h2 id="static-analysis">Static Analysis</h2>
+<p><code>go vet</code> us used for static code analysis. Most IDEs have this built in, but this step is very useful in CI pipelines.
+you can run it before build or after build.</p>
+<p><code>errcheck</code> use this to search for unchecked errors</p>
+<p><code>golangci-lint</code> is an excellent tool to run multiple linters.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># run multiple linters with golangci-lint</span>
+</span></span><span style="display:flex;"><span>golangci-lint run
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># list available linters</span>
+</span></span><span style="display:flex;"><span>golangci-lint linters
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># run with all linters enabled</span>
+</span></span><span style="display:flex;"><span>golangci-lint run --enable-all
+</span></span></code></pre></div><h2 id="makefile">Makefile</h2>
+<p>example makefile:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-makefile" data-lang="makefile"><span style="display:flex;"><span>GOCMD<span style="color:#f92672">=</span>go
+</span></span><span style="display:flex;"><span>GOBUILD<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>GOCMD<span style="color:#66d9ef">)</span> build
+</span></span><span style="display:flex;"><span>GOCLEAN<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>GOCMD<span style="color:#66d9ef">)</span> clean
+</span></span><span style="display:flex;"><span>GOTEST<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>GOCMD<span style="color:#66d9ef">)</span> test
+</span></span><span style="display:flex;"><span>BINARY_NAME<span style="color:#f92672">=</span>app
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">all</span><span style="color:#f92672">:</span> test build
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">build</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">$(</span>GOBUILD<span style="color:#66d9ef">)</span> -o <span style="color:#66d9ef">$(</span>BINARY_NAME<span style="color:#66d9ef">)</span> -v
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">test</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">$(</span>GOTEST<span style="color:#66d9ef">)</span> -v ./...
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">clean</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">$(</span>GOCLEAN<span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>        rm -f <span style="color:#66d9ef">$(</span>BINARY_NAME<span style="color:#66d9ef">)</span> <span style="color:#66d9ef">$(</span>BINARY_LINUX<span style="color:#66d9ef">)</span>
+</span></span></code></pre></div><p>This article is sourced from this presentation: <a href="https://www.youtube.com/watch?v=DUnzcNEImsc&amp;t=1516s">https://www.youtube.com/watch?v=DUnzcNEImsc&amp;t=1516s</a></p>
+<p>The presentation material used is here: <a href="https://github.com/alexei-led/presentations/tree/master/go-tools">https://github.com/alexei-led/presentations/tree/master/go-tools</a></p>
+
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/tools/" rel="tag">tools</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/automation/" rel="tag">automation</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+
+
+
+			</div>
+			<aside class="sidebar">
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="LinkedIn" rel="noopener noreferrer" href="https://linkedin.com/in/himanshu-singh-remote/" target="_blank">
+				<svg class="widget-social__link-icon icon icon-linkedin" width="24" height="24" viewBox="0 0 352 352"><path d="M0,40v272c0,21.9,18.1,40,40,40h272c21.9,0,40-18.1,40-40V40c0-21.9-18.1-40-40-40H40C18.1,0,0,18.1,0,40z M312,32 c4.6,0,8,3.4,8,8v272c0,4.6-3.4,8-8,8H40c-4.6,0-8-3.4-8-8V40c0-4.6,3.4-8,8-8H312z M59.5,87c0,15.2,12.3,27.5,27.5,27.5 c15.2,0,27.5-12.3,27.5-27.5c0-15.2-12.3-27.5-27.5-27.5C71.8,59.5,59.5,71.8,59.5,87z M187,157h-1v-21h-45v152h47v-75 c0-19.8,3.9-39,28.5-39c24.2,0,24.5,22.4,24.5,40v74h47v-83.5c0-40.9-8.7-72-56.5-72C208.5,132.5,193.3,145.1,187,157z M64,288h47.5 V136H64V288z"/></svg>
+				<span>LinkedIn</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/tek-shinobi" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+
+		
+	</div>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/posts/github_managing-multiple-accounts/">Github:managing Multiple Accounts: SSH configuration</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/linux_iptables-cheatsheet/">Linux:Iptables Cheatsheet</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/aws_setup-reverse-proxy-in-aws-using-elb/">AWS:Setup Reverse Proxy in AWS Using ELB</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/grafana_grafana-loki-aws-s3-integration/">Grafana:Grafana Loki AWS S3 Integration</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang_distributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/rate-limiting-in-distributed-system/">Rate Limiting in a Distributed System</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-testing-creating-large-files/">Golang Testing: Creating Large Files</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/add-gpg-keys-to-repo/">Add Gpg Keys to Repo</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-handling-null-in-database-tables/">Golang: Handling Null in Database Tables</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/using-postgres-inside-docker-container/">Golang: Using Postgres Inside Docker Container</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/backend/">backend</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/distributed-system-design/">distributed system design</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/frontend/">frontend</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/github/">github</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/grafana/">grafana</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">javascript</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kubernetes/">kubernetes</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/linux/">Linux</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/mongodb/">mongodb</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/networking/">networking</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/python/">python</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/rust/">rust</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/virtualbox/">Virtualbox</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-taglist widget">
+	<h4 class="widget__title">Tags</h4>
+	<div class="widget__content">
+		<a class="widget-taglist__link widget__link btn" href="/tags/automation/" title="automation">automation</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/aws/" title="aws">aws</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/backend/" title="backend">backend</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/c#/" title="c#">c#</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/concurrency/" title="concurrency">concurrency</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/css/" title="css">css</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/django/" title="django">django</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/docker/" title="docker">docker</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/es6/" title="ES6">ES6</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/github/" title="github">github</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/golang/" title="golang">golang</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/gpg/" title="gpg">gpg</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/iptables/" title="iptables">iptables</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/javascript/" title="javascript">javascript</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/loki/" title="loki">loki</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/minikube/" title="minikube">minikube</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/mongodb/" title="mongodb">mongodb</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/networking/" title="networking">networking</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/postgres/" title="postgres">postgres</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/python/" title="python">python</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/rate-limiter/" title="rate limiter">rate limiter</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/react/" title="react">react</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/redis/" title="redis">redis</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/rust/" title="rust">rust</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/s3/" title="s3">s3</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/scrapy/" title="scrapy">scrapy</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/tcp/" title="tcp">tcp</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/testing/" title="testing">testing</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/tools/" title="tools">tools</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/turbofish/" title="turbofish">turbofish</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/virtualbox/" title="virtualbox">virtualbox</a>
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2024 Tek Shinobi Blog.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+</body>
+</html>

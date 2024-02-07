@@ -5,32 +5,22 @@
     <link>https://tek-shinobi.github.io/categories/docker/</link>
     <description>Recent content in docker on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 05 May 2022 10:38:56 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/categories/docker/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Thu, 05 May 2022 10:38:56 +0300</lastBuildDate>
+    <atom:link href="https://tek-shinobi.github.io/categories/docker/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Golang: Using Postgres Inside Docker Container</title>
       <link>https://tek-shinobi.github.io/posts/using-postgres-inside-docker-container/</link>
       <pubDate>Thu, 05 May 2022 10:38:56 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/posts/using-postgres-inside-docker-container/</guid>
-      <description>Cleanup if default postgres port not free If port 5432 is already in use, run this to see what process is using it:
-sudo ss -lptn &#39;sport = :5432&#39; the above command will also display the pid using which you can kill the process. For example, if the pid is 1667, kill it by sudo kill 1667
- To connect to an existing running docker container via its container id, scroll to end To see how to connect to it using only golang standard library (database/sql) + a database driver (lib/pq in this case for postgres), without helper methods from 3rd party libraries like sqlx, scroll to end  Connecting to postgres from scratch First launch the postgres container in interactive mode:</description>
+      <description>Cleanup if default postgres port not free If port 5432 is already in use, run this to see what process is using it:&#xA;sudo ss -lptn &amp;#39;sport = :5432&amp;#39; the above command will also display the pid using which you can kill the process. For example, if the pid is 1667, kill it by sudo kill 1667&#xA;To connect to an existing running docker container via its container id, scroll to end To see how to connect to it using only golang standard library (database/sql) + a database driver (lib/pq in this case for postgres), without helper methods from 3rd party libraries like sqlx, scroll to end Connecting to postgres from scratch First launch the postgres container in interactive mode:</description>
     </item>
-    
     <item>
       <title>Docker Notes</title>
       <link>https://tek-shinobi.github.io/posts/docker-notes/</link>
       <pubDate>Mon, 10 May 2021 08:15:54 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/posts/docker-notes/</guid>
-      <description>To cleanup unused/dnagling docker images: sudo docker image prune
-To cleanup ununsed volumes: sudo docker volume prune
-To list current docker images: sudo docker images
-To remove docker image by image_id: sudo docker rmi &amp;lt;your_image_id1&amp;gt; &amp;lt;your_image_id2&amp;gt;
-(sometimes, docker rmi command will throw up errors like:
- Error response from daemon: conflict: unable to delete 78f7412b7923 (must be forced) - image is being used by stopped container ebfe07787e7c
- This means there are some stopped docker containers using those images.</description>
+      <description>To cleanup unused/dnagling docker images: sudo docker image prune&#xA;To cleanup ununsed volumes: sudo docker volume prune&#xA;To list current docker images: sudo docker images&#xA;To remove docker image by image_id: sudo docker rmi &amp;lt;your_image_id1&amp;gt; &amp;lt;your_image_id2&amp;gt;&#xA;(sometimes, docker rmi command will throw up errors like:&#xA;Error response from daemon: conflict: unable to delete 78f7412b7923 (must be forced) - image is being used by stopped container ebfe07787e7c&#xA;This means there are some stopped docker containers using those images.</description>
     </item>
-    
   </channel>
 </rss>

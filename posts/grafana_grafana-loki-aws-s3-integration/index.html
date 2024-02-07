@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Grafana:Grafana Loki AWS S3 Integration - Tek Shinobi Blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo">
+		<a class="logo__link" href="/" title="Tek Shinobi Blog" rel="home">
+			<div class="logo__item logo__text">
+					<div class="logo__title">Tek Shinobi Blog</div>
+					
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Grafana:Grafana Loki AWS S3 Integration</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2023-10-12T21:14:50&#43;03:00">October 12, 2023</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/grafana/" rel="category">grafana</a>
+	</span>
+</div></div>
+		</header>
+		<div class="content post__content clearfix">
+			<p>Some thoughts and experiences when setting up AWS S3 and single-store for Grafana-Loki.
+Some context:</p>
+<ul>
+<li>using GLP stack (grafana, loki, promtail)</li>
+<li>Promtail collects logs from a Kafka stream and sends them to Loki for storage. It also indexes them by EC2 instance ids.</li>
+</ul>
+<h2 id="why-this-post">Why this post?</h2>
+<ol>
+<li>Persisting loki logs somewhere is important otherwise, everytime loki service is restarted, all previous logs and corresponding visualizations on grafana dashboard will be lost.</li>
+<li>The official docs from Grafana are at times confusing. Also, I tried doing it in 3 ways, with different weirdness. Documenting here for future reference.</li>
+</ol>
+<h2 id="aws-s3-configuration">AWS S3 configuration</h2>
+<p>Create a IAM user (NOT a root user). Create a group with policy <code>AmazonS3FullAccess</code> and assign the user to this group (Grafana recommends setting specific policies, that is fine as well).</p>
+<h2 id="docker-container-approach">Docker container approach</h2>
+<p>Here is how the promtail config looks (<code>promtail-config.docker.yaml</code>):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">server</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">http_listen_port</span>: <span style="color:#ae81ff">9080</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">grpc_listen_port</span>: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">positions</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">filename</span>: <span style="color:#ae81ff">/tmp/positions.yaml</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">clients</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">url</span>: <span style="color:#ae81ff">http://loki:3100/loki/api/v1/push</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">scrape_configs</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">job_name</span>: <span style="color:#ae81ff">amskafka</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">kafka</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">brokers</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">172.31.36.174</span>:<span style="color:#ae81ff">9092</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">topics</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">ams-instance-stats</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">job</span>: <span style="color:#ae81ff">amskafka</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">pipeline_stages</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">match</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">selector</span>: <span style="color:#e6db74">&#39;{job=&#34;amskafka&#34;}&#39;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">stages</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#f92672">json</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">expressions</span>:
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">instanceId</span>: <span style="color:#ae81ff">instanceId</span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">instanceId</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">job_name</span>: <span style="color:#ae81ff">amskafkawebrtc</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">kafka</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">brokers</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">172.31.36.174</span>:<span style="color:#ae81ff">9092</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">topics</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">ams-webrtc-stats</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">job</span>: <span style="color:#ae81ff">amskafkawebrtc</span>
+</span></span></code></pre></div><p>here, I am setting two kafka streams as sources for promtail. This being yaml, and an misdocumented feature of Grafana&rsquo;s promtail documentaion, pay special attention to spacing of these two line:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>      - match:
+</span></span><span style="display:flex;"><span>          selector: <span style="color:#e6db74">&#39;{job=&#34;amskafka&#34;}&#39;</span>
+</span></span></code></pre></div><p>here selector is child of match. At the time of writing this blog, grafana official examples show it without the two spaces (<code>selector</code> is two spaces to right of <code>match</code>). This is important!. If you copy pasted grafana official promtail example for pipeline_stages, you will get a very weird non-obvious error <code> pipeline stage must contain only one key</code>. What this means is, pipeline_stages should have one &ldquo;SINGLE ELEMENT&rdquo; array as child, which is <code>match</code>. If the two spaces were missing, yaml would treat <code>selector</code> as sibling of <code>match</code> (no longer a single element array) and you will get this error.
+Here is a stack overflow post with fellow strugglers&hellip; <a href="https://stackoverflow.com/questions/65032914/promtail-error-pipeline-stage-must-only-contain-one-key">https://stackoverflow.com/questions/65032914/promtail-error-pipeline-stage-must-only-contain-one-key</a></p>
+<p>pipeline_stage is needed to parse and index the log line. Here is an example log line that is being indexed by &ldquo;instanceId&rdquo;:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{<span style="color:#f92672">&#34;instanceId&#34;</span>:<span style="color:#e6db74">&#34;14524720-6c65-49a8-aca4-a9d14691a235&#34;</span>,<span style="color:#f92672">&#34;cpuUsage&#34;</span>:{<span style="color:#f92672">&#34;processCPUTime&#34;</span>:<span style="color:#ae81ff">368560000</span>,<span style="color:#f92672">&#34;systemCPULoad&#34;</span>:<span style="color:#ae81ff">0</span>,<span style="color:#f92672">&#34;processCPULoad&#34;</span>:<span style="color:#ae81ff">0</span>},<span style="color:#f92672">&#34;jvmMemoryUsage&#34;</span>:{<span style="color:#f92672">&#34;maxMemory&#34;</span>:<span style="color:#ae81ff">973078528</span>,<span style="color:#f92672">&#34;totalMemory&#34;</span>:<span style="color:#ae81ff">681574400</span>,<span style="color:#f92672">&#34;freeMemory&#34;</span>:<span style="color:#ae81ff">464074192</span>,<span style="color:#f92672">&#34;inUseMemory&#34;</span>:<span style="color:#ae81ff">217500208</span>},<span style="color:#f92672">&#34;systemInfo&#34;</span>:{<span style="color:#f92672">&#34;osName&#34;</span>:<span style="color:#e6db74">&#34;Linux&#34;</span>,<span style="color:#f92672">&#34;osArch&#34;</span>:<span style="color:#e6db74">&#34;amd64&#34;</span>,<span style="color:#f92672">&#34;javaVersion&#34;</span>:<span style="color:#e6db74">&#34;11&#34;</span>,<span style="color:#f92672">&#34;processorCount&#34;</span>:<span style="color:#ae81ff">2</span>},<span style="color:#f92672">&#34;systemMemoryInfo&#34;</span>:{<span style="color:#f92672">&#34;virtualMemory&#34;</span>:<span style="color:#ae81ff">3874603008</span>,<span style="color:#f92672">&#34;totalMemory&#34;</span>:<span style="color:#ae81ff">3892285440</span>,<span style="color:#f92672">&#34;freeMemory&#34;</span>:<span style="color:#ae81ff">1666928640</span>,<span style="color:#f92672">&#34;inUseMemory&#34;</span>:<span style="color:#ae81ff">2225356800</span>,<span style="color:#f92672">&#34;totalSwapSpace&#34;</span>:<span style="color:#ae81ff">0</span>,<span style="color:#f92672">&#34;freeSwapSpace&#34;</span>:<span style="color:#ae81ff">0</span>,<span style="color:#f92672">&#34;inUseSwapSpace&#34;</span>:<span style="color:#ae81ff">0</span>,<span style="color:#f92672">&#34;availableMemory&#34;</span>:<span style="color:#ae81ff">2378375168</span>},<span style="color:#f92672">&#34;fileSystemInfo&#34;</span>:{<span style="color:#f92672">&#34;usableSpace&#34;</span>:<span style="color:#ae81ff">5310873600</span>,<span style="color:#f92672">&#34;totalSpace&#34;</span>:<span style="color:#ae81ff">10213466112</span>,<span style="color:#f92672">&#34;freeSpace&#34;</span>:<span style="color:#ae81ff">5327650816</span>,<span style="color:#f92672">&#34;inUseSpace&#34;</span>:<span style="color:#ae81ff">4885815296</span>},<span style="color:#f92672">&#34;jvmNativeMemoryUsage&#34;</span>:{<span style="color:#f92672">&#34;inUseMemory&#34;</span>:<span style="color:#ae81ff">1024630784</span>,<span style="color:#f92672">&#34;maxMemory&#34;</span>:<span style="color:#ae81ff">3892314112</span>},<span style="color:#f92672">&#34;gpuUsageInfo&#34;</span>:[],<span style="color:#f92672">&#34;ffmpegBuildInfo&#34;</span>:<span style="color:#e6db74">&#34;--prefix\u003d.. --disable-iconv --disable-opencl --disable-sdl2 --disable-bzlib --disable-lzma --disable-linux-perf --disable-xlib --disable-decoder\u003dh264_crystalhd --disable-decoder\u003dmpeg2_crystalhd --disable-decoder\u003dvc1_crystalhd --disable-decoder\u003dmpeg4_crystalhd --disable-decoder\u003dmsmpeg4_crystalhd --disable-decoder\u003dmsmpeg4_crystalhd --disable-decoder\u003dwmv3_crystalhd --enable-shared --enable-version3 --enable-runtime-cpudetect --enable-zlib --enable-libmp3lame --enable-libspeex --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libvo-amrwbenc --enable-openssl --enable-libopenh264 --enable-libvpx --enable-libfreetype --enable-libopus --enable-libxml2 --enable-libsrt --enable-libwebp --enable-libmfx --enable-libnpp --enable-nonfree --extra-cflags\u003d-I/usr/local/cuda/include --extra-ldflags\u003d-L/usr/local/cuda/lib64 --enable-cuda --enable-cuvid --enable-nvenc --enable-pthreads --enable-libxcb --cc\u003d\u0027gcc -m64\u0027 --extra-cflags\u003d\u0027-I../include/ -I../include/libxml2 \u0027 --extra-ldflags\u003d-L../lib/ --extra-libs\u003d\u0027-lstdc++ -lpthread -ldl -lz -lm -lva-drm -lva-x11 -lva\u0027&#34;</span>,<span style="color:#f92672">&#34;encoders-blocked&#34;</span>:<span style="color:#ae81ff">0</span>,<span style="color:#f92672">&#34;encoders-not-opened&#34;</span>:<span style="color:#ae81ff">0</span>,<span style="color:#f92672">&#34;publish-timeout-errors&#34;</span>:<span style="color:#ae81ff">0</span>,<span style="color:#f92672">&#34;server-timing&#34;</span>:{<span style="color:#f92672">&#34;up-time&#34;</span>:<span style="color:#ae81ff">42343897</span>,<span style="color:#f92672">&#34;start-time&#34;</span>:<span style="color:#ae81ff">1697101393013</span>},<span style="color:#f92672">&#34;time&#34;</span>:<span style="color:#e6db74">&#34;2023-10-12T20:48:56.528253Z&#34;</span>,<span style="color:#f92672">&#34;host-address&#34;</span>:<span style="color:#e6db74">&#34;198.44.37.257&#34;</span>,<span style="color:#f92672">&#34;ip-address&#34;</span>:<span style="color:#e6db74">&#34;4.345.51.44&#34;</span>}
+</span></span></code></pre></div><p>Another point to notice is this line:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>- url: http://loki:3100/loki/api/v1/push
+</span></span></code></pre></div><p>notice the <code>loki:3100</code> instead of <code>localhost:3100</code>. This is important as in coming commands you will see that <code>loki</code> is the network name connecting the two containers (one running loki and another promtail).</p>
+<p>Here is the <code>loki-config.yaml</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">auth_enabled</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">server</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">http_listen_port</span>: <span style="color:#ae81ff">3100</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">grpc_listen_port</span>: <span style="color:#ae81ff">9096</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">common</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">instance_addr</span>: <span style="color:#ae81ff">127.0.0.1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">path_prefix</span>: <span style="color:#ae81ff">loki</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">replication_factor</span>: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ring</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">kvstore</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">store</span>: <span style="color:#ae81ff">inmemory</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">query_range</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">results_cache</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">cache</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">embedded_cache</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">max_size_mb</span>: <span style="color:#ae81ff">200</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">schema_config</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">configs</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">from</span>: <span style="color:#e6db74">2020-10-24</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">store</span>: <span style="color:#ae81ff">boltdb-shipper</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">object_store</span>: <span style="color:#ae81ff">s3</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">schema</span>: <span style="color:#ae81ff">v11</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">index</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">prefix</span>: <span style="color:#ae81ff">index_</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">period</span>: <span style="color:#ae81ff">24h</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">storage_config</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">boltdb_shipper</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">active_index_directory</span>: <span style="color:#ae81ff">/loki/boltdb-shipper-active</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">cache_location</span>: <span style="color:#ae81ff">/loki/boltdb-shipper-cache</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">cache_ttl</span>: <span style="color:#ae81ff">24h        </span> <span style="color:#75715e"># Can be increased for faster performance over longer query periods, uses more disk space</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">shared_store</span>: <span style="color:#ae81ff">s3</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">aws</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">s3</span>: <span style="color:#ae81ff">s3://ACCESS_KEY:SECRET_ACCESS_KEY@eu-central-1/bucket-name</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">s3forcepathstyle</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">compactor</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">working_directory</span>: <span style="color:#ae81ff">/loki/boltdb-shipper-compactor</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">shared_store</span>: <span style="color:#ae81ff">s3</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">chunk_store_config</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">max_look_back_period</span>: <span style="color:#ae81ff">48h</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">limits_config</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">retention_period</span>: <span style="color:#ae81ff">48h</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">table_manager</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">retention_deletes_enabled</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">retention_period</span>: <span style="color:#ae81ff">48h</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">ruler</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">alertmanager_url</span>: <span style="color:#ae81ff">http://localhost:9093</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">rule_path</span>: <span style="color:#ae81ff">/loki/rules</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">enable_api</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ring</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">kvstore</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">store</span>: <span style="color:#ae81ff">inmemory</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">storage</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">type</span>: <span style="color:#ae81ff">local</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">local</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">directory</span>: <span style="color:#ae81ff">/loki/rules</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># bug in grafana 2.4.2+ versions causing frontend to show &#34;too many outstanding requests&#34; for periods larger than 16 hours. Workaround for that</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># https://github.com/grafana/loki/issues/5123</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">query_scheduler</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">max_outstanding_requests_per_tenant</span>: <span style="color:#ae81ff">10000</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># By default, Loki will send anonymous, but uniquely-identifiable usage and configuration</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># analytics to Grafana Labs. These statistics are sent to https://stats.grafana.org/</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Statistics help us better understand how Loki is used, and they show us performance</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># levels for most users. This helps us prioritize features and documentation.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># For more information on what&#39;s sent, look at</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># https://github.com/grafana/loki/blob/main/pkg/usagestats/stats.go</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Refer to the buildReport method to see what goes into a report.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># If you would like to disable reporting, uncomment the following lines:</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">analytics</span>:
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">reporting_enabled</span>: <span style="color:#66d9ef">false</span>
+</span></span></code></pre></div><p>Note the <code>ruler</code> section. It&rsquo;s needed if you wish to set alert rules to get grafana managed alerts.</p>
+<p>some grafana undocumented weirdness here. Note these lines:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>  aws:
+</span></span><span style="display:flex;"><span>    s3: s3://ACCESS_KEY:SECRET_ACCESS_KEY@eu-central-1/bucket-name
+</span></span><span style="display:flex;"><span>    s3forcepathstyle: true
+</span></span></code></pre></div><p>the uri style used here for specifying s3 bucket creddentials is called <code>s3forcepathstyle</code> which in recent versions of grafana is default set to <code>false</code>. Make sure it is set to <code>true</code>.</p>
+<p>More grafana weirdness:. Note this line</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>common:
+</span></span><span style="display:flex;"><span>  instance_addr: 127.0.0.1
+</span></span><span style="display:flex;"><span>  path_prefix: loki
+</span></span></code></pre></div><p>The path prefix is &ldquo;loki&rdquo; (NO preceding <code>/</code> like <code>/loki</code>). Then rest of the paths have <code>/loki</code> prefixed. I noticed that if I added a <code>/</code> to &ldquo;loki&rdquo; in path_prefix, nothing is exported to S3. Why.. don&rsquo;t know, grafana does not mention why. It will become weirder when I describe the systemctl way of launching the same loki-config. Then reverse is true.</p>
+<p>Also, another undocumented feature&hellip;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>compactor:
+</span></span><span style="display:flex;"><span>  working_directory: /loki/boltdb-shipper-compactor
+</span></span><span style="display:flex;"><span>  shared_store: s3
+</span></span></code></pre></div><p>this part is necessary.</p>
+<p>that&rsquo;s it. Now launch it via docker container like so. First lauch loki container and then promtail container.</p>
+<p>launch loki:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>docker run -d --name loki --restart unless-stopped -v <span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span>:/mnt/config -v lokilogs:/loki -p 3100:3100 grafana/loki:2.9.1 -config.file<span style="color:#f92672">=</span>/mnt/config/loki-config.yaml
+</span></span></code></pre></div><p>note the volume mapping <code>-v lokilogs:/loki</code> . Here I am mapping a directory called <code>lokilogs</code> in the current directory to <code>/loki</code> within the container. This mapping is critical to enable loki to send docs to S3. If this is missing, no logs are going to be sent.</p>
+<p>launch promtail:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>docker run --name promtail -d --restart unless-stopped -v <span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span>:/mnt/config -v /var/log:/var/log --link loki grafana/promtail:2.9.1 -config.file<span style="color:#f92672">=</span>/mnt/config/promtail-config.docker.yaml
+</span></span></code></pre></div><p>After some time, you will see two directories created in S3 bucket, <code>index</code> and <code>fake</code>. Here, approx every 2 hours logs are going to be stored.</p>
+<h2 id="systemctl-way"><code>systemctl</code> way:</h2>
+<p>You can download loki and promtail linux binaries from Grafana. There are slight variations in loki and promtail configs:</p>
+<p><code>promtail-config.yaml</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">server</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">http_listen_port</span>: <span style="color:#ae81ff">9080</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">grpc_listen_port</span>: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">positions</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">filename</span>: <span style="color:#ae81ff">/tmp/positions.yaml</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">clients</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">url</span>: <span style="color:#ae81ff">http://localhost:3100/loki/api/v1/push</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">scrape_configs</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">job_name</span>: <span style="color:#ae81ff">amskafka</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">kafka</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">brokers</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">172.31.36.174</span>:<span style="color:#ae81ff">9092</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">topics</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">ams-instance-stats</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">job</span>: <span style="color:#ae81ff">amskafka</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">pipeline_stages</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">match</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">selector</span>: <span style="color:#e6db74">&#39;{job=&#34;amskafka&#34;}&#39;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">stages</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#f92672">json</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">expressions</span>:
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">instanceId</span>: <span style="color:#ae81ff">instanceId</span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">instanceId</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">job_name</span>: <span style="color:#ae81ff">amskafkawebrtc</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">kafka</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">brokers</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">172.31.36.174</span>:<span style="color:#ae81ff">9092</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">topics</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">ams-webrtc-stats</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">job</span>: <span style="color:#ae81ff">amskafkawebrtc</span>
+</span></span></code></pre></div><p>As mentioned before, the difference is in this line:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>clients:
+</span></span><span style="display:flex;"><span>  - url: http://localhost:3100/loki/api/v1/push
+</span></span></code></pre></div><p>it has <code>localhost</code>. This is because that refers to <code>loki</code> application which is listening on localhost in this case.</p>
+<p>Here is the <code>loki-config.yaml</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">auth_enabled</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">server</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">http_listen_port</span>: <span style="color:#ae81ff">3100</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">grpc_listen_port</span>: <span style="color:#ae81ff">9096</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">common</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">instance_addr</span>: <span style="color:#ae81ff">127.0.0.1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">path_prefix</span>: <span style="color:#ae81ff">/loki</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">replication_factor</span>: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ring</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">kvstore</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">store</span>: <span style="color:#ae81ff">inmemory</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">query_range</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">results_cache</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">cache</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">embedded_cache</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">max_size_mb</span>: <span style="color:#ae81ff">200</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">schema_config</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">configs</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">from</span>: <span style="color:#e6db74">2020-10-24</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">store</span>: <span style="color:#ae81ff">boltdb-shipper</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">object_store</span>: <span style="color:#ae81ff">s3</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">schema</span>: <span style="color:#ae81ff">v11</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">index</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">prefix</span>: <span style="color:#ae81ff">index_</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">period</span>: <span style="color:#ae81ff">24h</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">storage_config</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">boltdb_shipper</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">active_index_directory</span>: <span style="color:#ae81ff">/loki/boltdb-shipper-active</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">cache_location</span>: <span style="color:#ae81ff">/loki/boltdb-shipper-cache</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">cache_ttl</span>: <span style="color:#ae81ff">24h        </span> <span style="color:#75715e"># Can be increased for faster performance over longer query periods, uses more disk space</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">shared_store</span>: <span style="color:#ae81ff">s3</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">aws</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">s3</span>: <span style="color:#ae81ff">s3://ACCESS_KEY:SECRET_ACCESS_KEY@eu-central-1/bucket-name</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">s3forcepathstyle</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">compactor</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">working_directory</span>: <span style="color:#ae81ff">/loki/boltdb-shipper-compactor</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">shared_store</span>: <span style="color:#ae81ff">s3</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">chunk_store_config</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">max_look_back_period</span>: <span style="color:#ae81ff">48h</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">limits_config</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">retention_period</span>: <span style="color:#ae81ff">48h</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">table_manager</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">retention_deletes_enabled</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">retention_period</span>: <span style="color:#ae81ff">48h</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">ruler</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">alertmanager_url</span>: <span style="color:#ae81ff">http://localhost:9093</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">rule_path</span>: <span style="color:#ae81ff">/loki/rules</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">enable_api</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ring</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">kvstore</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">store</span>: <span style="color:#ae81ff">inmemory</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">storage</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">type</span>: <span style="color:#ae81ff">local</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">local</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">directory</span>: <span style="color:#ae81ff">/loki/rules</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># bug in grafana 2.4.2+ versions causing frontend to show &#34;too many outstanding requests&#34; for periods larger than 16 hours. Workaround for that</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># https://github.com/grafana/loki/issues/5123</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">query_scheduler</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">max_outstanding_requests_per_tenant</span>: <span style="color:#ae81ff">10000</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># By default, Loki will send anonymous, but uniquely-identifiable usage and configuration</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># analytics to Grafana Labs. These statistics are sent to https://stats.grafana.org/</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Statistics help us better understand how Loki is used, and they show us performance</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># levels for most users. This helps us prioritize features and documentation.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># For more information on what&#39;s sent, look at</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># https://github.com/grafana/loki/blob/main/pkg/usagestats/stats.go</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Refer to the buildReport method to see what goes into a report.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># If you would like to disable reporting, uncomment the following lines:</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">analytics</span>:
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">reporting_enabled</span>: <span style="color:#66d9ef">false</span>
+</span></span></code></pre></div><p>again, note the <code>/loki</code> in path prefix. You need it that way. <code>loki</code> will not work here. Of course, no errors will happen and you will see everything fine on grafana dashboard. Just that nothing will be sent to s3.</p>
+<p>You can first try locally like so:
+First launch loki:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo ./loki-linux-amd64 -config.file<span style="color:#f92672">=</span>loki-config.yaml
+</span></span></code></pre></div><p>notice the <code>sudo</code> there. <code>/loki</code> is a sudo path. Since this is where this config yaml tells loki to store its logs on the filesystem, you will need sudo access.</p>
+<p>Now launch promtail:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo ./promtail-linux-amd64 -config.file<span style="color:#f92672">=</span>promtail-config.yaml
+</span></span></code></pre></div><p>Since we are storing <code>positionas.yaml</code> (an internally created promtail file) in <code>/tmp</code>, make it sudo access.</p>
+<p>Once you can see everything working fine, you can easily convert them to systemctl service like so:</p>
+<p><code>loki.service</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>Unit<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Description<span style="color:#f92672">=</span>Loki Service
+</span></span><span style="display:flex;"><span>After<span style="color:#f92672">=</span>network.target
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Service<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Environment<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;CFGFILE=/home/ubuntu/downloads/loki-config.yaml&#34;</span>
+</span></span><span style="display:flex;"><span>ExecStart<span style="color:#f92672">=</span>/home/ubuntu/downloads/loki-linux-amd64 -config.file<span style="color:#f92672">=</span><span style="color:#e6db74">${</span>CFGFILE<span style="color:#e6db74">}</span>
+</span></span><span style="display:flex;"><span>StandardOutput<span style="color:#f92672">=</span>file:/var/log/loki-systemd.log
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Install<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>WantedBy<span style="color:#f92672">=</span>multi-user.target
+</span></span></code></pre></div><p><code>promtail.service</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#f92672">[</span>Unit<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Description<span style="color:#f92672">=</span>Promtail Service
+</span></span><span style="display:flex;"><span>After<span style="color:#f92672">=</span>network.target loki.service
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Service<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Environment<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;CFGFILE=/home/ubuntu/downloads/promtail-config.yaml&#34;</span>
+</span></span><span style="display:flex;"><span>ExecStart<span style="color:#f92672">=</span>/home/ubuntu/downloads/promtail-linux-amd64 -config.file<span style="color:#f92672">=</span><span style="color:#e6db74">${</span>CFGFILE<span style="color:#e6db74">}</span>
+</span></span><span style="display:flex;"><span>StandardOutput<span style="color:#f92672">=</span>file:/var/log/promtail-systemd.log
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Install<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>WantedBy<span style="color:#f92672">=</span>multi-user.target
+</span></span></code></pre></div><p>save both <code>loki.service</code> and <code>promtail.service</code> in <code>/etc/systemd/system</code></p>
+<p>and launch via
+<code>sudo systemctl start loki</code> and <code>sudo systemctl start promtail</code></p>
+<p>you can tail their logs at files pointed to in <code>StandardOutput</code> setting</p>
+<h2 id="only-persist-loki-logs-on-local-filesystem">Only persist loki logs on local filesystem</h2>
+<p>Not really recommended, since if running on an EC2 instance and that instance dies for some reason, all locally stored logs will be lost. Also, makes sense to centralize the log storage when multiple instances are involved, only possible with something like S3.</p>
+<p>Note, we will be taking the docker container approach, launching both loki and promatail in respective docker containers and connection them via network.
+so, here is the <code>loki-config.yaml</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">auth_enabled</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">server</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">http_listen_port</span>: <span style="color:#ae81ff">3100</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">grpc_listen_port</span>: <span style="color:#ae81ff">9096</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">common</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">instance_addr</span>: <span style="color:#ae81ff">127.0.0.1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">path_prefix</span>: <span style="color:#ae81ff">loki</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">storage</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">filesystem</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">chunks_directory</span>: <span style="color:#ae81ff">/loki/chunks</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">rules_directory</span>: <span style="color:#ae81ff">/loki/rules</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">replication_factor</span>: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ring</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">kvstore</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">store</span>: <span style="color:#ae81ff">inmemory</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">query_range</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">results_cache</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">cache</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">embedded_cache</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">max_size_mb</span>: <span style="color:#ae81ff">100</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">schema_config</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">configs</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">from</span>: <span style="color:#e6db74">2020-10-24</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">store</span>: <span style="color:#ae81ff">boltdb-shipper</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">object_store</span>: <span style="color:#ae81ff">filesystem</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">schema</span>: <span style="color:#ae81ff">v11</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">index</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">prefix</span>: <span style="color:#ae81ff">index_</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">period</span>: <span style="color:#ae81ff">24h</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">storage_config</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">boltdb</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">directory</span>: <span style="color:#ae81ff">/loki/index</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">compactor</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">working_directory</span>: <span style="color:#ae81ff">/loki/compactor</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">shared_store</span>: <span style="color:#ae81ff">filesystem</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">retention_enabled</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">chunk_store_config</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">max_look_back_period</span>: <span style="color:#ae81ff">48h</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">limits_config</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">retention_period</span>: <span style="color:#ae81ff">48h</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">table_manager</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">retention_deletes_enabled</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">retention_period</span>: <span style="color:#ae81ff">48h</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">ruler</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">alertmanager_url</span>: <span style="color:#ae81ff">http://localhost:9093</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">rule_path</span>: <span style="color:#ae81ff">/loki/rules</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">enable_api</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ring</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">kvstore</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">store</span>: <span style="color:#ae81ff">inmemory</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">storage</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">type</span>: <span style="color:#ae81ff">local</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">local</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">directory</span>: <span style="color:#ae81ff">/loki/rules</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># bug in grafana 2.4.2+ versions causing frontend to show &#34;too many outstanding requests&#34; for periods larger than 16 hours. Workaround for that</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># https://github.com/grafana/loki/issues/5123</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">query_scheduler</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">max_outstanding_requests_per_tenant</span>: <span style="color:#ae81ff">10000</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># By default, Loki will send anonymous, but uniquely-identifiable usage and configuration</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># analytics to Grafana Labs. These statistics are sent to https://stats.grafana.org/</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Statistics help us better understand how Loki is used, and they show us performance</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># levels for most users. This helps us prioritize features and documentation.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># For more information on what&#39;s sent, look at</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># https://github.com/grafana/loki/blob/main/pkg/usagestats/stats.go</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Refer to the buildReport method to see what goes into a report.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># If you would like to disable reporting, uncomment the following lines:</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">analytics</span>:
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">reporting_enabled</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>                                
+</span></span></code></pre></div><p>Use <code>promtail-config.docker.yaml</code> from above for promtail config.</p>
+<p>Launch commands are exactly same as the one shown for docker case. Just that, in this case, no export to S3 will happen and all records will be stored into the mounted directory, <code>lokilogs</code>.</p>
+
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/loki/" rel="tag">loki</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/s3/" rel="tag">s3</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/aws/" rel="tag">aws</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+
+
+
+			</div>
+			<aside class="sidebar">
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="LinkedIn" rel="noopener noreferrer" href="https://linkedin.com/in/himanshu-singh-remote/" target="_blank">
+				<svg class="widget-social__link-icon icon icon-linkedin" width="24" height="24" viewBox="0 0 352 352"><path d="M0,40v272c0,21.9,18.1,40,40,40h272c21.9,0,40-18.1,40-40V40c0-21.9-18.1-40-40-40H40C18.1,0,0,18.1,0,40z M312,32 c4.6,0,8,3.4,8,8v272c0,4.6-3.4,8-8,8H40c-4.6,0-8-3.4-8-8V40c0-4.6,3.4-8,8-8H312z M59.5,87c0,15.2,12.3,27.5,27.5,27.5 c15.2,0,27.5-12.3,27.5-27.5c0-15.2-12.3-27.5-27.5-27.5C71.8,59.5,59.5,71.8,59.5,87z M187,157h-1v-21h-45v152h47v-75 c0-19.8,3.9-39,28.5-39c24.2,0,24.5,22.4,24.5,40v74h47v-83.5c0-40.9-8.7-72-56.5-72C208.5,132.5,193.3,145.1,187,157z M64,288h47.5 V136H64V288z"/></svg>
+				<span>LinkedIn</span>
+			</a>
+		</div>
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/tek-shinobi" target="_blank">
+				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+
+		
+	</div>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/posts/github_managing-multiple-accounts/">Github:managing Multiple Accounts: SSH configuration</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/linux_iptables-cheatsheet/">Linux:Iptables Cheatsheet</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/aws_setup-reverse-proxy-in-aws-using-elb/">AWS:Setup Reverse Proxy in AWS Using ELB</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/grafana_grafana-loki-aws-s3-integration/">Grafana:Grafana Loki AWS S3 Integration</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang_distributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/rate-limiting-in-distributed-system/">Rate Limiting in a Distributed System</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-testing-creating-large-files/">Golang Testing: Creating Large Files</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/add-gpg-keys-to-repo/">Add Gpg Keys to Repo</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-handling-null-in-database-tables/">Golang: Handling Null in Database Tables</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/using-postgres-inside-docker-container/">Golang: Using Postgres Inside Docker Container</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/backend/">backend</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/distributed-system-design/">distributed system design</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/docker/">docker</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/frontend/">frontend</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/github/">github</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/grafana/">grafana</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/javascript/">javascript</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/kubernetes/">kubernetes</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/linux/">Linux</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/mongodb/">mongodb</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/networking/">networking</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/python/">python</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/rust/">rust</a></li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/virtualbox/">Virtualbox</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-taglist widget">
+	<h4 class="widget__title">Tags</h4>
+	<div class="widget__content">
+		<a class="widget-taglist__link widget__link btn" href="/tags/automation/" title="automation">automation</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/aws/" title="aws">aws</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/backend/" title="backend">backend</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/c#/" title="c#">c#</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/concurrency/" title="concurrency">concurrency</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/css/" title="css">css</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/django/" title="django">django</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/docker/" title="docker">docker</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/es6/" title="ES6">ES6</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/github/" title="github">github</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/golang/" title="golang">golang</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/gpg/" title="gpg">gpg</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/iptables/" title="iptables">iptables</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/javascript/" title="javascript">javascript</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/loki/" title="loki">loki</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/minikube/" title="minikube">minikube</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/mongodb/" title="mongodb">mongodb</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/networking/" title="networking">networking</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/postgres/" title="postgres">postgres</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/python/" title="python">python</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/rate-limiter/" title="rate limiter">rate limiter</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/react/" title="react">react</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/redis/" title="redis">redis</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/rust/" title="rust">rust</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/s3/" title="s3">s3</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/scrapy/" title="scrapy">scrapy</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/tcp/" title="tcp">tcp</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/testing/" title="testing">testing</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/tools/" title="tools">tools</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/turbofish/" title="turbofish">turbofish</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/virtualbox/" title="virtualbox">virtualbox</a>
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2024 Tek Shinobi Blog.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+</body>
+</html>

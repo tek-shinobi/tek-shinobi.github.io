@@ -51,156 +51,156 @@
 			<p>Some simple concurrency patterns which are often used in Golang</p>
 <h2 id="1-for-select-pattern">1. <code>for-select</code> pattern</h2>
 <p>This is a fundamental pattern. It is typically used to read data from multiple channels.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">c1</span>, <span style="color:#a6e22e">c2</span> <span style="color:#f92672">&lt;-</span><span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>
-
-<span style="color:#66d9ef">for</span> { <span style="color:#75715e">// Either loop infinitely or range over something 
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">select</span> {
-    <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">c1</span>: <span style="color:#75715e">// Do some work with channels
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">c2</span>:
-    <span style="color:#66d9ef">default</span>: <span style="color:#75715e">// auto run if other cases are not ready
-</span><span style="color:#75715e"></span>    }
-
-    <span style="color:#75715e">// do some work
-</span><span style="color:#75715e"></span>}
-</code></pre></div><p>The select statement looks like switch one, but its behavior is different. All <code>cases</code> are considered simultaneously &amp; have <em><strong>equal chance</strong></em> to be selected. If none of the <code>cases</code> are ready to run, the entire <code>select</code> statement blocks.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">c1</span>, <span style="color:#a6e22e">c2</span> <span style="color:#f92672">&lt;-</span><span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> { <span style="color:#75715e">// Either loop infinitely or range over something 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">select</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">c1</span>: <span style="color:#75715e">// Do some work with channels
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">c2</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">default</span>: <span style="color:#75715e">// auto run if other cases are not ready
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// do some work
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>The select statement looks like switch one, but its behavior is different. All <code>cases</code> are considered simultaneously &amp; have <em><strong>equal chance</strong></em> to be selected. If none of the <code>cases</code> are ready to run, the entire <code>select</code> statement blocks.</p>
 <h2 id="2-done-channel-pattern">2. <code>done</code> channel pattern</h2>
 <p>Goroutine is not garbage collected; hence, it is likely to be leaked.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
-<span style="color:#75715e">// &lt;operation that will block forever&gt;
-</span><span style="color:#75715e">// =&gt; Go routine leaks
-</span><span style="color:#75715e"></span>}()
-<span style="color:#75715e">// Do work
-</span></code></pre></div><p>To avoid leaking, Goroutine should be cancelled whenever it is told to do. A parent Goroutine needs to send cancellation signal to its child via a <strong>read-only</strong> channel named <code>done</code> . By convention, it is set as the 1st parameter.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// &lt;operation that will block forever&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// =&gt; Go routine leaks
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}()
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Do work
+</span></span></span></code></pre></div><p>To avoid leaking, Goroutine should be cancelled whenever it is told to do. A parent Goroutine needs to send cancellation signal to its child via a <strong>read-only</strong> channel named <code>done</code> . By convention, it is set as the 1st parameter.</p>
 <p>This pattern is also utilized a lot in other patterns.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">//child goroutine
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">doWork</span>(<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">done</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span> {}, <span style="color:#a6e22e">other_params</span>) <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">terminated</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{} {
-    <span style="color:#a6e22e">terminated</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{}) <span style="color:#75715e">// to tell outer that it has finished
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">defer</span> close(<span style="color:#a6e22e">terminated</span>)
-
-    <span style="color:#66d9ef">for</span> {
-        <span style="color:#66d9ef">select</span>: {
-            <span style="color:#66d9ef">case</span>: <span style="color:#75715e">//do your work here
-</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">done</span>:
-                <span style="color:#66d9ef">return</span>
-        }
-        <span style="color:#75715e">// do work here
-</span><span style="color:#75715e"></span>    }
-
-    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">terminated</span>
-}
-
-<span style="color:#75715e">// parent goroutine
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">done</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{})
-<span style="color:#a6e22e">terminated</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">doWork</span>(<span style="color:#a6e22e">done</span>, <span style="color:#a6e22e">other_args</span>)
-
-<span style="color:#75715e">// do sth
-</span><span style="color:#75715e">// then tell child to stop
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">close</span> (<span style="color:#a6e22e">done</span>)
-
-<span style="color:#75715e">// wait for child finish its work
-</span><span style="color:#75715e"></span><span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">terminated</span>
-</code></pre></div><h2 id="3-or-channel-pattern">3. <code>or-channel</code> pattern</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">//child goroutine
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">doWork</span>(<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">done</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span> {}, <span style="color:#a6e22e">other_params</span>) <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">terminated</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{} {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">terminated</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{}) <span style="color:#75715e">// to tell outer that it has finished
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">defer</span> close(<span style="color:#a6e22e">terminated</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">select</span>: {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">case</span>: <span style="color:#75715e">//do your work here
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">done</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// do work here
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">terminated</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// parent goroutine
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">done</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{})
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">terminated</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">doWork</span>(<span style="color:#a6e22e">done</span>, <span style="color:#a6e22e">other_args</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// do sth
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// then tell child to stop
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">close</span> (<span style="color:#a6e22e">done</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// wait for child finish its work
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">terminated</span>
+</span></span></code></pre></div><h2 id="3-or-channel-pattern">3. <code>or-channel</code> pattern</h2>
 <p>This pattern aims to combine multiple <code>done</code> channels into one <code>agg_done</code>; it means that if one of a <code>done</code> channel is signaled, the whole agg_done channel is also closed. Yet, we do not know number of <code>done</code> channels during runtime in advanced.</p>
 <p><code>or-channel</code> pattern can do so by using <code>goroutine</code> &amp; <code>recursion</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// return agg_done channel
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">or</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">channels</span> <span style="color:#f92672">...</span> <span style="color:#f92672">&lt;-</span><span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{}) <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{} 
-
-<span style="color:#a6e22e">or</span> = <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">channels</span> <span style="color:#f92672">...&lt;-</span><span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{}) <span style="color:#f92672">&lt;-</span><span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{} {
-    <span style="color:#75715e">// base cases
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">switch</span> len(<span style="color:#a6e22e">channels</span>) { 
-        <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">0</span>: <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
-        <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">1</span>: <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">channels</span>[<span style="color:#ae81ff">0</span>]
-    }
-
-    <span style="color:#a6e22e">orDone</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{})
-
-    <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
-        <span style="color:#66d9ef">defer</span> close(<span style="color:#a6e22e">orDone</span>)
-
-        <span style="color:#66d9ef">switch</span> len(<span style="color:#a6e22e">channels</span>) {
-            <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">2</span>: 
-                <span style="color:#66d9ef">select</span> {
-                    <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">channels</span>[<span style="color:#ae81ff">0</span>]:
-                    <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">channels</span>[<span style="color:#ae81ff">1</span>]:
-                }
-            <span style="color:#66d9ef">default</span>:
-                <span style="color:#66d9ef">select</span> {
-                    <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">channels</span>[<span style="color:#ae81ff">0</span>]:
-                    <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">channels</span>[<span style="color:#ae81ff">1</span>]:
-                    <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">channels</span>[<span style="color:#ae81ff">2</span>]:
-                    <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">or</span>(append(<span style="color:#a6e22e">channels</span>[<span style="color:#ae81ff">3</span>:], <span style="color:#a6e22e">orDone</span>)<span style="color:#f92672">...</span>): <span style="color:#75715e">// * line
-</span><span style="color:#75715e"></span>                }
-
-        }
-
-    }
-    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">orDone</span>
-}
-</code></pre></div><p>*** line*** makes the upper &amp; lower recursive function depends on each other like a tree. The upper injects its own <code>orDone</code> channel into the lower. Then the lower also return its own <code>orDone</code> to the upper.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// return agg_done channel
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">or</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">channels</span> <span style="color:#f92672">...</span> <span style="color:#f92672">&lt;-</span><span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{}) <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{} 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">or</span> = <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">channels</span> <span style="color:#f92672">...&lt;-</span><span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{}) <span style="color:#f92672">&lt;-</span><span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{} {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// base cases
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">switch</span> len(<span style="color:#a6e22e">channels</span>) { 
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">0</span>: <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">1</span>: <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">channels</span>[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">orDone</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">defer</span> close(<span style="color:#a6e22e">orDone</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">switch</span> len(<span style="color:#a6e22e">channels</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">2</span>: 
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">select</span> {
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">channels</span>[<span style="color:#ae81ff">0</span>]:
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">channels</span>[<span style="color:#ae81ff">1</span>]:
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">default</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">select</span> {
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">channels</span>[<span style="color:#ae81ff">0</span>]:
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">channels</span>[<span style="color:#ae81ff">1</span>]:
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">channels</span>[<span style="color:#ae81ff">2</span>]:
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">or</span>(append(<span style="color:#a6e22e">channels</span>[<span style="color:#ae81ff">3</span>:], <span style="color:#a6e22e">orDone</span>)<span style="color:#f92672">...</span>): <span style="color:#75715e">// * line
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">orDone</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>*** line*** makes the upper &amp; lower recursive function depends on each other like a tree. The upper injects its own <code>orDone</code> channel into the lower. Then the lower also return its own <code>orDone</code> to the upper.</p>
 <p>If any <code>orDone</code> channel closes, the upper &amp; lower both are notified.</p>
 <h2 id="4-tee-channel-pattern">4. <code>tee</code> channel pattern</h2>
 <p>This pattern aims to split values coming from a channel into 2 others. So that we can dispatch them into two separate areas of our codebase.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">tee</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">func</span>(
-    <span style="color:#a6e22e">done</span> <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{},
-    <span style="color:#a6e22e">in</span> <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{},
-) (<span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>, <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>) {
-    <span style="color:#a6e22e">out1</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{})
-    <span style="color:#a6e22e">out2</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{})
-
-    <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
-        <span style="color:#66d9ef">defer</span> close(<span style="color:#a6e22e">out1</span>)
-        <span style="color:#66d9ef">defer</span> close(<span style="color:#a6e22e">out2</span>)
-
-        <span style="color:#75715e">//shadow outer variable
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">out1</span>, <span style="color:#a6e22e">out2</span> = <span style="color:#a6e22e">out1</span>, <span style="color:#a6e22e">out2</span>
-        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">val</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">orDone</span>(<span style="color:#a6e22e">done</span>, <span style="color:#a6e22e">in</span>) {
-            <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">2</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">++</span> { <span style="color:#75715e">//make sure 2 channels received same value
-</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">select</span> {
-                <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">done</span>:
-                <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">out1</span><span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">val</span>:
-                    <span style="color:#a6e22e">out1</span> = <span style="color:#66d9ef">nil</span> <span style="color:#75715e">//stop this channel from being received
-</span><span style="color:#75715e"></span>                <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">out2</span><span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">val</span>:
-                    <span style="color:#a6e22e">out2</span> = <span style="color:#66d9ef">nil</span>
-                }
-            }
-        }
-    }()
-    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">out1</span>, <span style="color:#a6e22e">out2</span>
-}
-</code></pre></div><h2 id="5-bridge-channel-pattern">5. <code>bridge</code> channel pattern</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">tee</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">func</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">done</span> <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{},
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">in</span> <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{},
+</span></span><span style="display:flex;"><span>) (<span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>, <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">out1</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{})
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">out2</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">defer</span> close(<span style="color:#a6e22e">out1</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">defer</span> close(<span style="color:#a6e22e">out2</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//shadow outer variable
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">out1</span>, <span style="color:#a6e22e">out2</span> = <span style="color:#a6e22e">out1</span>, <span style="color:#a6e22e">out2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">val</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">orDone</span>(<span style="color:#a6e22e">done</span>, <span style="color:#a6e22e">in</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">2</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">++</span> { <span style="color:#75715e">//make sure 2 channels received same value
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                <span style="color:#66d9ef">select</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">done</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">out1</span><span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">val</span>:
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">out1</span> = <span style="color:#66d9ef">nil</span> <span style="color:#75715e">//stop this channel from being received
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">out2</span><span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">val</span>:
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">out2</span> = <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">out1</span>, <span style="color:#a6e22e">out2</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="5-bridge-channel-pattern">5. <code>bridge</code> channel pattern</h2>
 <p>Reading values from channel of channels (<code>&lt;-chan &lt;-chan interface{}</code>) can be cumbersome. Hence, this pattern aims to merge all values into 1 channel, so that the consumer jobs is much easier.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">bridge</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">func</span>(
-    <span style="color:#a6e22e">done</span> <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{},
-    <span style="color:#a6e22e">chanStream</span> <span style="color:#f92672">&lt;-</span> <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">interface</span>{},
-) <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{} {
-    <span style="color:#a6e22e">valStream</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{})
-
-    <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
-        <span style="color:#66d9ef">defer</span> close(<span style="color:#a6e22e">valStream</span>)
-
-        <span style="color:#66d9ef">for</span> {
-            <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">stream</span> <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{}
-            <span style="color:#66d9ef">select</span> {
-            <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">maybeStream</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">chanStream</span>
-                <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">ok</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">false</span> {
-                    <span style="color:#66d9ef">return</span>
-                }
-                <span style="color:#a6e22e">stream</span> = <span style="color:#a6e22e">maybeStream</span>
-            <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">done</span>:
-                <span style="color:#66d9ef">return</span>
-            }
-
-            <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">val</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">orDone</span>(<span style="color:#a6e22e">done</span>, <span style="color:#a6e22e">stream</span>){
-                <span style="color:#66d9ef">select</span>{
-                <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">valStream</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">val</span>:
-                <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">done</span>:
-                }
-            }
-        }
-    }()
-    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">valStream</span>
-}
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">bridge</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">func</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">done</span> <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{},
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">chanStream</span> <span style="color:#f92672">&lt;-</span> <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">interface</span>{},
+</span></span><span style="display:flex;"><span>) <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{} {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">valStream</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">defer</span> close(<span style="color:#a6e22e">valStream</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">stream</span> <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">interface</span>{}
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">select</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">maybeStream</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">chanStream</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">ok</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">false</span> {
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">stream</span> = <span style="color:#a6e22e">maybeStream</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">done</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">val</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">orDone</span>(<span style="color:#a6e22e">done</span>, <span style="color:#a6e22e">stream</span>){
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">select</span>{
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">valStream</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">val</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">done</span>:
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">valStream</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
 		</div>
 		<footer class="post__footer">
 			
@@ -247,11 +247,11 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
-			<li class="widget__item"><a class="widget__link" href="/posts/githubmanaging-multiple-accounts/">Github:managing Multiple Accounts: SSH configuration</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/linuxiptables-cheatsheet/">Linux:Iptables Cheatsheet</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/awssetup-reverse-proxy-in-aws-using-elb/">AWS:Setup Reverse Proxy in AWS Using ELB</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/grafanagrafana-loki-aws-s3-integration/">Grafana:Grafana Loki AWS S3 Integration</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/golangdistributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/github_managing-multiple-accounts/">Github:managing Multiple Accounts: SSH configuration</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/linux_iptables-cheatsheet/">Linux:Iptables Cheatsheet</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/aws_setup-reverse-proxy-in-aws-using-elb/">AWS:Setup Reverse Proxy in AWS Using ELB</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/grafana_grafana-loki-aws-s3-integration/">Grafana:Grafana Loki AWS S3 Integration</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang_distributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/rate-limiting-in-distributed-system/">Rate Limiting in a Distributed System</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golang-testing-creating-large-files/">Golang Testing: Creating Large Files</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/add-gpg-keys-to-repo/">Add Gpg Keys to Repo</a></li>
@@ -339,7 +339,7 @@
 	<div class="container footer__container flex">
 		
 		<div class="footer__copyright">
-			&copy; 2023 Tek Shinobi Blog.
+			&copy; 2024 Tek Shinobi Blog.
 			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
 		</div>
 	</div>

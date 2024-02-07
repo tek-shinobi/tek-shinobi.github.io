@@ -54,47 +54,47 @@
 <p>When it comes to dealing with ownership issues, Rust offers options like Copy and Clone, among others.</p>
 <p>Since Copy and Clone are so common, and particularly intuitive but confusing to people coming from other languages, let me introduce a v simple fact about both. Copy is implicit and Clone is explicit. Please note this, as this can turn into a potential landmine when it comes to performance.</p>
 <p>Implicit means not explicit. Like here:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">show_copy</span>(arg1: <span style="color:#66d9ef">i64</span>){} 
-<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>(){ 
-    <span style="color:#66d9ef">let</span> a: <span style="color:#66d9ef">i64</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; 
-    show_copy(a); <span style="color:#75715e">// implicit copy happens here 
-</span><span style="color:#75715e"></span>}
-</code></pre></div><p>Copy, when supported by a type, happens in any place where a transfer of ownership would have happened. Like in the above comments. Since <em><strong>i64</strong></em> implements Copy, this happens implicitly.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">show_copy</span>(arg1: <span style="color:#66d9ef">i64</span>){} 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>(){ 
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> a: <span style="color:#66d9ef">i64</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; 
+</span></span><span style="display:flex;"><span>    show_copy(a); <span style="color:#75715e">// implicit copy happens here 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>Copy, when supported by a type, happens in any place where a transfer of ownership would have happened. Like in the above comments. Since <em><strong>i64</strong></em> implements Copy, this happens implicitly.</p>
 <p>Lets make this more clear:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">#[derive(Copy, Clone)]</span> 
-<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Id</span>{ 
-    data: <span style="color:#66d9ef">i64</span>, 
-} 
-
-<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">show_copy</span>(arg1: <span style="color:#a6e22e">Id</span>){} 
-
-<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>(){ 
-    <span style="color:#66d9ef">let</span> a: <span style="color:#a6e22e">Id</span> <span style="color:#f92672">=</span> Id {data: <span style="color:#ae81ff">1</span>}; 
-    show_copy(a); <span style="color:#75715e">// implicit copy happens here 
-</span><span style="color:#75715e"></span>}
-</code></pre></div><p>As you can see here, if you are not paying attention, you can completely miss the fact that an actual copy of  <em><strong>Id</strong></em> happened, each time its ownership was supposed to have moved across function boundary. This is why Copy is not good for general usage. <em><strong>Use Clone. It does the same thing but in an explicit way, making it easier to know the intent.</strong></em></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">#[derive(Clone)]</span> 
-<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Id</span>{ 
-    data: <span style="color:#66d9ef">i64</span>, 
-} 
-<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">show_copy</span>(arg1: <span style="color:#a6e22e">Id</span>){} 
-<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>(){ 
-    <span style="color:#66d9ef">let</span> a: <span style="color:#a6e22e">Id</span> <span style="color:#f92672">=</span> Id {data: <span style="color:#ae81ff">1</span>}; 
-    show_copy(a.clone()); <span style="color:#75715e">// Explicit. Intent to create a copy is explicit here 
-</span></code></pre></div><p>❗Important point here.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// this is valid. 
-</span><span style="color:#75715e"></span><span style="color:#75715e">#[derive(Clone)]</span>
-<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Id</span>{
-  data: <span style="color:#66d9ef">i64</span>,
-}
-
-<span style="color:#75715e">// but this is not valid
-</span><span style="color:#75715e"></span><span style="color:#75715e">#[derive(Copy)]</span>
-<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Id</span>{
-  data: <span style="color:#66d9ef">i64</span>,
-}
-<span style="color:#75715e">// because Copy requires implementation of Clone.
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">#[derive(Copy, Clone)]</span> 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Id</span>{ 
+</span></span><span style="display:flex;"><span>    data: <span style="color:#66d9ef">i64</span>, 
+</span></span><span style="display:flex;"><span>} 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">show_copy</span>(arg1: <span style="color:#a6e22e">Id</span>){} 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>(){ 
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> a: <span style="color:#a6e22e">Id</span> <span style="color:#f92672">=</span> Id {data: <span style="color:#ae81ff">1</span>}; 
+</span></span><span style="display:flex;"><span>    show_copy(a); <span style="color:#75715e">// implicit copy happens here 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>As you can see here, if you are not paying attention, you can completely miss the fact that an actual copy of  <em><strong>Id</strong></em> happened, each time its ownership was supposed to have moved across function boundary. This is why Copy is not good for general usage. <em><strong>Use Clone. It does the same thing but in an explicit way, making it easier to know the intent.</strong></em></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">#[derive(Clone)]</span> 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Id</span>{ 
+</span></span><span style="display:flex;"><span>    data: <span style="color:#66d9ef">i64</span>, 
+</span></span><span style="display:flex;"><span>} 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">show_copy</span>(arg1: <span style="color:#a6e22e">Id</span>){} 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>(){ 
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> a: <span style="color:#a6e22e">Id</span> <span style="color:#f92672">=</span> Id {data: <span style="color:#ae81ff">1</span>}; 
+</span></span><span style="display:flex;"><span>    show_copy(a.clone()); <span style="color:#75715e">// Explicit. Intent to create a copy is explicit here 
+</span></span></span></code></pre></div><p>❗Important point here.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">// this is valid. 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#[derive(Clone)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Id</span>{
+</span></span><span style="display:flex;"><span>  data: <span style="color:#66d9ef">i64</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// but this is not valid
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#[derive(Copy)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Id</span>{
+</span></span><span style="display:flex;"><span>  data: <span style="color:#66d9ef">i64</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// because Copy requires implementation of Clone.
+</span></span></span></code></pre></div>
 		</div>
 		<footer class="post__footer">
 			
@@ -138,11 +138,11 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
-			<li class="widget__item"><a class="widget__link" href="/posts/githubmanaging-multiple-accounts/">Github:managing Multiple Accounts: SSH configuration</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/linuxiptables-cheatsheet/">Linux:Iptables Cheatsheet</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/awssetup-reverse-proxy-in-aws-using-elb/">AWS:Setup Reverse Proxy in AWS Using ELB</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/grafanagrafana-loki-aws-s3-integration/">Grafana:Grafana Loki AWS S3 Integration</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/golangdistributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/github_managing-multiple-accounts/">Github:managing Multiple Accounts: SSH configuration</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/linux_iptables-cheatsheet/">Linux:Iptables Cheatsheet</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/aws_setup-reverse-proxy-in-aws-using-elb/">AWS:Setup Reverse Proxy in AWS Using ELB</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/grafana_grafana-loki-aws-s3-integration/">Grafana:Grafana Loki AWS S3 Integration</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang_distributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/rate-limiting-in-distributed-system/">Rate Limiting in a Distributed System</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golang-testing-creating-large-files/">Golang Testing: Creating Large Files</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/add-gpg-keys-to-repo/">Add Gpg Keys to Repo</a></li>
@@ -230,7 +230,7 @@
 	<div class="container footer__container flex">
 		
 		<div class="footer__copyright">
-			&copy; 2023 Tek Shinobi Blog.
+			&copy; 2024 Tek Shinobi Blog.
 			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
 		</div>
 	</div>

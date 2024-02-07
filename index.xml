@@ -5,662 +5,421 @@
     <link>https://tek-shinobi.github.io/</link>
     <description>Recent content on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 06 Nov 2023 19:53:20 +0200</lastBuildDate><atom:link href="https://tek-shinobi.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Mon, 06 Nov 2023 19:53:20 +0200</lastBuildDate>
+    <atom:link href="https://tek-shinobi.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Github:managing Multiple Accounts: SSH configuration</title>
-      <link>https://tek-shinobi.github.io/posts/githubmanaging-multiple-accounts/</link>
+      <link>https://tek-shinobi.github.io/posts/github_managing-multiple-accounts/</link>
       <pubDate>Mon, 06 Nov 2023 19:53:20 +0200</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/githubmanaging-multiple-accounts/</guid>
-      <description>Notes for SSH key configuration with multiple Github accounts.
-I have multiple github accounts. Say one for work and one that is personal.
- NOTE: This logic can be extended to more than two accounts.
- The setup can be done in 5 easy steps:
-Steps:  Step 1 : Create SSH keys for all accounts Step 2 : Add SSH keys to SSH Agent Step 3 : Add SSH public key to the Github Step 4 : Create a Config File and Make Host Entries Step 5 : Clone GitHub repositories using different accounts OR modify remote url for existing repos  Step 1 Create SSH keys for all accounts First make sure your current directory is your .</description>
+      <guid>https://tek-shinobi.github.io/posts/github_managing-multiple-accounts/</guid>
+      <description>Notes for SSH key configuration with multiple Github accounts.&#xA;I have multiple github accounts. Say one for work and one that is personal.&#xA;NOTE: This logic can be extended to more than two accounts.&#xA;The setup can be done in 5 easy steps:&#xA;Steps: Step 1 : Create SSH keys for all accounts Step 2 : Add SSH keys to SSH Agent Step 3 : Add SSH public key to the Github Step 4 : Create a Config File and Make Host Entries Step 5 : Clone GitHub repositories using different accounts OR modify remote url for existing repos Step 1 Create SSH keys for all accounts First make sure your current directory is your .</description>
     </item>
-    
     <item>
       <title>Linux:Iptables Cheatsheet</title>
-      <link>https://tek-shinobi.github.io/posts/linuxiptables-cheatsheet/</link>
+      <link>https://tek-shinobi.github.io/posts/linux_iptables-cheatsheet/</link>
       <pubDate>Tue, 17 Oct 2023 13:23:19 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/linuxiptables-cheatsheet/</guid>
-      <description>5 types of tables:
- Filter NAT Mangle Raw Security  Last two tables are not very frequently used. Default table is Filter table.
-List table:
-sudo iptables -L -n -v L: list n: numeric format v: verbose
-since no table was mentioned in the above command, it will list all contents of default table, Filter.
-below will display contents of mangle table:
-sudo iptables -t mangle -L -n -v Syntax of iptables is case sensitive.</description>
+      <guid>https://tek-shinobi.github.io/posts/linux_iptables-cheatsheet/</guid>
+      <description>5 types of tables:&#xA;Filter NAT Mangle Raw Security Last two tables are not very frequently used. Default table is Filter table.&#xA;List table:&#xA;sudo iptables -L -n -v L: list n: numeric format v: verbose&#xA;since no table was mentioned in the above command, it will list all contents of default table, Filter.&#xA;below will display contents of mangle table:&#xA;sudo iptables -t mangle -L -n -v Syntax of iptables is case sensitive.</description>
     </item>
-    
     <item>
       <title>AWS:Setup Reverse Proxy in AWS Using ELB</title>
-      <link>https://tek-shinobi.github.io/posts/awssetup-reverse-proxy-in-aws-using-elb/</link>
+      <link>https://tek-shinobi.github.io/posts/aws_setup-reverse-proxy-in-aws-using-elb/</link>
       <pubDate>Fri, 13 Oct 2023 12:06:40 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/awssetup-reverse-proxy-in-aws-using-elb/</guid>
-      <description>We&amp;rsquo;ll take grafana as example application. We will install grafana on an EC2 instance and configure reverse proxy for it.
-Of course, ssh into the EC2 instance and install grafana like so:
-sudo apt-get install -y software-properties-common wget apt-transport-https wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add - sudo add-apt-repository &amp;#34;deb https://packages.grafana.com/oss/deb stable main&amp;#34; sudo apt-get update &amp;amp;&amp;amp; sudo apt-get install grafana then enable and start grafana server:
-sudo systemctl enable grafana-server sudo systemctl start grafana-server To make it easy, configure a public IP address for the EC2 instance &amp;hellip; you can easily do it via EC2 dashboard.</description>
+      <guid>https://tek-shinobi.github.io/posts/aws_setup-reverse-proxy-in-aws-using-elb/</guid>
+      <description>We&amp;rsquo;ll take grafana as example application. We will install grafana on an EC2 instance and configure reverse proxy for it.&#xA;Of course, ssh into the EC2 instance and install grafana like so:&#xA;sudo apt-get install -y software-properties-common wget apt-transport-https wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add - sudo add-apt-repository &amp;#34;deb https://packages.grafana.com/oss/deb stable main&amp;#34; sudo apt-get update &amp;amp;&amp;amp; sudo apt-get install grafana then enable and start grafana server:&#xA;sudo systemctl enable grafana-server sudo systemctl start grafana-server To make it easy, configure a public IP address for the EC2 instance &amp;hellip; you can easily do it via EC2 dashboard.</description>
     </item>
-    
     <item>
       <title>Grafana:Grafana Loki AWS S3 Integration</title>
-      <link>https://tek-shinobi.github.io/posts/grafanagrafana-loki-aws-s3-integration/</link>
+      <link>https://tek-shinobi.github.io/posts/grafana_grafana-loki-aws-s3-integration/</link>
       <pubDate>Thu, 12 Oct 2023 21:14:50 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/grafanagrafana-loki-aws-s3-integration/</guid>
-      <description>Some thoughts and experiences when setting up AWS S3 and single-store for Grafana-Loki. Some context:
- using GLP stack (grafana, loki, promtail) Promtail collects logs from a Kafka stream and sends them to Loki for storage. It also indexes them by EC2 instance ids.  Why this post?  Persisting loki logs somewhere is important otherwise, everytime loki service is restarted, all previous logs and corresponding visualizations on grafana dashboard will be lost.</description>
+      <guid>https://tek-shinobi.github.io/posts/grafana_grafana-loki-aws-s3-integration/</guid>
+      <description>Some thoughts and experiences when setting up AWS S3 and single-store for Grafana-Loki. Some context:&#xA;using GLP stack (grafana, loki, promtail) Promtail collects logs from a Kafka stream and sends them to Loki for storage. It also indexes them by EC2 instance ids. Why this post? Persisting loki logs somewhere is important otherwise, everytime loki service is restarted, all previous logs and corresponding visualizations on grafana dashboard will be lost. The official docs from Grafana are at times confusing.</description>
     </item>
-    
     <item>
       <title>Golang: Distributed Rate Limiting Using Fixed Window and Redis</title>
-      <link>https://tek-shinobi.github.io/posts/golangdistributed-rate-limiting-using-fixed-window/</link>
+      <link>https://tek-shinobi.github.io/posts/golang_distributed-rate-limiting-using-fixed-window/</link>
       <pubDate>Tue, 25 Jul 2023 10:41:57 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/golangdistributed-rate-limiting-using-fixed-window/</guid>
+      <guid>https://tek-shinobi.github.io/posts/golang_distributed-rate-limiting-using-fixed-window/</guid>
       <description>Fixed Window rate limiter is the simplest form of rate limiting. It means that once the expiration has been set, a client that reaches the limit will be blocked from making further requests until the expiration time arrives. If a client has a limit of 50 requests every minute and makes all 50 requests in the first 5 seconds of the minute, it will have to wait 55 seconds to make another request.</description>
     </item>
-    
     <item>
       <title>Rate Limiting in a Distributed System</title>
       <link>https://tek-shinobi.github.io/posts/rate-limiting-in-distributed-system/</link>
       <pubDate>Sat, 15 Jul 2023 13:19:42 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/posts/rate-limiting-in-distributed-system/</guid>
-      <description>Assume that we own a suite of API based microservices that implement a discount coupon service. Rate-limiting is needed to ensure that all clients have equal access to our resources and protect our APIs from (malicious or erroneous) intensive usage.
-Rate-limiting seems straightforward: we only allow a given client to perform X calls every minute. It’s quite easy to implement on a single server instance, and we can easily find libraries to do that for us.</description>
+      <description>Assume that we own a suite of API based microservices that implement a discount coupon service. Rate-limiting is needed to ensure that all clients have equal access to our resources and protect our APIs from (malicious or erroneous) intensive usage.&#xA;Rate-limiting seems straightforward: we only allow a given client to perform X calls every minute. It’s quite easy to implement on a single server instance, and we can easily find libraries to do that for us.</description>
     </item>
-    
     <item>
       <title>Golang Testing: Creating Large Files</title>
       <link>https://tek-shinobi.github.io/posts/golang-testing-creating-large-files/</link>
       <pubDate>Tue, 11 Jul 2023 15:17:34 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/posts/golang-testing-creating-large-files/</guid>
-      <description>Needed a quick hack to generate a known file size, to test that file upload limit logic works in an endpoint
-Another option is to just generate a temporary file, using nearly the same process. This approach is fine but can slow down the test since file needs to be generated each time the test is run and beyond a certain size, this file generation time can become non-trivial.
-package main import ( &amp;#34;encoding/json&amp;#34; &amp;#34;fmt&amp;#34; &amp;#34;math/rand&amp;#34; &amp;#34;os&amp;#34; &amp;#34;time&amp;#34; ) type LargeData struct { Data []byte } const desiredSize = 12 * 1024 * 1024 // 12MB  func main() { rand.</description>
+      <description>Needed a quick hack to generate a known file size, to test that file upload limit logic works in an endpoint&#xA;Another option is to just generate a temporary file, using nearly the same process. This approach is fine but can slow down the test since file needs to be generated each time the test is run and beyond a certain size, this file generation time can become non-trivial.&#xA;package main import ( &amp;#34;encoding/json&amp;#34; &amp;#34;fmt&amp;#34; &amp;#34;math/rand&amp;#34; &amp;#34;os&amp;#34; &amp;#34;time&amp;#34; ) type LargeData struct { Data []byte } const desiredSize = 12 * 1024 * 1024 // 12MB func main() { rand.</description>
     </item>
-    
     <item>
       <title>Add Gpg Keys to Repo</title>
       <link>https://tek-shinobi.github.io/posts/add-gpg-keys-to-repo/</link>
       <pubDate>Sat, 07 Jan 2023 22:53:11 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/posts/add-gpg-keys-to-repo/</guid>
-      <description>Add GPG keys to github repo and local The process involves a set of simple steps:
- Create GPG keys from commandline terminal Export the created keys using armor into a text blob. Take the blob and head over to github account -&amp;gt; Settings -&amp;gt; SSH and GPG keys and add it as GPG key The most important point: cd to you local repo directory and configure the key there. This step will need to be done for every local repo.</description>
+      <description>Add GPG keys to github repo and local The process involves a set of simple steps:&#xA;Create GPG keys from commandline terminal Export the created keys using armor into a text blob. Take the blob and head over to github account -&amp;gt; Settings -&amp;gt; SSH and GPG keys and add it as GPG key The most important point: cd to you local repo directory and configure the key there. This step will need to be done for every local repo.</description>
     </item>
-    
     <item>
       <title>Golang: Handling Null in Database Tables</title>
       <link>https://tek-shinobi.github.io/posts/golang-handling-null-in-database-tables/</link>
       <pubDate>Wed, 11 May 2022 01:52:51 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/posts/golang-handling-null-in-database-tables/</guid>
-      <description>Consider this table schema (Postgres):
-CREATE TABLE IF NOT EXISTS mytable ( id BIGSERIAL PRIMARY KEY, title TEXT NULL, version INTEGER NULL ); if we write its Go model, title is string and version is int. But here we have a problem. Zero value of string in Go is &amp;quot;&amp;quot; not nil. Same for int whose zero value is 0 and not nil.
-If we tried to write the above model in Go like this:</description>
+      <description>Consider this table schema (Postgres):&#xA;CREATE TABLE IF NOT EXISTS mytable ( id BIGSERIAL PRIMARY KEY, title TEXT NULL, version INTEGER NULL ); if we write its Go model, title is string and version is int. But here we have a problem. Zero value of string in Go is &amp;quot;&amp;quot; not nil. Same for int whose zero value is 0 and not nil.&#xA;If we tried to write the above model in Go like this:</description>
     </item>
-    
     <item>
       <title>Golang: Using Postgres Inside Docker Container</title>
       <link>https://tek-shinobi.github.io/posts/using-postgres-inside-docker-container/</link>
       <pubDate>Thu, 05 May 2022 10:38:56 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/posts/using-postgres-inside-docker-container/</guid>
-      <description>Cleanup if default postgres port not free If port 5432 is already in use, run this to see what process is using it:
-sudo ss -lptn &#39;sport = :5432&#39; the above command will also display the pid using which you can kill the process. For example, if the pid is 1667, kill it by sudo kill 1667
- To connect to an existing running docker container via its container id, scroll to end To see how to connect to it using only golang standard library (database/sql) + a database driver (lib/pq in this case for postgres), without helper methods from 3rd party libraries like sqlx, scroll to end  Connecting to postgres from scratch First launch the postgres container in interactive mode:</description>
+      <description>Cleanup if default postgres port not free If port 5432 is already in use, run this to see what process is using it:&#xA;sudo ss -lptn &amp;#39;sport = :5432&amp;#39; the above command will also display the pid using which you can kill the process. For example, if the pid is 1667, kill it by sudo kill 1667&#xA;To connect to an existing running docker container via its container id, scroll to end To see how to connect to it using only golang standard library (database/sql) + a database driver (lib/pq in this case for postgres), without helper methods from 3rd party libraries like sqlx, scroll to end Connecting to postgres from scratch First launch the postgres container in interactive mode:</description>
     </item>
-    
     <item>
       <title>MongoDB: Cheatsheet</title>
-      <link>https://tek-shinobi.github.io/posts/mongodbcheatsheet/</link>
+      <link>https://tek-shinobi.github.io/posts/mongodb_cheatsheet/</link>
       <pubDate>Sun, 14 Nov 2021 10:25:50 +0200</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/mongodbcheatsheet/</guid>
-      <description>create and run mongodb docker container:
-docker run --name mongodb -d -p 27017:27017 mongo:7 login to mongodb container:
-docker exec -it mongodb sh run mongosh to enter mongo shell
-&amp;gt; mongosh it will automatically show a test&amp;gt; prompt which is a default test database
-to clear screen:
-cls to ompletely exit out of mongosh and docker shell terminal:
-exit this command will show all dbs:
-show dbs to create a new database:</description>
+      <guid>https://tek-shinobi.github.io/posts/mongodb_cheatsheet/</guid>
+      <description>create and run mongodb docker container:&#xA;docker run --name mongodb -d -p 27017:27017 mongo:7 login to mongodb container:&#xA;docker exec -it mongodb sh run mongosh to enter mongo shell&#xA;&amp;gt; mongosh it will automatically show a test&amp;gt; prompt which is a default test database&#xA;to clear screen:&#xA;cls to ompletely exit out of mongosh and docker shell terminal:&#xA;exit this command will show all dbs:&#xA;show dbs to create a new database:</description>
     </item>
-    
     <item>
       <title>Golang: Common Concurrency Patterns</title>
       <link>https://tek-shinobi.github.io/posts/golang-common-concurrency-patterns/</link>
       <pubDate>Fri, 15 Oct 2021 15:41:34 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/posts/golang-common-concurrency-patterns/</guid>
-      <description>Some simple concurrency patterns which are often used in Golang
-1. for-select pattern This is a fundamental pattern. It is typically used to read data from multiple channels.
-var c1, c2 &amp;lt;-chan int for { // Either loop infinitely or range over something  select { case &amp;lt;-c1: // Do some work with channels  case &amp;lt;-c2: default: // auto run if other cases are not ready  } // do some work } The select statement looks like switch one, but its behavior is different.</description>
+      <description>Some simple concurrency patterns which are often used in Golang&#xA;1. for-select pattern This is a fundamental pattern. It is typically used to read data from multiple channels.&#xA;var c1, c2 &amp;lt;-chan int for { // Either loop infinitely or range over something select { case &amp;lt;-c1: // Do some work with channels case &amp;lt;-c2: default: // auto run if other cases are not ready } // do some work } The select statement looks like switch one, but its behavior is different.</description>
     </item>
-    
     <item>
       <title>Golang Channels</title>
       <link>https://tek-shinobi.github.io/posts/golang-channels/</link>
       <pubDate>Mon, 11 Oct 2021 16:24:24 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/posts/golang-channels/</guid>
-      <description>When dealing with conccurency problems, it is harder to reason about when moving down the stack of abstraction (machine, process, thread, hardware components, etc). Most programming languages use thread as its highest level of abstraction. Fortunately, Go builds on top of that &amp;amp; introduced Goroutine.
- “Share memory by communicating, don’t communicate by sharing memory.”
- One of Go’s mottos   Although Golang provides traditional locking mechanism in sync package, its philosophy prefers “share memory by communicating”.</description>
+      <description>When dealing with conccurency problems, it is harder to reason about when moving down the stack of abstraction (machine, process, thread, hardware components, etc). Most programming languages use thread as its highest level of abstraction. Fortunately, Go builds on top of that &amp;amp; introduced Goroutine.&#xA;“Share memory by communicating, don’t communicate by sharing memory.”&#xA;One of Go’s mottos Although Golang provides traditional locking mechanism in sync package, its philosophy prefers “share memory by communicating”.</description>
     </item>
-    
     <item>
       <title>Golang:Cobra and Viper Tutorial</title>
-      <link>https://tek-shinobi.github.io/posts/golangcobra-and-viper-tutorial/</link>
+      <link>https://tek-shinobi.github.io/posts/golang_cobra-and-viper-tutorial/</link>
       <pubDate>Thu, 23 Sep 2021 13:04:41 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/golangcobra-and-viper-tutorial/</guid>
-      <description>Cobra is a tool for making CLI application. Viper is a configuration management solution for Go applications which allows you to specify configuration options for your application in several ways, including configuration files, environment variables, and command-line flags.
-Why viper for config management?  It can find, load, and unmarshal values from a config file. It supports many types of files, such as JSON, TOML, YAML, ENV, or INI. It can also read values from environment variables or command-line flags.</description>
+      <guid>https://tek-shinobi.github.io/posts/golang_cobra-and-viper-tutorial/</guid>
+      <description>Cobra is a tool for making CLI application. Viper is a configuration management solution for Go applications which allows you to specify configuration options for your application in several ways, including configuration files, environment variables, and command-line flags.&#xA;Why viper for config management? It can find, load, and unmarshal values from a config file. It supports many types of files, such as JSON, TOML, YAML, ENV, or INI. It can also read values from environment variables or command-line flags.</description>
     </item>
-    
     <item>
       <title>Kubernetes tutorial &#43; Minikube:cheatsheet</title>
-      <link>https://tek-shinobi.github.io/posts/minikubecheatsheet/</link>
+      <link>https://tek-shinobi.github.io/posts/minikube_cheatsheet/</link>
       <pubDate>Wed, 15 Sep 2021 09:59:30 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/minikubecheatsheet/</guid>
-      <description>To create a virtual machine:
-minikube start --driver=virtualbox --no-vtx-check you can open Virtualbox and see that a new virtual machine is now up and running
-check if cluster is ok and everything installed correctly:
-minikube status the output is like this:
-❯ minikube status minikube type: Control Plane host: Running kubelet: Running apiserver: Running kubeconfig: Configured from here: https://minikube.sigs.k8s.io/docs/start/ now check that kubectl commands are working:
-check nodes:
-kubectl get nodes output:</description>
+      <guid>https://tek-shinobi.github.io/posts/minikube_cheatsheet/</guid>
+      <description>To create a virtual machine:&#xA;minikube start --driver=virtualbox --no-vtx-check you can open Virtualbox and see that a new virtual machine is now up and running&#xA;check if cluster is ok and everything installed correctly:&#xA;minikube status the output is like this:&#xA;❯ minikube status minikube type: Control Plane host: Running kubelet: Running apiserver: Running kubeconfig: Configured from here: https://minikube.sigs.k8s.io/docs/start/ now check that kubectl commands are working:&#xA;check nodes:&#xA;kubectl get nodes output:</description>
     </item>
-    
     <item>
       <title>Golang:Go Tools Cheatsheet</title>
-      <link>https://tek-shinobi.github.io/posts/golanggo-tools-cheatsheet/</link>
+      <link>https://tek-shinobi.github.io/posts/golang_go-tools-cheatsheet/</link>
       <pubDate>Mon, 21 Jun 2021 11:01:27 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/golanggo-tools-cheatsheet/</guid>
-      <description>Note: Starting in Go 1.17, installing executables with go get is deprecated. go install may be used instead. In Go 1.18, go get will no longer build packages&amp;hellip;
-In other words, go get in 1.18 and beyond will no longer install executables. Use go install
- Go has an impressive number of command line tools integreated into go &amp;lt;tool_name&amp;gt; that us developers use daily. You can get a list of them by</description>
+      <guid>https://tek-shinobi.github.io/posts/golang_go-tools-cheatsheet/</guid>
+      <description>Note: Starting in Go 1.17, installing executables with go get is deprecated. go install may be used instead. In Go 1.18, go get will no longer build packages&amp;hellip;&#xA;In other words, go get in 1.18 and beyond will no longer install executables. Use go install&#xA;Go has an impressive number of command line tools integreated into go &amp;lt;tool_name&amp;gt; that us developers use daily. You can get a list of them by</description>
     </item>
-    
     <item>
       <title>Golang: Unmarshal Json Blob With Unknown Schema</title>
       <link>https://tek-shinobi.github.io/posts/golang-unmarshal-json-blob-with-unknown-schema/</link>
       <pubDate>Fri, 11 Jun 2021 22:07:45 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/posts/golang-unmarshal-json-blob-with-unknown-schema/</guid>
-      <description>There are two ways to handle this:
-Approach 1: Using json.RawMessage json.RawMessage: represents a raw JSON value
-It and can be used to delay parsing until the schema is known.
-Here&amp;rsquo;s an example of how to use json.RawMessage:
-type UnknownSchema struct { Data json.RawMessage `json:&amp;#34;data&amp;#34;` } func main() { jsonStr := `{&amp;#34;data&amp;#34;:{&amp;#34;name&amp;#34;:&amp;#34;John&amp;#34;,&amp;#34;age&amp;#34;:30}}` var obj UnknownSchema err := json.Unmarshal([]byte(jsonStr), &amp;amp;obj) if err != nil { panic(err) } // The schema of the data field is still unknown at this point  fmt.</description>
+      <description>There are two ways to handle this:&#xA;Approach 1: Using json.RawMessage json.RawMessage: represents a raw JSON value&#xA;It and can be used to delay parsing until the schema is known.&#xA;Here&amp;rsquo;s an example of how to use json.RawMessage:&#xA;type UnknownSchema struct { Data json.RawMessage `json:&amp;#34;data&amp;#34;` } func main() { jsonStr := `{&amp;#34;data&amp;#34;:{&amp;#34;name&amp;#34;:&amp;#34;John&amp;#34;,&amp;#34;age&amp;#34;:30}}` var obj UnknownSchema err := json.Unmarshal([]byte(jsonStr), &amp;amp;obj) if err != nil { panic(err) } // The schema of the data field is still unknown at this point fmt.</description>
     </item>
-    
     <item>
       <title>Rust Gotchas Copy and Clone</title>
       <link>https://tek-shinobi.github.io/posts/rust-gotchas-copy-and-clone/</link>
       <pubDate>Sat, 29 May 2021 22:21:11 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/posts/rust-gotchas-copy-and-clone/</guid>
-      <description>Rust has two central concepts: Borrowing and ownership.
-In very simple terms, Borrowing conceptually means access to the data through reference, be it mutable or immutable. This is implemented via &amp;amp; and &amp;amp;mut. For a more exhastive treatment, please refer the docs.
-Again, in very simple terms, Ownership conceptually means accessing without &amp;amp; (i.e. without using a reference). Of course, Ownership is a science in Rust and please refer to docs for in-depth treatment.</description>
+      <description>Rust has two central concepts: Borrowing and ownership.&#xA;In very simple terms, Borrowing conceptually means access to the data through reference, be it mutable or immutable. This is implemented via &amp;amp; and &amp;amp;mut. For a more exhastive treatment, please refer the docs.&#xA;Again, in very simple terms, Ownership conceptually means accessing without &amp;amp; (i.e. without using a reference). Of course, Ownership is a science in Rust and please refer to docs for in-depth treatment.</description>
     </item>
-    
     <item>
       <title>Docker Notes</title>
       <link>https://tek-shinobi.github.io/posts/docker-notes/</link>
       <pubDate>Mon, 10 May 2021 08:15:54 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/posts/docker-notes/</guid>
-      <description>To cleanup unused/dnagling docker images: sudo docker image prune
-To cleanup ununsed volumes: sudo docker volume prune
-To list current docker images: sudo docker images
-To remove docker image by image_id: sudo docker rmi &amp;lt;your_image_id1&amp;gt; &amp;lt;your_image_id2&amp;gt;
-(sometimes, docker rmi command will throw up errors like:
- Error response from daemon: conflict: unable to delete 78f7412b7923 (must be forced) - image is being used by stopped container ebfe07787e7c
- This means there are some stopped docker containers using those images.</description>
+      <description>To cleanup unused/dnagling docker images: sudo docker image prune&#xA;To cleanup ununsed volumes: sudo docker volume prune&#xA;To list current docker images: sudo docker images&#xA;To remove docker image by image_id: sudo docker rmi &amp;lt;your_image_id1&amp;gt; &amp;lt;your_image_id2&amp;gt;&#xA;(sometimes, docker rmi command will throw up errors like:&#xA;Error response from daemon: conflict: unable to delete 78f7412b7923 (must be forced) - image is being used by stopped container ebfe07787e7c&#xA;This means there are some stopped docker containers using those images.</description>
     </item>
-    
     <item>
       <title>Temporary Files and Temporary Directory in Rust</title>
       <link>https://tek-shinobi.github.io/posts/temporary-files-and-temporary-directory-in-rust/</link>
       <pubDate>Sat, 20 Mar 2021 11:36:47 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/posts/temporary-files-and-temporary-directory-in-rust/</guid>
-      <description>I was looking for Python style temporary files and temporary directories in Rust. Very handy when writing tests for simulating actual files, or when we need to use files once or cache large amount of data for short time. We then let the operating system delete the files at a later time automatically or by its clean-up feature manually.
-Doing ourselves using Operating System Temporary Directory Let&amp;rsquo;s first implement this by ourselves to understand what is going on.</description>
+      <description>I was looking for Python style temporary files and temporary directories in Rust. Very handy when writing tests for simulating actual files, or when we need to use files once or cache large amount of data for short time. We then let the operating system delete the files at a later time automatically or by its clean-up feature manually.&#xA;Doing ourselves using Operating System Temporary Directory Let&amp;rsquo;s first implement this by ourselves to understand what is going on.</description>
     </item>
-    
     <item>
       <title>Rust File Builder Pattern for File Read Writes</title>
       <link>https://tek-shinobi.github.io/posts/rust-file-builder-pattern-for-file-read-writes/</link>
       <pubDate>Sat, 20 Mar 2021 11:14:09 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/posts/rust-file-builder-pattern-for-file-read-writes/</guid>
-      <description>Consider the following test code that creates a file, writes to it and then reads back to confirm what it wrote.
-#[cfg(test)] mod tests { #[allow(unused_imports)] use super::*; use std::fs::{self, File, OpenOptions}; use std::io::{Read, Seek, SeekFrom, Write}; use tempfile::{tempdir, tempfile, NamedTempFile}; #[test] fn test_file() { let dir = tempdir().unwrap(); let file_path = dir.path().join(&amp;#34;foo.txt&amp;#34;); let mut file = File::create(file_path.to_owned()).unwrap(); file.write_all(&amp;#34;Bar Baz&amp;#34;.as_bytes()) .unwrap(); file.seek(SeekFrom::Start(0)).unwrap(); let mut contents = String::new(); file.read_to_string(&amp;amp;mut contents).unwrap(); assert_eq!(contents, &amp;#34;Bar Baz&amp;#34;); drop(file); dir.</description>
+      <description>Consider the following test code that creates a file, writes to it and then reads back to confirm what it wrote.&#xA;#[cfg(test)] mod tests { #[allow(unused_imports)] use super::*; use std::fs::{self, File, OpenOptions}; use std::io::{Read, Seek, SeekFrom, Write}; use tempfile::{tempdir, tempfile, NamedTempFile}; #[test] fn test_file() { let dir = tempdir().unwrap(); let file_path = dir.path().join(&amp;#34;foo.txt&amp;#34;); let mut file = File::create(file_path.to_owned()).unwrap(); file.write_all(&amp;#34;Bar Baz&amp;#34;.as_bytes()) .unwrap(); file.seek(SeekFrom::Start(0)).unwrap(); let mut contents = String::new(); file.read_to_string(&amp;amp;mut contents).unwrap(); assert_eq!(contents, &amp;#34;Bar Baz&amp;#34;); drop(file); dir.</description>
     </item>
-    
     <item>
       <title>Turbofish in Rust</title>
       <link>https://tek-shinobi.github.io/posts/turbofish-in-rust/</link>
       <pubDate>Wed, 10 Mar 2021 10:50:37 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/posts/turbofish-in-rust/</guid>
-      <description>Consider the following code (or run it in rust playground here):
-fn main() { let a:Vec = vec![1, 2, 3]; let doubled = a.iter().map(|&amp;amp;x| x * 2).collect(); assert_eq!(vec![2, 4, 6], doubled); } If you ran it in the playground linked above, you will see the following compiler error.
-error[E0282]: type annotations needed --&amp;gt; src/main.rs:4:9 | 4 | let doubled = a.iter().map(|&amp;amp;x| x * 2).collect(); | ^^^^^^^ consider giving `doubled` a type error: aborting due to previous error For more information about this error, try `rustc --explain E0282`.</description>
+      <description>Consider the following code (or run it in rust playground here):&#xA;fn main() { let a:Vec = vec![1, 2, 3]; let doubled = a.iter().map(|&amp;amp;x| x * 2).collect(); assert_eq!(vec![2, 4, 6], doubled); } If you ran it in the playground linked above, you will see the following compiler error.&#xA;error[E0282]: type annotations needed --&amp;gt; src/main.rs:4:9 | 4 | let doubled = a.iter().map(|&amp;amp;x| x * 2).collect(); | ^^^^^^^ consider giving `doubled` a type error: aborting due to previous error For more information about this error, try `rustc --explain E0282`.</description>
     </item>
-    
     <item>
       <title>Self in Use Statement in Rust</title>
       <link>https://tek-shinobi.github.io/posts/self-in-use-statement-in-rust/</link>
       <pubDate>Tue, 09 Mar 2021 11:51:54 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/posts/self-in-use-statement-in-rust/</guid>
-      <description>I was going through some library code in a rust crate and this pattern had my head scratching:
-std::io::{self,Cursor}; What this is equivalent to is:
-use std::io; use std::io::Cursor; which means explicitly use std::io::Cursor and also use std::io itself. Thus, Cursor need not be prefixed but you’d still need to do io::BufReader and so on.</description>
+      <description>I was going through some library code in a rust crate and this pattern had my head scratching:&#xA;std::io::{self,Cursor}; What this is equivalent to is:&#xA;use std::io; use std::io::Cursor; which means explicitly use std::io::Cursor and also use std::io itself. Thus, Cursor need not be prefixed but you’d still need to do io::BufReader and so on.</description>
     </item>
-    
     <item>
       <title>Rust Tips: Box Rc Arc Cell Refcell Mutex</title>
       <link>https://tek-shinobi.github.io/posts/rust-tips-box-rc-arc-cell-refcell-mutex/</link>
       <pubDate>Mon, 08 Mar 2021 11:58:32 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/posts/rust-tips-box-rc-arc-cell-refcell-mutex/</guid>
-      <description>Difference Between Box, Rc, Arc, Cell (and its various variants.. RefCell, Mutex, RwLock) in Rust:
- Box is for single ownership. A great use case is to use this when we want to store primitive types (stored on stack) on heap. Rc is for multiple ownership. Arc is for multiple ownership, but threadsafe. RefCell is for “interior mutability”; that is, when you need to mutate something behind a &amp;amp;T. Cell is for “interior mutability” for Copy types; that is, when you need to mutate something behind a &amp;amp;T.</description>
+      <description>Difference Between Box, Rc, Arc, Cell (and its various variants.. RefCell, Mutex, RwLock) in Rust:&#xA;Box is for single ownership. A great use case is to use this when we want to store primitive types (stored on stack) on heap. Rc is for multiple ownership. Arc is for multiple ownership, but threadsafe. RefCell is for “interior mutability”; that is, when you need to mutate something behind a &amp;amp;T. Cell is for “interior mutability” for Copy types; that is, when you need to mutate something behind a &amp;amp;T.</description>
     </item>
-    
     <item>
       <title>What Is a Tcp Stream</title>
       <link>https://tek-shinobi.github.io/posts/what-is-a-tcp-stream/</link>
       <pubDate>Sat, 08 Feb 2020 18:34:10 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/posts/what-is-a-tcp-stream/</guid>
-      <description>The TCP protocol is modeled on the concept of a single continuous stream of unlimited length. This is a very important concept to understand, and is the number one cause of confusion that we see.
-What exactly does this mean, and how does it affect developers?
-Imagine that you&amp;rsquo;re trying to send a few messages over the socket. So you do something like this (in pseudocode):
-socket.write(&amp;quot;Hi Sandy.&amp;quot;); socket.write(&amp;quot;Are you busy tonight?</description>
+      <description>The TCP protocol is modeled on the concept of a single continuous stream of unlimited length. This is a very important concept to understand, and is the number one cause of confusion that we see.&#xA;What exactly does this mean, and how does it affect developers?&#xA;Imagine that you&amp;rsquo;re trying to send a few messages over the socket. So you do something like this (in pseudocode):&#xA;socket.write(&amp;#34;Hi Sandy.&amp;#34;); socket.write(&amp;#34;Are you busy tonight?</description>
     </item>
-    
     <item>
       <title>Backend Python:Temporary Files in Python</title>
-      <link>https://tek-shinobi.github.io/posts/backend-pythontemporary-files-in-python/</link>
+      <link>https://tek-shinobi.github.io/posts/backend-python_temporary-files-in-python/</link>
       <pubDate>Thu, 05 Sep 2019 11:01:54 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/backend-pythontemporary-files-in-python/</guid>
+      <guid>https://tek-shinobi.github.io/posts/backend-python_temporary-files-in-python/</guid>
       <description>Let me start with an actual use case scenario. As a backend developer, I need to process the user uploaded file data all the time. Here temporary files shine. The best part about these is that they make cleanup easier. If you make a real file, you need to use some OS level utility to manually delete the file after you are done with it. If you are using temporary files – option-1, then just by closing the file, you are guaranteed that OS will later clear it up.</description>
     </item>
-    
     <item>
       <title>Frontend CSS:Flexbox in a Nutshell</title>
-      <link>https://tek-shinobi.github.io/posts/frontend-cssflexbox-in-a-nutshell/</link>
+      <link>https://tek-shinobi.github.io/posts/frontend-css_flexbox-in-a-nutshell/</link>
       <pubDate>Thu, 05 Sep 2019 10:22:21 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/frontend-cssflexbox-in-a-nutshell/</guid>
-      <description>Flexbox is aimed at a container based layout where we are primarily focused on arranging container items in a single dimension with some abilities of aligning along the cross-axis as well. Because of this, flexbox is often the preferred tool for laying out items along a single dimension. This is different from CSS-Grid which is a grid based layout (two dimensional) out of the box.
-Also note that before flexbox, this alignment was achieved using either inline-block or float or some combination of both.</description>
+      <guid>https://tek-shinobi.github.io/posts/frontend-css_flexbox-in-a-nutshell/</guid>
+      <description>Flexbox is aimed at a container based layout where we are primarily focused on arranging container items in a single dimension with some abilities of aligning along the cross-axis as well. Because of this, flexbox is often the preferred tool for laying out items along a single dimension. This is different from CSS-Grid which is a grid based layout (two dimensional) out of the box.&#xA;Also note that before flexbox, this alignment was achieved using either inline-block or float or some combination of both.</description>
     </item>
-    
     <item>
       <title>Golang:NewProjSteps</title>
-      <link>https://tek-shinobi.github.io/posts/golangnewprojsteps/</link>
+      <link>https://tek-shinobi.github.io/posts/golang_newprojsteps/</link>
       <pubDate>Mon, 24 Sep 2018 17:35:09 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/golangnewprojsteps/</guid>
-      <description>Database create and run a docker postgres container in detached mode. Container name is modelapp-postgres. The postgres image used is postgres:latest:
-docker run --name modelapp-postgres -d --rm -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -p 5432:5432 postgres:latest check logs of running docker container:
-docker logs modelapp-postgres | bat -l man inspect docker container:
-docker inspect modelapp-postgres | bat -l man login to container as root, to see if postgres is running:
-docker exec -it modelapp-postgres psql -U root further check if postgres running ok and in a ready state by running the select now(); at root console:</description>
+      <guid>https://tek-shinobi.github.io/posts/golang_newprojsteps/</guid>
+      <description>Database create and run a docker postgres container in detached mode. Container name is modelapp-postgres. The postgres image used is postgres:latest:&#xA;docker run --name modelapp-postgres -d --rm -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -p 5432:5432 postgres:latest check logs of running docker container:&#xA;docker logs modelapp-postgres | bat -l man inspect docker container:&#xA;docker inspect modelapp-postgres | bat -l man login to container as root, to see if postgres is running:&#xA;docker exec -it modelapp-postgres psql -U root further check if postgres running ok and in a ready state by running the select now(); at root console:</description>
     </item>
-    
     <item>
       <title>Backend Python:Working With Python Lxml Parser for Creating XML Elements</title>
-      <link>https://tek-shinobi.github.io/posts/backend-pythonworking-with-python-lxml-parser-for-creating-xml-elements/</link>
+      <link>https://tek-shinobi.github.io/posts/backend-python_working-with-python-lxml-parser-for-creating-xml-elements/</link>
       <pubDate>Fri, 07 Sep 2018 21:44:59 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/backend-pythonworking-with-python-lxml-parser-for-creating-xml-elements/</guid>
-      <description>lxml parser can be a bit confusing because of the sheer range of options it offers. Here are a few cookbook style examples.
-XML Generation Target code:
-&amp;lt;root_element xmlns=&amp;#34;http://www.w3.org/TR/html4/&amp;#34; some_more_params=&amp;#34;12345-678-ABC&amp;#34; yet_more_params=&amp;#34;POKEMON-SUCKS&amp;#34;&amp;gt; &amp;lt;element&amp;gt; &amp;lt;element_data1 type=&amp;#34;sometype&amp;#34;&amp;gt;&amp;lt;![CDATA[SomeVal123]]&amp;gt;&amp;lt;/element_data1&amp;gt; &amp;lt;element_data2&amp;gt;12345&amp;lt;/element_data2&amp;gt; &amp;lt;element_data3 some_attr=&amp;#34;some_attr&amp;#34;&amp;gt;More random data&amp;lt;/element_data3&amp;gt; &amp;lt;/element&amp;gt; &amp;lt;another_element&amp;gt; &amp;lt;element_data1 type=&amp;#34;sometype&amp;#34;&amp;gt;&amp;lt;![CDATA[SomeVal1234]]&amp;gt;&amp;lt;/element_data1&amp;gt; &amp;lt;element_data2&amp;gt;12345&amp;lt;/element_data2&amp;gt; &amp;lt;element_data3 some_attr=&amp;#34;some_attr&amp;#34;&amp;gt;More random data&amp;lt;/element_data3&amp;gt; &amp;lt;/another_element&amp;gt; &amp;lt;/root_element&amp;gt; Ok, Here is the code to generate it:
-from lxml import etree def create_xml(): XML_OPTIONS = {&amp;#39;pretty_print&amp;#39;: True, &amp;#39;xml_declaration&amp;#39;: True, &amp;#39;encoding&amp;#39;: &amp;#39;utf-8&amp;#39;} def create_root_element(): XHTML_NAMESPACE = &amp;#34;http://www.</description>
+      <guid>https://tek-shinobi.github.io/posts/backend-python_working-with-python-lxml-parser-for-creating-xml-elements/</guid>
+      <description>lxml parser can be a bit confusing because of the sheer range of options it offers. Here are a few cookbook style examples.&#xA;XML Generation Target code:&#xA;&amp;lt;root_element xmlns=&amp;#34;http://www.w3.org/TR/html4/&amp;#34; some_more_params=&amp;#34;12345-678-ABC&amp;#34; yet_more_params=&amp;#34;POKEMON-SUCKS&amp;#34;&amp;gt; &amp;lt;element&amp;gt; &amp;lt;element_data1 type=&amp;#34;sometype&amp;#34;&amp;gt;&amp;lt;![CDATA[SomeVal123]]&amp;gt;&amp;lt;/element_data1&amp;gt; &amp;lt;element_data2&amp;gt;12345&amp;lt;/element_data2&amp;gt; &amp;lt;element_data3 some_attr=&amp;#34;some_attr&amp;#34;&amp;gt;More random data&amp;lt;/element_data3&amp;gt; &amp;lt;/element&amp;gt; &amp;lt;another_element&amp;gt; &amp;lt;element_data1 type=&amp;#34;sometype&amp;#34;&amp;gt;&amp;lt;![CDATA[SomeVal1234]]&amp;gt;&amp;lt;/element_data1&amp;gt; &amp;lt;element_data2&amp;gt;12345&amp;lt;/element_data2&amp;gt; &amp;lt;element_data3 some_attr=&amp;#34;some_attr&amp;#34;&amp;gt;More random data&amp;lt;/element_data3&amp;gt; &amp;lt;/another_element&amp;gt; &amp;lt;/root_element&amp;gt; Ok, Here is the code to generate it:&#xA;from lxml import etree def create_xml(): XML_OPTIONS = {&amp;#39;pretty_print&amp;#39;: True, &amp;#39;xml_declaration&amp;#39;: True, &amp;#39;encoding&amp;#39;: &amp;#39;utf-8&amp;#39;} def create_root_element(): XHTML_NAMESPACE = &amp;#34;http://www.</description>
     </item>
-    
     <item>
       <title>Backend Python:Using Pytest With Django and Django Rest Framework</title>
-      <link>https://tek-shinobi.github.io/posts/backend-pythonusing-pytest-with-django-and-django-rest-framework/</link>
+      <link>https://tek-shinobi.github.io/posts/backend-python_using-pytest-with-django-and-django-rest-framework/</link>
       <pubDate>Fri, 07 Sep 2018 19:23:46 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/backend-pythonusing-pytest-with-django-and-django-rest-framework/</guid>
-      <description>What is Pytest Pytest is testing framework for Python. Very popular with Django.
-Killer feature : Fixtures Fixtures are the killer feature of Pytest. Fixtures are functions that run before and after each test, like setUp and tearDown in unitest and labelled pytest killer feature. Fixtures are used for data configuration, connection/disconnection of databases, calling extra actions, and so on.
-All fixtures have scope argument with available values:
- function run once per test class run once per class of tests module run once per module session run once per session  Note: Default value of scope is function</description>
+      <guid>https://tek-shinobi.github.io/posts/backend-python_using-pytest-with-django-and-django-rest-framework/</guid>
+      <description>What is Pytest Pytest is testing framework for Python. Very popular with Django.&#xA;Killer feature : Fixtures Fixtures are the killer feature of Pytest. Fixtures are functions that run before and after each test, like setUp and tearDown in unitest and labelled pytest killer feature. Fixtures are used for data configuration, connection/disconnection of databases, calling extra actions, and so on.&#xA;All fixtures have scope argument with available values:&#xA;function run once per test class run once per class of tests module run once per module session run once per session Note: Default value of scope is function</description>
     </item>
-    
     <item>
       <title>Backend Python:SqlAlchemy Tutorial</title>
-      <link>https://tek-shinobi.github.io/posts/backend-pythonsqlalchemy-tutorial/</link>
+      <link>https://tek-shinobi.github.io/posts/backend-python_sqlalchemy-tutorial/</link>
       <pubDate>Fri, 07 Sep 2018 17:21:17 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/backend-pythonsqlalchemy-tutorial/</guid>
-      <description>SQLAlchemy Overview
-  This describes the basic overview of SQL Alchemy. Notice the color theme. It will be related to the next onion-ring overview of SQL Alchemy.
- SQLAlchemy Onion Diagram
-  SQL Alchemy is divided into Core and ORM. You can use Core and not use ORM. ORM is more geared towards mapping model objects to Python data types. Core on the other hand focuses on transacting with the database.</description>
+      <guid>https://tek-shinobi.github.io/posts/backend-python_sqlalchemy-tutorial/</guid>
+      <description>SQLAlchemy Overview&#xA;This describes the basic overview of SQL Alchemy. Notice the color theme. It will be related to the next onion-ring overview of SQL Alchemy.&#xA;SQLAlchemy Onion Diagram&#xA;SQL Alchemy is divided into Core and ORM. You can use Core and not use ORM. ORM is more geared towards mapping model objects to Python data types. Core on the other hand focuses on transacting with the database.&#xA;Level 1: Engine, Connections, Transactions This is the level that talks directly to Python DBAPI.</description>
     </item>
-    
     <item>
       <title>Backend Python:Django Rest Framework Project Setup Template</title>
-      <link>https://tek-shinobi.github.io/posts/backend-pythondjango-rest-framework-project-setup-template/</link>
+      <link>https://tek-shinobi.github.io/posts/backend-python_django-rest-framework-project-setup-template/</link>
       <pubDate>Fri, 07 Sep 2018 16:18:09 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/backend-pythondjango-rest-framework-project-setup-template/</guid>
-      <description>I am assuming that pipenv is already installed. Also, assuming that Python 3.5+ already installed in the base environment.
- create new environment: pipenv shell pipenv install django djangorestframework markdown django-filter pygments flake8 httpie pytest pytest-django pytest-factoryboy pytest-cov django-extensions djangorestframework-simplejwt django-cors-headers mypy djangorestframework-stubs pipenv install --dev --pre black create django project:django-admin.py startproject my_proj cd my_proj python manage.py startapp my_app  The above is a basic boiler plate.
-Some explanation of what got installed:</description>
+      <guid>https://tek-shinobi.github.io/posts/backend-python_django-rest-framework-project-setup-template/</guid>
+      <description>I am assuming that pipenv is already installed. Also, assuming that Python 3.5+ already installed in the base environment.&#xA;create new environment: pipenv shell pipenv install django djangorestframework markdown django-filter pygments flake8 httpie pytest pytest-django pytest-factoryboy pytest-cov django-extensions djangorestframework-simplejwt django-cors-headers mypy djangorestframework-stubs pipenv install --dev --pre black create django project:django-admin.py startproject my_proj cd my_proj python manage.py startapp my_app The above is a basic boiler plate.&#xA;Some explanation of what got installed:</description>
     </item>
-    
     <item>
       <title>Backend c#:Reading RSA key pair from PEM files in .NET with C# using Bouncy Castle and Digitally Sign and Verify payload</title>
-      <link>https://tek-shinobi.github.io/posts/backend-netdigital-signature-of-payload-in-net/</link>
+      <link>https://tek-shinobi.github.io/posts/backend-net_digital-signature-of-payload-in-net/</link>
       <pubDate>Fri, 07 Sep 2018 16:09:23 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/backend-netdigital-signature-of-payload-in-net/</guid>
-      <description>.NET does not have an easy way to directly deal with .pem format files generated using OpenSSL. I had to look into Bouncy Castle library to do it. Lets see how. We will also generate a dummy payload and then sign it using the generated pem keys and then verify it.
-First let us generate RSA key pair using OpenSSL. Please install OpenSSL before hand.
-[user@host secure]~ openssl genrsa -out posvendor.</description>
+      <guid>https://tek-shinobi.github.io/posts/backend-net_digital-signature-of-payload-in-net/</guid>
+      <description>.NET does not have an easy way to directly deal with .pem format files generated using OpenSSL. I had to look into Bouncy Castle library to do it. Lets see how. We will also generate a dummy payload and then sign it using the generated pem keys and then verify it.&#xA;First let us generate RSA key pair using OpenSSL. Please install OpenSSL before hand.&#xA;[user@host secure]~ openssl genrsa -out posvendor.</description>
     </item>
-    
     <item>
       <title>Backend Python:Logging in Django and Django Rest Framework Projects</title>
-      <link>https://tek-shinobi.github.io/posts/backend-pythonlogging-in-django-and-django-rest-framework-projects/</link>
+      <link>https://tek-shinobi.github.io/posts/backend-python_logging-in-django-and-django-rest-framework-projects/</link>
       <pubDate>Fri, 07 Sep 2018 16:02:36 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/backend-pythonlogging-in-django-and-django-rest-framework-projects/</guid>
-      <description>Logging is extremely necessary, during development and production. There are two ways to implement logging.
- In apps with high scale, we log to console and then have some in-the-cloud solution like Sentry to log the messages from the console. This is great because large scale apps often run on multiple servers and we can converge all the logs to one place. Alternately, we can log the messages to file on the server itself.</description>
+      <guid>https://tek-shinobi.github.io/posts/backend-python_logging-in-django-and-django-rest-framework-projects/</guid>
+      <description>Logging is extremely necessary, during development and production. There are two ways to implement logging.&#xA;In apps with high scale, we log to console and then have some in-the-cloud solution like Sentry to log the messages from the console. This is great because large scale apps often run on multiple servers and we can converge all the logs to one place. Alternately, we can log the messages to file on the server itself.</description>
     </item>
-    
     <item>
       <title>Backend Python:Writing Custom Django Management Commands</title>
-      <link>https://tek-shinobi.github.io/posts/backend-pythonwriting-custom-django-management-commands/</link>
+      <link>https://tek-shinobi.github.io/posts/backend-python_writing-custom-django-management-commands/</link>
       <pubDate>Fri, 07 Sep 2018 14:02:37 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/backend-pythonwriting-custom-django-management-commands/</guid>
-      <description>Any command given with manage.py is called management command. Django comes with many built-in management commands like runserver, startapp etc. To see a full list of built-in management commands, type: python manage.py help
-The benefit of management command script is that this script executes within Django environment. You can run all of Django ORM queries within this script. You can import models. You have access to project resources.
-In this tutorial we will see how to populate a table with some contents of a csv file.</description>
+      <guid>https://tek-shinobi.github.io/posts/backend-python_writing-custom-django-management-commands/</guid>
+      <description>Any command given with manage.py is called management command. Django comes with many built-in management commands like runserver, startapp etc. To see a full list of built-in management commands, type: python manage.py help&#xA;The benefit of management command script is that this script executes within Django environment. You can run all of Django ORM queries within this script. You can import models. You have access to project resources.&#xA;In this tutorial we will see how to populate a table with some contents of a csv file.</description>
     </item>
-    
     <item>
       <title>Backend Python:Adding AJAX to Python Django Projects</title>
-      <link>https://tek-shinobi.github.io/posts/backend-pythonadding-ajax-to-python-django-projects/</link>
+      <link>https://tek-shinobi.github.io/posts/backend-python_adding-ajax-to-python-django-projects/</link>
       <pubDate>Fri, 07 Sep 2018 13:55:19 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/backend-pythonadding-ajax-to-python-django-projects/</guid>
-      <description>A very nice explanation on SO regarding what and why about AJAX from Django perspective: https://stackoverflow.com/questions/20306981/how-do-i-integrate-ajax-with-django-applications
-So, specifically in Django, when we use AJAX to do a form POST request, we need a CSRF token. This is a security feature. If we are using Django templates, the templates do the job of generating a csrf token and tacking it along with the POST request data sent to the server. But when we are doing form POST via AJAX call, there are no Django templates involved.</description>
+      <guid>https://tek-shinobi.github.io/posts/backend-python_adding-ajax-to-python-django-projects/</guid>
+      <description>A very nice explanation on SO regarding what and why about AJAX from Django perspective: https://stackoverflow.com/questions/20306981/how-do-i-integrate-ajax-with-django-applications&#xA;So, specifically in Django, when we use AJAX to do a form POST request, we need a CSRF token. This is a security feature. If we are using Django templates, the templates do the job of generating a csrf token and tacking it along with the POST request data sent to the server. But when we are doing form POST via AJAX call, there are no Django templates involved.</description>
     </item>
-    
     <item>
       <title>Backend Python:Adding Login and Registration in Django</title>
-      <link>https://tek-shinobi.github.io/posts/backend-pythonadding-login-and-registration-in-django/</link>
+      <link>https://tek-shinobi.github.io/posts/backend-python_adding-login-and-registration-in-django/</link>
       <pubDate>Fri, 07 Sep 2018 13:47:36 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/backend-pythonadding-login-and-registration-in-django/</guid>
-      <description>Adding login and registration is very straight forward in Django. Note that Django provides a built in User model.
-User model exists ONLY for authentication. Use the User model to only store absolutely necessary info for authentication. Like Username and password (or if using custom user model, email and password.. I usually make the email as the unique field). Nothing else. Anything else, like gender, blah blah blah goes in other models like profile etc.</description>
+      <guid>https://tek-shinobi.github.io/posts/backend-python_adding-login-and-registration-in-django/</guid>
+      <description>Adding login and registration is very straight forward in Django. Note that Django provides a built in User model.&#xA;User model exists ONLY for authentication. Use the User model to only store absolutely necessary info for authentication. Like Username and password (or if using custom user model, email and password.. I usually make the email as the unique field). Nothing else. Anything else, like gender, blah blah blah goes in other models like profile etc.</description>
     </item>
-    
     <item>
       <title>Backend Python:Adding Reverse Url Lookup in Django</title>
-      <link>https://tek-shinobi.github.io/posts/backend-pythonadding-reverse-url-lookup-in-django/</link>
+      <link>https://tek-shinobi.github.io/posts/backend-python_adding-reverse-url-lookup-in-django/</link>
       <pubDate>Fri, 07 Sep 2018 13:39:51 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/backend-pythonadding-reverse-url-lookup-in-django/</guid>
-      <description>Reverse url lookup is very cool feature in Django that allows us to not hard-code urls in templates or controller logic. This helps us change the URLs later in urls.py and not have to make the same changes everywhere in templates and logic. Keep it DRY.
-To implement reverse url lookup, you need to do these:
- Make a namespace (if your urls are inside an app… otherwise omit this step).</description>
+      <guid>https://tek-shinobi.github.io/posts/backend-python_adding-reverse-url-lookup-in-django/</guid>
+      <description>Reverse url lookup is very cool feature in Django that allows us to not hard-code urls in templates or controller logic. This helps us change the URLs later in urls.py and not have to make the same changes everywhere in templates and logic. Keep it DRY.&#xA;To implement reverse url lookup, you need to do these:&#xA;Make a namespace (if your urls are inside an app… otherwise omit this step). Making a namespace makes it possible to have multiple apps use the same name for named urls.</description>
     </item>
-    
     <item>
       <title>Backend Python:Django Custom Queryset vs Custom Manager for Database Queries</title>
-      <link>https://tek-shinobi.github.io/posts/backend-pythondjango-custom-queryset-vs-custom-manager-for-database-queries/</link>
+      <link>https://tek-shinobi.github.io/posts/backend-python_django-custom-queryset-vs-custom-manager-for-database-queries/</link>
       <pubDate>Fri, 07 Sep 2018 13:30:55 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/backend-pythondjango-custom-queryset-vs-custom-manager-for-database-queries/</guid>
-      <description>Note: this applies to Django &amp;gt;= 1.7
-From the docs:
- A Manager is the interface through which database query operations are provided to Django models. At least one Manager exists for every model in a Django application.
-There are two reasons you might want to customize a Manager: to add extra Manager methods, and/or to modify the initial QuerySet the Manager returns.
- Since Django 1.7 and onwards, we no longer need to create custom manager and custom queryset separately.</description>
+      <guid>https://tek-shinobi.github.io/posts/backend-python_django-custom-queryset-vs-custom-manager-for-database-queries/</guid>
+      <description>Note: this applies to Django &amp;gt;= 1.7&#xA;From the docs:&#xA;A Manager is the interface through which database query operations are provided to Django models. At least one Manager exists for every model in a Django application.&#xA;There are two reasons you might want to customize a Manager: to add extra Manager methods, and/or to modify the initial QuerySet the Manager returns.&#xA;Since Django 1.7 and onwards, we no longer need to create custom manager and custom queryset separately.</description>
     </item>
-    
     <item>
       <title>Backend Python:Adding Custom User Model in Django</title>
-      <link>https://tek-shinobi.github.io/posts/backend-pythonadding-custom-user-model-in-django/</link>
+      <link>https://tek-shinobi.github.io/posts/backend-python_adding-custom-user-model-in-django/</link>
       <pubDate>Fri, 07 Sep 2018 12:04:04 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/backend-pythonadding-custom-user-model-in-django/</guid>
-      <description>Part 1 One of the first things I do after creating a new Django or Django Rest Framework project is to create a custom User model. Part 1 deals with case when you add custom User model right at the start of a project. In part 2 , we deal with scenario when custom User model is added later in the project.
-What exactly is a User model for? Django uses a User model for only one purpose, user authentication.</description>
+      <guid>https://tek-shinobi.github.io/posts/backend-python_adding-custom-user-model-in-django/</guid>
+      <description>Part 1 One of the first things I do after creating a new Django or Django Rest Framework project is to create a custom User model. Part 1 deals with case when you add custom User model right at the start of a project. In part 2 , we deal with scenario when custom User model is added later in the project.&#xA;What exactly is a User model for? Django uses a User model for only one purpose, user authentication.</description>
     </item>
-    
     <item>
       <title>Backend Python:Setting Active Navbar Link in Django Template</title>
-      <link>https://tek-shinobi.github.io/posts/backend-pythonsetting-active-navbar-link-in-django-template/</link>
+      <link>https://tek-shinobi.github.io/posts/backend-python_setting-active-navbar-link-in-django-template/</link>
       <pubDate>Fri, 07 Sep 2018 11:47:47 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/backend-pythonsetting-active-navbar-link-in-django-template/</guid>
-      <description>Here is probably the best way to set the active navbar link in Django template. Note, this needs no jQuery/javascript.
-Step 1 Create named urls:
-from django.conf.urls import url, include from django.contrib import admin from django.conf import settings from django.conf.urls.static import static from .views import ( HomeView, AboutView, ContactView, LoginView, RegistrationView ) urlpatterns = [ #url(r&amp;#39;^products/(?P&amp;lt;slug&amp;gt;[\w-]+)/$&amp;#39;, EcomProductDetailSlugView.as_view()), url(r&amp;#39;^$&amp;#39;, HomeView.as_view(), name=&amp;#39;home&amp;#39;), url(r&amp;#39;^about/$&amp;#39;, AboutView.as_view(), name=&amp;#39;about&amp;#39;), url(r&amp;#39;^contact/$&amp;#39;, ContactView.as_view(), name=&amp;#39;contact&amp;#39;), url(r&amp;#39;^login/$&amp;#39;, LoginView.as_view(), name=&amp;#39;login&amp;#39;), url(r&amp;#39;^register/$&amp;#39;, RegistrationView.</description>
+      <guid>https://tek-shinobi.github.io/posts/backend-python_setting-active-navbar-link-in-django-template/</guid>
+      <description>Here is probably the best way to set the active navbar link in Django template. Note, this needs no jQuery/javascript.&#xA;Step 1 Create named urls:&#xA;from django.conf.urls import url, include from django.contrib import admin from django.conf import settings from django.conf.urls.static import static from .views import ( HomeView, AboutView, ContactView, LoginView, RegistrationView ) urlpatterns = [ #url(r&amp;#39;^products/(?P&amp;lt;slug&amp;gt;[\w-]+)/$&amp;#39;, EcomProductDetailSlugView.as_view()), url(r&amp;#39;^$&amp;#39;, HomeView.as_view(), name=&amp;#39;home&amp;#39;), url(r&amp;#39;^about/$&amp;#39;, AboutView.as_view(), name=&amp;#39;about&amp;#39;), url(r&amp;#39;^contact/$&amp;#39;, ContactView.as_view(), name=&amp;#39;contact&amp;#39;), url(r&amp;#39;^login/$&amp;#39;, LoginView.as_view(), name=&amp;#39;login&amp;#39;), url(r&amp;#39;^register/$&amp;#39;, RegistrationView.</description>
     </item>
-    
     <item>
       <title>Backend Python:Django Sessions for Anonymous Users</title>
-      <link>https://tek-shinobi.github.io/posts/backend-pythondjango-sessions-for-anonymous-users/</link>
+      <link>https://tek-shinobi.github.io/posts/backend-python_django-sessions-for-anonymous-users/</link>
       <pubDate>Fri, 07 Sep 2018 11:39:04 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/backend-pythondjango-sessions-for-anonymous-users/</guid>
-      <description>We know that all logged in users are connected to a session. This is something done for you by Django middlewares.
-Similarly, for anonymous users (not logged in), every time the server receives a request, django creates a session object (meaning, an object with session_key, session_data and expire_data values). But the catch here is that you won’t see this session object in the django_session table because django sessions are saved only when modified .</description>
+      <guid>https://tek-shinobi.github.io/posts/backend-python_django-sessions-for-anonymous-users/</guid>
+      <description>We know that all logged in users are connected to a session. This is something done for you by Django middlewares.&#xA;Similarly, for anonymous users (not logged in), every time the server receives a request, django creates a session object (meaning, an object with session_key, session_data and expire_data values). But the catch here is that you won’t see this session object in the django_session table because django sessions are saved only when modified .</description>
     </item>
-    
     <item>
       <title>Backend Python:Django ORM Tips: _set meaning in Django ORM relationship</title>
-      <link>https://tek-shinobi.github.io/posts/backend-pythondjango-orm-tips-set/</link>
+      <link>https://tek-shinobi.github.io/posts/backend-python_django-orm-tips-set/</link>
       <pubDate>Fri, 07 Sep 2018 11:18:20 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/backend-pythondjango-orm-tips-set/</guid>
-      <description>_set is associated with reverse relation on a model.
-Django allows you to access reverse relations on a model. By default, Django creates a manager (RelatedManager) on your model to handle this, named &amp;lt;model&amp;gt;_set, where &amp;lt;model&amp;gt; is your model name in lowercase.
-Excellent link on StackOverflow here: https://stackoverflow.com/questions/25386119/whats-the-difference-between-a-onetoone-manytomany-and-a-foreignkey-field-in-d
-If we have these models:
-class User(models.Model): username = models.CharField(max_length=100, unique=True) companies = models.ManyToManyField(&amp;#39;Company&amp;#39;, blank=True) class Company(models.Model): name = models.CharField(max_length=255) In Django,</description>
+      <guid>https://tek-shinobi.github.io/posts/backend-python_django-orm-tips-set/</guid>
+      <description>_set is associated with reverse relation on a model.&#xA;Django allows you to access reverse relations on a model. By default, Django creates a manager (RelatedManager) on your model to handle this, named &amp;lt;model&amp;gt;_set, where &amp;lt;model&amp;gt; is your model name in lowercase.&#xA;Excellent link on StackOverflow here: https://stackoverflow.com/questions/25386119/whats-the-difference-between-a-onetoone-manytomany-and-a-foreignkey-field-in-d&#xA;If we have these models:&#xA;class User(models.Model): username = models.CharField(max_length=100, unique=True) companies = models.ManyToManyField(&amp;#39;Company&amp;#39;, blank=True) class Company(models.Model): name = models.CharField(max_length=255) In Django,</description>
     </item>
-    
     <item>
       <title>Backend Python:Steps for New Python Library or Package</title>
-      <link>https://tek-shinobi.github.io/posts/backend-pythonsteps-for-new-python-library-or-package/</link>
+      <link>https://tek-shinobi.github.io/posts/backend-python_steps-for-new-python-library-or-package/</link>
       <pubDate>Fri, 07 Sep 2018 10:49:17 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/backend-pythonsteps-for-new-python-library-or-package/</guid>
-      <description>Here are the steps.
-Create repo on github with license, gitignore and readme stubs.
-Clone the repo in the work area.
-Lets say, my new library is called new-library
-new-library is the repo name.
-Inside the cloned repo, create virtual env by running: pipenv install --python 3.8
-Above step creates a virtualenv using python 3.8 (already installed on my system)
-now install all the required packages. The basic ones I always install are: pytest, pytest-cov, typing, codecov, mypy and flake8</description>
+      <guid>https://tek-shinobi.github.io/posts/backend-python_steps-for-new-python-library-or-package/</guid>
+      <description>Here are the steps.&#xA;Create repo on github with license, gitignore and readme stubs.&#xA;Clone the repo in the work area.&#xA;Lets say, my new library is called new-library&#xA;new-library is the repo name.&#xA;Inside the cloned repo, create virtual env by running: pipenv install --python 3.8&#xA;Above step creates a virtualenv using python 3.8 (already installed on my system)&#xA;now install all the required packages. The basic ones I always install are: pytest, pytest-cov, typing, codecov, mypy and flake8</description>
     </item>
-    
     <item>
       <title>Backend Python:Default Parameter Gotcha</title>
-      <link>https://tek-shinobi.github.io/posts/backend-pythondefault-parameter-gotcha/</link>
+      <link>https://tek-shinobi.github.io/posts/backend-python_default-parameter-gotcha/</link>
       <pubDate>Fri, 07 Sep 2018 10:12:33 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/backend-pythondefault-parameter-gotcha/</guid>
-      <description>Take a look at this code. All it does is return a list with appended parameter. In case no list is supplied, it defaults to an empty list and appends to it. Or is it???
-def add_to_list(item, item_list=[]): item_list.append(item) return item_list add_to_list(&amp;#34;gold&amp;#34;) # expected: [&amp;#34;gold&amp;#34;] #actual: [&amp;#34;gold&amp;#34;] add_to_list(&amp;#34;silver&amp;#34;) # expected: [&amp;#34;silver&amp;#34;] #actual: [&amp;#34;gold&amp;#34;,&amp;#34;silver&amp;#34;] Look at the second result. We expected [&amp;quot;silver&amp;quot;] expecting the item to be appended to an empty list as we never passed in a list and expected a default empty list as in function definition.</description>
+      <guid>https://tek-shinobi.github.io/posts/backend-python_default-parameter-gotcha/</guid>
+      <description>Take a look at this code. All it does is return a list with appended parameter. In case no list is supplied, it defaults to an empty list and appends to it. Or is it???&#xA;def add_to_list(item, item_list=[]): item_list.append(item) return item_list add_to_list(&amp;#34;gold&amp;#34;) # expected: [&amp;#34;gold&amp;#34;] #actual: [&amp;#34;gold&amp;#34;] add_to_list(&amp;#34;silver&amp;#34;) # expected: [&amp;#34;silver&amp;#34;] #actual: [&amp;#34;gold&amp;#34;,&amp;#34;silver&amp;#34;] Look at the second result. We expected [&amp;quot;silver&amp;quot;] expecting the item to be appended to an empty list as we never passed in a list and expected a default empty list as in function definition.</description>
     </item>
-    
     <item>
       <title>Backend Python:Linting Using Flake</title>
-      <link>https://tek-shinobi.github.io/posts/backend-pythonlinting-using-flake/</link>
+      <link>https://tek-shinobi.github.io/posts/backend-python_linting-using-flake/</link>
       <pubDate>Fri, 07 Sep 2018 10:08:20 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/backend-pythonlinting-using-flake/</guid>
-      <description>Linting is a must for any python project.
-Two options are used most (in order of usage and popularity)
- flake8 – most used by open source python projects pylint – enabled by default in many IDEs like Visual Studio Code  Many folks run both.
-I chose flake8. Primary reason is that out of the box, pylint barks at everything in my code. The signal to noise ratio is god-awful.</description>
+      <guid>https://tek-shinobi.github.io/posts/backend-python_linting-using-flake/</guid>
+      <description>Linting is a must for any python project.&#xA;Two options are used most (in order of usage and popularity)&#xA;flake8 – most used by open source python projects pylint – enabled by default in many IDEs like Visual Studio Code Many folks run both.&#xA;I chose flake8. Primary reason is that out of the box, pylint barks at everything in my code. The signal to noise ratio is god-awful. It needs to be configured via .</description>
     </item>
-    
     <item>
       <title>Backend C# Add NLog Logger in .NET project</title>
       <link>https://tek-shinobi.github.io/posts/backend-c#-add-nlog-logger/</link>
       <pubDate>Fri, 07 Sep 2018 09:57:49 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/posts/backend-c#-add-nlog-logger/</guid>
-      <description>Recently, I was working on an enterprise project using Windows Forms and needed a logger that was thread-safe, allowed both structured and text based logging and provided an options to integrate email sending as well. Two options came standard NLog or log4Net.
-Had a brief look at both. log4Net looked like more of XML configuration. NLog looked like less so. Went with NLog.
-How to add NLog to your .NET solution: Scenario is that we have multiple projects in our solution.</description>
+      <description>Recently, I was working on an enterprise project using Windows Forms and needed a logger that was thread-safe, allowed both structured and text based logging and provided an options to integrate email sending as well. Two options came standard NLog or log4Net.&#xA;Had a brief look at both. log4Net looked like more of XML configuration. NLog looked like less so. Went with NLog.&#xA;How to add NLog to your .NET solution: Scenario is that we have multiple projects in our solution.</description>
     </item>
-    
     <item>
       <title>Javascript:Generator Functions Part 2</title>
-      <link>https://tek-shinobi.github.io/posts/javascriptgenerator-functions-part-2/</link>
+      <link>https://tek-shinobi.github.io/posts/javascript_generator-functions-part-2/</link>
       <pubDate>Fri, 07 Sep 2018 09:42:46 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/javascriptgenerator-functions-part-2/</guid>
-      <description>We will be building on prev post titled Javascript:Generator Functions Part 1:using Co
-Here we will focus on how to implement something analogous to co. i.e. actually implement an iterable.
-How to run the function* Steps involved in running through a generator function. If its a bit confusing, it will be clear when we look at the implementation.
- we first invoke the function and store it in a variable. The invocation of the function returns an iterable object back to us.</description>
+      <guid>https://tek-shinobi.github.io/posts/javascript_generator-functions-part-2/</guid>
+      <description>We will be building on prev post titled Javascript:Generator Functions Part 1:using Co&#xA;Here we will focus on how to implement something analogous to co. i.e. actually implement an iterable.&#xA;How to run the function* Steps involved in running through a generator function. If its a bit confusing, it will be clear when we look at the implementation.&#xA;we first invoke the function and store it in a variable. The invocation of the function returns an iterable object back to us.</description>
     </item>
-    
     <item>
       <title>Javascript:Generator Functions Part 1:using Co</title>
-      <link>https://tek-shinobi.github.io/posts/javascriptgenerator-functions-part-1using-co/</link>
+      <link>https://tek-shinobi.github.io/posts/javascript_generator-functions-part-1_using-co/</link>
       <pubDate>Fri, 07 Sep 2018 09:32:30 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/javascriptgenerator-functions-part-1using-co/</guid>
-      <description>Generator functions are a concept lifted likely from Python where they are used heavily in applications like web-crawlers. There are no prerequisites to this article but if you had an idea about Python generators, its the exact same concept implemented in Javascript.
-Definition  Generators are functions which can be exited and later re-entered. Their context (variable bindings) will be saved across re-entrances. Generators are cooperative, which means that it chooses when it will allow an interruption so that it can cooperate with the rest of the program.</description>
+      <guid>https://tek-shinobi.github.io/posts/javascript_generator-functions-part-1_using-co/</guid>
+      <description>Generator functions are a concept lifted likely from Python where they are used heavily in applications like web-crawlers. There are no prerequisites to this article but if you had an idea about Python generators, its the exact same concept implemented in Javascript.&#xA;Definition Generators are functions which can be exited and later re-entered. Their context (variable bindings) will be saved across re-entrances. Generators are cooperative, which means that it chooses when it will allow an interruption so that it can cooperate with the rest of the program.</description>
     </item>
-    
     <item>
       <title>Python Scrapy:Removing Non Ascii Characters From Text in Python</title>
-      <link>https://tek-shinobi.github.io/posts/python-scrapyremoving-non-ascii-characters-from-text-in-python/</link>
+      <link>https://tek-shinobi.github.io/posts/python-scrapy_removing-non-ascii-characters-from-text-in-python/</link>
       <pubDate>Wed, 05 Sep 2018 11:13:58 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/python-scrapyremoving-non-ascii-characters-from-text-in-python/</guid>
-      <description>I was handling some text scraped using Scrapy and the text had non-ascii unicode charcters like \u003e. If I did this, it didn&amp;rsquo;t work:
-html_text = response.text.encode(&amp;#39;ascii&amp;#39;, errors=&amp;#39;ignore&amp;#39;).decode() Here response.text is the string that contains unicode text (scrapy returns strings encoded in unicode). The html_text still had non ascii unicode characters like \u003e This worked:
-html_text = response.text.encode(&amp;#39;ascii&amp;#39;, errors=&amp;#39;ignore&amp;#39;).decode(&amp;#39;unicode-escape&amp;#39;) Note that unicode-escape part in decode. That made the difference in getting rid of characters like \u003e and replacing them with space.</description>
+      <guid>https://tek-shinobi.github.io/posts/python-scrapy_removing-non-ascii-characters-from-text-in-python/</guid>
+      <description>I was handling some text scraped using Scrapy and the text had non-ascii unicode charcters like \u003e. If I did this, it didn&amp;rsquo;t work:&#xA;html_text = response.text.encode(&amp;#39;ascii&amp;#39;, errors=&amp;#39;ignore&amp;#39;).decode() Here response.text is the string that contains unicode text (scrapy returns strings encoded in unicode). The html_text still had non ascii unicode characters like \u003e This worked:&#xA;html_text = response.text.encode(&amp;#39;ascii&amp;#39;, errors=&amp;#39;ignore&amp;#39;).decode(&amp;#39;unicode-escape&amp;#39;) Note that unicode-escape part in decode. That made the difference in getting rid of characters like \u003e and replacing them with space.</description>
     </item>
-    
+    <item>
+      <title>Golang: CPU Profiling And Load Testing</title>
+      <link>https://tek-shinobi.github.io/posts/golangcpuprofilingandloadtesting/</link>
+      <pubDate>Wed, 07 Feb 2018 08:05:22 +0200</pubDate>
+      <guid>https://tek-shinobi.github.io/posts/golangcpuprofilingandloadtesting/</guid>
+      <description>Goal: We want to do a CPU profile when a particular endpoint handler or set of handlers is/are called.&#xA;Idea: We have a service and we want to build a profile to have insights where the time is spent the most&#xA;Execution: If we already have an endpoint that directly invokes the service, its good. Otherwise create a temporary endpoint and call that service from there. Doing this makes it easy to run a load testing tool like vegeta against that endpoint to create some load when building the profile.</description>
+    </item>
     <item>
       <title>Golang:Evans Cli Tutorial</title>
-      <link>https://tek-shinobi.github.io/posts/golangevans-cli-tutorial/</link>
+      <link>https://tek-shinobi.github.io/posts/golang_evans-cli-tutorial/</link>
       <pubDate>Fri, 29 Sep 2017 14:17:37 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/golangevans-cli-tutorial/</guid>
-      <description>to launch evans on localhost and port 8080: evans --host localhost --port 8080 -r repl
-to list all rpc services: show service Note: if in above step, you see nothing, probably you are in the wrong package. Services belong to a package. Switch to the right package by show package and then choose the package by package &amp;lt;package_name&amp;gt;
-call an rpc named: Login call Login (you will be prompted to fill out the request object params)</description>
+      <guid>https://tek-shinobi.github.io/posts/golang_evans-cli-tutorial/</guid>
+      <description>to launch evans on localhost and port 8080: evans --host localhost --port 8080 -r repl&#xA;to list all rpc services: show service Note: if in above step, you see nothing, probably you are in the wrong package. Services belong to a package. Switch to the right package by show package and then choose the package by package &amp;lt;package_name&amp;gt;&#xA;call an rpc named: Login call Login (you will be prompted to fill out the request object params)</description>
     </item>
-    
     <item>
       <title>Virtualbox:First Steps After Install Ubuntu</title>
-      <link>https://tek-shinobi.github.io/posts/virtualboxfirst-steps-after-install-ubuntu/</link>
+      <link>https://tek-shinobi.github.io/posts/virtualbox_first-steps-after-install-ubuntu/</link>
       <pubDate>Fri, 29 Sep 2017 11:14:07 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/virtualboxfirst-steps-after-install-ubuntu/</guid>
-      <description>If you are installing ubuntu, always install with &amp;ldquo;skip unattended&amp;rdquo; checkmarked. Otherwise, you won&amp;rsquo;t have terminal access and no sudo.
-Have the new VM with ubuntu in running state and open terminal in the running VM
-To enable copy-paste:
- sudo apt update Devices -&amp;gt; Insert Guest Additions CD image Devices -&amp;gt; Shared Clipboard -&amp;gt; choose Bidirectional Devices -&amp;gt; Drag and Drop -&amp;gt; choose Bidirectional sudo apt install build-essential create some directories to mount the disk inserted in step 2:  sudo mkdir /mnt/cdrom this will create a directory called cdrom in mnt sudo mount /dev/cdrom /mnt/cdrom this will mount the /dev/cdrom onto the new directory we created cd /mnt/cdrom ls sudo sh .</description>
+      <guid>https://tek-shinobi.github.io/posts/virtualbox_first-steps-after-install-ubuntu/</guid>
+      <description>If you are installing ubuntu, always install with &amp;ldquo;skip unattended&amp;rdquo; checkmarked. Otherwise, you won&amp;rsquo;t have terminal access and no sudo.&#xA;Have the new VM with ubuntu in running state and open terminal in the running VM&#xA;To enable copy-paste:&#xA;sudo apt update Devices -&amp;gt; Insert Guest Additions CD image Devices -&amp;gt; Shared Clipboard -&amp;gt; choose Bidirectional Devices -&amp;gt; Drag and Drop -&amp;gt; choose Bidirectional sudo apt install build-essential create some directories to mount the disk inserted in step 2: sudo mkdir /mnt/cdrom this will create a directory called cdrom in mnt sudo mount /dev/cdrom /mnt/cdrom this will mount the /dev/cdrom onto the new directory we created cd /mnt/cdrom ls sudo sh .</description>
     </item>
-    
     <item>
       <title>Frontend CSS:Common Tricks:Avoid Text Wrapping at Whitespace</title>
-      <link>https://tek-shinobi.github.io/posts/frontend-csscommon-tricksavoid-text-wrapping-at-whitespace/</link>
+      <link>https://tek-shinobi.github.io/posts/frontend-css_common-tricks_avoid-text-wrapping-at-whitespace/</link>
       <pubDate>Thu, 07 Sep 2017 13:59:41 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/frontend-csscommon-tricksavoid-text-wrapping-at-whitespace/</guid>
-      <description>Here is how to avoid wrapping of text in elements like btn, div etc (block, or inline-block elements).
-add this to the btn styling: white-space: nowrap;
-You will find this code often. We strip off any padding around ul because it is automatically added by browsers
-ul{ padding: 0; } If you want the list items to be displayed horizontally, instead of vertically, just put an inline-block
-ul li { display: inline-block; } </description>
+      <guid>https://tek-shinobi.github.io/posts/frontend-css_common-tricks_avoid-text-wrapping-at-whitespace/</guid>
+      <description>Here is how to avoid wrapping of text in elements like btn, div etc (block, or inline-block elements).&#xA;add this to the btn styling: white-space: nowrap;&#xA;You will find this code often. We strip off any padding around ul because it is automatically added by browsers&#xA;ul{ padding: 0; } If you want the list items to be displayed horizontally, instead of vertically, just put an inline-block&#xA;ul li { display: inline-block; } </description>
     </item>
-    
     <item>
       <title>Frontend React:Tips for Making Reusable Components:props</title>
-      <link>https://tek-shinobi.github.io/posts/frontend-reacttips-for-making-reusable-componentsprops/</link>
+      <link>https://tek-shinobi.github.io/posts/frontend-react_tips-for-making-reusable-components_props/</link>
       <pubDate>Thu, 07 Sep 2017 09:50:40 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/frontend-reacttips-for-making-reusable-componentsprops/</guid>
-      <description>props.children const Picture = (props) =&amp;gt; { return ( &amp;lt;div&amp;gt; &amp;lt;img src={props.src}/&amp;gt; {props.children} &amp;lt;/div&amp;gt; ) } render () { return ( &amp;lt;div className=&amp;#39;container&amp;#39;&amp;gt; &amp;lt;Picture key={picture.id} src={picture.src}&amp;gt; //what is placed here is passed as props.children  &amp;lt;/Picture&amp;gt; &amp;lt;/div&amp;gt; ) } Instead of invoking the component with a self-closing tag &amp;lt;Picture /&amp;gt; if you invoke it will full opening and closing tags &amp;lt;Picture&amp;gt; &amp;lt;/Picture&amp;gt; you can then place more code between it and display using this.</description>
+      <guid>https://tek-shinobi.github.io/posts/frontend-react_tips-for-making-reusable-components_props/</guid>
+      <description>props.children const Picture = (props) =&amp;gt; { return ( &amp;lt;div&amp;gt; &amp;lt;img src={props.src}/&amp;gt; {props.children} &amp;lt;/div&amp;gt; ) } render () { return ( &amp;lt;div className=&amp;#39;container&amp;#39;&amp;gt; &amp;lt;Picture key={picture.id} src={picture.src}&amp;gt; //what is placed here is passed as props.children &amp;lt;/Picture&amp;gt; &amp;lt;/div&amp;gt; ) } Instead of invoking the component with a self-closing tag &amp;lt;Picture /&amp;gt; if you invoke it will full opening and closing tags &amp;lt;Picture&amp;gt; &amp;lt;/Picture&amp;gt; you can then place more code between it and display using this.</description>
     </item>
-    
     <item>
       <title>Javascript ES6:Quick Recap Cookbook</title>
-      <link>https://tek-shinobi.github.io/posts/javascript-es6quick-recap-cookbook/</link>
+      <link>https://tek-shinobi.github.io/posts/javascript-es6_quick-recap-cookbook/</link>
       <pubDate>Tue, 05 Sep 2017 11:25:18 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/javascript-es6quick-recap-cookbook/</guid>
-      <description>// crreate a whole random number between [0,20) function wholeRandomNumber(){ return Math.floor(Math.random() * 20) } console.log(wholeRandomNumber()) // random numbers within a range [min, max] function randomRange(min, max){ return Math.floor(Math.random()*(max-min + 1)) + min } console.log(randomRange(1,2)) // parseInt  // return integer from a string. It will returrn NaN if string cannot be converted to a number function convertToIntegerr(str){ return parseInt(str) } console.log(&amp;#34;parseInt: &amp;#34;+ convertToIntegerr(&amp;#34;55&amp;#34;)) console.log(&amp;#34;parseInt: &amp;#34;+ convertToIntegerr(&amp;#34;ABC&amp;#34;)) // parseInt also takes in a radix.</description>
+      <guid>https://tek-shinobi.github.io/posts/javascript-es6_quick-recap-cookbook/</guid>
+      <description>// crreate a whole random number between [0,20) function wholeRandomNumber(){ return Math.floor(Math.random() * 20) } console.log(wholeRandomNumber()) // random numbers within a range [min, max] function randomRange(min, max){ return Math.floor(Math.random()*(max-min + 1)) + min } console.log(randomRange(1,2)) // parseInt // return integer from a string. It will returrn NaN if string cannot be converted to a number function convertToIntegerr(str){ return parseInt(str) } console.log(&amp;#34;parseInt: &amp;#34;+ convertToIntegerr(&amp;#34;55&amp;#34;)) console.log(&amp;#34;parseInt: &amp;#34;+ convertToIntegerr(&amp;#34;ABC&amp;#34;)) // parseInt also takes in a radix.</description>
     </item>
-    
     <item>
       <title>Frontend CSS:When to Use Float vs Position vs Display for Laying Out Elements and Aligning Blocks on Page</title>
-      <link>https://tek-shinobi.github.io/posts/frontend-csswhen-to-use-float-vs-position-vs-display-for-laying-out-elements-and-aligning-blocks-on-page/</link>
+      <link>https://tek-shinobi.github.io/posts/frontend-css_when-to-use-float-vs-position-vs-display-for-laying-out-elements-and-aligning-blocks-on-page/</link>
       <pubDate>Mon, 05 Sep 2016 11:32:27 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/frontend-csswhen-to-use-float-vs-position-vs-display-for-laying-out-elements-and-aligning-blocks-on-page/</guid>
-      <description>Here are the recommendations:
-Float:  Use this for content that flows around (i.e. variable and flexible content). A good example is an image surrounded by texts of different lengths. So even if the amount of text can change, but using float will allow it to flow around the image. Float is also very useful in laying out major parts of layout like header, footer or sidebar.  Display:  Can be useful for aligning page components but you need to account for the extra space around the element(display: inline-block will put a default space between elements having it) Very useful in creating centered horizontal navs because of the fact that the property text-align: center works on aligning child elements as well.</description>
+      <guid>https://tek-shinobi.github.io/posts/frontend-css_when-to-use-float-vs-position-vs-display-for-laying-out-elements-and-aligning-blocks-on-page/</guid>
+      <description>Here are the recommendations:&#xA;Float: Use this for content that flows around (i.e. variable and flexible content). A good example is an image surrounded by texts of different lengths. So even if the amount of text can change, but using float will allow it to flow around the image. Float is also very useful in laying out major parts of layout like header, footer or sidebar. Display: Can be useful for aligning page components but you need to account for the extra space around the element(display: inline-block will put a default space between elements having it) Very useful in creating centered horizontal navs because of the fact that the property text-align: center works on aligning child elements as well.</description>
     </item>
-    
     <item>
       <title>Frontend CSS:Stacking Order of Elements in a Layout</title>
-      <link>https://tek-shinobi.github.io/posts/frontend-cssstacking-order-of-elements-in-a-layout/</link>
+      <link>https://tek-shinobi.github.io/posts/frontend-css_stacking-order-of-elements-in-a-layout/</link>
       <pubDate>Mon, 03 Aug 2015 11:40:26 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/frontend-cssstacking-order-of-elements-in-a-layout/</guid>
-      <description>Lets take a look at this code:
-HTML:
-&amp;lt;html&amp;gt; &amp;lt;head&amp;gt;&amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;p&amp;gt;body content&amp;lt;/p&amp;gt; &amp;lt;div class=&amp;#34;block1&amp;#34;&amp;gt;block1&amp;lt;/div&amp;gt; &amp;lt;div class=&amp;#34;block2&amp;#34;&amp;gt;block1&amp;lt;/div&amp;gt; &amp;lt;div class=&amp;#34;float&amp;#34;&amp;gt; &amp;lt;p&amp;gt;float&amp;lt;/p&amp;gt; &amp;lt;span&amp;gt; class=&amp;#34;inline&amp;#34;&amp;gt;inline&amp;lt;/span&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;div class=&amp;#34;position&amp;#34;&amp;gt;position&amp;lt;/div&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; CSS:
-.block1{ background: pink; } .block2{ background: red; margin: -60px 0 0 20px; } .float{ background: lightblue; float: left; margin: -150px 0 0 100px; } .inline{ background: blue; color: white; padding: 10px 40px 10px 10px; } .position{ background: orange; position: relative; left: 180px; top: -165px; height: 110px; } The natural staking order of elements in this piece of code is (in ascending order in the stack):</description>
+      <guid>https://tek-shinobi.github.io/posts/frontend-css_stacking-order-of-elements-in-a-layout/</guid>
+      <description>Lets take a look at this code:&#xA;HTML:&#xA;&amp;lt;html&amp;gt; &amp;lt;head&amp;gt;&amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;p&amp;gt;body content&amp;lt;/p&amp;gt; &amp;lt;div class=&amp;#34;block1&amp;#34;&amp;gt;block1&amp;lt;/div&amp;gt; &amp;lt;div class=&amp;#34;block2&amp;#34;&amp;gt;block1&amp;lt;/div&amp;gt; &amp;lt;div class=&amp;#34;float&amp;#34;&amp;gt; &amp;lt;p&amp;gt;float&amp;lt;/p&amp;gt; &amp;lt;span&amp;gt; class=&amp;#34;inline&amp;#34;&amp;gt;inline&amp;lt;/span&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;div class=&amp;#34;position&amp;#34;&amp;gt;position&amp;lt;/div&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; CSS:&#xA;.block1{ background: pink; } .block2{ background: red; margin: -60px 0 0 20px; } .float{ background: lightblue; float: left; margin: -150px 0 0 100px; } .inline{ background: blue; color: white; padding: 10px 40px 10px 10px; } .position{ background: orange; position: relative; left: 180px; top: -165px; height: 110px; } The natural staking order of elements in this piece of code is (in ascending order in the stack):</description>
     </item>
-    
     <item>
       <title>Frontend CSS:Reset CSS and Normalize CSS</title>
-      <link>https://tek-shinobi.github.io/posts/frontend-cssreset-css-and-normalize-css/</link>
+      <link>https://tek-shinobi.github.io/posts/frontend-css_reset-css-and-normalize-css/</link>
       <pubDate>Thu, 02 Jul 2015 11:49:24 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/frontend-cssreset-css-and-normalize-css/</guid>
-      <description>Often there is some guesswork involved when styling elements due to mystery spaces and padding appearing from heaven. These are due to default styling applied by browsers and can cause some confusion as they vary between different browser vendors. To remedy this, many leading developers in the frontend community have come up with two solutions:
-Reset CSS stylesheet: This CSS stylesheet aims to remove all default styling applied. After this stylesheet is applied, the all elements in browsers across the vendors return to unstyled state.</description>
+      <guid>https://tek-shinobi.github.io/posts/frontend-css_reset-css-and-normalize-css/</guid>
+      <description>Often there is some guesswork involved when styling elements due to mystery spaces and padding appearing from heaven. These are due to default styling applied by browsers and can cause some confusion as they vary between different browser vendors. To remedy this, many leading developers in the frontend community have come up with two solutions:&#xA;Reset CSS stylesheet: This CSS stylesheet aims to remove all default styling applied. After this stylesheet is applied, the all elements in browsers across the vendors return to unstyled state.</description>
     </item>
-    
   </channel>
 </rss>

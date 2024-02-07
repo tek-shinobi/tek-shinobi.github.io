@@ -11,7 +11,7 @@
     <loc>https://tek-shinobi.github.io/categories/github/</loc>
     <lastmod>2023-11-06T19:53:20+02:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/githubmanaging-multiple-accounts/</loc>
+    <loc>https://tek-shinobi.github.io/posts/github_managing-multiple-accounts/</loc>
     <lastmod>2023-11-06T19:53:20+02:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/posts/</loc>
@@ -29,13 +29,13 @@
     <loc>https://tek-shinobi.github.io/categories/linux/</loc>
     <lastmod>2023-10-17T13:23:19+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/linuxiptables-cheatsheet/</loc>
+    <loc>https://tek-shinobi.github.io/posts/linux_iptables-cheatsheet/</loc>
     <lastmod>2023-10-17T13:23:19+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/tags/aws/</loc>
     <lastmod>2023-10-13T12:06:40+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/awssetup-reverse-proxy-in-aws-using-elb/</loc>
+    <loc>https://tek-shinobi.github.io/posts/aws_setup-reverse-proxy-in-aws-using-elb/</loc>
     <lastmod>2023-10-13T12:06:40+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/categories/backend/</loc>
@@ -44,7 +44,7 @@
     <loc>https://tek-shinobi.github.io/categories/grafana/</loc>
     <lastmod>2023-10-13T12:06:40+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/grafanagrafana-loki-aws-s3-integration/</loc>
+    <loc>https://tek-shinobi.github.io/posts/grafana_grafana-loki-aws-s3-integration/</loc>
     <lastmod>2023-10-12T21:14:50+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/tags/loki/</loc>
@@ -62,7 +62,7 @@
     <loc>https://tek-shinobi.github.io/categories/golang/</loc>
     <lastmod>2023-07-25T10:41:57+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/golangdistributed-rate-limiting-using-fixed-window/</loc>
+    <loc>https://tek-shinobi.github.io/posts/golang_distributed-rate-limiting-using-fixed-window/</loc>
     <lastmod>2023-07-25T10:41:57+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/tags/rate-limiter/</loc>
@@ -107,7 +107,7 @@
     <loc>https://tek-shinobi.github.io/categories/mongodb/</loc>
     <lastmod>2021-11-14T10:25:50+02:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/mongodbcheatsheet/</loc>
+    <loc>https://tek-shinobi.github.io/posts/mongodb_cheatsheet/</loc>
     <lastmod>2021-11-14T10:25:50+02:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/tags/concurrency/</loc>
@@ -119,7 +119,7 @@
     <loc>https://tek-shinobi.github.io/posts/golang-channels/</loc>
     <lastmod>2021-10-11T16:24:24+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/golangcobra-and-viper-tutorial/</loc>
+    <loc>https://tek-shinobi.github.io/posts/golang_cobra-and-viper-tutorial/</loc>
     <lastmod>2021-09-23T13:04:41+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/tags/tools/</loc>
@@ -128,7 +128,7 @@
     <loc>https://tek-shinobi.github.io/categories/kubernetes/</loc>
     <lastmod>2021-09-15T09:59:30+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/minikubecheatsheet/</loc>
+    <loc>https://tek-shinobi.github.io/posts/minikube_cheatsheet/</loc>
     <lastmod>2021-09-15T09:59:30+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/tags/minikube/</loc>
@@ -137,7 +137,7 @@
     <loc>https://tek-shinobi.github.io/tags/automation/</loc>
     <lastmod>2021-06-21T11:01:27+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/golanggo-tools-cheatsheet/</loc>
+    <loc>https://tek-shinobi.github.io/posts/golang_go-tools-cheatsheet/</loc>
     <lastmod>2021-06-21T11:01:27+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/posts/golang-unmarshal-json-blob-with-unknown-schema/</loc>
@@ -185,7 +185,7 @@
     <loc>https://tek-shinobi.github.io/posts/what-is-a-tcp-stream/</loc>
     <lastmod>2020-02-08T18:34:10+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/backend-pythontemporary-files-in-python/</loc>
+    <loc>https://tek-shinobi.github.io/posts/backend-python_temporary-files-in-python/</loc>
     <lastmod>2019-09-05T11:01:54+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/tags/python/</loc>
@@ -200,70 +200,70 @@
     <loc>https://tek-shinobi.github.io/categories/frontend/</loc>
     <lastmod>2019-09-05T10:22:21+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/frontend-cssflexbox-in-a-nutshell/</loc>
+    <loc>https://tek-shinobi.github.io/posts/frontend-css_flexbox-in-a-nutshell/</loc>
     <lastmod>2019-09-05T10:22:21+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/golangnewprojsteps/</loc>
+    <loc>https://tek-shinobi.github.io/posts/golang_newprojsteps/</loc>
     <lastmod>2018-09-24T17:35:09+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/backend-pythonworking-with-python-lxml-parser-for-creating-xml-elements/</loc>
+    <loc>https://tek-shinobi.github.io/posts/backend-python_working-with-python-lxml-parser-for-creating-xml-elements/</loc>
     <lastmod>2018-09-07T21:44:59+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/backend-pythonusing-pytest-with-django-and-django-rest-framework/</loc>
+    <loc>https://tek-shinobi.github.io/posts/backend-python_using-pytest-with-django-and-django-rest-framework/</loc>
     <lastmod>2018-09-07T19:23:46+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/backend-pythonsqlalchemy-tutorial/</loc>
+    <loc>https://tek-shinobi.github.io/posts/backend-python_sqlalchemy-tutorial/</loc>
     <lastmod>2018-09-07T17:21:17+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/backend-pythondjango-rest-framework-project-setup-template/</loc>
+    <loc>https://tek-shinobi.github.io/posts/backend-python_django-rest-framework-project-setup-template/</loc>
     <lastmod>2018-09-07T16:18:09+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/tags/django/</loc>
     <lastmod>2018-09-07T16:18:09+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/backend-netdigital-signature-of-payload-in-net/</loc>
+    <loc>https://tek-shinobi.github.io/posts/backend-net_digital-signature-of-payload-in-net/</loc>
     <lastmod>2018-09-07T16:09:23+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/tags/c#/</loc>
     <lastmod>2018-09-07T16:09:23+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/backend-pythonlogging-in-django-and-django-rest-framework-projects/</loc>
+    <loc>https://tek-shinobi.github.io/posts/backend-python_logging-in-django-and-django-rest-framework-projects/</loc>
     <lastmod>2018-09-07T16:02:36+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/backend-pythonwriting-custom-django-management-commands/</loc>
+    <loc>https://tek-shinobi.github.io/posts/backend-python_writing-custom-django-management-commands/</loc>
     <lastmod>2018-09-07T14:02:37+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/backend-pythonadding-ajax-to-python-django-projects/</loc>
+    <loc>https://tek-shinobi.github.io/posts/backend-python_adding-ajax-to-python-django-projects/</loc>
     <lastmod>2018-09-07T13:55:19+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/backend-pythonadding-login-and-registration-in-django/</loc>
+    <loc>https://tek-shinobi.github.io/posts/backend-python_adding-login-and-registration-in-django/</loc>
     <lastmod>2018-09-07T13:47:36+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/backend-pythonadding-reverse-url-lookup-in-django/</loc>
+    <loc>https://tek-shinobi.github.io/posts/backend-python_adding-reverse-url-lookup-in-django/</loc>
     <lastmod>2018-09-07T13:39:51+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/backend-pythondjango-custom-queryset-vs-custom-manager-for-database-queries/</loc>
+    <loc>https://tek-shinobi.github.io/posts/backend-python_django-custom-queryset-vs-custom-manager-for-database-queries/</loc>
     <lastmod>2018-09-07T13:30:55+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/backend-pythonadding-custom-user-model-in-django/</loc>
+    <loc>https://tek-shinobi.github.io/posts/backend-python_adding-custom-user-model-in-django/</loc>
     <lastmod>2018-09-07T12:04:04+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/backend-pythonsetting-active-navbar-link-in-django-template/</loc>
+    <loc>https://tek-shinobi.github.io/posts/backend-python_setting-active-navbar-link-in-django-template/</loc>
     <lastmod>2018-09-07T11:47:47+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/backend-pythondjango-sessions-for-anonymous-users/</loc>
+    <loc>https://tek-shinobi.github.io/posts/backend-python_django-sessions-for-anonymous-users/</loc>
     <lastmod>2018-09-07T11:39:04+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/backend-pythondjango-orm-tips-set/</loc>
+    <loc>https://tek-shinobi.github.io/posts/backend-python_django-orm-tips-set/</loc>
     <lastmod>2018-09-07T11:18:20+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/backend-pythonsteps-for-new-python-library-or-package/</loc>
+    <loc>https://tek-shinobi.github.io/posts/backend-python_steps-for-new-python-library-or-package/</loc>
     <lastmod>2018-09-07T10:49:17+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/backend-pythondefault-parameter-gotcha/</loc>
+    <loc>https://tek-shinobi.github.io/posts/backend-python_default-parameter-gotcha/</loc>
     <lastmod>2018-09-07T10:12:33+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/backend-pythonlinting-using-flake/</loc>
+    <loc>https://tek-shinobi.github.io/posts/backend-python_linting-using-flake/</loc>
     <lastmod>2018-09-07T10:08:20+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/posts/backend-c#-add-nlog-logger/</loc>
@@ -275,34 +275,37 @@
     <loc>https://tek-shinobi.github.io/categories/javascript/</loc>
     <lastmod>2018-09-07T09:42:46+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/javascriptgenerator-functions-part-2/</loc>
+    <loc>https://tek-shinobi.github.io/posts/javascript_generator-functions-part-2/</loc>
     <lastmod>2018-09-07T09:42:46+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/javascriptgenerator-functions-part-1using-co/</loc>
+    <loc>https://tek-shinobi.github.io/posts/javascript_generator-functions-part-1_using-co/</loc>
     <lastmod>2018-09-07T09:32:30+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/python-scrapyremoving-non-ascii-characters-from-text-in-python/</loc>
+    <loc>https://tek-shinobi.github.io/posts/python-scrapy_removing-non-ascii-characters-from-text-in-python/</loc>
     <lastmod>2018-09-05T11:13:58+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/tags/scrapy/</loc>
     <lastmod>2018-09-05T11:13:58+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/golangevans-cli-tutorial/</loc>
-    <lastmod>2017-09-29T14:17:37+03:00</lastmod>
+    <loc>https://tek-shinobi.github.io/posts/golangcpuprofilingandloadtesting/</loc>
+    <lastmod>2018-02-07T08:05:22+02:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/categories/virtualbox/</loc>
-    <lastmod>2017-09-29T11:14:07+03:00</lastmod>
+    <loc>https://tek-shinobi.github.io/posts/golang_evans-cli-tutorial/</loc>
+    <lastmod>2017-09-29T14:17:37+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/tags/virtualbox/</loc>
     <lastmod>2017-09-29T11:14:07+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/virtualboxfirst-steps-after-install-ubuntu/</loc>
+    <loc>https://tek-shinobi.github.io/categories/virtualbox/</loc>
     <lastmod>2017-09-29T11:14:07+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/frontend-csscommon-tricksavoid-text-wrapping-at-whitespace/</loc>
+    <loc>https://tek-shinobi.github.io/posts/virtualbox_first-steps-after-install-ubuntu/</loc>
+    <lastmod>2017-09-29T11:14:07+03:00</lastmod>
+  </url><url>
+    <loc>https://tek-shinobi.github.io/posts/frontend-css_common-tricks_avoid-text-wrapping-at-whitespace/</loc>
     <lastmod>2017-09-07T13:59:41+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/frontend-reacttips-for-making-reusable-componentsprops/</loc>
+    <loc>https://tek-shinobi.github.io/posts/frontend-react_tips-for-making-reusable-components_props/</loc>
     <lastmod>2017-09-07T09:50:40+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/tags/javascript/</loc>
@@ -314,16 +317,16 @@
     <loc>https://tek-shinobi.github.io/tags/es6/</loc>
     <lastmod>2017-09-05T11:25:18+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/javascript-es6quick-recap-cookbook/</loc>
+    <loc>https://tek-shinobi.github.io/posts/javascript-es6_quick-recap-cookbook/</loc>
     <lastmod>2017-09-05T11:25:18+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/frontend-csswhen-to-use-float-vs-position-vs-display-for-laying-out-elements-and-aligning-blocks-on-page/</loc>
+    <loc>https://tek-shinobi.github.io/posts/frontend-css_when-to-use-float-vs-position-vs-display-for-laying-out-elements-and-aligning-blocks-on-page/</loc>
     <lastmod>2016-09-05T11:32:27+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/frontend-cssstacking-order-of-elements-in-a-layout/</loc>
+    <loc>https://tek-shinobi.github.io/posts/frontend-css_stacking-order-of-elements-in-a-layout/</loc>
     <lastmod>2015-08-03T11:40:26+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/frontend-cssreset-css-and-normalize-css/</loc>
+    <loc>https://tek-shinobi.github.io/posts/frontend-css_reset-css-and-normalize-css/</loc>
     <lastmod>2015-07-02T11:49:24+03:00</lastmod>
   </url>
 </urlset>

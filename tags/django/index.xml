@@ -5,126 +5,85 @@
     <link>https://tek-shinobi.github.io/tags/django/</link>
     <description>Recent content in django on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 07 Sep 2018 16:18:09 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/django/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Fri, 07 Sep 2018 16:18:09 +0300</lastBuildDate>
+    <atom:link href="https://tek-shinobi.github.io/tags/django/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Backend Python:Django Rest Framework Project Setup Template</title>
-      <link>https://tek-shinobi.github.io/posts/backend-pythondjango-rest-framework-project-setup-template/</link>
+      <link>https://tek-shinobi.github.io/posts/backend-python_django-rest-framework-project-setup-template/</link>
       <pubDate>Fri, 07 Sep 2018 16:18:09 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/backend-pythondjango-rest-framework-project-setup-template/</guid>
-      <description>I am assuming that pipenv is already installed. Also, assuming that Python 3.5+ already installed in the base environment.
- create new environment: pipenv shell pipenv install django djangorestframework markdown django-filter pygments flake8 httpie pytest pytest-django pytest-factoryboy pytest-cov django-extensions djangorestframework-simplejwt django-cors-headers mypy djangorestframework-stubs pipenv install --dev --pre black create django project:django-admin.py startproject my_proj cd my_proj python manage.py startapp my_app  The above is a basic boiler plate.
-Some explanation of what got installed:</description>
+      <guid>https://tek-shinobi.github.io/posts/backend-python_django-rest-framework-project-setup-template/</guid>
+      <description>I am assuming that pipenv is already installed. Also, assuming that Python 3.5+ already installed in the base environment.&#xA;create new environment: pipenv shell pipenv install django djangorestframework markdown django-filter pygments flake8 httpie pytest pytest-django pytest-factoryboy pytest-cov django-extensions djangorestframework-simplejwt django-cors-headers mypy djangorestframework-stubs pipenv install --dev --pre black create django project:django-admin.py startproject my_proj cd my_proj python manage.py startapp my_app The above is a basic boiler plate.&#xA;Some explanation of what got installed:</description>
     </item>
-    
     <item>
       <title>Backend Python:Logging in Django and Django Rest Framework Projects</title>
-      <link>https://tek-shinobi.github.io/posts/backend-pythonlogging-in-django-and-django-rest-framework-projects/</link>
+      <link>https://tek-shinobi.github.io/posts/backend-python_logging-in-django-and-django-rest-framework-projects/</link>
       <pubDate>Fri, 07 Sep 2018 16:02:36 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/backend-pythonlogging-in-django-and-django-rest-framework-projects/</guid>
-      <description>Logging is extremely necessary, during development and production. There are two ways to implement logging.
- In apps with high scale, we log to console and then have some in-the-cloud solution like Sentry to log the messages from the console. This is great because large scale apps often run on multiple servers and we can converge all the logs to one place. Alternately, we can log the messages to file on the server itself.</description>
+      <guid>https://tek-shinobi.github.io/posts/backend-python_logging-in-django-and-django-rest-framework-projects/</guid>
+      <description>Logging is extremely necessary, during development and production. There are two ways to implement logging.&#xA;In apps with high scale, we log to console and then have some in-the-cloud solution like Sentry to log the messages from the console. This is great because large scale apps often run on multiple servers and we can converge all the logs to one place. Alternately, we can log the messages to file on the server itself.</description>
     </item>
-    
     <item>
       <title>Backend Python:Writing Custom Django Management Commands</title>
-      <link>https://tek-shinobi.github.io/posts/backend-pythonwriting-custom-django-management-commands/</link>
+      <link>https://tek-shinobi.github.io/posts/backend-python_writing-custom-django-management-commands/</link>
       <pubDate>Fri, 07 Sep 2018 14:02:37 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/backend-pythonwriting-custom-django-management-commands/</guid>
-      <description>Any command given with manage.py is called management command. Django comes with many built-in management commands like runserver, startapp etc. To see a full list of built-in management commands, type: python manage.py help
-The benefit of management command script is that this script executes within Django environment. You can run all of Django ORM queries within this script. You can import models. You have access to project resources.
-In this tutorial we will see how to populate a table with some contents of a csv file.</description>
+      <guid>https://tek-shinobi.github.io/posts/backend-python_writing-custom-django-management-commands/</guid>
+      <description>Any command given with manage.py is called management command. Django comes with many built-in management commands like runserver, startapp etc. To see a full list of built-in management commands, type: python manage.py help&#xA;The benefit of management command script is that this script executes within Django environment. You can run all of Django ORM queries within this script. You can import models. You have access to project resources.&#xA;In this tutorial we will see how to populate a table with some contents of a csv file.</description>
     </item>
-    
     <item>
       <title>Backend Python:Adding AJAX to Python Django Projects</title>
-      <link>https://tek-shinobi.github.io/posts/backend-pythonadding-ajax-to-python-django-projects/</link>
+      <link>https://tek-shinobi.github.io/posts/backend-python_adding-ajax-to-python-django-projects/</link>
       <pubDate>Fri, 07 Sep 2018 13:55:19 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/backend-pythonadding-ajax-to-python-django-projects/</guid>
-      <description>A very nice explanation on SO regarding what and why about AJAX from Django perspective: https://stackoverflow.com/questions/20306981/how-do-i-integrate-ajax-with-django-applications
-So, specifically in Django, when we use AJAX to do a form POST request, we need a CSRF token. This is a security feature. If we are using Django templates, the templates do the job of generating a csrf token and tacking it along with the POST request data sent to the server. But when we are doing form POST via AJAX call, there are no Django templates involved.</description>
+      <guid>https://tek-shinobi.github.io/posts/backend-python_adding-ajax-to-python-django-projects/</guid>
+      <description>A very nice explanation on SO regarding what and why about AJAX from Django perspective: https://stackoverflow.com/questions/20306981/how-do-i-integrate-ajax-with-django-applications&#xA;So, specifically in Django, when we use AJAX to do a form POST request, we need a CSRF token. This is a security feature. If we are using Django templates, the templates do the job of generating a csrf token and tacking it along with the POST request data sent to the server. But when we are doing form POST via AJAX call, there are no Django templates involved.</description>
     </item>
-    
     <item>
       <title>Backend Python:Adding Login and Registration in Django</title>
-      <link>https://tek-shinobi.github.io/posts/backend-pythonadding-login-and-registration-in-django/</link>
+      <link>https://tek-shinobi.github.io/posts/backend-python_adding-login-and-registration-in-django/</link>
       <pubDate>Fri, 07 Sep 2018 13:47:36 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/backend-pythonadding-login-and-registration-in-django/</guid>
-      <description>Adding login and registration is very straight forward in Django. Note that Django provides a built in User model.
-User model exists ONLY for authentication. Use the User model to only store absolutely necessary info for authentication. Like Username and password (or if using custom user model, email and password.. I usually make the email as the unique field). Nothing else. Anything else, like gender, blah blah blah goes in other models like profile etc.</description>
+      <guid>https://tek-shinobi.github.io/posts/backend-python_adding-login-and-registration-in-django/</guid>
+      <description>Adding login and registration is very straight forward in Django. Note that Django provides a built in User model.&#xA;User model exists ONLY for authentication. Use the User model to only store absolutely necessary info for authentication. Like Username and password (or if using custom user model, email and password.. I usually make the email as the unique field). Nothing else. Anything else, like gender, blah blah blah goes in other models like profile etc.</description>
     </item>
-    
     <item>
       <title>Backend Python:Adding Reverse Url Lookup in Django</title>
-      <link>https://tek-shinobi.github.io/posts/backend-pythonadding-reverse-url-lookup-in-django/</link>
+      <link>https://tek-shinobi.github.io/posts/backend-python_adding-reverse-url-lookup-in-django/</link>
       <pubDate>Fri, 07 Sep 2018 13:39:51 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/backend-pythonadding-reverse-url-lookup-in-django/</guid>
-      <description>Reverse url lookup is very cool feature in Django that allows us to not hard-code urls in templates or controller logic. This helps us change the URLs later in urls.py and not have to make the same changes everywhere in templates and logic. Keep it DRY.
-To implement reverse url lookup, you need to do these:
- Make a namespace (if your urls are inside an app… otherwise omit this step).</description>
+      <guid>https://tek-shinobi.github.io/posts/backend-python_adding-reverse-url-lookup-in-django/</guid>
+      <description>Reverse url lookup is very cool feature in Django that allows us to not hard-code urls in templates or controller logic. This helps us change the URLs later in urls.py and not have to make the same changes everywhere in templates and logic. Keep it DRY.&#xA;To implement reverse url lookup, you need to do these:&#xA;Make a namespace (if your urls are inside an app… otherwise omit this step). Making a namespace makes it possible to have multiple apps use the same name for named urls.</description>
     </item>
-    
     <item>
       <title>Backend Python:Django Custom Queryset vs Custom Manager for Database Queries</title>
-      <link>https://tek-shinobi.github.io/posts/backend-pythondjango-custom-queryset-vs-custom-manager-for-database-queries/</link>
+      <link>https://tek-shinobi.github.io/posts/backend-python_django-custom-queryset-vs-custom-manager-for-database-queries/</link>
       <pubDate>Fri, 07 Sep 2018 13:30:55 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/backend-pythondjango-custom-queryset-vs-custom-manager-for-database-queries/</guid>
-      <description>Note: this applies to Django &amp;gt;= 1.7
-From the docs:
- A Manager is the interface through which database query operations are provided to Django models. At least one Manager exists for every model in a Django application.
-There are two reasons you might want to customize a Manager: to add extra Manager methods, and/or to modify the initial QuerySet the Manager returns.
- Since Django 1.7 and onwards, we no longer need to create custom manager and custom queryset separately.</description>
+      <guid>https://tek-shinobi.github.io/posts/backend-python_django-custom-queryset-vs-custom-manager-for-database-queries/</guid>
+      <description>Note: this applies to Django &amp;gt;= 1.7&#xA;From the docs:&#xA;A Manager is the interface through which database query operations are provided to Django models. At least one Manager exists for every model in a Django application.&#xA;There are two reasons you might want to customize a Manager: to add extra Manager methods, and/or to modify the initial QuerySet the Manager returns.&#xA;Since Django 1.7 and onwards, we no longer need to create custom manager and custom queryset separately.</description>
     </item>
-    
     <item>
       <title>Backend Python:Adding Custom User Model in Django</title>
-      <link>https://tek-shinobi.github.io/posts/backend-pythonadding-custom-user-model-in-django/</link>
+      <link>https://tek-shinobi.github.io/posts/backend-python_adding-custom-user-model-in-django/</link>
       <pubDate>Fri, 07 Sep 2018 12:04:04 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/backend-pythonadding-custom-user-model-in-django/</guid>
-      <description>Part 1 One of the first things I do after creating a new Django or Django Rest Framework project is to create a custom User model. Part 1 deals with case when you add custom User model right at the start of a project. In part 2 , we deal with scenario when custom User model is added later in the project.
-What exactly is a User model for? Django uses a User model for only one purpose, user authentication.</description>
+      <guid>https://tek-shinobi.github.io/posts/backend-python_adding-custom-user-model-in-django/</guid>
+      <description>Part 1 One of the first things I do after creating a new Django or Django Rest Framework project is to create a custom User model. Part 1 deals with case when you add custom User model right at the start of a project. In part 2 , we deal with scenario when custom User model is added later in the project.&#xA;What exactly is a User model for? Django uses a User model for only one purpose, user authentication.</description>
     </item>
-    
     <item>
       <title>Backend Python:Setting Active Navbar Link in Django Template</title>
-      <link>https://tek-shinobi.github.io/posts/backend-pythonsetting-active-navbar-link-in-django-template/</link>
+      <link>https://tek-shinobi.github.io/posts/backend-python_setting-active-navbar-link-in-django-template/</link>
       <pubDate>Fri, 07 Sep 2018 11:47:47 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/backend-pythonsetting-active-navbar-link-in-django-template/</guid>
-      <description>Here is probably the best way to set the active navbar link in Django template. Note, this needs no jQuery/javascript.
-Step 1 Create named urls:
-from django.conf.urls import url, include from django.contrib import admin from django.conf import settings from django.conf.urls.static import static from .views import ( HomeView, AboutView, ContactView, LoginView, RegistrationView ) urlpatterns = [ #url(r&amp;#39;^products/(?P&amp;lt;slug&amp;gt;[\w-]+)/$&amp;#39;, EcomProductDetailSlugView.as_view()), url(r&amp;#39;^$&amp;#39;, HomeView.as_view(), name=&amp;#39;home&amp;#39;), url(r&amp;#39;^about/$&amp;#39;, AboutView.as_view(), name=&amp;#39;about&amp;#39;), url(r&amp;#39;^contact/$&amp;#39;, ContactView.as_view(), name=&amp;#39;contact&amp;#39;), url(r&amp;#39;^login/$&amp;#39;, LoginView.as_view(), name=&amp;#39;login&amp;#39;), url(r&amp;#39;^register/$&amp;#39;, RegistrationView.</description>
+      <guid>https://tek-shinobi.github.io/posts/backend-python_setting-active-navbar-link-in-django-template/</guid>
+      <description>Here is probably the best way to set the active navbar link in Django template. Note, this needs no jQuery/javascript.&#xA;Step 1 Create named urls:&#xA;from django.conf.urls import url, include from django.contrib import admin from django.conf import settings from django.conf.urls.static import static from .views import ( HomeView, AboutView, ContactView, LoginView, RegistrationView ) urlpatterns = [ #url(r&amp;#39;^products/(?P&amp;lt;slug&amp;gt;[\w-]+)/$&amp;#39;, EcomProductDetailSlugView.as_view()), url(r&amp;#39;^$&amp;#39;, HomeView.as_view(), name=&amp;#39;home&amp;#39;), url(r&amp;#39;^about/$&amp;#39;, AboutView.as_view(), name=&amp;#39;about&amp;#39;), url(r&amp;#39;^contact/$&amp;#39;, ContactView.as_view(), name=&amp;#39;contact&amp;#39;), url(r&amp;#39;^login/$&amp;#39;, LoginView.as_view(), name=&amp;#39;login&amp;#39;), url(r&amp;#39;^register/$&amp;#39;, RegistrationView.</description>
     </item>
-    
     <item>
       <title>Backend Python:Django Sessions for Anonymous Users</title>
-      <link>https://tek-shinobi.github.io/posts/backend-pythondjango-sessions-for-anonymous-users/</link>
+      <link>https://tek-shinobi.github.io/posts/backend-python_django-sessions-for-anonymous-users/</link>
       <pubDate>Fri, 07 Sep 2018 11:39:04 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/backend-pythondjango-sessions-for-anonymous-users/</guid>
-      <description>We know that all logged in users are connected to a session. This is something done for you by Django middlewares.
-Similarly, for anonymous users (not logged in), every time the server receives a request, django creates a session object (meaning, an object with session_key, session_data and expire_data values). But the catch here is that you won’t see this session object in the django_session table because django sessions are saved only when modified .</description>
+      <guid>https://tek-shinobi.github.io/posts/backend-python_django-sessions-for-anonymous-users/</guid>
+      <description>We know that all logged in users are connected to a session. This is something done for you by Django middlewares.&#xA;Similarly, for anonymous users (not logged in), every time the server receives a request, django creates a session object (meaning, an object with session_key, session_data and expire_data values). But the catch here is that you won’t see this session object in the django_session table because django sessions are saved only when modified .</description>
     </item>
-    
     <item>
       <title>Backend Python:Django ORM Tips: _set meaning in Django ORM relationship</title>
-      <link>https://tek-shinobi.github.io/posts/backend-pythondjango-orm-tips-set/</link>
+      <link>https://tek-shinobi.github.io/posts/backend-python_django-orm-tips-set/</link>
       <pubDate>Fri, 07 Sep 2018 11:18:20 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/backend-pythondjango-orm-tips-set/</guid>
-      <description>_set is associated with reverse relation on a model.
-Django allows you to access reverse relations on a model. By default, Django creates a manager (RelatedManager) on your model to handle this, named &amp;lt;model&amp;gt;_set, where &amp;lt;model&amp;gt; is your model name in lowercase.
-Excellent link on StackOverflow here: https://stackoverflow.com/questions/25386119/whats-the-difference-between-a-onetoone-manytomany-and-a-foreignkey-field-in-d
-If we have these models:
-class User(models.Model): username = models.CharField(max_length=100, unique=True) companies = models.ManyToManyField(&amp;#39;Company&amp;#39;, blank=True) class Company(models.Model): name = models.CharField(max_length=255) In Django,</description>
+      <guid>https://tek-shinobi.github.io/posts/backend-python_django-orm-tips-set/</guid>
+      <description>_set is associated with reverse relation on a model.&#xA;Django allows you to access reverse relations on a model. By default, Django creates a manager (RelatedManager) on your model to handle this, named &amp;lt;model&amp;gt;_set, where &amp;lt;model&amp;gt; is your model name in lowercase.&#xA;Excellent link on StackOverflow here: https://stackoverflow.com/questions/25386119/whats-the-difference-between-a-onetoone-manytomany-and-a-foreignkey-field-in-d&#xA;If we have these models:&#xA;class User(models.Model): username = models.CharField(max_length=100, unique=True) companies = models.ManyToManyField(&amp;#39;Company&amp;#39;, blank=True) class Company(models.Model): name = models.CharField(max_length=255) In Django,</description>
     </item>
-    
   </channel>
 </rss>

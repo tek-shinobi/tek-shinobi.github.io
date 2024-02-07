@@ -5,69 +5,50 @@
     <link>https://tek-shinobi.github.io/categories/rust/</link>
     <description>Recent content in rust on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 29 May 2021 22:21:11 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/categories/rust/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Sat, 29 May 2021 22:21:11 +0300</lastBuildDate>
+    <atom:link href="https://tek-shinobi.github.io/categories/rust/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Rust Gotchas Copy and Clone</title>
       <link>https://tek-shinobi.github.io/posts/rust-gotchas-copy-and-clone/</link>
       <pubDate>Sat, 29 May 2021 22:21:11 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/posts/rust-gotchas-copy-and-clone/</guid>
-      <description>Rust has two central concepts: Borrowing and ownership.
-In very simple terms, Borrowing conceptually means access to the data through reference, be it mutable or immutable. This is implemented via &amp;amp; and &amp;amp;mut. For a more exhastive treatment, please refer the docs.
-Again, in very simple terms, Ownership conceptually means accessing without &amp;amp; (i.e. without using a reference). Of course, Ownership is a science in Rust and please refer to docs for in-depth treatment.</description>
+      <description>Rust has two central concepts: Borrowing and ownership.&#xA;In very simple terms, Borrowing conceptually means access to the data through reference, be it mutable or immutable. This is implemented via &amp;amp; and &amp;amp;mut. For a more exhastive treatment, please refer the docs.&#xA;Again, in very simple terms, Ownership conceptually means accessing without &amp;amp; (i.e. without using a reference). Of course, Ownership is a science in Rust and please refer to docs for in-depth treatment.</description>
     </item>
-    
     <item>
       <title>Temporary Files and Temporary Directory in Rust</title>
       <link>https://tek-shinobi.github.io/posts/temporary-files-and-temporary-directory-in-rust/</link>
       <pubDate>Sat, 20 Mar 2021 11:36:47 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/posts/temporary-files-and-temporary-directory-in-rust/</guid>
-      <description>I was looking for Python style temporary files and temporary directories in Rust. Very handy when writing tests for simulating actual files, or when we need to use files once or cache large amount of data for short time. We then let the operating system delete the files at a later time automatically or by its clean-up feature manually.
-Doing ourselves using Operating System Temporary Directory Let&amp;rsquo;s first implement this by ourselves to understand what is going on.</description>
+      <description>I was looking for Python style temporary files and temporary directories in Rust. Very handy when writing tests for simulating actual files, or when we need to use files once or cache large amount of data for short time. We then let the operating system delete the files at a later time automatically or by its clean-up feature manually.&#xA;Doing ourselves using Operating System Temporary Directory Let&amp;rsquo;s first implement this by ourselves to understand what is going on.</description>
     </item>
-    
     <item>
       <title>Rust File Builder Pattern for File Read Writes</title>
       <link>https://tek-shinobi.github.io/posts/rust-file-builder-pattern-for-file-read-writes/</link>
       <pubDate>Sat, 20 Mar 2021 11:14:09 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/posts/rust-file-builder-pattern-for-file-read-writes/</guid>
-      <description>Consider the following test code that creates a file, writes to it and then reads back to confirm what it wrote.
-#[cfg(test)] mod tests { #[allow(unused_imports)] use super::*; use std::fs::{self, File, OpenOptions}; use std::io::{Read, Seek, SeekFrom, Write}; use tempfile::{tempdir, tempfile, NamedTempFile}; #[test] fn test_file() { let dir = tempdir().unwrap(); let file_path = dir.path().join(&amp;#34;foo.txt&amp;#34;); let mut file = File::create(file_path.to_owned()).unwrap(); file.write_all(&amp;#34;Bar Baz&amp;#34;.as_bytes()) .unwrap(); file.seek(SeekFrom::Start(0)).unwrap(); let mut contents = String::new(); file.read_to_string(&amp;amp;mut contents).unwrap(); assert_eq!(contents, &amp;#34;Bar Baz&amp;#34;); drop(file); dir.</description>
+      <description>Consider the following test code that creates a file, writes to it and then reads back to confirm what it wrote.&#xA;#[cfg(test)] mod tests { #[allow(unused_imports)] use super::*; use std::fs::{self, File, OpenOptions}; use std::io::{Read, Seek, SeekFrom, Write}; use tempfile::{tempdir, tempfile, NamedTempFile}; #[test] fn test_file() { let dir = tempdir().unwrap(); let file_path = dir.path().join(&amp;#34;foo.txt&amp;#34;); let mut file = File::create(file_path.to_owned()).unwrap(); file.write_all(&amp;#34;Bar Baz&amp;#34;.as_bytes()) .unwrap(); file.seek(SeekFrom::Start(0)).unwrap(); let mut contents = String::new(); file.read_to_string(&amp;amp;mut contents).unwrap(); assert_eq!(contents, &amp;#34;Bar Baz&amp;#34;); drop(file); dir.</description>
     </item>
-    
     <item>
       <title>Turbofish in Rust</title>
       <link>https://tek-shinobi.github.io/posts/turbofish-in-rust/</link>
       <pubDate>Wed, 10 Mar 2021 10:50:37 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/posts/turbofish-in-rust/</guid>
-      <description>Consider the following code (or run it in rust playground here):
-fn main() { let a:Vec = vec![1, 2, 3]; let doubled = a.iter().map(|&amp;amp;x| x * 2).collect(); assert_eq!(vec![2, 4, 6], doubled); } If you ran it in the playground linked above, you will see the following compiler error.
-error[E0282]: type annotations needed --&amp;gt; src/main.rs:4:9 | 4 | let doubled = a.iter().map(|&amp;amp;x| x * 2).collect(); | ^^^^^^^ consider giving `doubled` a type error: aborting due to previous error For more information about this error, try `rustc --explain E0282`.</description>
+      <description>Consider the following code (or run it in rust playground here):&#xA;fn main() { let a:Vec = vec![1, 2, 3]; let doubled = a.iter().map(|&amp;amp;x| x * 2).collect(); assert_eq!(vec![2, 4, 6], doubled); } If you ran it in the playground linked above, you will see the following compiler error.&#xA;error[E0282]: type annotations needed --&amp;gt; src/main.rs:4:9 | 4 | let doubled = a.iter().map(|&amp;amp;x| x * 2).collect(); | ^^^^^^^ consider giving `doubled` a type error: aborting due to previous error For more information about this error, try `rustc --explain E0282`.</description>
     </item>
-    
     <item>
       <title>Self in Use Statement in Rust</title>
       <link>https://tek-shinobi.github.io/posts/self-in-use-statement-in-rust/</link>
       <pubDate>Tue, 09 Mar 2021 11:51:54 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/posts/self-in-use-statement-in-rust/</guid>
-      <description>I was going through some library code in a rust crate and this pattern had my head scratching:
-std::io::{self,Cursor}; What this is equivalent to is:
-use std::io; use std::io::Cursor; which means explicitly use std::io::Cursor and also use std::io itself. Thus, Cursor need not be prefixed but you’d still need to do io::BufReader and so on.</description>
+      <description>I was going through some library code in a rust crate and this pattern had my head scratching:&#xA;std::io::{self,Cursor}; What this is equivalent to is:&#xA;use std::io; use std::io::Cursor; which means explicitly use std::io::Cursor and also use std::io itself. Thus, Cursor need not be prefixed but you’d still need to do io::BufReader and so on.</description>
     </item>
-    
     <item>
       <title>Rust Tips: Box Rc Arc Cell Refcell Mutex</title>
       <link>https://tek-shinobi.github.io/posts/rust-tips-box-rc-arc-cell-refcell-mutex/</link>
       <pubDate>Mon, 08 Mar 2021 11:58:32 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/posts/rust-tips-box-rc-arc-cell-refcell-mutex/</guid>
-      <description>Difference Between Box, Rc, Arc, Cell (and its various variants.. RefCell, Mutex, RwLock) in Rust:
- Box is for single ownership. A great use case is to use this when we want to store primitive types (stored on stack) on heap. Rc is for multiple ownership. Arc is for multiple ownership, but threadsafe. RefCell is for “interior mutability”; that is, when you need to mutate something behind a &amp;amp;T. Cell is for “interior mutability” for Copy types; that is, when you need to mutate something behind a &amp;amp;T.</description>
+      <description>Difference Between Box, Rc, Arc, Cell (and its various variants.. RefCell, Mutex, RwLock) in Rust:&#xA;Box is for single ownership. A great use case is to use this when we want to store primitive types (stored on stack) on heap. Rc is for multiple ownership. Arc is for multiple ownership, but threadsafe. RefCell is for “interior mutability”; that is, when you need to mutate something behind a &amp;amp;T. Cell is for “interior mutability” for Copy types; that is, when you need to mutate something behind a &amp;amp;T.</description>
     </item>
-    
   </channel>
 </rss>

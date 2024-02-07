@@ -57,53 +57,53 @@ Here are the steps:</p>
 <li>Install NLog.Config through Nuget package manager. This will automatically install other dependencies like NLog and NLog.Schema. Please do this in your StartUp project.</li>
 <li>Step 1 will add a file called NLog.config (we don’t modify another NLog.xsd file). Our goal is to set a new log file each day with date in it’s name and email notifications in case of warnings and (fatal) errors.</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;variable</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;logFilePath&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;C:\LPLogs\LP-${shortdate}.log&#34;</span><span style="color:#f92672">/&gt;</span>
-
-<span style="color:#f92672">&lt;targets&gt;</span>
-    <span style="color:#f92672">&lt;target</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;logfile&#34;</span>
-              <span style="color:#a6e22e">xsi:type=</span><span style="color:#e6db74">&#34;File&#34;</span>
-              <span style="color:#a6e22e">fileName=</span><span style="color:#e6db74">&#34;${logFilePath}&#34;</span>
-              <span style="color:#a6e22e">layout=</span><span style="color:#e6db74">&#34;${longdate}   LEVEL=${level:upperCase=true}: ${message}${newline} (${stacktrace}) ${exception:format=tostring}&#34;</span>
-              <span style="color:#a6e22e">keepFileOpen=</span><span style="color:#e6db74">&#34;true&#34;</span> <span style="color:#f92672">/&gt;</span>
-    
-<span style="color:#f92672">&lt;/targets&gt;</span>
-<span style="color:#f92672">&lt;rules&gt;</span>
-    <span style="color:#75715e">&lt;!-- add your logging rules here --&gt;</span>
-    <span style="color:#f92672">&lt;logger</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;*&#34;</span> <span style="color:#a6e22e">minlevel=</span><span style="color:#e6db74">&#34;Info&#34;</span> <span style="color:#a6e22e">writeTo=</span><span style="color:#e6db74">&#34;logfile&#34;</span> <span style="color:#f92672">/&gt;</span>
-<span style="color:#f92672">&lt;/rules&gt;</span>
-</code></pre></div><p>With <code>${shortdate}</code> in the file name, it will automatically make a new logfile everyday.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;variable</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;logFilePath&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;C:\LPLogs\LP-${shortdate}.log&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;targets&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;target</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;logfile&#34;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#a6e22e">xsi:type=</span><span style="color:#e6db74">&#34;File&#34;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#a6e22e">fileName=</span><span style="color:#e6db74">&#34;${logFilePath}&#34;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#a6e22e">layout=</span><span style="color:#e6db74">&#34;${longdate}   LEVEL=${level:upperCase=true}: ${message}${newline} (${stacktrace}) ${exception:format=tostring}&#34;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#a6e22e">keepFileOpen=</span><span style="color:#e6db74">&#34;true&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/targets&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;rules&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">&lt;!-- add your logging rules here --&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;logger</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;*&#34;</span> <span style="color:#a6e22e">minlevel=</span><span style="color:#e6db74">&#34;Info&#34;</span> <span style="color:#a6e22e">writeTo=</span><span style="color:#e6db74">&#34;logfile&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/rules&gt;</span>
+</span></span></code></pre></div><p>With <code>${shortdate}</code> in the file name, it will automatically make a new logfile everyday.</p>
 <p>Then, in which ever file you want to do logging, do like this (in my example, I am showing in Program.cs file)</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cs" data-lang="cs"><span style="color:#66d9ef">using</span> System;
-<span style="color:#66d9ef">using</span> System.Collections.Generic;
-<span style="color:#66d9ef">using</span> System.Linq;
-<span style="color:#66d9ef">using</span> System.Text;
-<span style="color:#66d9ef">using</span> System.Threading.Tasks;
-<span style="color:#66d9ef">using</span> NLog;
-
-<span style="color:#66d9ef">namespace</span> App
-{
-    <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Program</span>
-    {
-        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> Logger logger = LogManager.GetCurrentClassLogger();
-        <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> Main(<span style="color:#66d9ef">string</span>[] args)
-        {
-            logger.Info(<span style="color:#e6db74">&#34;Entry Main method.&#34;</span>);
-
-            <span style="color:#66d9ef">try</span>
-            {
-                <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Exception(<span style="color:#e6db74">&#34;Main exception.&#34;</span>);
-            }
-            <span style="color:#66d9ef">catch</span> (Exception ex)
-            {
-                logger.Error(ex, <span style="color:#e6db74">&#34;Main exception occurred.&#34;</span>);
-            }
-
-            logger.Warn(<span style="color:#e6db74">&#34;A warning!&#34;</span>);
-            logger.Fatal(<span style="color:#e6db74">&#34;A fatal error...&#34;</span>);
-        }
-    }
-}
-</code></pre></div><p>Note: Only lines 6 and 12 are important. Rest are added for testing NLog. Once again, whichever file needs logging, add lines 6 and 12 in it.  After you run this app, it will generate a logfile in the directory configured in NLog.Config (like in C:\LPLogs) with the dummy log data we put from lines 15 and 27.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cs" data-lang="cs"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> System;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> System.Collections.Generic;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> System.Linq;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> System.Text;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> System.Threading.Tasks;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> NLog;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">namespace</span> App
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Program</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> Logger logger = LogManager.GetCurrentClassLogger();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> Main(<span style="color:#66d9ef">string</span>[] args)
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            logger.Info(<span style="color:#e6db74">&#34;Entry Main method.&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">try</span>
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Exception(<span style="color:#e6db74">&#34;Main exception.&#34;</span>);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">catch</span> (Exception ex)
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                logger.Error(ex, <span style="color:#e6db74">&#34;Main exception occurred.&#34;</span>);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            logger.Warn(<span style="color:#e6db74">&#34;A warning!&#34;</span>);
+</span></span><span style="display:flex;"><span>            logger.Fatal(<span style="color:#e6db74">&#34;A fatal error...&#34;</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Note: Only lines 6 and 12 are important. Rest are added for testing NLog. Once again, whichever file needs logging, add lines 6 and 12 in it.  After you run this app, it will generate a logfile in the directory configured in NLog.Config (like in C:\LPLogs) with the dummy log data we put from lines 15 and 27.</p>
 <p>If you want to log in other projects within the solution, just reference NLog.dll directly in each of the projects and use it. But now you only need to configure NLog in your main application. The configuration will then be shared automatically across all projects that reference NLog.dll from the main application.</p>
 
 		</div>
@@ -149,11 +149,11 @@ Here are the steps:</p>
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
-			<li class="widget__item"><a class="widget__link" href="/posts/githubmanaging-multiple-accounts/">Github:managing Multiple Accounts: SSH configuration</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/linuxiptables-cheatsheet/">Linux:Iptables Cheatsheet</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/awssetup-reverse-proxy-in-aws-using-elb/">AWS:Setup Reverse Proxy in AWS Using ELB</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/grafanagrafana-loki-aws-s3-integration/">Grafana:Grafana Loki AWS S3 Integration</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/golangdistributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/github_managing-multiple-accounts/">Github:managing Multiple Accounts: SSH configuration</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/linux_iptables-cheatsheet/">Linux:Iptables Cheatsheet</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/aws_setup-reverse-proxy-in-aws-using-elb/">AWS:Setup Reverse Proxy in AWS Using ELB</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/grafana_grafana-loki-aws-s3-integration/">Grafana:Grafana Loki AWS S3 Integration</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang_distributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/rate-limiting-in-distributed-system/">Rate Limiting in a Distributed System</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golang-testing-creating-large-files/">Golang Testing: Creating Large Files</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/add-gpg-keys-to-repo/">Add Gpg Keys to Repo</a></li>
@@ -241,7 +241,7 @@ Here are the steps:</p>
 	<div class="container footer__container flex">
 		
 		<div class="footer__copyright">
-			&copy; 2023 Tek Shinobi Blog.
+			&copy; 2024 Tek Shinobi Blog.
 			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
 		</div>
 	</div>

@@ -5,28 +5,22 @@
     <link>https://tek-shinobi.github.io/categories/grafana/</link>
     <description>Recent content in grafana on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 13 Oct 2023 12:06:40 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/categories/grafana/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Fri, 13 Oct 2023 12:06:40 +0300</lastBuildDate>
+    <atom:link href="https://tek-shinobi.github.io/categories/grafana/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>AWS:Setup Reverse Proxy in AWS Using ELB</title>
-      <link>https://tek-shinobi.github.io/posts/awssetup-reverse-proxy-in-aws-using-elb/</link>
+      <link>https://tek-shinobi.github.io/posts/aws_setup-reverse-proxy-in-aws-using-elb/</link>
       <pubDate>Fri, 13 Oct 2023 12:06:40 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/awssetup-reverse-proxy-in-aws-using-elb/</guid>
-      <description>We&amp;rsquo;ll take grafana as example application. We will install grafana on an EC2 instance and configure reverse proxy for it.
-Of course, ssh into the EC2 instance and install grafana like so:
-sudo apt-get install -y software-properties-common wget apt-transport-https wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add - sudo add-apt-repository &amp;#34;deb https://packages.grafana.com/oss/deb stable main&amp;#34; sudo apt-get update &amp;amp;&amp;amp; sudo apt-get install grafana then enable and start grafana server:
-sudo systemctl enable grafana-server sudo systemctl start grafana-server To make it easy, configure a public IP address for the EC2 instance &amp;hellip; you can easily do it via EC2 dashboard.</description>
+      <guid>https://tek-shinobi.github.io/posts/aws_setup-reverse-proxy-in-aws-using-elb/</guid>
+      <description>We&amp;rsquo;ll take grafana as example application. We will install grafana on an EC2 instance and configure reverse proxy for it.&#xA;Of course, ssh into the EC2 instance and install grafana like so:&#xA;sudo apt-get install -y software-properties-common wget apt-transport-https wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add - sudo add-apt-repository &amp;#34;deb https://packages.grafana.com/oss/deb stable main&amp;#34; sudo apt-get update &amp;amp;&amp;amp; sudo apt-get install grafana then enable and start grafana server:&#xA;sudo systemctl enable grafana-server sudo systemctl start grafana-server To make it easy, configure a public IP address for the EC2 instance &amp;hellip; you can easily do it via EC2 dashboard.</description>
     </item>
-    
     <item>
       <title>Grafana:Grafana Loki AWS S3 Integration</title>
-      <link>https://tek-shinobi.github.io/posts/grafanagrafana-loki-aws-s3-integration/</link>
+      <link>https://tek-shinobi.github.io/posts/grafana_grafana-loki-aws-s3-integration/</link>
       <pubDate>Thu, 12 Oct 2023 21:14:50 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/grafanagrafana-loki-aws-s3-integration/</guid>
-      <description>Some thoughts and experiences when setting up AWS S3 and single-store for Grafana-Loki. Some context:
- using GLP stack (grafana, loki, promtail) Promtail collects logs from a Kafka stream and sends them to Loki for storage. It also indexes them by EC2 instance ids.  Why this post?  Persisting loki logs somewhere is important otherwise, everytime loki service is restarted, all previous logs and corresponding visualizations on grafana dashboard will be lost.</description>
+      <guid>https://tek-shinobi.github.io/posts/grafana_grafana-loki-aws-s3-integration/</guid>
+      <description>Some thoughts and experiences when setting up AWS S3 and single-store for Grafana-Loki. Some context:&#xA;using GLP stack (grafana, loki, promtail) Promtail collects logs from a Kafka stream and sends them to Loki for storage. It also indexes them by EC2 instance ids. Why this post? Persisting loki logs somewhere is important otherwise, everytime loki service is restarted, all previous logs and corresponding visualizations on grafana dashboard will be lost. The official docs from Grafana are at times confusing.</description>
     </item>
-    
   </channel>
 </rss>

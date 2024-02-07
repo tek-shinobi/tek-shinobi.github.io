@@ -5,61 +5,43 @@
     <link>https://tek-shinobi.github.io/tags/css/</link>
     <description>Recent content in css on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 05 Sep 2019 10:22:21 +0300</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/css/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Thu, 05 Sep 2019 10:22:21 +0300</lastBuildDate>
+    <atom:link href="https://tek-shinobi.github.io/tags/css/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Frontend CSS:Flexbox in a Nutshell</title>
-      <link>https://tek-shinobi.github.io/posts/frontend-cssflexbox-in-a-nutshell/</link>
+      <link>https://tek-shinobi.github.io/posts/frontend-css_flexbox-in-a-nutshell/</link>
       <pubDate>Thu, 05 Sep 2019 10:22:21 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/frontend-cssflexbox-in-a-nutshell/</guid>
-      <description>Flexbox is aimed at a container based layout where we are primarily focused on arranging container items in a single dimension with some abilities of aligning along the cross-axis as well. Because of this, flexbox is often the preferred tool for laying out items along a single dimension. This is different from CSS-Grid which is a grid based layout (two dimensional) out of the box.
-Also note that before flexbox, this alignment was achieved using either inline-block or float or some combination of both.</description>
+      <guid>https://tek-shinobi.github.io/posts/frontend-css_flexbox-in-a-nutshell/</guid>
+      <description>Flexbox is aimed at a container based layout where we are primarily focused on arranging container items in a single dimension with some abilities of aligning along the cross-axis as well. Because of this, flexbox is often the preferred tool for laying out items along a single dimension. This is different from CSS-Grid which is a grid based layout (two dimensional) out of the box.&#xA;Also note that before flexbox, this alignment was achieved using either inline-block or float or some combination of both.</description>
     </item>
-    
     <item>
       <title>Frontend CSS:Common Tricks:Avoid Text Wrapping at Whitespace</title>
-      <link>https://tek-shinobi.github.io/posts/frontend-csscommon-tricksavoid-text-wrapping-at-whitespace/</link>
+      <link>https://tek-shinobi.github.io/posts/frontend-css_common-tricks_avoid-text-wrapping-at-whitespace/</link>
       <pubDate>Thu, 07 Sep 2017 13:59:41 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/frontend-csscommon-tricksavoid-text-wrapping-at-whitespace/</guid>
-      <description>Here is how to avoid wrapping of text in elements like btn, div etc (block, or inline-block elements).
-add this to the btn styling: white-space: nowrap;
-You will find this code often. We strip off any padding around ul because it is automatically added by browsers
-ul{ padding: 0; } If you want the list items to be displayed horizontally, instead of vertically, just put an inline-block
-ul li { display: inline-block; } </description>
+      <guid>https://tek-shinobi.github.io/posts/frontend-css_common-tricks_avoid-text-wrapping-at-whitespace/</guid>
+      <description>Here is how to avoid wrapping of text in elements like btn, div etc (block, or inline-block elements).&#xA;add this to the btn styling: white-space: nowrap;&#xA;You will find this code often. We strip off any padding around ul because it is automatically added by browsers&#xA;ul{ padding: 0; } If you want the list items to be displayed horizontally, instead of vertically, just put an inline-block&#xA;ul li { display: inline-block; } </description>
     </item>
-    
     <item>
       <title>Frontend CSS:When to Use Float vs Position vs Display for Laying Out Elements and Aligning Blocks on Page</title>
-      <link>https://tek-shinobi.github.io/posts/frontend-csswhen-to-use-float-vs-position-vs-display-for-laying-out-elements-and-aligning-blocks-on-page/</link>
+      <link>https://tek-shinobi.github.io/posts/frontend-css_when-to-use-float-vs-position-vs-display-for-laying-out-elements-and-aligning-blocks-on-page/</link>
       <pubDate>Mon, 05 Sep 2016 11:32:27 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/frontend-csswhen-to-use-float-vs-position-vs-display-for-laying-out-elements-and-aligning-blocks-on-page/</guid>
-      <description>Here are the recommendations:
-Float:  Use this for content that flows around (i.e. variable and flexible content). A good example is an image surrounded by texts of different lengths. So even if the amount of text can change, but using float will allow it to flow around the image. Float is also very useful in laying out major parts of layout like header, footer or sidebar.  Display:  Can be useful for aligning page components but you need to account for the extra space around the element(display: inline-block will put a default space between elements having it) Very useful in creating centered horizontal navs because of the fact that the property text-align: center works on aligning child elements as well.</description>
+      <guid>https://tek-shinobi.github.io/posts/frontend-css_when-to-use-float-vs-position-vs-display-for-laying-out-elements-and-aligning-blocks-on-page/</guid>
+      <description>Here are the recommendations:&#xA;Float: Use this for content that flows around (i.e. variable and flexible content). A good example is an image surrounded by texts of different lengths. So even if the amount of text can change, but using float will allow it to flow around the image. Float is also very useful in laying out major parts of layout like header, footer or sidebar. Display: Can be useful for aligning page components but you need to account for the extra space around the element(display: inline-block will put a default space between elements having it) Very useful in creating centered horizontal navs because of the fact that the property text-align: center works on aligning child elements as well.</description>
     </item>
-    
     <item>
       <title>Frontend CSS:Stacking Order of Elements in a Layout</title>
-      <link>https://tek-shinobi.github.io/posts/frontend-cssstacking-order-of-elements-in-a-layout/</link>
+      <link>https://tek-shinobi.github.io/posts/frontend-css_stacking-order-of-elements-in-a-layout/</link>
       <pubDate>Mon, 03 Aug 2015 11:40:26 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/frontend-cssstacking-order-of-elements-in-a-layout/</guid>
-      <description>Lets take a look at this code:
-HTML:
-&amp;lt;html&amp;gt; &amp;lt;head&amp;gt;&amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;p&amp;gt;body content&amp;lt;/p&amp;gt; &amp;lt;div class=&amp;#34;block1&amp;#34;&amp;gt;block1&amp;lt;/div&amp;gt; &amp;lt;div class=&amp;#34;block2&amp;#34;&amp;gt;block1&amp;lt;/div&amp;gt; &amp;lt;div class=&amp;#34;float&amp;#34;&amp;gt; &amp;lt;p&amp;gt;float&amp;lt;/p&amp;gt; &amp;lt;span&amp;gt; class=&amp;#34;inline&amp;#34;&amp;gt;inline&amp;lt;/span&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;div class=&amp;#34;position&amp;#34;&amp;gt;position&amp;lt;/div&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; CSS:
-.block1{ background: pink; } .block2{ background: red; margin: -60px 0 0 20px; } .float{ background: lightblue; float: left; margin: -150px 0 0 100px; } .inline{ background: blue; color: white; padding: 10px 40px 10px 10px; } .position{ background: orange; position: relative; left: 180px; top: -165px; height: 110px; } The natural staking order of elements in this piece of code is (in ascending order in the stack):</description>
+      <guid>https://tek-shinobi.github.io/posts/frontend-css_stacking-order-of-elements-in-a-layout/</guid>
+      <description>Lets take a look at this code:&#xA;HTML:&#xA;&amp;lt;html&amp;gt; &amp;lt;head&amp;gt;&amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;p&amp;gt;body content&amp;lt;/p&amp;gt; &amp;lt;div class=&amp;#34;block1&amp;#34;&amp;gt;block1&amp;lt;/div&amp;gt; &amp;lt;div class=&amp;#34;block2&amp;#34;&amp;gt;block1&amp;lt;/div&amp;gt; &amp;lt;div class=&amp;#34;float&amp;#34;&amp;gt; &amp;lt;p&amp;gt;float&amp;lt;/p&amp;gt; &amp;lt;span&amp;gt; class=&amp;#34;inline&amp;#34;&amp;gt;inline&amp;lt;/span&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;div class=&amp;#34;position&amp;#34;&amp;gt;position&amp;lt;/div&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; CSS:&#xA;.block1{ background: pink; } .block2{ background: red; margin: -60px 0 0 20px; } .float{ background: lightblue; float: left; margin: -150px 0 0 100px; } .inline{ background: blue; color: white; padding: 10px 40px 10px 10px; } .position{ background: orange; position: relative; left: 180px; top: -165px; height: 110px; } The natural staking order of elements in this piece of code is (in ascending order in the stack):</description>
     </item>
-    
     <item>
       <title>Frontend CSS:Reset CSS and Normalize CSS</title>
-      <link>https://tek-shinobi.github.io/posts/frontend-cssreset-css-and-normalize-css/</link>
+      <link>https://tek-shinobi.github.io/posts/frontend-css_reset-css-and-normalize-css/</link>
       <pubDate>Thu, 02 Jul 2015 11:49:24 +0300</pubDate>
-      
-      <guid>https://tek-shinobi.github.io/posts/frontend-cssreset-css-and-normalize-css/</guid>
-      <description>Often there is some guesswork involved when styling elements due to mystery spaces and padding appearing from heaven. These are due to default styling applied by browsers and can cause some confusion as they vary between different browser vendors. To remedy this, many leading developers in the frontend community have come up with two solutions:
-Reset CSS stylesheet: This CSS stylesheet aims to remove all default styling applied. After this stylesheet is applied, the all elements in browsers across the vendors return to unstyled state.</description>
+      <guid>https://tek-shinobi.github.io/posts/frontend-css_reset-css-and-normalize-css/</guid>
+      <description>Often there is some guesswork involved when styling elements due to mystery spaces and padding appearing from heaven. These are due to default styling applied by browsers and can cause some confusion as they vary between different browser vendors. To remedy this, many leading developers in the frontend community have come up with two solutions:&#xA;Reset CSS stylesheet: This CSS stylesheet aims to remove all default styling applied. After this stylesheet is applied, the all elements in browsers across the vendors return to unstyled state.</description>
     </item>
-    
   </channel>
 </rss>

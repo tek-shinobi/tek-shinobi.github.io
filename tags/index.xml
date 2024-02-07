@@ -5,285 +5,225 @@
     <link>https://tek-shinobi.github.io/tags/</link>
     <description>Recent content in Tags on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 06 Nov 2023 19:53:20 +0200</lastBuildDate><atom:link href="https://tek-shinobi.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Mon, 06 Nov 2023 19:53:20 +0200</lastBuildDate>
+    <atom:link href="https://tek-shinobi.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>github</title>
       <link>https://tek-shinobi.github.io/tags/github/</link>
       <pubDate>Mon, 06 Nov 2023 19:53:20 +0200</pubDate>
-      
       <guid>https://tek-shinobi.github.io/tags/github/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>iptables</title>
       <link>https://tek-shinobi.github.io/tags/iptables/</link>
       <pubDate>Tue, 17 Oct 2023 13:23:19 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/tags/iptables/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>aws</title>
       <link>https://tek-shinobi.github.io/tags/aws/</link>
       <pubDate>Fri, 13 Oct 2023 12:06:40 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/tags/aws/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>loki</title>
       <link>https://tek-shinobi.github.io/tags/loki/</link>
       <pubDate>Thu, 12 Oct 2023 21:14:50 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/tags/loki/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>s3</title>
       <link>https://tek-shinobi.github.io/tags/s3/</link>
       <pubDate>Thu, 12 Oct 2023 21:14:50 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/tags/s3/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>golang</title>
       <link>https://tek-shinobi.github.io/tags/golang/</link>
       <pubDate>Tue, 25 Jul 2023 10:41:57 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/tags/golang/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>rate limiter</title>
       <link>https://tek-shinobi.github.io/tags/rate-limiter/</link>
       <pubDate>Tue, 25 Jul 2023 10:41:57 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/tags/rate-limiter/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>redis</title>
       <link>https://tek-shinobi.github.io/tags/redis/</link>
       <pubDate>Tue, 25 Jul 2023 10:41:57 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/tags/redis/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>testing</title>
       <link>https://tek-shinobi.github.io/tags/testing/</link>
       <pubDate>Tue, 11 Jul 2023 15:17:34 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/tags/testing/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>gpg</title>
       <link>https://tek-shinobi.github.io/tags/gpg/</link>
       <pubDate>Sat, 07 Jan 2023 22:53:11 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/tags/gpg/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>docker</title>
       <link>https://tek-shinobi.github.io/tags/docker/</link>
       <pubDate>Thu, 05 May 2022 10:38:56 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/tags/docker/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>postgres</title>
       <link>https://tek-shinobi.github.io/tags/postgres/</link>
       <pubDate>Thu, 05 May 2022 10:38:56 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/tags/postgres/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>mongodb</title>
       <link>https://tek-shinobi.github.io/tags/mongodb/</link>
       <pubDate>Sun, 14 Nov 2021 10:25:50 +0200</pubDate>
-      
       <guid>https://tek-shinobi.github.io/tags/mongodb/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>concurrency</title>
       <link>https://tek-shinobi.github.io/tags/concurrency/</link>
       <pubDate>Fri, 15 Oct 2021 15:41:34 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/tags/concurrency/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>tools</title>
       <link>https://tek-shinobi.github.io/tags/tools/</link>
       <pubDate>Thu, 23 Sep 2021 13:04:41 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/tags/tools/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>minikube</title>
       <link>https://tek-shinobi.github.io/tags/minikube/</link>
       <pubDate>Wed, 15 Sep 2021 09:59:30 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/tags/minikube/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>automation</title>
       <link>https://tek-shinobi.github.io/tags/automation/</link>
       <pubDate>Mon, 21 Jun 2021 11:01:27 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/tags/automation/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>rust</title>
       <link>https://tek-shinobi.github.io/tags/rust/</link>
       <pubDate>Sat, 29 May 2021 22:21:11 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/tags/rust/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>turbofish</title>
       <link>https://tek-shinobi.github.io/tags/turbofish/</link>
       <pubDate>Wed, 10 Mar 2021 10:50:37 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/tags/turbofish/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>networking</title>
       <link>https://tek-shinobi.github.io/tags/networking/</link>
       <pubDate>Sat, 08 Feb 2020 18:34:10 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/tags/networking/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>tcp</title>
       <link>https://tek-shinobi.github.io/tags/tcp/</link>
       <pubDate>Sat, 08 Feb 2020 18:34:10 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/tags/tcp/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>python</title>
       <link>https://tek-shinobi.github.io/tags/python/</link>
       <pubDate>Thu, 05 Sep 2019 11:01:54 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/tags/python/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>css</title>
       <link>https://tek-shinobi.github.io/tags/css/</link>
       <pubDate>Thu, 05 Sep 2019 10:22:21 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/tags/css/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>django</title>
       <link>https://tek-shinobi.github.io/tags/django/</link>
       <pubDate>Fri, 07 Sep 2018 16:18:09 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/tags/django/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>c#</title>
       <link>https://tek-shinobi.github.io/tags/c#/</link>
       <pubDate>Fri, 07 Sep 2018 16:09:23 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/tags/c#/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>backend</title>
       <link>https://tek-shinobi.github.io/tags/backend/</link>
       <pubDate>Fri, 07 Sep 2018 09:42:46 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/tags/backend/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>scrapy</title>
       <link>https://tek-shinobi.github.io/tags/scrapy/</link>
       <pubDate>Wed, 05 Sep 2018 11:13:58 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/tags/scrapy/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>virtualbox</title>
       <link>https://tek-shinobi.github.io/tags/virtualbox/</link>
       <pubDate>Fri, 29 Sep 2017 11:14:07 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/tags/virtualbox/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>javascript</title>
       <link>https://tek-shinobi.github.io/tags/javascript/</link>
       <pubDate>Thu, 07 Sep 2017 09:50:40 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/tags/javascript/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>react</title>
       <link>https://tek-shinobi.github.io/tags/react/</link>
       <pubDate>Thu, 07 Sep 2017 09:50:40 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/tags/react/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>ES6</title>
       <link>https://tek-shinobi.github.io/tags/es6/</link>
       <pubDate>Tue, 05 Sep 2017 11:25:18 +0300</pubDate>
-      
       <guid>https://tek-shinobi.github.io/tags/es6/</guid>
       <description></description>
     </item>
-    
   </channel>
 </rss>
