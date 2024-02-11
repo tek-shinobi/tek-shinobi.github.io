@@ -401,6 +401,13 @@
       <description>// crreate a whole random number between [0,20) function wholeRandomNumber(){ return Math.floor(Math.random() * 20) } console.log(wholeRandomNumber()) // random numbers within a range [min, max] function randomRange(min, max){ return Math.floor(Math.random()*(max-min + 1)) + min } console.log(randomRange(1,2)) // parseInt // return integer from a string. It will returrn NaN if string cannot be converted to a number function convertToIntegerr(str){ return parseInt(str) } console.log(&amp;#34;parseInt: &amp;#34;+ convertToIntegerr(&amp;#34;55&amp;#34;)) console.log(&amp;#34;parseInt: &amp;#34;+ convertToIntegerr(&amp;#34;ABC&amp;#34;)) // parseInt also takes in a radix.</description>
     </item>
     <item>
+      <title>Study Topics</title>
+      <link>https://tek-shinobi.github.io/posts/study-topics/</link>
+      <pubDate>Sat, 11 Feb 2017 12:47:11 +0200</pubDate>
+      <guid>https://tek-shinobi.github.io/posts/study-topics/</guid>
+      <description>Study topics:&#xA;https://github.com/khezen/bulklog</description>
+    </item>
+    <item>
       <title>Frontend CSS:When to Use Float vs Position vs Display for Laying Out Elements and Aligning Blocks on Page</title>
       <link>https://tek-shinobi.github.io/posts/frontend-css_when-to-use-float-vs-position-vs-display-for-laying-out-elements-and-aligning-blocks-on-page/</link>
       <pubDate>Mon, 05 Sep 2016 11:32:27 +0300</pubDate>

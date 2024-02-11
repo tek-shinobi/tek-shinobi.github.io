@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>study on Tek Shinobi Blog</title>
+    <link>https://tek-shinobi.github.io/tags/study/</link>
+    <description>Recent content in study on Tek Shinobi Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 11 Feb 2017 12:47:11 +0200</lastBuildDate>
+    <atom:link href="https://tek-shinobi.github.io/tags/study/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Study Topics</title>
+      <link>https://tek-shinobi.github.io/posts/study-topics/</link>
+      <pubDate>Sat, 11 Feb 2017 12:47:11 +0200</pubDate>
+      <guid>https://tek-shinobi.github.io/posts/study-topics/</guid>
+      <description>Study topics:&#xA;https://github.com/khezen/bulklog</description>
+    </item>
+  </channel>
+</rss>
