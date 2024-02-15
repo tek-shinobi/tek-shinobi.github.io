@@ -45,6 +45,25 @@
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
+			<a href="/posts/python-scrapy_removing-non-ascii-characters-from-text-in-python/" rel="bookmark">
+			Python Scrapy:Removing Non Ascii Characters From Text in Python
+			</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2018-09-05T11:13:58&#43;03:00">September 05, 2018</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/backend/" rel="category">backend</a>, <a class="meta__link" href="/categories/python/" rel="category">python</a>
+	</span>
+</div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		I was handling some text scraped using Scrapy and the text had non-ascii unicode charcters like \u003e. If I did this, it didn&rsquo;t work:
+html_text = response.text.encode(&#39;ascii&#39;, errors=&#39;ignore&#39;).decode() Here response.text is the string that contains unicode text (scrapy returns strings encoded in unicode). The html_text still had non ascii unicode characters like \u003e This worked:
+html_text = response.text.encode(&#39;ascii&#39;, errors=&#39;ignore&#39;).decode(&#39;unicode-escape&#39;) Note that unicode-escape part in decode. That made the difference in getting rid of characters like \u003e and replacing them with space.
+	</div>
+</article><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
 			<a href="/posts/golangcpuprofilingandloadtesting/" rel="bookmark">
 			Golang: CPU Profiling And Load Testing
 			</a>
@@ -210,30 +229,13 @@ HTML:
 &lt;html&gt; &lt;head&gt;&lt;/head&gt; &lt;body&gt; &lt;p&gt;body content&lt;/p&gt; &lt;div class=&#34;block1&#34;&gt;block1&lt;/div&gt; &lt;div class=&#34;block2&#34;&gt;block1&lt;/div&gt; &lt;div class=&#34;float&#34;&gt; &lt;p&gt;float&lt;/p&gt; &lt;span&gt; class=&#34;inline&#34;&gt;inline&lt;/span&gt; &lt;/div&gt; &lt;div class=&#34;position&#34;&gt;position&lt;/div&gt; &lt;/body&gt; &lt;/html&gt; CSS:
 .block1{ background: pink; } .block2{ background: red; margin: -60px 0 0 20px; } .float{ background: lightblue; float: left; margin: -150px 0 0 100px; } .inline{ background: blue; color: white; padding: 10px 40px 10px 10px; } .position{ background: orange; position: relative; left: 180px; top: -165px; height: 110px; } The natural staking order of elements in this piece of code is (in ascending order in the stack):
 	</div>
-</article><article class="list__item post">
-	
-	<header class="list__header">
-		<h2 class="list__title post__title">
-			<a href="/posts/frontend-css_reset-css-and-normalize-css/" rel="bookmark">
-			Frontend CSS:Reset CSS and Normalize CSS
-			</a>
-		</h2>
-		<div class="list__meta meta">
-<div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2015-07-02T11:49:24&#43;03:00">July 02, 2015</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/frontend/" rel="category">frontend</a>
-	</span>
-</div></div>
-	</header>
-	<div class="content list__excerpt post__content clearfix">
-		Often there is some guesswork involved when styling elements due to mystery spaces and padding appearing from heaven. These are due to default styling applied by browsers and can cause some confusion as they vary between different browser vendors. To remedy this, many leading developers in the frontend community have come up with two solutions:
-Reset CSS stylesheet: This CSS stylesheet aims to remove all default styling applied. After this stylesheet is applied, the all elements in browsers across the vendors return to unstyled state.
-	</div>
 </article>
 </main>
 
 <div class="pagination">
 	<a class="pagination__item pagination__item--prev btn" href="/posts/page/5/">«</a>
-	<span class="pagination__item pagination__item--current">6/6</span>
+	<span class="pagination__item pagination__item--current">6/7</span>
+	<a class="pagination__item pagination__item--next btn" href="/posts/page/7/">»</a>
 </div>
 
 			</div>
@@ -269,9 +271,9 @@ Reset CSS stylesheet: This CSS stylesheet aims to remove all default styling app
 			<li class="widget__item"><a class="widget__link" href="/posts/golang_distributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/rate-limiting-in-distributed-system/">Rate Limiting in a Distributed System</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golang-testing-creating-large-files/">Golang Testing: Creating Large Files</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/grafana-loki-logql-tutorial/">Grafana Loki LogQL Tutorial</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/add-gpg-keys-to-repo/">Add Gpg Keys to Repo</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golang-handling-null-in-database-tables/">Golang: Handling Null in Database Tables</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/using-postgres-inside-docker-container/">Golang: Using Postgres Inside Docker Container</a></li>
 		</ul>
 	</div>
 </div>
@@ -331,6 +333,7 @@ Reset CSS stylesheet: This CSS stylesheet aims to remove all default styling app
 		<a class="widget-taglist__link widget__link btn" href="/tags/gpg/" title="gpg">gpg</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/iptables/" title="iptables">iptables</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/javascript/" title="javascript">javascript</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/logql/" title="LogQL">LogQL</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/loki/" title="loki">loki</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/minikube/" title="minikube">minikube</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/mongodb/" title="mongodb">mongodb</a>

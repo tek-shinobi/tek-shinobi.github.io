@@ -22,5 +22,12 @@
       <guid>https://tek-shinobi.github.io/posts/grafana_grafana-loki-aws-s3-integration/</guid>
       <description>Some thoughts and experiences when setting up AWS S3 and single-store for Grafana-Loki. Some context:&#xA;using GLP stack (grafana, loki, promtail) Promtail collects logs from a Kafka stream and sends them to Loki for storage. It also indexes them by EC2 instance ids. Why this post? Persisting loki logs somewhere is important otherwise, everytime loki service is restarted, all previous logs and corresponding visualizations on grafana dashboard will be lost. The official docs from Grafana are at times confusing.</description>
     </item>
+    <item>
+      <title>Grafana Loki LogQL Tutorial</title>
+      <link>https://tek-shinobi.github.io/posts/grafana-loki-logql-tutorial/</link>
+      <pubDate>Wed, 15 Feb 2023 10:15:28 +0200</pubDate>
+      <guid>https://tek-shinobi.github.io/posts/grafana-loki-logql-tutorial/</guid>
+      <description>Credit: material taken from this excellent video here: https://www.youtube.com/watch?v=HDpE9v1Syz8&#xA;Credit: Corresponding blog entry here: https://sbcode.net/grafana/logql/&#xA;Description There are two types of LogQL queries:&#xA;Log queries returning the contents of log lines as streams. Metric queries that convert logs into value matrixes. A LogQL query consists of:&#xA;The log stream selector Filter expression We can use operations on both the log stream selectors and filter expressions to refine them.&#xA;Log Stream Selectors Operators = : equals !</description>
+    </item>
   </channel>
 </rss>

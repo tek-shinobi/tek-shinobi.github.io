@@ -45,6 +45,24 @@
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
+			<a href="/posts/temporary-files-and-temporary-directory-in-rust/" rel="bookmark">
+			Temporary Files and Temporary Directory in Rust
+			</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2021-03-20T11:36:47&#43;03:00">March 20, 2021</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/rust/" rel="category">rust</a>
+	</span>
+</div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		I was looking for Python style temporary files and temporary directories in Rust. Very handy when writing tests for simulating actual files, or when we need to use files once or cache large amount of data for short time. We then let the operating system delete the files at a later time automatically or by its clean-up feature manually.
+Doing ourselves using Operating System Temporary Directory Let&rsquo;s first implement this by ourselves to understand what is going on.
+	</div>
+</article><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
 			<a href="/posts/rust-file-builder-pattern-for-file-read-writes/" rel="bookmark">
 			Rust File Builder Pattern for File Read Writes
 			</a>
@@ -211,32 +229,12 @@ XML Generation Target code:
 &lt;root_element xmlns=&#34;http://www.w3.org/TR/html4/&#34; some_more_params=&#34;12345-678-ABC&#34; yet_more_params=&#34;POKEMON-SUCKS&#34;&gt; &lt;element&gt; &lt;element_data1 type=&#34;sometype&#34;&gt;&lt;![CDATA[SomeVal123]]&gt;&lt;/element_data1&gt; &lt;element_data2&gt;12345&lt;/element_data2&gt; &lt;element_data3 some_attr=&#34;some_attr&#34;&gt;More random data&lt;/element_data3&gt; &lt;/element&gt; &lt;another_element&gt; &lt;element_data1 type=&#34;sometype&#34;&gt;&lt;![CDATA[SomeVal1234]]&gt;&lt;/element_data1&gt; &lt;element_data2&gt;12345&lt;/element_data2&gt; &lt;element_data3 some_attr=&#34;some_attr&#34;&gt;More random data&lt;/element_data3&gt; &lt;/another_element&gt; &lt;/root_element&gt; Ok, Here is the code to generate it:
 from lxml import etree def create_xml(): XML_OPTIONS = {&#39;pretty_print&#39;: True, &#39;xml_declaration&#39;: True, &#39;encoding&#39;: &#39;utf-8&#39;} def create_root_element(): XHTML_NAMESPACE = &#34;http://www.
 	</div>
-</article><article class="list__item post">
-	
-	<header class="list__header">
-		<h2 class="list__title post__title">
-			<a href="/posts/backend-python_using-pytest-with-django-and-django-rest-framework/" rel="bookmark">
-			Backend Python:Using Pytest With Django and Django Rest Framework
-			</a>
-		</h2>
-		<div class="list__meta meta">
-<div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2018-09-07T19:23:46&#43;03:00">September 07, 2018</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/backend/" rel="category">backend</a>, <a class="meta__link" href="/categories/python/" rel="category">python</a>
-	</span>
-</div></div>
-	</header>
-	<div class="content list__excerpt post__content clearfix">
-		What is Pytest Pytest is testing framework for Python. Very popular with Django.
-Killer feature : Fixtures Fixtures are the killer feature of Pytest. Fixtures are functions that run before and after each test, like setUp and tearDown in unitest and labelled pytest killer feature. Fixtures are used for data configuration, connection/disconnection of databases, calling extra actions, and so on.
-All fixtures have scope argument with available values:
-function run once per test class run once per class of tests module run once per module session run once per session Note: Default value of scope is function
-	</div>
 </article>
 </main>
 
 <div class="pagination">
 	<a class="pagination__item pagination__item--prev btn" href="/posts/page/2/">«</a>
-	<span class="pagination__item pagination__item--current">3/6</span>
+	<span class="pagination__item pagination__item--current">3/7</span>
 	<a class="pagination__item pagination__item--next btn" href="/posts/page/4/">»</a>
 </div>
 
@@ -273,9 +271,9 @@ function run once per test class run once per class of tests module run once per
 			<li class="widget__item"><a class="widget__link" href="/posts/golang_distributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/rate-limiting-in-distributed-system/">Rate Limiting in a Distributed System</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golang-testing-creating-large-files/">Golang Testing: Creating Large Files</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/grafana-loki-logql-tutorial/">Grafana Loki LogQL Tutorial</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/add-gpg-keys-to-repo/">Add Gpg Keys to Repo</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golang-handling-null-in-database-tables/">Golang: Handling Null in Database Tables</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/using-postgres-inside-docker-container/">Golang: Using Postgres Inside Docker Container</a></li>
 		</ul>
 	</div>
 </div>
@@ -335,6 +333,7 @@ function run once per test class run once per class of tests module run once per
 		<a class="widget-taglist__link widget__link btn" href="/tags/gpg/" title="gpg">gpg</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/iptables/" title="iptables">iptables</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/javascript/" title="javascript">javascript</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/logql/" title="LogQL">LogQL</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/loki/" title="loki">loki</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/minikube/" title="minikube">minikube</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/mongodb/" title="mongodb">mongodb</a>
