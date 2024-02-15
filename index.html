@@ -191,12 +191,10 @@ package main import ( &#34;encoding/json&#34; &#34;fmt&#34; &#34;math/rand&#34; 
 </div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
-		Credit: material taken from this excellent video here: https://www.youtube.com/watch?v=HDpE9v1Syz8
-Credit: Corresponding blog entry here: https://sbcode.net/grafana/logql/
-Description There are two types of LogQL queries:
+		Description There are two types of LogQL queries:
 Log queries returning the contents of log lines as streams. Metric queries that convert logs into value matrixes. A LogQL query consists of:
 The log stream selector Filter expression We can use operations on both the log stream selectors and filter expressions to refine them.
-Log Stream Selectors Operators = : equals !
+Log Stream Selectors Operators = : equals != : not equals =~ : regex matches !~ : regex does not match EXAMPLES Return all log lines for the job varlog
 	</div>
 </article><article class="list__item post">
 	

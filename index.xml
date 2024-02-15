@@ -62,7 +62,7 @@
       <link>https://tek-shinobi.github.io/posts/grafana-loki-logql-tutorial/</link>
       <pubDate>Wed, 15 Feb 2023 10:15:28 +0200</pubDate>
       <guid>https://tek-shinobi.github.io/posts/grafana-loki-logql-tutorial/</guid>
-      <description>Credit: material taken from this excellent video here: https://www.youtube.com/watch?v=HDpE9v1Syz8&#xA;Credit: Corresponding blog entry here: https://sbcode.net/grafana/logql/&#xA;Description There are two types of LogQL queries:&#xA;Log queries returning the contents of log lines as streams. Metric queries that convert logs into value matrixes. A LogQL query consists of:&#xA;The log stream selector Filter expression We can use operations on both the log stream selectors and filter expressions to refine them.&#xA;Log Stream Selectors Operators = : equals !</description>
+      <description>Description There are two types of LogQL queries:&#xA;Log queries returning the contents of log lines as streams. Metric queries that convert logs into value matrixes. A LogQL query consists of:&#xA;The log stream selector Filter expression We can use operations on both the log stream selectors and filter expressions to refine them.&#xA;Log Stream Selectors Operators = : equals != : not equals =~ : regex matches !~ : regex does not match EXAMPLES Return all log lines for the job varlog</description>
     </item>
     <item>
       <title>Add Gpg Keys to Repo</title>
