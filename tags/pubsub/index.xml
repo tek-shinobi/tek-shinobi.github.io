@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>pubsub on Tek Shinobi Blog</title>
+    <link>https://tek-shinobi.github.io/tags/pubsub/</link>
+    <description>Recent content in pubsub on Tek Shinobi Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 18 Feb 2023 20:27:27 +0200</lastBuildDate>
+    <atom:link href="https://tek-shinobi.github.io/tags/pubsub/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Golang Google Cloud PubSub Tutorial</title>
+      <link>https://tek-shinobi.github.io/posts/golang-google-cloud-pubsub-tutorial/</link>
+      <pubDate>Sat, 18 Feb 2023 20:27:27 +0200</pubDate>
+      <guid>https://tek-shinobi.github.io/posts/golang-google-cloud-pubsub-tutorial/</guid>
+      <description>brief cheatsheet on doing a simple pubsub publish and subscribe in golang in a synchronous fashion.&#xA;package main import ( &amp;#34;cloud.google.com/go/pubsub&amp;#34; &amp;#34;context&amp;#34; &amp;#34;fmt&amp;#34; &amp;#34;github.com/google/uuid&amp;#34; &amp;#34;google.golang.org/grpc/codes&amp;#34; &amp;#34;google.golang.org/grpc/status&amp;#34; &amp;#34;os&amp;#34; &amp;#34;time&amp;#34; ) const timeout = 10 * time.Second // GCPubSub wrapper for Google Cloud PubSub type GCPubSub struct { client *pubsub.Client } func main() { err := os.Setenv(&amp;#34;PUBSUB_EMULATOR_HOST&amp;#34;, &amp;#34;localhost:8085&amp;#34;) if err != nil { fmt.Println(&amp;#34;Error setting env:&amp;#34;, err) panic(err) } projectID := &amp;#34;your-project-id&amp;#34; ctx, cancelTO := context.</description>
+    </item>
+  </channel>
+</rss>

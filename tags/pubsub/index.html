@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Golang:NewProjSteps - Tek Shinobi Blog</title>
+	<title>pubsub - Tek Shinobi Blog</title>
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,6 +14,7 @@
 
 	<link rel="stylesheet" href="/css/style.css">
 	
+	<link rel="alternate" type="application/rss+xml" href="/tags/pubsub/index.xml" title="Tek Shinobi Blog">
 
 	<link rel="shortcut icon" href="/favicon.ico">
 		
@@ -37,86 +38,34 @@
 		<div class="wrapper flex">
 			<div class="primary">
 			
-<main class="main" role="main">
-	<article class="post">
-		<header class="post__header">
-			<h1 class="post__title">Golang:NewProjSteps</h1>
-			<div class="post__meta meta">
+<main class="main list" role="main">
+	<header class="main__header">
+		<h1 class="main__title">pubsub</h1>
+	</header><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/posts/golang-google-cloud-pubsub-tutorial/" rel="bookmark">
+			Golang Google Cloud PubSub Tutorial
+			</a>
+		</h2>
+		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2018-09-24T17:35:09&#43;03:00">September 24, 2018</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/golang/" rel="category">golang</a>
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2023-02-18T20:27:27&#43;02:00">February 18, 2023</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/golang/" rel="category">golang</a>
 	</span>
 </div></div>
-		</header>
-		<div class="content post__content clearfix">
-			<h2 id="database">Database</h2>
-<p>create and run a docker postgres container in detached mode. Container name is <code>modelapp-postgres</code>. The postgres image used is <code>postgres:latest</code>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>docker run --name modelapp-postgres -d --rm -e POSTGRES_USER<span style="color:#f92672">=</span>root -e POSTGRES_PASSWORD<span style="color:#f92672">=</span>secret -p 5432:5432 postgres:latest
-</span></span></code></pre></div><p>check logs of running docker container:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>docker logs modelapp-postgres | bat -l man   
-</span></span></code></pre></div><p>inspect docker container:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>docker inspect modelapp-postgres | bat -l man
-</span></span></code></pre></div><p>login to container as root, to see if postgres is running:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>docker exec -it modelapp-postgres psql -U root
-</span></span></code></pre></div><p>further check if postgres running ok and in a ready state by running the <code>select now();</code> at root console:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>root<span style="color:#f92672">=</span><span style="color:#75715e"># select now();</span>
-</span></span><span style="display:flex;"><span>              now              
-</span></span><span style="display:flex;"><span>-------------------------------
-</span></span><span style="display:flex;"><span> 2023-09-24 13:14:13.216822+00
-</span></span><span style="display:flex;"><span><span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> row<span style="color:#f92672">)</span>
-</span></span></code></pre></div><p>to create new database, exit out of prev step and then enter postgres container shell like so. Since this is a postgres container&rsquo;s shell, we have access to some postgres cli commands like one for creating a database:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>docker exec -it modelapp-postgres /bin/sh
-</span></span></code></pre></div><p>create database named <code>modelapp</code>. With owner as root and username as root</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># createdb --username=root --owner=root modelapp</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># </span>
-</span></span></code></pre></div><p>connect to the database console like so:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># psql modelapp</span>
-</span></span></code></pre></div><p>the prompt will change to one of database name:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># psql modelapp</span>
-</span></span><span style="display:flex;"><span>psql <span style="color:#f92672">(</span>15.3 <span style="color:#f92672">(</span>Debian 15.3-1.pgdg120+1<span style="color:#f92672">))</span>
-</span></span><span style="display:flex;"><span>Type <span style="color:#e6db74">&#34;help&#34;</span> <span style="color:#66d9ef">for</span> help.
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>modelapp<span style="color:#f92672">=</span><span style="color:#75715e"># </span>
-</span></span></code></pre></div><p>to quit the database console:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>modelapp<span style="color:#f92672">=</span><span style="color:#75715e"># \q</span>
-</span></span></code></pre></div><p>to drop the database (from within the bash shell of container):</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># dropdb modelapp</span>
-</span></span></code></pre></div><p>a shortcut to directly goto the database console without going through the container shell is (the database has to exist for this to work):</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>docker exec -it modelapp-postgres psql -U root modelapp
-</span></span></code></pre></div><p>another shortcut way to directly create a database and drop database using docker command is:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># create database</span>
-</span></span><span style="display:flex;"><span>docker exec -it modelapp-postgres createdb --username<span style="color:#f92672">=</span>root --owner<span style="color:#f92672">=</span>root modelapp
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># delete database</span>
-</span></span><span style="display:flex;"><span>docker exec -it modelapp-postgres dropdb --username<span style="color:#f92672">=</span>root --owner<span style="color:#f92672">=</span>root modelapp
-</span></span></code></pre></div><h2 id="golang-migrate">Golang migrate</h2>
-<p>create migration schema file:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>./migrate create -ext sql -dir internal/repository/migrations/postgres -seq create_users_table
-</span></span></code></pre></div><p>for running migration:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>./migrate -path internal/repository/migrations/postgres -database <span style="color:#e6db74">&#34;postgresql://root:secret@localhost:5432/modelapp?sslmode=disable&#34;</span> up
-</span></span></code></pre></div><p>in case there was a problem in doing migration, it will be marked as dirty for current migration number. After the bug was fixed that caused migration failure, we will have to first reset the migration dirty to false. A shortcult way of solving this is to force migration to some lower one:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>./migrate -path internal/repository/migrations/postgres -database <span style="color:#e6db74">&#34;postgresql://root:secret@localhost:5432/modelapp?sslmode=disable&#34;</span> -verbose force <span style="color:#ae81ff">1</span>
-</span></span></code></pre></div><p>above the current dirty migration was set at 3. So first forced migrated it to some lower value like 1. This will be successful. Then do up</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>./migrate -path internal/repository/migrations/postgres -database <span style="color:#e6db74">&#34;postgresql://root:secret@localhost:5432/modelapp?sslmode=disable&#34;</span> up
-</span></span></code></pre></div>
-		</div>
-		<footer class="post__footer">
-			
-<div class="post__tags tags clearfix">
-	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
-	<ul class="tags__list">
-		<li class="tags__item">
-			<a class="tags__link btn" href="/tags/tools/" rel="tag">tools</a>
-		</li>
-	</ul>
-</div>
-		</footer>
-	</article>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		brief cheatsheet on doing a simple pubsub publish and subscribe in golang in a synchronous fashion.
+package main import ( &#34;cloud.google.com/go/pubsub&#34; &#34;context&#34; &#34;fmt&#34; &#34;github.com/google/uuid&#34; &#34;google.golang.org/grpc/codes&#34; &#34;google.golang.org/grpc/status&#34; &#34;os&#34; &#34;time&#34; ) const timeout = 10 * time.Second // GCPubSub wrapper for Google Cloud PubSub type GCPubSub struct { client *pubsub.Client } func main() { err := os.Setenv(&#34;PUBSUB_EMULATOR_HOST&#34;, &#34;localhost:8085&#34;) if err != nil { fmt.Println(&#34;Error setting env:&#34;, err) panic(err) } projectID := &#34;your-project-id&#34; ctx, cancelTO := context.
+	</div>
+</article>
 </main>
 
 
-
-
 			</div>
-			<aside class="sidebar">
+			
+<aside class="sidebar">
 <div class="widget-social widget">
 	<h4 class="widget-social__title widget__title">Social</h4>
 	<div class="widget-social__content widget__content">

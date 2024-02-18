@@ -81,6 +81,24 @@ package main import ( &#34;encoding/json&#34; &#34;fmt&#34; &#34;math/rand&#34; 
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
+			<a href="/posts/golang-google-cloud-pubsub-tutorial/" rel="bookmark">
+			Golang Google Cloud PubSub Tutorial
+			</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2023-02-18T20:27:27&#43;02:00">February 18, 2023</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/golang/" rel="category">golang</a>
+	</span>
+</div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		brief cheatsheet on doing a simple pubsub publish and subscribe in golang in a synchronous fashion.
+package main import ( &#34;cloud.google.com/go/pubsub&#34; &#34;context&#34; &#34;fmt&#34; &#34;github.com/google/uuid&#34; &#34;google.golang.org/grpc/codes&#34; &#34;google.golang.org/grpc/status&#34; &#34;os&#34; &#34;time&#34; ) const timeout = 10 * time.Second // GCPubSub wrapper for Google Cloud PubSub type GCPubSub struct { client *pubsub.Client } func main() { err := os.Setenv(&#34;PUBSUB_EMULATOR_HOST&#34;, &#34;localhost:8085&#34;) if err != nil { fmt.Println(&#34;Error setting env:&#34;, err) panic(err) } projectID := &#34;your-project-id&#34; ctx, cancelTO := context.
+	</div>
+</article><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
 			<a href="/posts/golang-handling-null-in-database-tables/" rel="bookmark">
 			Golang: Handling Null in Database Tables
 			</a>
@@ -298,6 +316,7 @@ Execution: If we already have an endpoint that directly invokes the service, its
 		<a class="widget-taglist__link widget__link btn" href="/tags/mongodb/" title="mongodb">mongodb</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/networking/" title="networking">networking</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/postgres/" title="postgres">postgres</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/pubsub/" title="pubsub">pubsub</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/python/" title="python">python</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/rate-limiter/" title="rate limiter">rate limiter</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/react/" title="react">react</a>
