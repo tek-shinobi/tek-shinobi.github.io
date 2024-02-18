@@ -58,6 +58,13 @@
       <description>Needed a quick hack to generate a known file size, to test that file upload limit logic works in an endpoint&#xA;Another option is to just generate a temporary file, using nearly the same process. This approach is fine but can slow down the test since file needs to be generated each time the test is run and beyond a certain size, this file generation time can become non-trivial.&#xA;package main import ( &amp;#34;encoding/json&amp;#34; &amp;#34;fmt&amp;#34; &amp;#34;math/rand&amp;#34; &amp;#34;os&amp;#34; &amp;#34;time&amp;#34; ) type LargeData struct { Data []byte } const desiredSize = 12 * 1024 * 1024 // 12MB func main() { rand.</description>
     </item>
     <item>
+      <title>Golang Google Cloud PubSub Tutorial</title>
+      <link>https://tek-shinobi.github.io/posts/golang-google-cloud-pubsub-tutorial/</link>
+      <pubDate>Sat, 18 Feb 2023 20:27:27 +0200</pubDate>
+      <guid>https://tek-shinobi.github.io/posts/golang-google-cloud-pubsub-tutorial/</guid>
+      <description>brief cheatsheet on doing a simple pubsub publish and subscribe in golang in a synchronous fashion.&#xA;package main import ( &amp;#34;cloud.google.com/go/pubsub&amp;#34; &amp;#34;context&amp;#34; &amp;#34;fmt&amp;#34; &amp;#34;github.com/google/uuid&amp;#34; &amp;#34;google.golang.org/grpc/codes&amp;#34; &amp;#34;google.golang.org/grpc/status&amp;#34; &amp;#34;os&amp;#34; &amp;#34;time&amp;#34; ) const timeout = 10 * time.Second // GCPubSub wrapper for Google Cloud PubSub type GCPubSub struct { client *pubsub.Client } func main() { err := os.Setenv(&amp;#34;PUBSUB_EMULATOR_HOST&amp;#34;, &amp;#34;localhost:8085&amp;#34;) if err != nil { fmt.Println(&amp;#34;Error setting env:&amp;#34;, err) panic(err) } projectID := &amp;#34;your-project-id&amp;#34; ctx, cancelTO := context.</description>
+    </item>
+    <item>
       <title>Grafana Loki LogQL Tutorial</title>
       <link>https://tek-shinobi.github.io/posts/grafana-loki-logql-tutorial/</link>
       <pubDate>Wed, 15 Feb 2023 10:15:28 +0200</pubDate>

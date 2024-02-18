@@ -44,6 +44,26 @@
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
+			<a href="/posts/backend-python_working-with-python-lxml-parser-for-creating-xml-elements/" rel="bookmark">
+			Backend Python:Working With Python Lxml Parser for Creating XML Elements
+			</a>
+		</h2>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2018-09-07T21:44:59&#43;03:00">September 07, 2018</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/backend/" rel="category">backend</a>, <a class="meta__link" href="/categories/python/" rel="category">python</a>
+	</span>
+</div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		lxml parser can be a bit confusing because of the sheer range of options it offers. Here are a few cookbook style examples.
+XML Generation Target code:
+&lt;root_element xmlns=&#34;http://www.w3.org/TR/html4/&#34; some_more_params=&#34;12345-678-ABC&#34; yet_more_params=&#34;POKEMON-SUCKS&#34;&gt; &lt;element&gt; &lt;element_data1 type=&#34;sometype&#34;&gt;&lt;![CDATA[SomeVal123]]&gt;&lt;/element_data1&gt; &lt;element_data2&gt;12345&lt;/element_data2&gt; &lt;element_data3 some_attr=&#34;some_attr&#34;&gt;More random data&lt;/element_data3&gt; &lt;/element&gt; &lt;another_element&gt; &lt;element_data1 type=&#34;sometype&#34;&gt;&lt;![CDATA[SomeVal1234]]&gt;&lt;/element_data1&gt; &lt;element_data2&gt;12345&lt;/element_data2&gt; &lt;element_data3 some_attr=&#34;some_attr&#34;&gt;More random data&lt;/element_data3&gt; &lt;/another_element&gt; &lt;/root_element&gt; Ok, Here is the code to generate it:
+from lxml import etree def create_xml(): XML_OPTIONS = {&#39;pretty_print&#39;: True, &#39;xml_declaration&#39;: True, &#39;encoding&#39;: &#39;utf-8&#39;} def create_root_element(): XHTML_NAMESPACE = &#34;http://www.
+	</div>
+</article><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
 			<a href="/posts/backend-python_using-pytest-with-django-and-django-rest-framework/" rel="bookmark">
 			Backend Python:Using Pytest With Django and Django Rest Framework
 			</a>
@@ -211,27 +231,6 @@ User model exists ONLY for authentication. Use the User model to only store abso
 To implement reverse url lookup, you need to do these:
 Make a namespace (if your urls are inside an app… otherwise omit this step). Making a namespace makes it possible to have multiple apps use the same name for named urls.
 	</div>
-</article><article class="list__item post">
-	
-	<header class="list__header">
-		<h2 class="list__title post__title">
-			<a href="/posts/backend-python_django-custom-queryset-vs-custom-manager-for-database-queries/" rel="bookmark">
-			Backend Python:Django Custom Queryset vs Custom Manager for Database Queries
-			</a>
-		</h2>
-		<div class="list__meta meta">
-<div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2018-09-07T13:30:55&#43;03:00">September 07, 2018</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/backend/" rel="category">backend</a>, <a class="meta__link" href="/categories/python/" rel="category">python</a>
-	</span>
-</div></div>
-	</header>
-	<div class="content list__excerpt post__content clearfix">
-		Note: this applies to Django &gt;= 1.7
-From the docs:
-A Manager is the interface through which database query operations are provided to Django models. At least one Manager exists for every model in a Django application.
-There are two reasons you might want to customize a Manager: to add extra Manager methods, and/or to modify the initial QuerySet the Manager returns.
-Since Django 1.7 and onwards, we no longer need to create custom manager and custom queryset separately.
-	</div>
 </article>
 </main>
 
@@ -273,9 +272,9 @@ Since Django 1.7 and onwards, we no longer need to create custom manager and cus
 			<li class="widget__item"><a class="widget__link" href="/posts/golang_distributed-rate-limiting-using-fixed-window/">Golang: Distributed Rate Limiting Using Fixed Window and Redis</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/rate-limiting-in-distributed-system/">Rate Limiting in a Distributed System</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/golang-testing-creating-large-files/">Golang Testing: Creating Large Files</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang-google-cloud-pubsub-tutorial/">Golang Google Cloud PubSub Tutorial</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/grafana-loki-logql-tutorial/">Grafana Loki LogQL Tutorial</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/add-gpg-keys-to-repo/">Add Gpg Keys to Repo</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/golang-handling-null-in-database-tables/">Golang: Handling Null in Database Tables</a></li>
 		</ul>
 	</div>
 </div>
