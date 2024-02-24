@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>python on Tek Shinobi Blog</title>
+    <title>Python on Tek Shinobi Blog</title>
     <link>https://tek-shinobi.github.io/categories/python/</link>
-    <description>Recent content in python on Tek Shinobi Blog</description>
+    <description>Recent content in Python on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Thu, 05 Sep 2019 11:01:54 +0300</lastBuildDate>

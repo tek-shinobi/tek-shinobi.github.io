@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>c# on Tek Shinobi Blog</title>
-    <link>https://tek-shinobi.github.io/tags/c#/</link>
-    <description>Recent content in c# on Tek Shinobi Blog</description>
+    <title>C# on Tek Shinobi Blog</title>
+    <link>https://tek-shinobi.github.io/tags/c</link>
+    <description>Recent content in C# on Tek Shinobi Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Fri, 07 Sep 2018 16:09:23 +0300</lastBuildDate>
-    <atom:link href="https://tek-shinobi.github.io/tags/c#/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://tek-shinobi.github.io/tags/c" rel="self" type="application/rss+xml" />
     <item>
       <title>Backend c#:Reading RSA key pair from PEM files in .NET with C# using Bouncy Castle and Digitally Sign and Verify payload</title>
       <link>https://tek-shinobi.github.io/posts/backend-net_digital-signature-of-payload-in-net/</link>
@@ -17,9 +17,9 @@
     </item>
     <item>
       <title>Backend C# Add NLog Logger in .NET project</title>
-      <link>https://tek-shinobi.github.io/posts/backend-c#-add-nlog-logger/</link>
+      <link>https://tek-shinobi.github.io/posts/backend-c</link>
       <pubDate>Fri, 07 Sep 2018 09:57:49 +0300</pubDate>
-      <guid>https://tek-shinobi.github.io/posts/backend-c#-add-nlog-logger/</guid>
+      <guid>https://tek-shinobi.github.io/posts/backend-c</guid>
       <description>Recently, I was working on an enterprise project using Windows Forms and needed a logger that was thread-safe, allowed both structured and text based logging and provided an options to integrate email sending as well. Two options came standard NLog or log4Net.&#xA;Had a brief look at both. log4Net looked like more of XML configuration. NLog looked like less so. Went with NLog.&#xA;How to add NLog to your .NET solution: Scenario is that we have multiple projects in our solution.</description>
     </item>
   </channel>

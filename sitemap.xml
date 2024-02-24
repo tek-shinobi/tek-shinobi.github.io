@@ -185,6 +185,9 @@
     <loc>https://tek-shinobi.github.io/posts/rust-tips-box-rc-arc-cell-refcell-mutex/</loc>
     <lastmod>2021-03-08T11:58:32+03:00</lastmod>
   </url><url>
+    <loc>https://tek-shinobi.github.io/posts/linux-cron-job-cheatsheet/</loc>
+    <lastmod>2020-02-23T21:09:35+02:00</lastmod>
+  </url><url>
     <loc>https://tek-shinobi.github.io/tags/networking/</loc>
     <lastmod>2020-02-08T18:34:10+03:00</lastmod>
   </url><url>
@@ -236,7 +239,7 @@
     <loc>https://tek-shinobi.github.io/posts/backend-net_digital-signature-of-payload-in-net/</loc>
     <lastmod>2018-09-07T16:09:23+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/tags/c#/</loc>
+    <loc>https://tek-shinobi.github.io/tags/c</loc>
     <lastmod>2018-09-07T16:09:23+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/posts/backend-python_logging-in-django-and-django-rest-framework-projects/</loc>
@@ -278,7 +281,7 @@
     <loc>https://tek-shinobi.github.io/posts/backend-python_linting-using-flake/</loc>
     <lastmod>2018-09-07T10:08:20+03:00</lastmod>
   </url><url>
-    <loc>https://tek-shinobi.github.io/posts/backend-c#-add-nlog-logger/</loc>
+    <loc>https://tek-shinobi.github.io/posts/backend-c</loc>
     <lastmod>2018-09-07T09:57:49+03:00</lastmod>
   </url><url>
     <loc>https://tek-shinobi.github.io/tags/backend/</loc>

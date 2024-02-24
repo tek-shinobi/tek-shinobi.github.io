@@ -191,6 +191,13 @@
       <description>Difference Between Box, Rc, Arc, Cell (and its various variants.. RefCell, Mutex, RwLock) in Rust:&#xA;Box is for single ownership. A great use case is to use this when we want to store primitive types (stored on stack) on heap. Rc is for multiple ownership. Arc is for multiple ownership, but threadsafe. RefCell is for “interior mutability”; that is, when you need to mutate something behind a &amp;amp;T. Cell is for “interior mutability” for Copy types; that is, when you need to mutate something behind a &amp;amp;T.</description>
     </item>
     <item>
+      <title>Linux Cron Job Cheatsheet</title>
+      <link>https://tek-shinobi.github.io/posts/linux-cron-job-cheatsheet/</link>
+      <pubDate>Sun, 23 Feb 2020 21:09:35 +0200</pubDate>
+      <guid>https://tek-shinobi.github.io/posts/linux-cron-job-cheatsheet/</guid>
+      <description>the list of all cron jobs for a user:&#xA;crontab -l to setup a new cronjob for a user:&#xA;crontab -e choose the editor and add the cron job at the end of the file.&#xA;to setup a cron job for a specific user:&#xA;crontab -u username -e to remove all cron jobs for a user:&#xA;crontab -r cronjob has 6 fields:&#xA;* * * * * command the command is the command to be executed.</description>
+    </item>
+    <item>
       <title>What Is a Tcp Stream</title>
       <link>https://tek-shinobi.github.io/posts/what-is-a-tcp-stream/</link>
       <pubDate>Sat, 08 Feb 2020 18:34:10 +0300</pubDate>
@@ -346,9 +353,9 @@
     </item>
     <item>
       <title>Backend C# Add NLog Logger in .NET project</title>
-      <link>https://tek-shinobi.github.io/posts/backend-c#-add-nlog-logger/</link>
+      <link>https://tek-shinobi.github.io/posts/backend-c</link>
       <pubDate>Fri, 07 Sep 2018 09:57:49 +0300</pubDate>
-      <guid>https://tek-shinobi.github.io/posts/backend-c#-add-nlog-logger/</guid>
+      <guid>https://tek-shinobi.github.io/posts/backend-c</guid>
       <description>Recently, I was working on an enterprise project using Windows Forms and needed a logger that was thread-safe, allowed both structured and text based logging and provided an options to integrate email sending as well. Two options came standard NLog or log4Net.&#xA;Had a brief look at both. log4Net looked like more of XML configuration. NLog looked like less so. Went with NLog.&#xA;How to add NLog to your .NET solution: Scenario is that we have multiple projects in our solution.</description>
     </item>
     <item>
